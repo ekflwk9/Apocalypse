@@ -65,14 +65,14 @@ public class PlayerThirdPersonController : MonoBehaviour
     private int _animIDMotionSpeed;
     
     //컴포넌트들
-    public PlayerInput _playerInput;
-    public Animator _animator;
-    public CharacterController _controller;
-    public PlayerInputs _input;
-    public GameObject _mainCamera;
+    [SerializeField] private PlayerInput _playerInput;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private CharacterController _controller;
+    [SerializeField] private PlayerInputs _input;
+    [SerializeField] private GameObject _mainCamera;
     
     private const float _threshold = 0.01f;
-    private bool _hasAnimator;
+    [SerializeField] private bool _hasAnimator;
 
     //플레이어 조작장치가 키보드 마우스 판단.
     private bool IsCurrentDeviceMouse 
@@ -82,12 +82,12 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void Reset()
     {
+        _playerInput = GetComponent<PlayerInput>();
+        _controller = GetComponent<CharacterController>();
+        _input = GetComponent<PlayerInputs>();
         _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         
         _hasAnimator = TryGetComponent(out _animator);
-        _controller = GetComponent<CharacterController>();
-        _input = GetComponent<PlayerInputs>();
-        _playerInput = GetComponent<PlayerInput>();
     }
 
     //컴포넌트 캐싱 및 값 초기화

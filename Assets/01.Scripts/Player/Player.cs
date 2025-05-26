@@ -1,14 +1,58 @@
+using System;
+using System.Collections;
 using UnityEngine;
+
+enum StateType
+{
+    Health,
+    Stamina
+}
 
 public class Player : MonoBehaviour
 {
-    [Header("State")] public float Health = 100f;
-
-    public float Stamina = 100f;
-
-    private float _health;
-    private float _stamina;
     public static Player Instance { get; private set; }
+    
+    [Header("State")]
+    public float maxHealth = 100f;
+    public float maxStamina = 100f;
+    
+    [SerializeField] private float _health;
+    [SerializeField] private float _stamina;
+    
+    public float passiveStamina = 5f;
+
+    [Header("Stamina Use")]
+    public float sprintStamina = 5f;
+    public float jumpStamina = 10f;
+    public float staminaRegenCooldown = 5f;
+    
+    private bool _staminaRegen;
+    private Coroutine _staminaRegenCoroutine;
+
+    public float Health
+    {
+        get => _health;
+        set => _health = Mathf.Clamp(value, 0, maxHealth);
+    }
+
+    public float Stamina
+    {
+        get => _stamina;
+        set
+        {
+            float changedValue = Mathf.Clamp(value, 0, maxStamina);
+            
+            if (changedValue < _stamina)
+            {
+                if (_staminaRegenCoroutine != null)
+                    StopCoroutine(_staminaRegenCoroutine);
+
+                _staminaRegenCoroutine = StartCoroutine(StaminaRegenDelay());
+            }
+
+            _stamina = changedValue;
+        }
+    }
 
     private void Awake()
     {
@@ -21,7 +65,44 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        _health = Health;
-        _stamina = Stamina;
+        Health = maxHealth;
+        Stamina = maxStamina;
+    }
+
+    private void Update()
+    {
+        if (_staminaRegen)
+        {
+            Stamina += Time.deltaTime * passiveStamina;
+
+            if (Stamina >= maxStamina)
+            {
+                _staminaRegen = false;
+            }
+        }
+    }
+
+    private void ChangeState(StateType state, float value)
+    {
+        switch (state)
+        {
+            case StateType.Health:
+                Health += value;
+                break;
+            case StateType.Stamina:
+                Stamina += value;
+                break;
+        }
+    }
+
+    private IEnumerator StaminaRegenDelay()
+    {
+        _staminaRegen = false;
+        
+        yield return new WaitForSeconds(staminaRegenCooldown);
+        
+        _staminaRegen = true;
+        
+        _staminaRegenCoroutine = null;
     }
 }

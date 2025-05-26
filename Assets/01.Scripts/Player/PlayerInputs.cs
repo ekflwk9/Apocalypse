@@ -1,18 +1,47 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInputs : MonoBehaviour
 {
-	[Header("Character Input Values")] public Vector2 move;
+	[Header("Character Input Values")]
+	public Vector2 move;
 	public Vector2 look;
 	public bool jump;
 	public bool sprint;
+
+	private bool _canSprint = true;
 
 	[Header("Movement Settings")] public bool analogMovement;
 
 	[Header("Mouse Cursor Settings")] public bool cursorLocked = true;
 	public bool cursorInputForLook = true;
 	
+	private Player _player;
+
+	private void Start()
+	{
+		_player = Player.Instance;
+	}
+
+	private void Update()
+	{
+		if (sprint)
+		{
+			_player.Stamina -= Time.deltaTime * _player.sprintStamina;
+
+			if (_player.Stamina <= 0f)
+			{
+				sprint = false;
+				_canSprint = false;
+			}
+		}
+		else if (!_canSprint && _player.Stamina > _player.maxStamina / 4f)
+		{
+			_canSprint = true;
+		}
+	}
+
 	//WASD입력 받을때(PlayerInput에서 설정)
 	public void OnMove(InputValue value) 
 	{
@@ -31,12 +60,18 @@ public class PlayerInputs : MonoBehaviour
 	//점프 입력(PlayerInput에서 설정)
 	public void OnJump(InputValue value) 
 	{
-		jump = value.isPressed;
+		if (!jump && value.isPressed)
+		{
+			if(_player.Stamina < _player.jumpStamina) return;
+			_player.Stamina -= _player.jumpStamina;
+			jump = true;
+		}
 	}
 
 	//달리기 입력(PlayerInput에서 설정)
 	public void OnSprint(InputValue value) 
 	{
+		if(!_canSprint) return;
 		sprint = value.isPressed;
 	}
 	
