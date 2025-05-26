@@ -2,12 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-enum StateType
-{
-    Health,
-    Stamina
-}
-
 public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
@@ -81,20 +75,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-    private void ChangeState(StateType state, float value)
-    {
-        switch (state)
-        {
-            case StateType.Health:
-                Health += value;
-                break;
-            case StateType.Stamina:
-                Stamina += value;
-                break;
-        }
-    }
-
+    
     private IEnumerator StaminaRegenDelay()
     {
         _staminaRegen = false;
