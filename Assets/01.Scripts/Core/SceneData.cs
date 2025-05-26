@@ -194,11 +194,11 @@ public class SceneData
   /// <param name="releaseScene">해당 명칭의 씬이 언로드됬을 때 해당 데이터가 Release됩니다.</param>
   /// <param name="force">참일시 이름이 중복되는 기존 데이터가 있으면 삭제하고 생성합니다.</param>
   /// <returns></returns>
-  public static Task CreateSync(ScenePackage package, string releaseScene = "", bool force = false)
+  public static SceneData CreateSync(ScenePackage package, string releaseScene = "", bool force = false)
   {
     var data = Create(package, releaseScene, force);
     data.Wait();
-    return data;
+    return data.Result;
   }
 
   /// <summary>
