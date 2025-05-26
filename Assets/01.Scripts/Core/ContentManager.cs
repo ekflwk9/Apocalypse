@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -6,39 +8,81 @@ public sealed class ContentManager : MonoBehaviour
   /// <summary>
   ///   게임중 상시 메모리에 올라가있는 데이터
   /// </summary>
-  public SerializableDictionary<string, GameObject> prefabs = new();
-
-  public SerializableDictionary<string, AudioClip> audioClips = new();
-  public SerializableDictionary<string, Sprite> sprites = new();
-
+  [SerializeField] private SceneData sharedData;
+  public SceneData SharedData => sharedData;
+  
   // 프로젝트에서 영구적으로 메모리상에 올려둘 에셋 목록
-  public AssetLabelReference sharedLabel;
+  public ScenePackage sharedPackage;
   public static ContentManager Instance { get; private set; }
-
+  
+  // 패키지의 라벨 참조입니다. 패키지를 전역적으로 불러올 때 사용합니다.
+  [SerializeField] private AssetLabelReference packageLabel;
+  
+  #if UNITY_EDITOR
+  // 패키지를 불러왔을 시 올려놓는 메모리입니다.
+  // 인스펙터용 변수이므로 실제 구현은 static SceneData.ActiveData를 참조해주세요
+  public SerializableDictionary<string, SceneData> activeData = new ();
+  #endif
 
   /// <summary>
   ///   로딩하고 싶은 데이터가 있을 시 여기에 추가
   /// </summary>
   private void Load()
   {
-    Addressables.LoadAssetsAsync<object>(sharedLabel, obj =>
+    if (sharedPackage)
     {
-      switch (obj)
-      {
-        case AudioClip clip:
-          audioClips[clip.name] = clip;
-          break;
-
-        case Sprite sprite:
-          sprites[sprite.name] = sprite;
-          break;
-
-        case GameObject prefab:
-          prefabs[prefab.name] = prefab;
-          break;
-      }
-    });
+      sharedData = sharedPackage.LoadSync();
+    }
   }
+
+  #region PackageLoader
+  /// <summary>
+  /// 전체 에셋을 불러오고 다시 비활성화하기 때문에 사용을 추천하지 않습니다.
+  /// </summary>
+  /// <param name="packageName">불러올 ScenePackage의 파일명입니다.</param>
+  /// <param name="label">불러올 ScenePackage의 어드레서블 라벨입니다.</param>
+  public async Task<ScenePackage> LoadPackage(string packageName, AssetLabelReference label)
+  {
+    var result = (await Addressables.LoadAssetsAsync<ScenePackage>(label, null).Task).ToArray();
+    
+    if (result.Length == 0)
+    {
+      Debug.LogError("Package Not Found");
+      return null;
+    }
+
+    return (from package in result where package.name == packageName select package).First();
+  }
+  
+  /// <summary>
+  /// 전체 에셋을 불러오고 다시 비활성화하기 때문에 사용을 추천하지 않습니다.
+  /// </summary>
+  /// <param name="packageName">불러올 ScenePackage의 파일명입니다.</param>
+  /// <returns></returns>
+  public async Task<ScenePackage> LoadPackage(string packageName) => await LoadPackage(packageName, packageLabel);
+  
+  /// <summary>
+  /// 전체 에셋을 불러오고 다시 비활성화하기 때문에 사용을 추천하지 않습니다.
+  /// 동기적으로 패키지데이터를 불러옵니다.
+  /// </summary>
+  /// <param name="packageName">불러올 ScenePackage의 파일명입니다.</param>
+  /// <param name="label">불러올 ScenePackage의 어드레서블 라벨입니다.</param>
+  /// <returns></returns>
+  public ScenePackage LoadPackageSync(string packageName, AssetLabelReference label)
+  {
+    var task = LoadPackage(packageName);
+    task.Wait();
+    return task.Result;
+  }
+  
+  /// <summary>
+  /// 전체 에셋을 불러오고 다시 비활성화하기 때문에 사용을 추천하지 않습니다.
+  /// 동기적으로 패키지데이터를 불러옵니다.
+  /// </summary>
+  /// <param name="packageName">불러올 ScenePackage의 파일명입니다.</param>
+  /// <returns></returns>
+  public ScenePackage LoadPackageSync(string packageName) => LoadPackageSync(packageName, packageLabel);
+  #endregion PackageLoader
 
   #region Unity Events
 

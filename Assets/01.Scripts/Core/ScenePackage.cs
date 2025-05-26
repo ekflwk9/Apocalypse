@@ -1,36 +1,42 @@
-using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 [CreateAssetMenu(fileName = "new ScenePackage", menuName = "Apocalypse/ScenePackage", order = 0)]
 public class ScenePackage : ScriptableObject
 {
-  [SerializeField] private AssetReference[] assetReferences;
-  [SerializeField] private AssetLabelReference[] assetLabelReferences;
+  public AssetReference[] assetReferences;
+  public AssetLabelReference[] assetLabelReferences;
 
-  public SceneData Load()
+  /// <summary>
+  /// SceneData의 Create를 단순히 사용하기 쉽게 가져왔습니다.
+  /// 동기로 사용하려면 CreateSync를 사용하세요.
+  /// </summary>
+  /// <param name="releaseScene">해당 명칭의 씬이 언로드됬을 때 해당 데이터가 Release됩니다.</param>
+  /// <returns></returns>
+  public async Task<SceneData> Load(string releaseScene = "", bool force = false)
   {
-    var loadedAssets = new List<object>();
+    return await SceneData.Create(this, releaseScene, force);
+  }
 
-    // 에셋을 동기로 불러오고 null 아닐시 메모리에 올림
-    foreach (var reference in assetReferences)
-    {
-      var asset = reference.LoadAssetAsync<object>().WaitForCompletion();
-      
-      if (asset != null)
-        loadedAssets.Add(asset);
-    }
+  /// <summary>
+  /// Load의 동기 버전입니다.
+  /// </summary>
+  /// <param name="releaseScene">해당 명칭의 씬이 언로드됬을 때 해당 데이터가 Release됩니다.</param>
+  /// <param name="force">참일시 이름이 중복되는 기존 데이터가 있으면 삭제하고 생성합니다.</param>
+  /// <returns></returns>
+  public SceneData LoadSync(string releaseScene = "", bool force = false)
+  {
+    var task = Load(releaseScene, force);
+    task.Wait();
+    return task.Result;
+  }
 
-    // 라벨 붙은 에셋들을 동기로 불러오고 null이 아닐시 메모리에 올림
-    foreach (var label in assetLabelReferences)
-    {
-      Addressables.LoadAssetsAsync<object>(label, obj =>
-      {
-        if (obj != null) loadedAssets.Add(obj);
-      }).WaitForCompletion();
-    }
-
-    return new SceneData(loadedAssets);
+  /// <summary>
+  /// 메모리 최적화를 위해 데이터를 불러온 이후 호출하여 패키지데이터를 메모리에서 해제해주세요.
+  /// </summary>
+  public void Release()
+  {
+    Addressables.Release(this);
   }
 }
