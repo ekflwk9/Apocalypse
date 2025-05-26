@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="241e1497-f018-4cce-98b0-5345879db407" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneBundle.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneBundle.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneLoader.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneLoader.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Apocalypse/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Apocalypse/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/ContentManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/ContentManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/ScenePackage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/ScenePackage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/DataSet.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneData.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/DataSet.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/ScenePackage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/DataBundle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/ScenePackage.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/DataBundle.cs.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +122,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1748229496460</updated>
-      <workItem from="1748229499996" duration="17668000" />
+      <workItem from="1748229499996" duration="19429000" />
     </task>
     <servers />
   </component>

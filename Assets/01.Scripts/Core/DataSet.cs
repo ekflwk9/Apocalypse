@@ -8,16 +8,16 @@ using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 /// <summary>
-/// ScenePackage의 에셋 참조를 읽어서 키(에셋 이름)-값(오브젝트) 형태로 메모리에 올립니다. 
+/// DataBundle의 에셋 참조를 읽어서 키(에셋 이름)-값(오브젝트) 형태로 메모리에 올립니다. 
 /// </summary>
 [Serializable]
-public class SceneData
+public class DataSet
 {
   /// <summary>
   /// 현재 활성화된 씬 데이터의 목록입니다.
   /// 내용은 ContentManager.Instance.activeData의 내용과 같습니다.
   /// </summary>
-  public static Dictionary<string, SceneData> ActiveData { get; private set; } = new();
+  public static Dictionary<string, DataSet> ActiveData { get; private set; } = new();
   
   #region Memory
   // 데이터 목록
@@ -37,8 +37,8 @@ public class SceneData
   /// <summary>
   /// 해당 데이터가 생성된 패키지의 이름입니다.
   /// </summary>
-  [SerializeField] private string packageName;
-  public string PackageName => packageName;
+  [SerializeField] private string name;
+  public string Name => name;
   /// <summary>
   /// 해당 명칭의 씬이 언로드됬을 때 해당 데이터가 Release됩니다.
   /// </summary>
@@ -49,15 +49,15 @@ public class SceneData
   public bool Released => released;
 
   /// <summary>
-  /// ScenePackage 인스턴스 전용으로 구현하기 위해 private로 구현했습니다.
+  /// DataSet 인스턴스 전용으로 구현하기 위해 private로 구현했습니다.
   /// </summary>
   /// <param name="assets"></param>
   /// <param name="name"></param>
   /// <param name="releaseScene"></param>
-  private SceneData(List<Object> assets, string name, string releaseScene ="")
+  private DataSet(List<Object> assets, string name, string releaseScene ="")
   {
     this.releaseScene = releaseScene;
-    packageName = name;
+    this.name = name;
 
     foreach (var asset in assets)
     {
@@ -118,7 +118,7 @@ public class SceneData
       audioClips = null;
       others = null;
       
-      ActiveData.Remove(packageName);
+      ActiveData.Remove(name);
       #if UNITY_EDITOR
       if(ContentManager.Instance) ContentManager.Instance.activeData.Remove(releaseScene);
       #endif
@@ -153,7 +153,7 @@ public class SceneData
   /// <param name="releaseScene">해당 명칭의 씬이 언로드됬을 때 해당 데이터가 Release됩니다.</param>
   /// <param name="force">참일시 이름이 중복되는 기존 데이터가 있으면 삭제하고 생성합니다.</param>
   /// <returns></returns>
-  public static async Task<SceneData> Create(ScenePackage package, string releaseScene = "", bool force = false)
+  public static async Task<DataSet> Create(DataBundle package, string releaseScene = "", bool force = false)
   {
     if (force && ActiveData.TryGetValue(package.name, out var data)) data.Release();
     
@@ -177,7 +177,7 @@ public class SceneData
       }).Task;
     }
 
-    var result = new SceneData(loadedAssets, package.name, releaseScene);
+    var result = new DataSet(loadedAssets, package.name, releaseScene);
     ActiveData[package.name] = result;
     
     #if UNITY_EDITOR
@@ -194,7 +194,7 @@ public class SceneData
   /// <param name="releaseScene">해당 명칭의 씬이 언로드됬을 때 해당 데이터가 Release됩니다.</param>
   /// <param name="force">참일시 이름이 중복되는 기존 데이터가 있으면 삭제하고 생성합니다.</param>
   /// <returns></returns>
-  public static SceneData CreateSync(ScenePackage package, string releaseScene = "", bool force = false)
+  public static DataSet CreateSync(DataBundle package, string releaseScene = "", bool force = false)
   {
     var data = Create(package, releaseScene, force);
     data.Wait();
@@ -204,5 +204,5 @@ public class SceneData
   /// <summary>
   /// 해당 데이터가 해제되었는지 확인하는 코드입니다.
   /// </summary>
-  public static explicit operator bool(SceneData data) => !data.released;
+  public static explicit operator bool(DataSet data) => !data.released;
 }
