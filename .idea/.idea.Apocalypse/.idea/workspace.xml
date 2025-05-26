@@ -5,15 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="241e1497-f018-4cce-98b0-5345879db407" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/ContentManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/ScenePackage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/ScenePackage.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneData.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Apocalypse/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Apocalypse/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00.Scenes/Intro.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scenes/Intro.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/ContentLoader.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/ContentLoader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/ContentManager.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/ContentLoader.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/GameManager.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/GameManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +120,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1748229496460</updated>
-      <workItem from="1748229499996" duration="5020000" />
+      <workItem from="1748229499996" duration="9928000" />
     </task>
     <servers />
   </component>
