@@ -14,6 +14,8 @@ public enum EntityEnum
 
 public abstract class EntityState
 {
+    protected bool IsInit = false;
+
     protected Entity entity;
     public void SetOwner(Entity _Entity)
     {

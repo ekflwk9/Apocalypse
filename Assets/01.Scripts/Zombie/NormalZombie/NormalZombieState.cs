@@ -1,7 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using static UnityEditor.VersionControl.Asset;
+
+public static class AnimHash
+{
+   public static readonly int IdleHash = Animator.StringToHash("Idle");
+   public static readonly int WalkHash = Animator.StringToHash("Walking");
+    public static readonly int RunHash = Animator.StringToHash("Run_1");
+    public static readonly int HitHash = Animator.StringToHash("Hit_1");
+   public static readonly int AttackHash = Animator.StringToHash("Attack_1");
+   public static readonly int DieHash = Animator.StringToHash("Dying");
+}
+
 
 public class NormalZombieStateStruct : StateStruct
 {
@@ -19,6 +31,7 @@ public class IdleState : EntityState
 {
     public override void Enter()
     {
+        entity._animator.Play(AnimHash.IdleHash);
     }
     public override void Update()
     {
@@ -29,17 +42,40 @@ public class IdleState : EntityState
     }
 }
 
-public class RunState : EntityState
+public class WalkState : EntityState
 {
-    Rigidbody entityRigidbody;
+    NavMeshAgent _NavMeshAgent;
     public override void Enter()
     {
-        entityRigidbody = entity.GetComponent<Rigidbody>();
+        if (true != IsInit)
+        {
+            _NavMeshAgent = entity.GetComponent<NavMeshAgent>();
+            IsInit = true;
+        }
+        entity._animator.Play(AnimHash.WalkHash);
     }
     public override void Update()
     {
-        Vector3 currentVelocity = entityRigidbody.velocity;
-        entityRigidbody.velocity = new Vector3(0, currentVelocity.y, 5);
+    }
+    public override void Exit()
+    {
+    }
+}
+
+public class RunState : EntityState
+{
+    NavMeshAgent _NavMeshAgent;
+    public override void Enter()
+    {
+        if (true != IsInit)
+        {
+            _NavMeshAgent = entity.GetComponent<NavMeshAgent>();
+            IsInit = true;
+        }
+        entity._animator.Play(AnimHash.RunHash);
+    }
+    public override void Update()
+    {
     }
     public override void Exit()
     {
