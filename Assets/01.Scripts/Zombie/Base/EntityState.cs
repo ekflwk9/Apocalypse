@@ -17,8 +17,9 @@ public abstract class EntityState
     protected bool IsInit = false;
     protected EntityStateMachine StateMachine;
     protected Entity entity;
+    public EntityEnum _EntityEnum { get; protected set; }
     int HashAnim;
-    public void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
+    public virtual void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
     {
         entity = _Entity;
         StateMachine = _StateMachine;

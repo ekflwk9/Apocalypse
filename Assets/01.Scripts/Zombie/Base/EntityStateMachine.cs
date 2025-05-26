@@ -43,6 +43,8 @@ public class EntityStateMachine
 {
     StateStruct allState;
 
+    public EntityEnum GetState() => allState.CurrentState._EntityEnum;
+
     public void SetState(EntityEnum _State)
     {
         if (allState.CurrentState != null)
