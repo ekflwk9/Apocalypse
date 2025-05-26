@@ -53,7 +53,7 @@ public class PickUp : MonoBehaviour
     {
         if (isPlayerInRange && canPickUp)
         {
-            // ItemManager.Inventory.GetItem(itemId);
+            ItemManager.Instance.PickUp(itemId);
             this.gameObject.SetActive(false);
         }
     }
@@ -61,8 +61,9 @@ public class PickUp : MonoBehaviour
     public void DropItem()
     {
         if (playerTransform == null)
-       // { playerTransform = CharacterManager.Instance.Player.transform; }
-        this.transform.position = playerTransform.position + Vector3.forward;
+            // { playerTransform = CharacterManager.Instance.Player.transform; }
+
+            this.transform.position = playerTransform.position;
         this.gameObject.SetActive(true);
     }
 }
