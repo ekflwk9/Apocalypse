@@ -17,13 +17,13 @@ public static class AnimHash
 
 public class NormalZombieStateStruct : StateStruct
 {
-    public override void Init()
+    public override void Init(EntityStateMachine _StateMachine)
     {
         IdleState idleState = new IdleState();
         RunState runState = new RunState();
         StateDictionary.Add(EntityEnum.Idle, idleState);
         StateDictionary.Add(EntityEnum.Run, runState);
-        base.Init();
+        base.Init(_StateMachine);
     }
 }
 
@@ -31,11 +31,14 @@ public class IdleState : EntityState
 {
     public override void Enter()
     {
-        entity._animator.Play(AnimHash.IdleHash);
+        SetAnimation(AnimHash.IdleHash);
     }
     public override void Update()
     {
-        // Logic for idle state
+        if(true == IsAnimationEnd())
+        {
+            StateMachine.SetState(EntityEnum.Walk);
+        }
     }
     public override void Exit()
     {
