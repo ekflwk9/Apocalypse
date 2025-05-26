@@ -1,0 +1,68 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PickUp : MonoBehaviour
+{
+    public int itemId;
+    private float distance;
+    private bool isPlayerInRange;
+    private bool canPickUp;
+    private Transform playerTransform;
+
+    private void OnEnable()
+    {
+        if (playerTransform == null)
+        {
+            //playerTransform = CharacterManager.Instance.Player.transform;
+        }
+    }
+
+    private void OnDisable()
+    {
+        isPlayerInRange = false;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInRange = true;
+            // playerTransform = CharacterManager.Instance.Player.transform;
+        }
+        else if (other.CompareTag("PlayerInsight"))
+        {
+            canPickUp = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInRange = false;
+            playerTransform = null;
+        }
+        else if (other.CompareTag("PlayerInsight"))
+        {
+            canPickUp = false;
+        }
+    }
+
+    public void PickUpItem() // 아이템 주을때 호출 (인풋시스템 연동 예정)
+    {
+        if (isPlayerInRange && canPickUp)
+        {
+            // ItemManager.Inventory.GetItem(itemId);
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    public void DropItem()
+    {
+        if (playerTransform == null)
+       // { playerTransform = CharacterManager.Instance.Player.transform; }
+        this.transform.position = playerTransform.position + Vector3.forward;
+        this.gameObject.SetActive(true);
+    }
+}
