@@ -18,6 +18,7 @@ public class Player : MonoBehaviour, IDamagable
 
     [SerializeField] private float _health;
     [SerializeField] private float _stamina;
+    [SerializeField] int _gold;
 
     public float passiveStamina = 5f;
 
@@ -65,6 +66,25 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
+    public int Gold
+    {
+        get
+        {
+            return _gold;
+        }
+        set
+        {
+            if (value <= 0)
+            {
+                _gold = 0;
+            }
+            else
+            {
+                _gold = value;
+            }
+        }
+    }
+    
     private void Reset()
     {
         Equip = GetComponent<PlayerEquip>();

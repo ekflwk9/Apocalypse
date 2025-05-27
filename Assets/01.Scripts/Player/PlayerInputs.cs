@@ -22,9 +22,6 @@ public class PlayerInputs : MonoBehaviour
 	
 	[SerializeField] private Player _player;
 	[SerializeField] private PlayerThirdPersonController _controller;
-	
-	//테스트용
-	public GameObject TestWeapon;
 
 	private void Reset()
 	{
@@ -107,12 +104,16 @@ public class PlayerInputs : MonoBehaviour
 		{
 			float key = value.Get<float>();
 			int numberPressed = Mathf.RoundToInt(key);
-			if (numberPressed == 1)
-			{
-				Player.Instance.Equip.EquipNew(TestWeapon);
-			}
+			//테스트코드
+			Player.Instance.Equip.EquipNew(numberPressed - 1);
+			//
 			//인벤토리 아이템 사용 호출
 		}
+	}
+
+	public void OnInteraction(InputValue value)
+	{
+		
 	}
 
 	//화면 집중(에디터에선 개임씬이 눌려있는지, 애플리케이션의 경우 해당 창이 눌려있는지)
