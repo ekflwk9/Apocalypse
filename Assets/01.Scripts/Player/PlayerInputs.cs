@@ -9,6 +9,8 @@ public class PlayerInputs : MonoBehaviour
 	public Vector2 look;
 	public bool jump;
 	public bool sprint;
+	public bool aim;
+	public bool attack;
 
 	private bool _canSprint = true;
 
@@ -73,6 +75,19 @@ public class PlayerInputs : MonoBehaviour
 	{
 		if(!_canSprint) return;
 		sprint = value.isPressed;
+	}
+
+	public void OnAim(InputValue value)
+	{
+		aim = value.isPressed;
+	}
+
+	public void OnAttack(InputValue value)
+	{
+		if (value.isPressed && aim && !attack)
+		{
+			attack = true;
+		}
 	}
 	
 	//화면 집중(에디터에선 개임씬이 눌려있는지, 애플리케이션의 경우 해당 창이 눌려있는지)

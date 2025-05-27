@@ -8,8 +8,8 @@ public class PlayerThirdPersonController : MonoBehaviour
 {
     // =================== 인스펙터에서 설정하는 값들 ===================
     [Header("Player")] //이동관련
-    public float MoveSpeed = 2.0f;
-    public float SprintSpeed = 5.335f;
+    public float MoveSpeed = 10f;
+    public float SprintSpeed = 30f;
     [Range(0.0f, 0.3f)]
     public float RotationSmoothTime = 0.12f;
     public float SpeedChangeRate = 10.0f;
@@ -32,6 +32,9 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     [Header("Cinemachine")] //카메라 관련
     public GameObject CinemachineCameraTarget;
+
+    public Transform CameraContainer;
+    public Transform AimPosition;
 
     public float TopClamp = 70.0f;
     public float BottomClamp = -30.0f;
@@ -63,10 +66,12 @@ public class PlayerThirdPersonController : MonoBehaviour
     private int _animIDJump;
     private int _animIDFreeFall;
     private int _animIDMotionSpeed;
+    private int _animIDAim;
+    private int _animIDAttack;
     
     //컴포넌트들
     [SerializeField] private PlayerInput _playerInput;
-    [SerializeField] private Animator _animator;
+    public Animator _animator;
     [SerializeField] private CharacterController _controller;
     [SerializeField] private PlayerInputs _input;
     [SerializeField] private GameObject _mainCamera;
@@ -82,6 +87,9 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void Reset()
     {
+        CinemachineCameraTarget = GameObject.Find("CameraRoot");
+        GroundLayers = LayerMask.GetMask("Default");
+        
         _playerInput = GetComponent<PlayerInput>();
         _controller = GetComponent<CharacterController>();
         _input = GetComponent<PlayerInputs>();
@@ -108,6 +116,7 @@ public class PlayerThirdPersonController : MonoBehaviour
         JumpAndGravity();
         GroundedCheck();
         Move();
+        Aim();
     }
 
     private void LateUpdate()
@@ -123,6 +132,8 @@ public class PlayerThirdPersonController : MonoBehaviour
         _animIDJump = Animator.StringToHash("Jump");
         _animIDFreeFall = Animator.StringToHash("FreeFall");
         _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+        _animIDAim = Animator.StringToHash("Aim");
+        _animIDAttack = Animator.StringToHash("Attack");
     }
     
     //바닥 판정 함수(바닥판정을 위한 원의 중심위치 정하고 원이랑 바닥레이어랑 충돌하면 바닥판정
@@ -279,6 +290,14 @@ public class PlayerThirdPersonController : MonoBehaviour
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
+    }
+
+    private void Aim()
+    {
+        if (_input.aim)
+        {
+            CameraContainer.position = AimPosition.position;
+        }
     }
 
     //씬에서 플레이어 선택시 기즈모 그리기
