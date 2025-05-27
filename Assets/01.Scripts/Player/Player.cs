@@ -18,6 +18,7 @@ public class Player : MonoBehaviour, IDamagable
 
     [SerializeField] private float _health;
     [SerializeField] private float _stamina;
+    public int Gold;
 
     public float passiveStamina = 5f;
 
