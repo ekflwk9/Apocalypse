@@ -7,13 +7,12 @@ using UnityEngine.AI;
 
 public class Entity : MonoBehaviour
 {
-
-
     [SerializeField] protected Rigidbody _rigidbody;
     protected EntityStateMachine _stateMachine;
     public BaseStatus baseStatus;
     public NavMeshAgent _NavMeshAgent;
     public Animator _animator;
+    [SerializeField] LayerMask PlayerMask;
 
     protected void Reset()
     {
@@ -34,6 +33,8 @@ public class Entity : MonoBehaviour
         }
 
         _animator = GetComponentInChildren<Animator>();
+
+        PlayerMask = LayerMask.GetMask("Player");
     }
 
     protected void Update()
@@ -42,7 +43,6 @@ public class Entity : MonoBehaviour
         Detect();
     }
 
-    [SerializeField] LayerMask mask;
     void Detect()
     {
         if(_stateMachine.GetState() != EntityEnum.Idle)
@@ -51,7 +51,7 @@ public class Entity : MonoBehaviour
         }
 
         //오버랩 된넘들
-        Collider[] targets = Physics.OverlapSphere(transform.position, 20f, mask);
+        Collider[] targets = Physics.OverlapSphere(transform.position, 20f, PlayerMask);
 
         //range for
         foreach (var target in targets)

@@ -9,6 +9,7 @@ public enum EntityEnum
     Walk,
     Run,
     Attack,
+    Hit,
     Die,
 }
 

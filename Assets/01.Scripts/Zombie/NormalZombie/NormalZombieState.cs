@@ -111,7 +111,7 @@ public class RunState : EntityState
     }
     public override void Update()
     {
-        if(true == NaviHelper.IsReached(_NavMeshAgent, 1f))
+        if (true == NaviHelper.IsReached(_NavMeshAgent, 1f))
         {
             StateMachine.SetState(EntityEnum.Attack);
         }
@@ -131,6 +131,12 @@ public class AttackState : EntityState
 
     public override void Enter()
     {
+        if (Vector3.Distance(entity.transform.position, Player.Instance.transform.position) > 10)
+        {
+            StateMachine.SetState(EntityEnum.Idle);
+            return;
+        }
+
         SetAnimation(AnimHash.AttackHash);
         entity._NavMeshAgent.ResetPath();
     }
@@ -145,3 +151,28 @@ public class AttackState : EntityState
     {
     }
 }
+
+public class HitState : EntityState
+{
+    public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
+    {
+        _EntityEnum = EntityEnum.Hit;
+        base.SetOwner(_Entity, _StateMachine);
+    }
+
+    public override void Enter()
+    {
+        SetAnimation(AnimHash.HitHash);
+    }
+    public override void Update()
+    {
+        if (true == IsAnimationEnd())
+        {
+            StateMachine.SetState(EntityEnum.Idle);
+        }
+    }
+    public override void Exit()
+    {
+    }
+}
+
