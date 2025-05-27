@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="241e1497-f018-4cce-98b0-5345879db407" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Apocalypse/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Apocalypse/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00.Scenes/Intro.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scenes/Intro.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/ContentManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/ContentManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/DataBundle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/DataBundle.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneBundle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneBundle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneBundle.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneBundle.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneLoader.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneLoader.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/General.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/General.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +120,7 @@
       <option name="presentableId" value="Default" />
       <updated>1748229496460</updated>
       <workItem from="1748229499996" duration="23584000" />
-      <workItem from="1748304495454" duration="2529000" />
+      <workItem from="1748304495454" duration="7443000" />
     </task>
     <servers />
   </component>
