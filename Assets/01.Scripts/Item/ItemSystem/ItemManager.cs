@@ -1,9 +1,14 @@
 using System.Collections.Generic;
 using GameItem;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class ItemManager : MonoBehaviour
 {
+    //[SerializeField] private DataBundle dataBundle;
+    public Inventory inventory;
+    public ItemEquipment itemEquipment;
+    
     private static ItemManager _instance;
     public static ItemManager Instance
     {
@@ -23,6 +28,12 @@ public class ItemManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
+
+            Addressables.LoadAssetsAsync<ItemInfo>
+            (new AssetLabelReference() { labelString = "Item" }, item =>
+            {
+                itemDB[item.itemId] = item;
+            }).WaitForCompletion();
         }
         else
         {
@@ -32,13 +43,20 @@ public class ItemManager : MonoBehaviour
             }
         }
     }
-    public void PickUp(int itemId)
+
+    public void PickUp(int itemId) // 플레이어가 아이템 주웠을때 호출되는 메서드
     {
         ItemInfo item;
-        // ItemManager.Inventory.GetItem(itemId);
+        if (itemDB.ContainsKey(itemId))
+        {
+            item = itemDB[itemId];
+            inventory.GetItem(item);
+        }
     }
-    public void UseItem(ItemInfo itemInfo)
-    {
+    // public void UseItem(ItemInfo itemInfo)
+    // {
 
-    }
+    // }
+
+    public Dictionary<int, ItemInfo> itemDB = new Dictionary<int, ItemInfo>();
 }

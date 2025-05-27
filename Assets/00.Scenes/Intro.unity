@@ -304,14 +304,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db30cc7f06fb4fa5b80b0a53a5ea7c39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
-    array: []
-  audioClips:
-    array: []
-  sprites:
-    array: []
-  sharedLabel:
+  sharedData:
+    sprites:
+      array: []
+    audioClips:
+      array: []
+    prefabs:
+      array: []
+    others:
+      array: []
+    allAssets:
+      array: []
+    name: 
+    releaseScene: 
+    released: 0
+  sharedPackage: {fileID: 0}
+  packageLabel:
     m_LabelString: Global
+  activeData:
+    array: []
 --- !u!1 &822025830
 GameObject:
   m_ObjectHideFlags: 0

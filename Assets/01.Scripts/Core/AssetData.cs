@@ -8,16 +8,16 @@ using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 /// <summary>
-/// DataBundle의 에셋 참조를 읽어서 키(에셋 이름)-값(오브젝트) 형태로 메모리에 올립니다. 
+/// AssetBundle의 에셋 참조를 읽어서 키(에셋 이름)-값(오브젝트) 형태로 메모리에 올립니다. 
 /// </summary>
 [Serializable]
-public class DataSet
+public class AssetData
 {
   /// <summary>
   /// 현재 활성화된 씬 데이터의 목록입니다.
   /// 내용은 ContentManager.Instance.activeData의 내용과 같습니다.
   /// </summary>
-  public static Dictionary<string, DataSet> ActiveData { get; private set; } = new();
+  public static Dictionary<string, AssetData> ActiveData { get; private set; } = new();
   
   #region Memory
   // 데이터 목록
@@ -35,26 +35,26 @@ public class DataSet
   #endregion
 
   /// <summary>
-  /// 해당 데이터가 생성된 패키지의 이름입니다.
+  /// 해당 인스턴스가 생성된 패키지의 이름입니다.
   /// </summary>
   [SerializeField] private string name;
   public string Name => name;
   /// <summary>
-  /// 해당 명칭의 씬이 언로드됬을 때 해당 데이터가 Release됩니다.
+  /// 해당 명칭의 씬이 언로드됬을 때 해당 인스턴스가 Release됩니다.
   /// </summary>
   public string releaseScene;
 
   [SerializeField] private bool released = false;
-  // 데이터가 release되었을 시 true를 반환합니다.
+  // 데이터가 해제되었을 시 true를 반환합니다.
   public bool Released => released;
 
   /// <summary>
-  /// DataSet 인스턴스 전용으로 구현하기 위해 private로 구현했습니다.
+  /// AssetData 인스턴스 전용으로 구현하기 위해 private로 구현했습니다.
   /// </summary>
   /// <param name="assets"></param>
   /// <param name="name"></param>
   /// <param name="releaseScene"></param>
-  private DataSet(List<Object> assets, string name, string releaseScene ="")
+  private AssetData(List<Object> assets, string name, string releaseScene ="")
   {
     this.releaseScene = releaseScene;
     this.name = name;
@@ -94,8 +94,8 @@ public class DataSet
   }
 
   /// <summary>
-  ///  release 되지 않았을 시 release함.
-  ///  Release 이후 내부 데이터 접근 불가
+  ///  해제되지 않았을 시 해당 인스턴스를 메모리에서 해제시킵니다.
+  ///  메모리 해제 이후 내부 데이터 접근 불가합니다.
   /// </summary>
   public void Release()
   {
@@ -147,13 +147,13 @@ public class DataSet
   }
 
   /// <summary>
-  /// 생성자를 감추기 위해 어쩔 수 없이 SceneData에 구현했습니다.
+  /// 생성자를 감추기 위해 어쩔 수 없이 AssetData에 구현했습니다.
   /// </summary>
   /// <param name="package">불러올 데이터의 패키지입니다.</param>
   /// <param name="releaseScene">해당 명칭의 씬이 언로드됬을 때 해당 데이터가 Release됩니다.</param>
   /// <param name="force">참일시 이름이 중복되는 기존 데이터가 있으면 삭제하고 생성합니다.</param>
   /// <returns></returns>
-  public static async Task<DataSet> Create(DataBundle package, string releaseScene = "", bool force = false)
+  public static async Task<AssetData> Create(AssetBundle package, string releaseScene = "", bool force = false)
   {
     if (force && ActiveData.TryGetValue(package.name, out var data)) data.Release();
     
@@ -177,7 +177,7 @@ public class DataSet
       }).Task;
     }
 
-    var result = new DataSet(loadedAssets, package.name, releaseScene);
+    var result = new AssetData(loadedAssets, package.name, releaseScene);
     ActiveData[package.name] = result;
     
     #if UNITY_EDITOR
@@ -191,10 +191,10 @@ public class DataSet
   /// Create의 동기 버전입니다.
   /// </summary>
   /// <param name="package">불러올 데이터의 패키지입니다.</param>
-  /// <param name="releaseScene">해당 명칭의 씬이 언로드됬을 때 해당 데이터가 Release됩니다.</param>
+  /// <param name="releaseScene">해당 명칭의 씬이 언로드됬을 때 해당 데이터가 해제됩니다.</param>
   /// <param name="force">참일시 이름이 중복되는 기존 데이터가 있으면 삭제하고 생성합니다.</param>
   /// <returns></returns>
-  public static DataSet CreateSync(DataBundle package, string releaseScene = "", bool force = false)
+  public static AssetData CreateSync(AssetBundle package, string releaseScene = "", bool force = false)
   {
     var data = Create(package, releaseScene, force);
     data.Wait();
@@ -202,7 +202,7 @@ public class DataSet
   }
 
   /// <summary>
-  /// 해당 데이터가 해제되었는지 확인하는 코드입니다.
+  /// 해당 인스턴스가 해제되었는지 확인하는 코드입니다.
   /// </summary>
-  public static explicit operator bool(DataSet data) => !data.released;
+  public static explicit operator bool(AssetData assetData) => !assetData.released;
 }
