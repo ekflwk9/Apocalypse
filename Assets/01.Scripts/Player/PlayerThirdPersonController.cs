@@ -317,19 +317,21 @@ public class PlayerThirdPersonController : MonoBehaviour
 
         if (_hasAnimator)
         {
-            _animator.SetBool(_animIDEquipWeapon, true);
+            if(Player.Instance.Equip.TestWeapon != null)
+                _animator.SetBool(_animIDEquipWeapon, _input.aim);
             _animator.SetBool(_animIDAim, _input.aim);
         }
     }
 
     public void Attack()
     {
-        if (Player.Instance.Equip.curEquip == null)
-        {
-            _input.attack = false;
-            return;
-        }
-
+        // if (Player.Instance.Equip.curEquip == null)
+        // {
+        //     _input.attack = false;
+        //     return;
+        // }
+        
         _animator.SetTrigger(_animIDAttack);
+        _input.attack = false;
     }
 }

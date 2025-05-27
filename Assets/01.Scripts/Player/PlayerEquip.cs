@@ -42,9 +42,10 @@ public class PlayerEquip : MonoBehaviour
     {
         TestWeapon = weapon;
         TestWeapon.transform.SetParent(equipPivot, false);
-        bool hasCollider = TestWeapon.TryGetComponent<Collider>(out collider);
+        bool hasCollider = TestWeapon.TryGetComponent(out collider);
         if (hasCollider)
         {
+            Debug.Log("콜라이더 찾음");
             collider.enabled = false;
         }
         _animator.SetBool(_animIDEquipMelee, true);
@@ -60,23 +61,32 @@ public class PlayerEquip : MonoBehaviour
         }
     }
 
-    public void Aim()
+    public void MoveWeaponToHand()
     {
+        //curEquip.GameObject().transform.SetParent(weaponPivot, false);
         TestWeapon.transform.SetParent(weaponPivot, false);
+    }
+
+    public void MoveWeaponToBack()
+    {
+        //curEquip.GameObject().transform.SetParent(equipPivot, false);
+        TestWeapon.transform.SetParent(equipPivot, false);
     }
     
     public void EnableWeaponCollider()
     {
-        if (curEquip != null)
+        if (collider != null)
         {
+            Debug.Log("콜라이더 켰다");
             collider.enabled = true;
         }
     }
 
     public void DisableWeaponCollider()
     {
-        if (curEquip != null)
+        if (collider != null)
         {
+            Debug.Log("콜라이더 껐다");
             collider.enabled = false;
         }
     }

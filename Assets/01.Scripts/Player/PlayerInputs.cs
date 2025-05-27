@@ -1,3 +1,4 @@
+using System;
 using GameItem;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,11 +20,16 @@ public class PlayerInputs : MonoBehaviour
 	[Header("Mouse Cursor Settings")] public bool cursorLocked = true;
 	public bool cursorInputForLook = true;
 	
-	private Player _player;
-	private PlayerThirdPersonController _controller;
+	[SerializeField] private Player _player;
+	[SerializeField] private PlayerThirdPersonController _controller;
 	
 	//테스트용
 	public GameObject TestWeapon;
+
+	private void Reset()
+	{
+		_controller = GetComponent<PlayerThirdPersonController>();
+	}
 
 	private void Start()
 	{
