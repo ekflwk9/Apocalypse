@@ -6,21 +6,30 @@ using UnityEngine;
 public class PlayerEquip : MonoBehaviour
 {
     public WeaponInfo curEquip;
-    public Collider collider;
     [SerializeField] private Transform equipPivot;
     [SerializeField] private Transform weaponPivot;
+    public BoxCollider meleeCollider;
     
     [SerializeField] private Animator _animator;
     private int _animIDEquipMelee;
     private int _animIDEquipRanged;
+    private bool _equipMelee;
+    private bool _equipRanged;
+    [SerializeField] private bool _toggleMelee = false;
     
     //테스트 코드
-    public GameObject TestWeapon;
+    public GameObject[] TestWeapons;
+    public GameObject SelectWeapon;
     //
     
     private void Start()
     {
         AssignAnimationIDs();
+        meleeCollider.enabled = false;
+        foreach (var weapon in TestWeapons)
+        {
+            weapon.SetActive(false);
+        }
     }
 
     private void AssignAnimationIDs()
@@ -31,23 +40,15 @@ public class PlayerEquip : MonoBehaviour
 
     // public void EquipNew(WeaponInfo weapon)
     // {
-    //     Unequip();
-    //     //curEquip = Instantiate(weapon.장착프리팹, equipPivot).GetComponent<Equip>();
-    //     //collider = curEquip.GetComponent<Collider>();
-    //     //collider.enabled = false;
+    //      받아온 무기정보의 종류와 같은 무기 활성화
     // }
 
     //테스트 코드
-    public void EquipNew(GameObject weapon)
+    public void EquipNew(int index)
     {
-        TestWeapon = weapon;
-        TestWeapon.transform.SetParent(equipPivot, false);
-        bool hasCollider = TestWeapon.TryGetComponent(out collider);
-        if (hasCollider)
-        {
-            Debug.Log("콜라이더 찾음");
-            collider.enabled = false;
-        }
+        SelectWeapon = TestWeapons[index];
+        _equipMelee = true;
+        SelectWeapon.SetActive(true);
         _animator.SetBool(_animIDEquipMelee, true);
     }
     //
@@ -64,30 +65,36 @@ public class PlayerEquip : MonoBehaviour
     public void MoveWeaponToHand()
     {
         //curEquip.GameObject().transform.SetParent(weaponPivot, false);
-        TestWeapon.transform.SetParent(weaponPivot, false);
+        SelectWeapon.transform.SetParent(weaponPivot, false);
     }
 
     public void MoveWeaponToBack()
     {
         //curEquip.GameObject().transform.SetParent(equipPivot, false);
-        TestWeapon.transform.SetParent(equipPivot, false);
+        SelectWeapon.transform.SetParent(equipPivot, false);
     }
     
-    public void EnableWeaponCollider()
+    public void ToggleMeleeCollider()
     {
-        if (collider != null)
+        if (_equipMelee)
         {
-            Debug.Log("콜라이더 켰다");
-            collider.enabled = true;
+            meleeCollider.enabled = !_toggleMelee;
+            _toggleMelee = !_toggleMelee;
         }
     }
-
-    public void DisableWeaponCollider()
+    
+    private void OnTriggerEnter(Collider other)
     {
-        if (collider != null)
+        //if (other.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
+        IDamagable damagable;
+        bool isEnemy = other.TryGetComponent(out damagable);
+        if (!isEnemy)
         {
-            Debug.Log("콜라이더 껐다");
-            collider.enabled = false;
+            return;
+        }
+        else
+        {
+            damagable.TakeDamage(curEquip != null ? curEquip.power : 10f);
         }
     }
 }
