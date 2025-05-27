@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee02b760704ba44acad5eb6d40730353, type: 3}
   m_Name: TestArmor
   m_EditorClassIdentifier: 
-  itemId: 0
-  displayName: 
-  disciption: 
-  itemType: 0
+  itemId: 100
+  displayName: Test Armor
+  disciption: "\uB534\uB534\uB370\uC2A4\uB124"
+  itemType: 2
   icon: {fileID: 0}
-  cost: 0
-  cell: 0
+  cost: 10
+  cell: 00000000
   canStack: 0
   maxStack: 0
-  armorType: 0
-  durability: 0
-  defense: 0
+  armorType: 1
+  durability: 1000
+  defense: 1000
