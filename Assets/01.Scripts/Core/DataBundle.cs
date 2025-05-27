@@ -105,4 +105,7 @@ public class DataBundle : ScriptableObject
   {
     Addressables.Release(this);
   }
+  
+  public static explicit operator DataSet(DataBundle bundle) => bundle.LoadSync();
+  public static explicit operator DataBundle(string name) => FindSync(name);
 }
