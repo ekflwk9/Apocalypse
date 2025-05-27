@@ -62,13 +62,13 @@ public class Entity : MonoBehaviour, IDamagable
         PlayerMask = LayerMask.GetMask("Player");
 
         // linq°í gpt²¨ µû¿È
-        ragdollColliders = GetComponentsInChildren<Collider>(true)
-    .Where(c => c.gameObject != this.gameObject)
-    .ToArray();
+        ragdollColliders = GetComponentsInChildren<Collider>()
+         .Where(c => c.tag != "Monster")
+         .ToArray();
 
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>(true)
-            .Where(rb => rb.gameObject != this.gameObject)
-            .ToArray();
+         .Where(rb => rb.tag != "Monster")
+         .ToArray();
 
 
         foreach (var col in ragdollColliders)
