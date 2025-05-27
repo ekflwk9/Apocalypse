@@ -1,3 +1,4 @@
+using GameItem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,10 @@ public class PlayerInputs : MonoBehaviour
 	public bool cursorInputForLook = true;
 	
 	private Player _player;
+	private PlayerThirdPersonController _controller;
+	
+	//테스트용
+	public GameObject TestWeapon;
 
 	private void Start()
 	{
@@ -86,6 +91,7 @@ public class PlayerInputs : MonoBehaviour
 		if (value.isPressed && aim && !attack)
 		{
 			attack = true;
+			_controller.Attack();
 		}
 	}
 
@@ -95,7 +101,11 @@ public class PlayerInputs : MonoBehaviour
 		{
 			float key = value.Get<float>();
 			int numberPressed = Mathf.RoundToInt(key);
-			Debug.Log($"Pressed {numberPressed}");
+			if (numberPressed == 1)
+			{
+				Player.Instance.Equip.EquipNew(TestWeapon);
+			}
+			//인벤토리 아이템 사용 호출
 		}
 	}
 

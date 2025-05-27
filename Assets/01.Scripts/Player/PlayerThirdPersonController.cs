@@ -14,8 +14,7 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     public float SprintSpeed = 30f;
 
-    [Range(0.0f, 0.3f)]
-    public float RotationSmoothTime = 0.12f;
+    [Range(0.0f, 0.3f)] public float RotationSmoothTime = 0.12f;
     public float SpeedChangeRate = 10.0f;
 
     [Space(10)] //점프관련
@@ -25,6 +24,7 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     [Space(10)] //점프관련
     public float JumpTimeout = 0.50f;
+
     public float FallTimeout = 0.15f;
 
     [Header("Player Grounded")] //지상 판정 관련
@@ -37,6 +37,7 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     [Header("Cinemachine")] //카메라 관련
     public GameObject CinemachineCameraTarget;
+
     public CinemachineVirtualCamera VirtualCamera;
     public Cinemachine3rdPersonFollow Follow;
     public Vector3 TPSCamPosition;
@@ -63,6 +64,7 @@ public class PlayerThirdPersonController : MonoBehaviour
     private int _animIDGrounded;
     private int _animIDJump;
     private int _animIDMotionSpeed;
+    private int _animIDEquipWeapon;
 
     //애니메이션 값 가져올 변수
     private int _animIDSpeed;
@@ -92,7 +94,7 @@ public class PlayerThirdPersonController : MonoBehaviour
     {
         CinemachineCameraTarget = GameObject.Find("CameraRoot");
         GroundLayers = LayerMask.GetMask("Default");
-        
+
         _playerInput = GetComponent<PlayerInput>();
         _controller = GetComponent<CharacterController>();
         _input = GetComponent<PlayerInputs>();
@@ -155,6 +157,7 @@ public class PlayerThirdPersonController : MonoBehaviour
         _animIDAim = Animator.StringToHash("Aim");
         _animIDAttack = Animator.StringToHash("Attack");
         _animIDDamage = Animator.StringToHash("Damage");
+        _animIDEquipWeapon = Animator.StringToHash("EquipWeapon");
     }
 
     //바닥 판정 함수(바닥판정을 위한 원의 중심위치 정하고 원이랑 바닥레이어랑 충돌하면 바닥판정
@@ -305,7 +308,7 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void Aim()
     {
-        Vector3 targetOffset = _input.aim  ? AimCamPosition : TPSCamPosition;
+        Vector3 targetOffset = _input.aim ? AimCamPosition : TPSCamPosition;
         Follow.ShoulderOffset = Vector3.Lerp(Follow.ShoulderOffset, targetOffset, Time.deltaTime * 6f);
         if (Vector3.Distance(targetOffset, Follow.ShoulderOffset) < 0.01f)
         {
@@ -314,12 +317,19 @@ public class PlayerThirdPersonController : MonoBehaviour
 
         if (_hasAnimator)
         {
-            _animator.SetBool(_animIDAim, true);
+            _animator.SetBool(_animIDEquipWeapon, true);
+            _animator.SetBool(_animIDAim, _input.aim);
         }
     }
 
-    private void Attack()
+    public void Attack()
     {
-        
+        if (Player.Instance.Equip.curEquip == null)
+        {
+            _input.attack = false;
+            return;
+        }
+
+        _animator.SetTrigger(_animIDAttack);
     }
 }
