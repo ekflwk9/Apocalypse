@@ -16,10 +16,7 @@ public static class SoundManager
       MasterVolume = PlayerPrefs.GetFloat("MasterVolume", 80);
       BackgroundVolume = PlayerPrefs.GetFloat("BackgroundVolume", 80);
       EffectVolume = PlayerPrefs.GetFloat("EffectVolume", 80);
-      Debug.Log(Mixer);
     }
-    
-    Debug.Log("H");
   }
 
   public static float MasterVolume
