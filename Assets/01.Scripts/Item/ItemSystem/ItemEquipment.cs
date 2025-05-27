@@ -47,13 +47,13 @@ public class ItemEquipment : MonoBehaviour
                         isArmorEquiped[1] = true;
                     }
                     break;
-                case ArmorType.Bottom:
-                    if (!isArmorEquiped[2])
-                    {
-                        eqArmor[2] = armor;
-                        isArmorEquiped[2] = true;
-                    }
-                    break;
+                // case ArmorType.Bottom:
+                //     if (!isArmorEquiped[2])
+                //     {
+                //         eqArmor[2] = armor;
+                //         isArmorEquiped[2] = true;
+                //     }
+                //     break;
                 case ArmorType.Shoes:
                     if (!isArmorEquiped[3])
                     {
@@ -94,13 +94,13 @@ public class ItemEquipment : MonoBehaviour
                         isArmorEquiped[1] = false;
                     }
                     break;
-                case ArmorType.Bottom:
-                    if (isArmorEquiped[2])
-                    {
-                        eqArmor[2] = null;
-                        isArmorEquiped[2] = false;
-                    }
-                    break;
+                // case ArmorType.Bottom:
+                //     if (isArmorEquiped[2])
+                //     {
+                //         eqArmor[2] = null;
+                //         isArmorEquiped[2] = false;
+                //     }
+                //     break;
                 case ArmorType.Shoes:
                     if (isArmorEquiped[3])
                     {
