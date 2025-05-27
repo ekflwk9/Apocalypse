@@ -41,8 +41,28 @@ public class ItemEffectManager : MonoBehaviour
             case ItemType.Weapon:
                 break;
             case ItemType.Armor:
+                if (ItemManager.Instance.itemDB[itemInfo.itemId] is ArmorInfo armor)
+                ChangeStat(2, armor.defense);
                 break;
+
             case ItemType.Consumable:
+                if (ItemManager.Instance.itemDB[itemInfo.itemId] is ConsumableInfo consumable)
+                ChangeStat(3, consumable.value);
+                break;
+        }
+    }
+
+    public void ChangeStat(int key, object value)
+    {
+        switch (key)
+        {
+            case 1:
+                break;
+            case 2:
+                // Defense += (float)value;
+                break;
+            case 3:
+                Player.Instance.Health += (float)value;
                 break;
         }
     }
