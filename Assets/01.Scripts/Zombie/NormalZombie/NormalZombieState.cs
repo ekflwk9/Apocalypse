@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEditor.VersionControl.Asset;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public static class AnimHash
 {
     public static readonly int IdleHash = Animator.StringToHash("Idle");
     public static readonly int WalkHash = Animator.StringToHash("Walking");
-    public static readonly int RunHash = Animator.StringToHash("Run_1");
-    public static readonly int HitHash = Animator.StringToHash("Hit_1");
-    public static readonly int AttackHash = Animator.StringToHash("Attack_1");
+    public static readonly int RunHash_1 = Animator.StringToHash("Run_1");
+    public static readonly int RunHash_2 = Animator.StringToHash("Run_2");
+    public static readonly int HitHash_1 = Animator.StringToHash("Hit_1");
+    public static readonly int HitHash_2 = Animator.StringToHash("Hit_2");
+    public static readonly int AttackHash_1 = Animator.StringToHash("Attack_1");
+    public static readonly int AttackHash_2 = Animator.StringToHash("Attack_2");
+    public static readonly int HurtHash = Animator.StringToHash("Hurt");
     public static readonly int DieHash = Animator.StringToHash("Dying");
 }
 
@@ -23,10 +28,16 @@ public class NormalZombieStateStruct : StateStruct
         WalkState walkState = new WalkState();
         RunState runState = new RunState();
         AttackState attackState = new AttackState();
+        HitState hitState = new HitState();
+        HurtState hurtState = new HurtState();
+        DyingState dyingState = new DyingState();
         StateDictionary.Add(EntityEnum.Idle, idleState);
         StateDictionary.Add(EntityEnum.Walk, walkState);
         StateDictionary.Add(EntityEnum.Run, runState);
         StateDictionary.Add(EntityEnum.Attack, attackState);
+        StateDictionary.Add(EntityEnum.Hit, hitState);
+        StateDictionary.Add(EntityEnum.Hurt, hurtState);
+        StateDictionary.Add(EntityEnum.Dying, dyingState);
         base.Init(_StateMachine);
     }
 }
@@ -74,7 +85,7 @@ public class WalkState : EntityState
         }
         Vector3 TargetPos = NaviHelper.GetRandomNavMeshPosition(entity.transform.position, 30f);
         _NavMeshAgent.SetDestination(TargetPos);
-
+        _NavMeshAgent.speed = entity.baseStatus.WalkSpeed;
         entity._animator.Play(AnimHash.WalkHash);
     }
     public override void Update()
@@ -106,7 +117,17 @@ public class RunState : EntityState
             _NavMeshAgent = entity.GetComponent<NavMeshAgent>();
             IsInit = true;
         }
-        SetAnimation(AnimHash.RunHash);
+
+        if (entity.baseStatus.IsHalf() == true)
+        {
+            SetAnimation(AnimHash.RunHash_2);
+            _NavMeshAgent.speed = entity.baseStatus.RunSpeed - 1f;
+        }
+        else
+        {
+            SetAnimation(AnimHash.RunHash_1);
+            _NavMeshAgent.speed = entity.baseStatus.RunSpeed;
+        }
         _NavMeshAgent.SetDestination(Player.Instance.transform.position);
     }
     public override void Update()
@@ -136,8 +157,14 @@ public class AttackState : EntityState
             StateMachine.SetState(EntityEnum.Idle);
             return;
         }
-
-        SetAnimation(AnimHash.AttackHash);
+        if (Random.Range(0, 2) == 0)
+        {
+            SetAnimation(AnimHash.AttackHash_1);
+        }
+        else
+        {
+            SetAnimation(AnimHash.AttackHash_2);
+        }
         entity._NavMeshAgent.ResetPath();
     }
     public override void Update()
@@ -162,7 +189,15 @@ public class HitState : EntityState
 
     public override void Enter()
     {
-        SetAnimation(AnimHash.HitHash);
+        entity._NavMeshAgent.ResetPath();
+        if (Random.Range(0, 2) == 0)
+        {
+            SetAnimation(AnimHash.HitHash_1);
+        }
+        else
+        {
+            SetAnimation(AnimHash.HitHash_2);
+        }
     }
     public override void Update()
     {
@@ -170,6 +205,77 @@ public class HitState : EntityState
         {
             StateMachine.SetState(EntityEnum.Idle);
         }
+    }
+    public override void Exit()
+    {
+    }
+}
+
+public class HurtState : EntityState
+{
+    public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
+    {
+        _EntityEnum = EntityEnum.Hurt;
+        base.SetOwner(_Entity, _StateMachine);
+    }
+
+    public override void Enter()
+    {
+        entity._NavMeshAgent.ResetPath();
+        SetAnimation(AnimHash.DieHash);
+    }
+    public override void Update()
+    {
+        if (true == IsAnimationEnd())
+        {
+            StateMachine.SetState(EntityEnum.Dying);
+        }
+    }
+    public override void Exit()
+    {
+    }
+}
+
+public class DyingState : EntityState
+{
+    public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
+    {
+        _EntityEnum = EntityEnum.Dying;
+        base.SetOwner(_Entity, _StateMachine);
+    }
+
+    public override void Enter()
+    {
+        entity._NavMeshAgent.SetDestination(Player.Instance.transform.position);
+        entity._NavMeshAgent.speed = entity.baseStatus.CrowlSpeed;
+        SetAnimation(AnimHash.HurtHash);
+    }
+    public override void Update()
+    {
+        if (true == IsAnimationEnd())
+        {
+            entity.Dead();
+        }
+    }
+    public override void Exit()
+    {
+    }
+}
+
+public class DieState : EntityState
+{
+    public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
+    {
+        _EntityEnum = EntityEnum.Die;
+        base.SetOwner(_Entity, _StateMachine);
+    }
+
+    public override void Enter()
+    {
+        entity.Dead();
+    }
+    public override void Update()
+    {
     }
     public override void Exit()
     {

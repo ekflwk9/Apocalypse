@@ -10,6 +10,8 @@ public enum EntityEnum
     Run,
     Attack,
     Hit,
+    Hurt,
+    Dying,
     Die,
 }
 
@@ -26,10 +28,10 @@ public abstract class EntityState
         StateMachine = _StateMachine;
     }
 
-    public void SetAnimation(int _HashAnim)
+    public void SetAnimation(int _HashAnim, int _layer = 0)
     {
         HashAnim = _HashAnim;
-        entity._animator.Play(HashAnim);
+        entity._animator.Play(HashAnim, _layer);
     }
 
     public bool IsAnimationEnd()
