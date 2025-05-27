@@ -4,9 +4,10 @@ using UnityEngine.UI;
 
 public class DragUi : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler
 {
-    //public RectTransform
+    public RectTransform pos { get => fieldPos; }
     [SerializeField] private RectTransform fieldPos;
     [SerializeField] private Image icon;
+
     public bool isClick { get; private set; }
     public int selectItemId { get; private set; }
     public ISlot slot { get; private set; }

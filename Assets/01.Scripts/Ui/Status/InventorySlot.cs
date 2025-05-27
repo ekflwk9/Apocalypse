@@ -78,15 +78,28 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, ISlot
             else
             {
                 //아이템이 존재할 경우 맞교환
-                var item = itemId != 0 ? itemId : 0;
-
-                if (drag.slot.SetItem(item))
+                if (itemId != 0)
                 {
-                    SetItem(dragItemId);
-                    drag.EndChangeSlot();
+                    var item = ItemManager.Instance.itemDB[itemId];
 
-                    drag.SetSlot(pos, this);
+                    if (drag.selectItemId == itemId)
+                    {
+                        if (item.canStack && count <= item.maxStack && pos != drag.pos)
+                        {
+
+                        }
+                    }
                 }
+
+                //var item = itemId != 0 ? itemId : 0;
+
+                //if (drag.slot.SetItem(item))
+                //{
+                //    SetItem(dragItemId);
+                //    drag.EndChangeSlot();
+
+                //    drag.SetSlot(pos, this);
+                //}
             }
         }
     }

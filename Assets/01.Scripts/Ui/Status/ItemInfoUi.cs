@@ -39,7 +39,7 @@ public class ItemInfoUi : MonoBehaviour
     public void SetActive(Vector3 _pos, int _itemId)
     {
         var item = ItemManager.Instance.itemDB[_itemId];
-        itemName.text = item.displayName;
+        //itemName.text = item.displayName;
         info.text = item.disciption;
 
         this.gameObject.SetActive(true);
