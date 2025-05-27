@@ -6,7 +6,7 @@ namespace GameItem
 {
     public class Inventory : MonoBehaviour
     {
-        int selectItemId;
+        private int selectItemId;
         public List<ItemInfo> items = new List<ItemInfo>(); // 인벤토리
 
         public void GetItem(ItemInfo item) // 아이템 추가시 호출
@@ -32,14 +32,7 @@ namespace GameItem
 
         public void EqButton() // 장착 버튼 누를시 호출
         {
-            if (ItemManager.Instance.itemDB[selectItemId] is WeaponInfo)
-            {
-                ItemManager.Instance.itemEquipment.SelectEquipment(selectItemId);
-            }
-            else if (ItemManager.Instance.itemDB[selectItemId] is ArmorInfo)
-            {
-
-            }
+            ItemManager.Instance.itemEquipment.SelectEquipment(selectItemId);
         }
     }
 }

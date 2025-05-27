@@ -50,11 +50,6 @@ public class ItemHandler : MonoBehaviour
         }
     }
 
-    public void Init(ItemInfo itemInfo)
-    {
-
-    }
-
     public void PickUpItem() // 아이템 주을때 호출 (인풋시스템 연동 예정)
     {
         if (isPlayerInRange && canPickUp)
