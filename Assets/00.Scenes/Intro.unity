@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 404130848}
   - component: {fileID: 404130849}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: ContentManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,7 +286,7 @@ Transform:
   m_GameObject: {fileID: 404130847}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -301,9 +301,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 404130847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90c2e2281a669724aa406cd17dabe649, type: 3}
+  m_Script: {fileID: 11500000, guid: db30cc7f06fb4fa5b80b0a53a5ea7c39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabs:
+    array: []
+  audioClips:
+    array: []
+  sprites:
+    array: []
+  sharedLabel:
+    m_LabelString: Global
 --- !u!1 &822025830
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,7 +424,6 @@ GameObject:
   - component: {fileID: 1368513682}
   - component: {fileID: 1368513681}
   - component: {fileID: 1368513683}
-  - component: {fileID: 1368513684}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -495,18 +502,6 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
---- !u!114 &1368513684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1368513679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db30cc7f06fb4fa5b80b0a53a5ea7c39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
