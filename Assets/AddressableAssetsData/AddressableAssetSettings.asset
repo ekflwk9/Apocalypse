@@ -87,6 +87,8 @@ MonoBehaviour:
     m_ProfileVersion: 1
   m_LabelTable:
     m_LabelNames:
+    - Global
+    - Item
     - Bundle
   m_SchemaTemplates: []
   m_GroupTemplateObjects:

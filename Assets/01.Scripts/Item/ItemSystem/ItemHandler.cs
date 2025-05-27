@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameItem;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
-public class PickUp : MonoBehaviour
+public class ItemHandler : MonoBehaviour
 {
     public int itemId;
-    private float distance;
     private bool isPlayerInRange;
     private bool canPickUp;
     private Transform playerTransform;
