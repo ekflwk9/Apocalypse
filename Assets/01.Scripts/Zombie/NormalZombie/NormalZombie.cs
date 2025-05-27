@@ -11,6 +11,6 @@ public class NormalZombie : Entity
 
         baseStatus = new BaseStatus();
 
-        _stateMachine.SetState(EntityEnum.Run);
+        _stateMachine.SetState(EntityEnum.Idle);
     }
 }
