@@ -16,9 +16,10 @@ namespace GameItem
 
     public enum ArmorType
     {
+        None,
         Head,
         Top,
-        Bottom,
+        // Bottom,
         Shoes,
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.AddressableAssets;
 
 public class ItemHandler : MonoBehaviour
 {
-    [SerializeField] private ItemInfo itemInfo;
+    public ItemInfo itemInfo;
     private bool isPlayerInRange;
     private bool canPickUp;
     private Transform playerTransform;
