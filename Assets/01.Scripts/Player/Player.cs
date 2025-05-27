@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,30 +9,39 @@ public interface IDamagable
 public class Player : MonoBehaviour, IDamagable
 {
     public static Player Instance { get; private set; }
-    
+
     [Header("State")]
     public float maxHealth = 100f;
     public float maxStamina = 100f;
-    
+
     [SerializeField] private float _health;
     [SerializeField] private float _stamina;
-    
+
     public float passiveStamina = 5f;
 
-    [Header("Stamina Use")]
-    public float sprintStamina = 5f;
+    [Header("Stamina Use")] public float sprintStamina = 5f;
     public float jumpStamina = 10f;
     public float staminaRegenCooldown = 5f;
-    
+
     private bool _staminaRegen;
     private Coroutine _staminaRegenCoroutine;
-    
-    private PlayerThirdPersonController _controller;
+
+    public bool _damaged = false;
 
     public float Health
     {
         get => _health;
-        set => _health = Mathf.Clamp(value, 0, maxHealth);
+        set
+        {
+            float changedValue = Mathf.Clamp(value, 0, maxHealth);
+
+            if (changedValue < _health)
+            {
+                _damaged = true;
+            }
+            
+            _health = changedValue;
+        }
     }
 
     public float Stamina
@@ -42,7 +50,7 @@ public class Player : MonoBehaviour, IDamagable
         set
         {
             float changedValue = Mathf.Clamp(value, 0, maxStamina);
-            
+
             if (changedValue < _stamina)
             {
                 if (_staminaRegenCoroutine != null)
@@ -82,24 +90,20 @@ public class Player : MonoBehaviour, IDamagable
             }
         }
     }
-    
+
     private IEnumerator StaminaRegenDelay()
     {
         _staminaRegen = false;
-        
+
         yield return new WaitForSeconds(staminaRegenCooldown);
-        
+
         _staminaRegen = true;
-        
+
         _staminaRegenCoroutine = null;
     }
 
     public void TakeDamage(float damage)
     {
         Health -= damage;
-        if (_controller != null && _controller._animator != null)
-        {
-            _controller._animator.SetTrigger("Damage");
-        }
     }
 }
