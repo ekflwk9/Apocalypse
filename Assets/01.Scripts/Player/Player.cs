@@ -2,7 +2,12 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public interface IDamagable
+{
+    public void TakeDamage(float damage);
+}
+
+public class Player : MonoBehaviour, IDamagable
 {
     public static Player Instance { get; private set; }
     
@@ -22,6 +27,8 @@ public class Player : MonoBehaviour
     
     private bool _staminaRegen;
     private Coroutine _staminaRegenCoroutine;
+    
+    private PlayerThirdPersonController _controller;
 
     public float Health
     {
@@ -85,5 +92,14 @@ public class Player : MonoBehaviour
         _staminaRegen = true;
         
         _staminaRegenCoroutine = null;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        Health -= damage;
+        if (_controller != null && _controller._animator != null)
+        {
+            _controller._animator.SetTrigger("Damage");
+        }
     }
 }
