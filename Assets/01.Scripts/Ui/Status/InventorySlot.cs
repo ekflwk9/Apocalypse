@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, ISlot
 {
     public RectTransform slotPos { get => pos; }
     [SerializeField] private RectTransform pos;
@@ -55,7 +55,12 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        UiManager.instance.status.drag.SetPos(pos);
 
+        if (itemId != 0)
+        {
+            UiManager.instance.status.itemInfo.SetActive(itemId, this.transform.position);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -73,7 +78,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 UiManager.instance.touch.SetTouch(false);
 
                 var status = UiManager.instance.status;
-                status.drag.SetItem(itemId, this);
+                status.drag.ClickItem(itemId, this);
                 status.itemInfo.SetOff();
             }
         }

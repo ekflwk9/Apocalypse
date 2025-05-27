@@ -5,10 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class EquippedSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class EquippedSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, ISlot
 {
     [Header("장착 가능한 아이템 타입")]
-    [SerializeField] private ItemType type;
+    [SerializeField] private ArmorType type;
     private int itemId;
 
     [Space(10f)]
@@ -22,6 +22,11 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if (this.TryGetComponent<RectTransform>(out var isPos)) pos = isPos;
         else DebugHelper.Log($"{this.name}에 RectTransform가 존재하지 않음");
+    }
+
+    public void SetItem(int _itemId)
+    {
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -38,4 +43,5 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     {
 
     }
+
 }

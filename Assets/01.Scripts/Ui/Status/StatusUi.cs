@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StatusUi : MonoBehaviour
@@ -28,7 +30,7 @@ public class StatusUi : MonoBehaviour
     [SerializeField] private InventorySlot[] storageSlot;
     [SerializeField] private InventorySlot[] farminSlot;
     [SerializeField] private EquippedSlot[] equippedSlot;
-    [SerializeField] private ShopSlot[] stopSlot;
+    [SerializeField] private ShopSlot[] shopSlot;
 
     private void Reset()
     {
@@ -54,7 +56,7 @@ public class StatusUi : MonoBehaviour
         farminSlot = GetComponentArray<InventorySlot>(fieldFarming.transform);
 
         fieldShop = Helper.FindChild(this.transform, "Shop").gameObject;
-        stopSlot = GetComponentArray<ShopSlot>(fieldStorage.transform);
+        shopSlot = GetComponentArray<ShopSlot>(fieldShop.transform);
     }
 
     private T[] GetComponentArray<T>(Transform _parent) where T : class
@@ -67,7 +69,6 @@ public class StatusUi : MonoBehaviour
             var child = _parent.GetChild(i);
 
             if (child.TryGetComponent<T>(out var target)) tempList.Add(target);
-            else DebugHelper.Log($"{child.name}에 {typeof(T).Name}이 존재하지 않음");
         }
 
         var tempArray = new T[tempList.Count];

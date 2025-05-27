@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -6,8 +7,8 @@ public class DragUi : MonoBehaviour, IDragHandler, IEndDragHandler
 {
     [SerializeField] private RectTransform pos;
     [SerializeField] private Image icon;
-    public InventorySlot beforeSlot { get; private set; }
     public int itemId { get; private set; }
+    public ISlot slot { get; private set; }
 
     private void Reset()
     {
@@ -22,20 +23,20 @@ public class DragUi : MonoBehaviour, IDragHandler, IEndDragHandler
     /// 드레그 위치 설정
     /// </summary>
     /// <param name="_slot"></param>
-    public void SetPos(InventorySlot _slot)
+    public void SetPos(RectTransform _pos)
     {
-        this.transform.position = _slot.transform.position;
-        pos.sizeDelta = _slot.slotPos.rect.size;
+        this.transform.position = _pos.transform.position;
+        pos.sizeDelta = _pos.rect.size;
     }
 
     /// <summary>
     /// 드래그 창 아이템 정보 설정
     /// </summary>
     /// <param name="_image"></param>
-    public void SetItem(int _id, InventorySlot _slot)
+    public void ClickItem(int _id, ISlot _slot)
     {
         itemId = _id;
-        beforeSlot = _slot;
+        slot = _slot;
 
         icon.sprite = ItemManager.Instance.itemDB[_id].icon;
         icon.color = Color.white;
