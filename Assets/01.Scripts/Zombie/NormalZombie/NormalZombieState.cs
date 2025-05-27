@@ -211,6 +211,7 @@ public class HitState : EntityState
     }
 }
 
+//쓰러지기 시작   이 때 맞으면 디져야함
 public class HurtState : EntityState
 {
     public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
@@ -226,7 +227,7 @@ public class HurtState : EntityState
     }
     public override void Update()
     {
-        if (true == IsAnimationEnd())
+        if (true == IsAnimationEnd())   // 다 쓰러지면 기어가다 죽음
         {
             StateMachine.SetState(EntityEnum.Dying);
         }
@@ -236,6 +237,7 @@ public class HurtState : EntityState
     }
 }
 
+//이제 기어감 이때 맞아도 디져야함
 public class DyingState : EntityState
 {
     public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
