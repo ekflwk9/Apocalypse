@@ -14,9 +14,13 @@ public class ItemEquipment
         {
             eqWeapon = weapon;
         }
-        else if (ItemManager.Instance.itemDB[itemId] is ArmorInfo)
+        else if (ItemManager.Instance.itemDB[itemId] is ArmorInfo armor)
         {
-
+            eqArmor = armor;
+            switch (eqArmor.armorType)
+            {
+                
+            }
         }
     }
 
