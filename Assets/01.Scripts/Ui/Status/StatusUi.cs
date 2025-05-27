@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,8 +8,12 @@ public class StatusUi : MonoBehaviour
 
     public ItemInfoUi itemInfo { get => fieldItemInfo; }
     [SerializeField] private ItemInfoUi fieldItemInfo;
+
     public GameObject inventory { get => fieldInventory; }
     [SerializeField] private GameObject fieldInventory;
+
+    public GameObject equipped { get => fieldEquipped; }
+    [SerializeField] private GameObject fieldEquipped;
 
     public GameObject storage { get => fieldStorage; }
     [SerializeField] private GameObject fieldStorage;
@@ -18,9 +21,14 @@ public class StatusUi : MonoBehaviour
     public GameObject farming { get => fieldFarming; }
     [SerializeField] private GameObject fieldFarming;
 
-    private Slot[] inventorySlot;
-    private Slot[] storageSlot;
-    private Slot[] statusSlot;
+    public GameObject shop { get => fieldShop; }
+    [SerializeField] private GameObject fieldShop;
+
+    [SerializeField] private InventorySlot[] inventorySlot;
+    [SerializeField] private InventorySlot[] storageSlot;
+    [SerializeField] private InventorySlot[] farminSlot;
+    [SerializeField] private EquippedSlot[] equippedSlot;
+    [SerializeField] private ShopSlot[] stopSlot;
 
     private void Reset()
     {
@@ -30,28 +38,85 @@ public class StatusUi : MonoBehaviour
         fieldItemInfo = this.GetComponentInChildren<ItemInfoUi>(true);
         if (fieldItemInfo == null) DebugHelper.Log($"{this.name}에 ItemInfoUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
 
-        fieldInventory = Helper.FindChild(this.transform, "PlayerInventory").gameObject;
-        Find(fieldInventory.transform, out statusSlot);
+        fieldItemInfo = this.GetComponentInChildren<ItemInfoUi>(true);
+        if (fieldItemInfo == null) DebugHelper.Log($"{this.name}에 ItemInfoUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
+
+        fieldInventory = Helper.FindChild(this.transform, "Inventory").gameObject;
+        inventorySlot = GetComponentArray<InventorySlot>(fieldInventory.transform);
+
+        fieldEquipped = Helper.FindChild(this.transform, "Equipped").gameObject;
+        equippedSlot = GetComponentArray<EquippedSlot>(fieldEquipped.transform);
 
         fieldStorage = Helper.FindChild(this.transform, "Storage").gameObject;
-        Find(fieldStorage.transform, out statusSlot);
+        storageSlot = GetComponentArray<InventorySlot>(fieldStorage.transform);
 
         fieldFarming = Helper.FindChild(this.transform, "Farming").gameObject;
-        Find(fieldFarming.transform, out statusSlot);
+        farminSlot = GetComponentArray<InventorySlot>(fieldFarming.transform);
+
+        fieldShop = Helper.FindChild(this.transform, "Shop").gameObject;
+        stopSlot = GetComponentArray<ShopSlot>(fieldStorage.transform);
     }
 
-    private void Find(Transform _parent, out Slot[] _slotArray)
+    private T[] GetComponentArray<T>(Transform _parent) where T : class
     {
         var childCount = _parent.childCount;
-        var tempList = new List<Slot>();
+        var tempList = new List<T>();
 
         for (int i = 0; i < childCount; i++)
         {
             var child = _parent.GetChild(i);
-            if (child.TryGetComponent<Slot>(out var target)) tempList.Add(target);
+
+            if (child.TryGetComponent<T>(out var target)) tempList.Add(target);
+            else DebugHelper.Log($"{child.name}에 {typeof(T).Name}이 존재하지 않음");
         }
 
-        _slotArray = new Slot[tempList.Count];
-        tempList.CopyTo(0, _slotArray, 0, tempList.Count);
+        var tempArray = new T[tempList.Count];
+        tempList.CopyTo(0, tempArray, 0, tempList.Count);
+
+        return tempArray;
+    }
+
+    /// <summary>
+    /// 아이템 획득 성공 여부 (성공시 아이템 추가됨)
+    /// </summary>
+    /// <param name="_itemId"></param>
+    /// <returns></returns>
+    public bool GetItem(int _itemId)
+    {
+        var item = ItemManager.Instance.itemDB[_itemId];
+
+        //중복 획득 가능한 아이템인가?
+        if (item.canStack)
+        {
+            for (int i = 0; i < inventorySlot.Length; i++)
+            {
+                if (inventorySlot[i].itemId == 0)
+                {
+                    inventorySlot[i].SetItem(_itemId);
+                    return true;
+                }
+
+                else if (inventorySlot[i].itemId == _itemId)
+                {
+                    inventorySlot[i].SetItemCount(_itemId);
+                    return true;
+                }
+            }
+        }
+
+        //불가능시
+        else
+        {
+            for (int i = 0; i < inventorySlot.Length; i++)
+            {
+                if (inventorySlot[i].itemId == 0)
+                {
+                    inventorySlot[i].SetItem(_itemId);
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

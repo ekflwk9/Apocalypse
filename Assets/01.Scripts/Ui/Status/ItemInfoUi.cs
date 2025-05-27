@@ -38,18 +38,20 @@ public class ItemInfoUi : MonoBehaviour
     /// <param name="_itemId"></param>
     /// <param name="_eventData"></param>
     /// <param name="_isActive"></param>
-    public void SetActive(int _itemId, Vector3 _pos, bool _isActive)
+    public void SetActive(int _itemId, Vector3 _pos)
     {
-        //아이템 아이디로 정보 가져오기...
+        var item = ItemManager.Instance.itemDB[_itemId];
+        //itemName.text= item.;
+        info.text= item.disciption;
 
-        this.gameObject.SetActive(_isActive);
+        this.gameObject.SetActive(true);
         this.transform.position = _pos;
     }
 
     /// <summary>
     /// 활성화 중일 경우 비활성화
     /// </summary>
-    public void SetActive()
+    public void SetOff()
     {
         if(this.gameObject.activeSelf) this.gameObject.SetActive(false);
     }

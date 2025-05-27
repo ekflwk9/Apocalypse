@@ -16,6 +16,9 @@ public class UiManager : MonoBehaviour
     public Fade fade { get => fieldFade; }
     [SerializeField] private Fade fieldFade;
 
+    public TouchUi touch { get => fieldTouch; }
+    [SerializeField] private TouchUi fieldTouch;
+
     private void Reset()
     {
         //true = 비활성화 오브젝트도 검색
@@ -27,6 +30,9 @@ public class UiManager : MonoBehaviour
 
         fieldShader = this.GetComponentInChildren<ShaderUi>(true);
         if (fieldShader == null) DebugHelper.Log($"{this.name}에 ShaderUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
+
+        fieldTouch = this.GetComponentInChildren<TouchUi>(true);
+        if (fieldTouch == null) DebugHelper.Log($"{this.name}에 TouchUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
 
         fieldFade = this.GetComponentInChildren<Fade>(true);
         if (fieldFade == null) DebugHelper.Log($"{this.name}에 Fade스크립트가 있는 자식 오브젝트가 존재하지 않음");
