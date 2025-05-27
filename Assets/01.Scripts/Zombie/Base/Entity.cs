@@ -5,15 +5,16 @@ using UnityEngine.AI;
 
 
 
-public class Entity : MonoBehaviour
+public class Entity : MonoBehaviour, IDamagable
 {
-
-
     [SerializeField] protected Rigidbody _rigidbody;
+    [SerializeField] protected CapsuleCollider _capsuleCollider;
     protected EntityStateMachine _stateMachine;
     public BaseStatus baseStatus;
     public NavMeshAgent _NavMeshAgent;
     public Animator _animator;
+    [SerializeField] LayerMask PlayerMask;
+
 
     protected void Reset()
     {
@@ -33,7 +34,18 @@ public class Entity : MonoBehaviour
             _NavMeshAgent.updateUpAxis = false;
         }
 
+        _capsuleCollider = GetComponent<CapsuleCollider>();
+        if (_capsuleCollider == null)
+        {
+            _capsuleCollider = gameObject.AddComponent<CapsuleCollider>();
+            _capsuleCollider.height = 2f;
+            _capsuleCollider.radius = 0.5f;
+            _capsuleCollider.center = Vector3.up;
+        }   
+
         _animator = GetComponentInChildren<Animator>();
+
+        PlayerMask = LayerMask.GetMask("Player");
     }
 
     protected void Update()
@@ -42,7 +54,6 @@ public class Entity : MonoBehaviour
         Detect();
     }
 
-    [SerializeField] LayerMask mask;
     void Detect()
     {
         if(_stateMachine.GetState() != EntityEnum.Idle)
@@ -51,7 +62,7 @@ public class Entity : MonoBehaviour
         }
 
         //오버랩 된넘들
-        Collider[] targets = Physics.OverlapSphere(transform.position, 20f, mask);
+        Collider[] targets = Physics.OverlapSphere(transform.position, 20f, PlayerMask);
 
         //range for
         foreach (var target in targets)
@@ -75,6 +86,11 @@ public class Entity : MonoBehaviour
         }
     }
 
+    public void Dead()
+    {
+        Debug.Log("dead");
+    }
+
     private void OnDrawGizmos()
     {
         // 감지 반경 색상
@@ -94,4 +110,14 @@ public class Entity : MonoBehaviour
         Gizmos.DrawRay(transform.position, transform.forward * 20);
     }
 
+    public void Attack()
+    {
+        Debug.Log("attack");
+    }
+
+
+    public void TakeDamage(float damage)
+    {
+        _stateMachine.SetState(EntityEnum.Hit);
+    }
 }
