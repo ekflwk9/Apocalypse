@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -89,7 +88,17 @@ public class PlayerInputs : MonoBehaviour
 			attack = true;
 		}
 	}
-	
+
+	public void OnNumberInput(InputValue value)
+	{
+		if (value.isPressed)
+		{
+			float key = value.Get<float>();
+			int numberPressed = Mathf.RoundToInt(key);
+			Debug.Log($"Pressed {numberPressed}");
+		}
+	}
+
 	//화면 집중(에디터에선 개임씬이 눌려있는지, 애플리케이션의 경우 해당 창이 눌려있는지)
 	private void OnApplicationFocus(bool hasFocus)
 	{
