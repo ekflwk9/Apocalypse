@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public enum EntityEnum
 {
@@ -28,15 +29,28 @@ public abstract class EntityState
         StateMachine = _StateMachine;
     }
 
-    public void SetAnimation(int _HashAnim, int _layer = 0)
+    public void SetAnimation(int _HashAnim)
     {
         HashAnim = _HashAnim;
-        entity._animator.Play(HashAnim, _layer);
+        entity._animator.Play(HashAnim, 0);
+        entity._animator.Play(HashAnim, 1);
     }
 
-    public bool IsAnimationEnd()
+    public void SetBottomAnimation(int _HashAnim)
     {
-        var stateInfo = entity._animator.GetCurrentAnimatorStateInfo(0);
+        HashAnim = _HashAnim;
+        entity._animator.Play(HashAnim, 0);
+    }
+
+    public void SetUpperAnimation(int _HashAnim)
+    {
+        HashAnim = _HashAnim;
+        entity._animator.Play(HashAnim, 1);
+    }
+
+    public bool IsAnimationEnd(int _Layer = 0)
+    {
+        var stateInfo = entity._animator.GetCurrentAnimatorStateInfo(_Layer);
         if (stateInfo.normalizedTime >= 1f)
         {
             return true;

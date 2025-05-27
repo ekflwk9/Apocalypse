@@ -22,6 +22,8 @@ public class Entity : MonoBehaviour, IDamagable
     [SerializeField] Rigidbody[] ragdollRigidbodies;
 
 
+
+
     protected void Reset()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -102,6 +104,33 @@ public class Entity : MonoBehaviour, IDamagable
         }
 
         //오버랩 된넘들
+        Collider[] targets = Physics.OverlapSphere(transform.position, 10f, PlayerMask);
+
+        //range for
+        foreach (var target in targets)
+        {
+            Vector3 dirToTarget = (target.transform.position - transform.position).normalized;
+            float angle = Vector3.Angle(transform.forward, dirToTarget);
+
+            //왼쪽 45도고 오른쪽 45도니 총 90도임
+            if (angle < 45f)
+            {
+                if (Physics.Raycast(transform.position + Vector3.up * 0.5f, dirToTarget, out RaycastHit hit, 10f))
+                {
+                    //임시
+                    if (hit.collider.CompareTag("Player"))
+                    {
+                        baseStatus.DetectedLocation = hit.point; // 플레이어 위치 저장
+                        _stateMachine.SetState(EntityEnum.Run);
+                    }
+                }
+            }
+        }
+    }
+
+    public bool RunDetect()
+    {
+        //오버랩 된넘들
         Collider[] targets = Physics.OverlapSphere(transform.position, 20f, PlayerMask);
 
         //range for
@@ -118,12 +147,14 @@ public class Entity : MonoBehaviour, IDamagable
                     //임시
                     if (hit.collider.CompareTag("Player"))
                     {
+                        baseStatus.DetectedLocation = hit.point; // 플레이어 위치 저장
                         _stateMachine.SetState(EntityEnum.Run);
-                        Debug.Log("확인");
+                        return true;
                     }
                 }
             }
         }
+        return false;
     }
 
     public void Dead()
@@ -136,19 +167,19 @@ public class Entity : MonoBehaviour, IDamagable
     {
         // 감지 반경 색상
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, 20);
+        Gizmos.DrawWireSphere(transform.position, 10);
 
         // 시야각 (viewAngle)을 시각화 (좌우)
         Vector3 leftDir = Quaternion.Euler(0, -90f / 2f, 0) * transform.forward;
         Vector3 rightDir = Quaternion.Euler(0, 90f / 2f, 0) * transform.forward;
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, leftDir * 20);
-        Gizmos.DrawRay(transform.position, rightDir * 20);
+        Gizmos.DrawRay(transform.position, leftDir * 10);
+        Gizmos.DrawRay(transform.position, rightDir * 10);
 
         // (선택) 정면 방향 표시
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, transform.forward * 20);
+        Gizmos.DrawRay(transform.position, transform.forward * 10);
     }
 
     public void Attack()

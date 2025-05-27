@@ -8,7 +8,11 @@ public class BaseStatus
     public float WalkSpeed { get; protected set; } = 2f;
     public float Damage { get; protected set; } = 10f;
 
+    public float AttackRange { get; protected set; } = 1f;
+
     public float CrowlSpeed { get; protected set; } = 0.5f;
+
+    public Vector3 DetectedLocation { get; set; }
 
     public bool IsHalf()
     {

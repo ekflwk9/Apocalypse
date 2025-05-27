@@ -118,7 +118,7 @@ public class RunState : EntityState
             IsInit = true;
         }
 
-        if (entity.baseStatus.IsHalf() == true)
+        if (entity.baseStatus.IsHalf() != true)
         {
             SetAnimation(AnimHash.RunHash_2);
             _NavMeshAgent.speed = entity.baseStatus.RunSpeed - 1f;
@@ -128,15 +128,41 @@ public class RunState : EntityState
             SetAnimation(AnimHash.RunHash_1);
             _NavMeshAgent.speed = entity.baseStatus.RunSpeed;
         }
-        _NavMeshAgent.SetDestination(Player.Instance.transform.position);
+        _NavMeshAgent.SetDestination(entity.baseStatus.DetectedLocation);
     }
+
     public override void Update()
     {
-        if (true == NaviHelper.IsReached(_NavMeshAgent, 1f))
+        Vector3 playerPos = Player.Instance.transform.position;
+
+        _NavMeshAgent.SetDestination(playerPos);
+
+        if (_NavMeshAgent.remainingDistance < entity.baseStatus.AttackRange)
         {
             StateMachine.SetState(EntityEnum.Attack);
         }
+
+        if (_NavMeshAgent.remainingDistance < entity.baseStatus.AttackRange + 4f)
+        {
+            if (IsAnimationEnd(1) == true)
+            {
+                if (Random.Range(0, 2) == 0)
+                {
+                    SetUpperAnimation(AnimHash.AttackHash_1);
+                }
+                else
+                {
+                    SetUpperAnimation(AnimHash.AttackHash_2);
+                }
+            }
+        }
     }
+
+    // 멀어지면 추격 중단
+    //if (distanceToTarget > 10f)
+    //{
+    //    StateMachine.SetState(EntityEnum.Idle);
+    //}
     public override void Exit()
     {
     }
@@ -157,19 +183,26 @@ public class AttackState : EntityState
             StateMachine.SetState(EntityEnum.Idle);
             return;
         }
-        if (Random.Range(0, 2) == 0)
+        if (IsAnimationEnd(1) == true)
         {
-            SetAnimation(AnimHash.AttackHash_1);
+            if (Random.Range(0, 2) == 0)
+            {
+                SetAnimation(AnimHash.AttackHash_1);
+            }
+            else
+            {
+                SetAnimation(AnimHash.AttackHash_2);
+            }
         }
         else
         {
-            SetAnimation(AnimHash.AttackHash_2);
+            SetBottomAnimation(AnimHash.IdleHash);
         }
         entity._NavMeshAgent.ResetPath();
     }
     public override void Update()
     {
-        if (true == IsAnimationEnd())
+        if (true == IsAnimationEnd(1))
         {
             StateMachine.SetState(EntityEnum.Run);
         }
