@@ -5,8 +5,16 @@ public abstract class SceneBundle : MonoBehaviour
 {
   public static SceneBundle CurrentBundle { get; protected set; } = null;
 
-  public SerializableDictionary<string, DataSet> bundles = new();
+  /// <summary>
+  /// SceneBundle 로딩전 데이터 번들을 로딩하고 Preload가 호출되기 전 데이터를 할당합니다.
+  /// </summary>
+  public SerializableDictionary<string, DataSet> bundles = null;
 
+  /// <summary>
+  /// 비동기로 씬 데이터를 로딩합니다.
+  /// </summary>
+  /// <param name="bundles">SceneBundle를 불러오기 전 불러올 DataBundle 목록입니다.</param>
+  /// <typeparam name="T">불러올 SceneBundle입니다.</typeparam>
   public static async Task<T> Load<T>(params DataBundle[] bundles) where T : SceneBundle
   {
     if(CurrentBundle)
@@ -35,6 +43,11 @@ public abstract class SceneBundle : MonoBehaviour
     return bundle;
   }
 
+  /// <summary>
+  /// 동기로 씬 데이터를 로딩합니다.
+  /// </summary>
+  /// <param name="bundles">SceneBundle를 불러오기 전 불러올 DataBundle 목록입니다.</param>
+  /// <typeparam name="T">불러올 SceneBundle입니다.</typeparam>
   public static T LoadSync<T>(params DataBundle[] bundles) where T : SceneBundle
   {
     var task = Load<T>(bundles);
