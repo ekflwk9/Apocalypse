@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameItem;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
-public class PickUp : MonoBehaviour
+public class ItemHandler : MonoBehaviour
 {
     public int itemId;
-    private float distance;
     private bool isPlayerInRange;
     private bool canPickUp;
     private Transform playerTransform;
@@ -47,6 +48,11 @@ public class PickUp : MonoBehaviour
         {
             canPickUp = false;
         }
+    }
+
+    public void Init(ItemInfo itemInfo)
+    {
+
     }
 
     public void PickUpItem() // 아이템 주을때 호출 (인풋시스템 연동 예정)
