@@ -1824,10 +1824,9 @@ GameObject:
   - component: {fileID: 6612394396655758167}
   - component: {fileID: 1049493359991375101}
   - component: {fileID: 4638764181693632954}
-  - component: {fileID: 2619086677742172206}
   - component: {fileID: 4034660285284717347}
+  - component: {fileID: 2619086677742172206}
   - component: {fileID: 5157845957053353862}
-  - component: {fileID: 6092601655027075541}
   - component: {fileID: 4099686563972156944}
   m_Layer: 0
   m_Name: Player
@@ -1910,26 +1909,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.98, z: 0}
---- !u!114 &2619086677742172206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5154321037587491104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ae3f0c9e6337db47a2ec3bd917b290d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  maxStamina: 100
-  _health: 0
-  _stamina: 0
-  passiveStamina: 5
-  sprintStamina: 5
-  jumpStamina: 10
-  staminaRegenCooldown: 5
 --- !u!114 &4034660285284717347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1989,6 +1968,26 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2619086677742172206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5154321037587491104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae3f0c9e6337db47a2ec3bd917b290d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  maxStamina: 100
+  _health: 0
+  _stamina: 0
+  passiveStamina: 5
+  sprintStamina: 5
+  jumpStamina: 10
+  staminaRegenCooldown: 5
 --- !u!114 &5157845957053353862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2008,23 +2007,6 @@ MonoBehaviour:
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
---- !u!114 &6092601655027075541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5154321037587491104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 767c7c7057bf82f49b5554ff450ce105, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pushLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  canPush: 0
-  strength: 1.1
 --- !u!114 &4099686563972156944
 MonoBehaviour:
   m_ObjectHideFlags: 0
