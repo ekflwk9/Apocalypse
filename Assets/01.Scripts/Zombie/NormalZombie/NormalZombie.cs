@@ -13,4 +13,5 @@ public class NormalZombie : Entity
 
         _stateMachine.SetState(EntityEnum.Idle);
     }
+
 }
