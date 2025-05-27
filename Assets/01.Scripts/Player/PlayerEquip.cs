@@ -40,12 +40,23 @@ public class PlayerEquip : MonoBehaviour
 
     // public void EquipNew(WeaponInfo weapon)
     // {
+    //      //curEqip = weapon;
     //      받아온 무기정보의 종류와 같은 무기 활성화
     // }
 
     //테스트 코드
     public void EquipNew(int index)
     {
+        if(index >= TestWeapons.Length) return;
+        if (SelectWeapon == TestWeapons[index])
+        {
+            Unequip();
+            return;
+        }
+        if (SelectWeapon != null)
+        {
+            Unequip();
+        }
         SelectWeapon = TestWeapons[index];
         _equipMelee = true;
         SelectWeapon.SetActive(true);
@@ -53,13 +64,13 @@ public class PlayerEquip : MonoBehaviour
     }
     //
     
-    public void Unequip()
+    private void Unequip()
     {
-        if (curEquip != null)
-        {
-            //파괴혹은 풀에 반환
-            curEquip = null;
-        }
+        curEquip = null;
+        SelectWeapon.SetActive(false);
+        SelectWeapon = null;
+        _equipMelee = false;
+        _equipRanged = false;
     }
 
     public void MoveWeaponToHand()
