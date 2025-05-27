@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ public interface IDamagable
 public class Player : MonoBehaviour, IDamagable
 {
     public static Player Instance { get; private set; }
-
+    public PlayerEquip Equip;
+    
     [Header("State")]
     public float maxHealth = 100f;
     public float maxStamina = 100f;
@@ -61,6 +63,11 @@ public class Player : MonoBehaviour, IDamagable
 
             _stamina = changedValue;
         }
+    }
+
+    private void Reset()
+    {
+        Equip = GetComponent<PlayerEquip>();
     }
 
     private void Awake()
