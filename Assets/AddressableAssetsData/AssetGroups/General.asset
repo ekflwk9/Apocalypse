@@ -21,7 +21,7 @@ MonoBehaviour:
     m_Address: Assets/03.Data/new ScenePackage.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Package
+    - Bundle
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6ec1cec87ffaca74b8b74d2047c4a7af, type: 2}
