@@ -44,16 +44,14 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    public ItemInfo PickUp(int itemId) // 플레이어가 아이템 주웠을때 호출되는 메서드
+    public void PickUp(int itemId) // 플레이어가 아이템 주웠을때 호출되는 메서드
     {
         ItemInfo item;
         if (itemDB.ContainsKey(itemId))
         {
             item = itemDB[itemId];
             inventory.GetItem(item);
-            return item;
         }
-        return null;
     }
     // public void UseItem(ItemInfo itemInfo)
     // {
