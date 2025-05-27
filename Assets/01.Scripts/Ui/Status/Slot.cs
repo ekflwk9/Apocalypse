@@ -2,16 +2,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot : UiButton
+public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] protected Image icon;
     public int itemId { get; private set; } = 0;
     public int count { get; private set; } = 0;
 
-    protected override void Reset()
+    protected void Reset()
     {
-        base.Reset();
-
         icon = Helper.FindChild(this.transform, nameof(icon)).GetComponent<Image>();
         if (icon != null) icon.color = Color.clear;
     }
@@ -42,7 +40,7 @@ public class Slot : UiButton
         if (count == 0) icon.color = Color.clear;
     }
 
-    public override void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)
     {
         //if (itemId != 0)
         //{
@@ -51,17 +49,15 @@ public class Slot : UiButton
         //}
 
         //test
-        touch.SetActive(true);
         UiManager.instance.status.itemInfo.SetActive(0, this.transform.position, true);
     }
 
-    public override void OnPointerExit(PointerEventData eventData)
+    public void OnPointerExit(PointerEventData eventData)
     {
-        base.OnPointerExit(eventData);
         UiManager.instance.status.itemInfo.gameObject.SetActive(false);
     }
 
-    public override void OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {

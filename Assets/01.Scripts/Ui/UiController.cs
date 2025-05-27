@@ -8,6 +8,8 @@ public class UiController : MonoBehaviour
 
         UiManager.instance.shader.SetActive(!isActive);
         UiManager.instance.status.inventory.SetActive(!isActive);
+
+        if (isActive) UiManager.instance.status.itemInfo.SetActive();
     }
 
     private void OnMenu()

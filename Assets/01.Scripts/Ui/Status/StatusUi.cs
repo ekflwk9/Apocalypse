@@ -9,10 +9,6 @@ public class StatusUi : MonoBehaviour
 
     public ItemInfoUi itemInfo { get => fieldItemInfo; }
     [SerializeField] private ItemInfoUi fieldItemInfo;
-
-    public GameObject playerInfo { get => fieldPlayerInfo; }
-    [SerializeField] private GameObject fieldPlayerInfo;
-
     public GameObject inventory { get => fieldInventory; }
     [SerializeField] private GameObject fieldInventory;
 
@@ -34,10 +30,7 @@ public class StatusUi : MonoBehaviour
         fieldItemInfo = this.GetComponentInChildren<ItemInfoUi>(true);
         if (fieldItemInfo == null) DebugHelper.Log($"{this.name}에 ItemInfoUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
 
-        fieldPlayerInfo = Helper.FindChild(this.transform, "PlayerUi").gameObject;
-        Find(fieldPlayerInfo.transform, out statusSlot);
-
-        fieldInventory = Helper.FindChild(this.transform, "Inventory").gameObject;
+        fieldInventory = Helper.FindChild(this.transform, "PlayerInventory").gameObject;
         Find(fieldInventory.transform, out statusSlot);
 
         fieldStorage = Helper.FindChild(this.transform, "Storage").gameObject;

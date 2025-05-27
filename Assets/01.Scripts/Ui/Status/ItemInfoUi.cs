@@ -45,4 +45,12 @@ public class ItemInfoUi : MonoBehaviour
         this.gameObject.SetActive(_isActive);
         this.transform.position = _pos;
     }
+
+    /// <summary>
+    /// 활성화 중일 경우 비활성화
+    /// </summary>
+    public void SetActive()
+    {
+        if(this.gameObject.activeSelf) this.gameObject.SetActive(false);
+    }
 }
