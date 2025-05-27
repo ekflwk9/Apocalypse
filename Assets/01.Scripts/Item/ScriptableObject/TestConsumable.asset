@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc46ff1936fc84152b635de42653cd48, type: 3}
   m_Name: TestConsumable
   m_EditorClassIdentifier: 
-  itemId: 0
-  displayName: 
-  disciption: 
-  itemType: 0
+  itemId: 201
+  itemName: "\uBD95\uB300"
+  disciption: "\uD53C\uCC38"
+  itemType: 4
   icon: {fileID: 0}
-  cost: 0
-  cell: 
-  canStack: 0
-  maxStack: 0
-  value: 0
-  coolDown: 0
+  cost: 100
+  canStack: 1
+  maxStack: 30
+  value: 20
+  defense: 0
+  coolDown: 3

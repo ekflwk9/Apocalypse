@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 195975c79d1434902a58194104bc8500, type: 3}
-  m_Name: TestWeapon
+  m_Name: Bat
   m_EditorClassIdentifier: 
-  itemId: 1
-  itemName: "\uAC01\uBAA9"
-  disciption: "\uC774\uB530\uC774\uB370\uC2A4\uB124"
-  itemType: 1
+  itemId: 0
+  itemName: 
+  disciption: 
+  itemType: 0
   icon: {fileID: 0}
+  renderer: {fileID: 0}
   cost: 0
   canStack: 0
   maxStack: 0
-  durability: 1000
-  power: 1000
-  AttackSpeed: 0.1
+  durability: 0
+  power: 0
+  AttackSpeed: 0
