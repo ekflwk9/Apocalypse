@@ -7,7 +7,6 @@ using UnityEngine.Serialization;
 public sealed class ContentManager : MonoBehaviour
 {
   public static ContentManager Instance { get; private set; }
-  public const string BundleLabel = "Bundle";
   
   /// <summary>
   ///   게임중 상시 메모리에 올라가있는 데이터
@@ -19,7 +18,7 @@ public sealed class ContentManager : MonoBehaviour
   public DataBundle sharedPackage;
   
   // 패키지의 라벨 참조입니다. 패키지를 전역적으로 불러올 때 사용합니다.
-  [SerializeField] private AssetLabelReference bundleLabel = new() {labelString = BundleLabel};
+  public AssetLabelReference bundleLabel = new() {labelString = DataBundle.DefaultLabel};
   
   #if UNITY_EDITOR
   // 패키지를 불러왔을 시 올려놓는 메모리입니다.
@@ -75,7 +74,7 @@ public sealed class ContentManager : MonoBehaviour
     AssetLabelReference label;
 
     if (Instance) label = Instance.bundleLabel;
-    else label = new AssetLabelReference{labelString = BundleLabel};
+    else label = new AssetLabelReference{labelString = DataBundle.DefaultLabel};
     return await LoadBundle(bundleName, label);
   }
   

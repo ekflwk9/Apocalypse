@@ -5,9 +5,9 @@ using UnityEngine.AddressableAssets;
 [CreateAssetMenu(fileName = "new DataBundle", menuName = "Apocalypse/Data Bundle")]
 public class DataBundle : ScriptableObject
 {
+  public const string DefaultLabel = "Bundle";
   public AssetReference[] assetReferences;
   public AssetLabelReference[] assetLabelReferences;
-  public GameObject[] prefab;
 
   /// <summary>
   /// DataSet의 Create를 단순히 사용하기 쉽게 가져왔습니다.
@@ -30,6 +30,70 @@ public class DataBundle : ScriptableObject
   public DataSet LoadSync(string releaseScene = "", bool force = false)
   {
     var task = Load(releaseScene, force);
+    task.Wait();
+    return task.Result;
+  }
+
+  /// <summary>
+  /// ContentManager.LoadBundle과 동일하게 작동하는 메소드입니다.
+  /// 전체 에셋을 불러오고 다시 비활성화하기 때문에 사용을 추천하지 않습니다.
+  /// </summary>
+  /// <param name="name">불러올 DataBundle의 파일명입니다.</param>
+  /// <param name="label">불러올 DataBundle의 어드레서블 라벨입니다.</param>
+  public static Task<DataBundle> Find(string name, AssetLabelReference label)
+    => ContentManager.LoadBundle(name, label);
+  
+  /// <summary>
+  /// ContentManager.LoadBundle과 동일하게 작동하는 메소드입니다.
+  /// 전체 에셋을 불러오고 다시 비활성화하기 때문에 사용을 추천하지 않습니다.
+  /// </summary>
+  /// <param name="name">불러올 DataBundle의 파일명입니다.</param>
+  /// <param name="label">불러올 DataBundle의 문자열 라벨입니다.</param>
+  public static Task<DataBundle> Find(string name, string label) => Find(name, new AssetLabelReference{labelString = label});
+
+  /// <summary>
+  /// ContentManager.LoadBundle과 동일하게 작동하는 메소드입니다.
+  /// 전체 에셋을 불러오고 다시 비활성화하기 때문에 사용을 추천하지 않습니다.
+  /// </summary>
+  /// <param name="name">불러올 DataBundle의 파일명입니다.</param>
+  public static Task<DataBundle> Find(string name)
+  {
+    AssetLabelReference label;
+
+    if (ContentManager.Instance) label = ContentManager.Instance.bundleLabel;
+    else label = new AssetLabelReference{labelString = DataBundle.DefaultLabel};
+    return ContentManager.LoadBundle(name, label);
+  }
+  
+  /// <summary>
+  /// ContentManager.LoadBundleSync와 동일하게 작동하는 메소드입니다.
+  /// 전체 에셋을 불러오고 다시 비활성화하기 때문에 사용을 추천하지 않습니다.
+  /// </summary>
+  /// <param name="name">불러올 DataBundle의 파일명입니다.</param>
+  /// <param name="label">불러올 DataBundle의 어드레서블 라벨입니다.</param>
+  public static DataBundle FindSync(string name, AssetLabelReference label)
+  {
+    var task = Find(name, label);
+    task.Wait();
+    return task.Result;
+  }
+  
+  /// <summary>
+  /// ContentManager.LoadBundleSync와 동일하게 작동하는 메소드입니다.
+  /// 전체 에셋을 불러오고 다시 비활성화하기 때문에 사용을 추천하지 않습니다.
+  /// </summary>
+  /// <param name="name">불러올 DataBundle의 파일명입니다.</param>
+  /// <param name="label">불러올 DataBundle의 문자열 라벨입니다.</param>
+  public static DataBundle FindSync(string name, string label) => FindSync(name, new AssetLabelReference{labelString = label});
+
+  /// <summary>
+  /// ContentManager.LoadBundleSync와 동일하게 작동하는 메소드입니다.
+  /// 전체 에셋을 불러오고 다시 비활성화하기 때문에 사용을 추천하지 않습니다.
+  /// </summary>
+  /// <param name="name">불러올 DataBundle의 파일명입니다.</param>
+  public static DataBundle FindSync(string name)
+  {
+    var task = Find(name);
     task.Wait();
     return task.Result;
   }
