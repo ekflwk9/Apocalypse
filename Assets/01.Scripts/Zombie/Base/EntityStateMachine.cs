@@ -12,11 +12,14 @@ public class StateStruct
     protected Dictionary<EntityEnum, EntityState> StateDictionary = new Dictionary<EntityEnum, EntityState>();
     public EntityState CurrentState { get; protected set; }
 
-    public virtual void Init()
+    EntityStateMachine stateMachine;
+
+    public virtual void Init(EntityStateMachine _StateMachine)
     {
+        stateMachine = _StateMachine;
         foreach (KeyValuePair<EntityEnum, EntityState> state in StateDictionary)
         {
-            state.Value.SetOwner(entity);
+            state.Value.SetOwner(entity, _StateMachine);
         }
     }
 
@@ -39,6 +42,8 @@ public class StateStruct
 public class EntityStateMachine
 {
     StateStruct allState;
+
+    public EntityEnum GetState() => allState.CurrentState._EntityEnum;
 
     public void SetState(EntityEnum _State)
     {
@@ -66,7 +71,7 @@ public class EntityStateMachine
     public virtual void Init(StateStruct _StateStruct, Entity _Owner)
     {
         _StateStruct.SetOwner(_Owner);
-        _StateStruct.Init();
+        _StateStruct.Init(this);
         allState = _StateStruct;
     }
 
