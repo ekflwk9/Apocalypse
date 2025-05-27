@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: TestWeapon
   m_EditorClassIdentifier: 
   itemId: 0
-  displayName: Test Weapon
+  itemName: "\uAC01\uBAA9"
   disciption: "\uC774\uB530\uC774\uB370\uC2A4\uB124"
   itemType: 1
   icon: {fileID: 0}
   cost: 0
-  cell: 00000000
   canStack: 0
   maxStack: 0
   durability: 1000

@@ -1,4 +1,5 @@
 using System;
+using GameItem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,7 +20,13 @@ public class PlayerInputs : MonoBehaviour
 	[Header("Mouse Cursor Settings")] public bool cursorLocked = true;
 	public bool cursorInputForLook = true;
 	
-	private Player _player;
+	[SerializeField] private Player _player;
+	[SerializeField] private PlayerThirdPersonController _controller;
+
+	private void Reset()
+	{
+		_controller = GetComponent<PlayerThirdPersonController>();
+	}
 
 	private void Start()
 	{
@@ -87,9 +94,28 @@ public class PlayerInputs : MonoBehaviour
 		if (value.isPressed && aim && !attack)
 		{
 			attack = true;
+			_controller.Attack();
 		}
 	}
-	
+
+	public void OnNumberInput(InputValue value)
+	{
+		if (value.isPressed)
+		{
+			float key = value.Get<float>();
+			int numberPressed = Mathf.RoundToInt(key);
+			//테스트코드
+			Player.Instance.Equip.EquipNew(numberPressed - 1);
+			//
+			//인벤토리 아이템 사용 호출
+		}
+	}
+
+	public void OnInteraction(InputValue value)
+	{
+		
+	}
+
 	//화면 집중(에디터에선 개임씬이 눌려있는지, 애플리케이션의 경우 해당 창이 눌려있는지)
 	private void OnApplicationFocus(bool hasFocus)
 	{

@@ -6,6 +6,7 @@ public class BaseStatus
 {
     public float RunSpeed { get; protected set; } = 5f;
     public float WalkSpeed { get; protected set; } = 2f;
+    public float Damage { get; protected set; } = 10f;
 
     public float CrowlSpeed { get; protected set; } = 0.5f;
 
