@@ -8,8 +8,8 @@ public class PlayerThirdPersonController : MonoBehaviour
 {
     // =================== 인스펙터에서 설정하는 값들 ===================
     [Header("Player")] //이동관련
-    public float MoveSpeed = 2.0f;
-    public float SprintSpeed = 5.335f;
+    public float MoveSpeed = 10f;
+    public float SprintSpeed = 30f;
     [Range(0.0f, 0.3f)]
     public float RotationSmoothTime = 0.12f;
     public float SpeedChangeRate = 10.0f;
@@ -82,6 +82,9 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void Reset()
     {
+        CinemachineCameraTarget = GameObject.Find("CameraRoot");
+        GroundLayers = LayerMask.GetMask("Default");
+        
         _playerInput = GetComponent<PlayerInput>();
         _controller = GetComponent<CharacterController>();
         _input = GetComponent<PlayerInputs>();
