@@ -6,7 +6,7 @@ using UnityEngine.AddressableAssets;
 
 public class ItemHandler : MonoBehaviour
 {
-    public int itemId;
+    [SerializeField] private ItemInfo itemInfo;
     private bool isPlayerInRange;
     private bool canPickUp;
     private Transform playerTransform;
@@ -15,7 +15,7 @@ public class ItemHandler : MonoBehaviour
     {
         if (playerTransform == null)
         {
-            //playerTransform = CharacterManager.Instance.Player.transform;
+            playerTransform = Player.Instance.transform;
         }
     }
 
@@ -29,7 +29,7 @@ public class ItemHandler : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
-            // playerTransform = CharacterManager.Instance.Player.transform;
+            playerTransform = Player.Instance.transform;
         }
         else if (other.CompareTag("PlayerInsight"))
         {
@@ -54,7 +54,7 @@ public class ItemHandler : MonoBehaviour
     {
         if (isPlayerInRange && canPickUp)
         {
-            ItemManager.Instance.PickUp(itemId);
+            ItemManager.Instance.PickUp(itemInfo.itemId);
             this.gameObject.SetActive(false);
         }
     }
@@ -62,9 +62,9 @@ public class ItemHandler : MonoBehaviour
     public void DropItem()
     {
         if (playerTransform == null)
-            // { playerTransform = CharacterManager.Instance.Player.transform; }
+        { playerTransform = Player.Instance.transform; }
 
-            this.transform.position = playerTransform.position;
+        this.transform.position = playerTransform.position;
         this.gameObject.SetActive(true);
     }
 }
