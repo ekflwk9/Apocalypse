@@ -11,19 +11,19 @@ public sealed class ContentManager : MonoBehaviour
   /// <summary>
   ///   게임중 상시 메모리에 올라가있는 데이터
   /// </summary>
-  [SerializeField] private DataSet sharedData;
-  public DataSet SharedData => sharedData;
+  [FormerlySerializedAs("sharedData")] [SerializeField] private AssetData sharedAssetData;
+  public AssetData SharedAssetData => sharedAssetData;
   
   // 프로젝트에서 영구적으로 메모리상에 올려둘 에셋 목록
-  public DataBundle sharedPackage;
+  public AssetBundle sharedPackage;
   
   // 패키지의 라벨 참조입니다. 패키지를 전역적으로 불러올 때 사용합니다.
-  public AssetLabelReference bundleLabel = new() {labelString = DataBundle.DefaultLabel};
+  public AssetLabelReference bundleLabel = new() {labelString = AssetBundle.DefaultLabel};
   
   #if UNITY_EDITOR
   // 패키지를 불러왔을 시 올려놓는 메모리입니다.
   // 인스펙터용 변수이므로 실제 구현은 static SceneData.ActiveData를 참조해주세요
-  public SerializableDictionary<string, DataSet> activeData = new ();
+  public SerializableDictionary<string, AssetData> activeData = new ();
   #endif
 
   /// <summary>
@@ -33,7 +33,7 @@ public sealed class ContentManager : MonoBehaviour
   {
     if (sharedPackage)
     {
-      sharedData = sharedPackage.LoadSync();
+      sharedAssetData = sharedPackage.LoadSync();
     }
   }
 
@@ -43,9 +43,9 @@ public sealed class ContentManager : MonoBehaviour
   /// </summary>
   /// <param name="bundleName">불러올 DataBundle의 파일명입니다.</param>
   /// <param name="label">불러올 DataBundle의 어드레서블 라벨입니다.</param>
-  public static async Task<DataBundle> LoadBundle(string bundleName, AssetLabelReference label)
+  public static async Task<AssetBundle> LoadBundle(string bundleName, AssetLabelReference label)
   {
-    var result = (await Addressables.LoadAssetsAsync<DataBundle>(label, null).Task).ToArray();
+    var result = (await Addressables.LoadAssetsAsync<AssetBundle>(label, null).Task).ToArray();
     
     if (result.Length == 0)
     {
@@ -62,19 +62,19 @@ public sealed class ContentManager : MonoBehaviour
   /// <param name="bundleName">불러올 DataBundle의 파일명입니다.</param>
   /// <param name="label">불러올 DataBundle의 어드레서블 문자열 라벨입니다.</param>
   /// <returns></returns>
-  public static async Task<DataBundle> LoadBundle(string bundleName, string label) => await LoadBundle(bundleName, new AssetLabelReference{labelString = label});
+  public static async Task<AssetBundle> LoadBundle(string bundleName, string label) => await LoadBundle(bundleName, new AssetLabelReference{labelString = label});
   
   /// <summary>
   /// 전체 에셋을 불러오고 다시 비활성화하기 때문에 사용을 추천하지 않습니다.
   /// </summary>
   /// <param name="bundleName">불러올 DataBundle의 파일명입니다.</param>
   /// <returns></returns>
-  public static async Task<DataBundle> LoadBundle(string bundleName)
+  public static async Task<AssetBundle> LoadBundle(string bundleName)
   {
     AssetLabelReference label;
 
     if (Instance) label = Instance.bundleLabel;
-    else label = new AssetLabelReference{labelString = DataBundle.DefaultLabel};
+    else label = new AssetLabelReference{labelString = AssetBundle.DefaultLabel};
     return await LoadBundle(bundleName, label);
   }
   
@@ -85,7 +85,7 @@ public sealed class ContentManager : MonoBehaviour
   /// <param name="bundleName">불러올 DataBundle의 파일명입니다.</param>
   /// <param name="label">불러올 DataBundle의 어드레서블 라벨입니다.</param>
   /// <returns></returns>
-  public static DataBundle LoadBundleSync(string bundleName, AssetLabelReference label)
+  public static AssetBundle LoadBundleSync(string bundleName, AssetLabelReference label)
   {
     var task = LoadBundle(bundleName, label);
     task.Wait();
@@ -98,7 +98,7 @@ public sealed class ContentManager : MonoBehaviour
   /// </summary>
   /// <param name="bundleName">불러올 ScenePackage의 파일명입니다.</param>
   /// <returns></returns>
-  public static DataBundle LoadBundleSync(string bundleName)
+  public static AssetBundle LoadBundleSync(string bundleName)
   {
     var task = LoadBundle(bundleName);
     task.Wait();
@@ -112,7 +112,7 @@ public sealed class ContentManager : MonoBehaviour
   /// <param name="bundleName"></param>
   /// <param name="label"></param>
   /// <returns></returns>
-  public static DataBundle LoadBundleSync(string bundleName, string label) => LoadBundleSync(bundleName, new AssetLabelReference{labelString = label});
+  public static AssetBundle LoadBundleSync(string bundleName, string label) => LoadBundleSync(bundleName, new AssetLabelReference{labelString = label});
   #endregion PackageLoader
 
   #region Unity Events

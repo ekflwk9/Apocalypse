@@ -1,17 +1,27 @@
-using System.Threading.Tasks;
+using System.Collections;
+using GameItem;
 
 public class ExampleScene : SceneBundle
 {
-  protected override async Task PreLoad(SerializableDictionary<string, DataSet> bundles)
+  protected override IEnumerator PreLoad(SerializableDictionary<string, AssetData> loadedAssets)
   {
+    var items = loadedAssets["items"];
+    var sprite = items.Sprites[""];
+
+    if (CurrentBundle is ExampleScene scene)
+    {
+      
+    }
+    
+    yield return null;
   }
 
   protected override void Ready()
   {
   }
 
-  protected override async Task UnLoad()
+  protected override void UnLoad()
   {
-    await base.UnLoad();
+    base.UnLoad();
   }
 }
