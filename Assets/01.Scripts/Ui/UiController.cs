@@ -8,14 +8,16 @@ public class UiController : MonoBehaviour
     public void OnInventory()
     {
         var isActive = UiManager.instance.status.inventory.activeSelf;
+        var status = UiManager.instance.status;
 
         UiManager.instance.shader.SetActive(!isActive);
-        UiManager.instance.status.inventory.SetActive(!isActive);
+        status.inventory.SetActive(!isActive);
 
         if (isActive)
         {
+            status.drag.OnEndDrag();
+            status.itemInfo.SetOff();
             UiManager.instance.touch.SetTouch(false);
-            UiManager.instance.status.itemInfo.SetOff();
         }
     }
 

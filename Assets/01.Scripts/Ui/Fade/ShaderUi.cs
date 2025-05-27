@@ -14,7 +14,6 @@ public class ShaderUi : MonoBehaviour
 
     public void SetActive(bool _isActive)
     {
-        this.gameObject.SetActive(_isActive);
         anim.Play(_isActive ? "Show" : "Idle", 0, 0);
     }
 }

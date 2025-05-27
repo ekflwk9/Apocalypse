@@ -1,13 +1,14 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragUi : MonoBehaviour, IDragHandler, IEndDragHandler
+public class DragUi : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler
 {
-    [SerializeField] private RectTransform pos;
+    //public RectTransform
+    [SerializeField] private RectTransform fieldPos;
     [SerializeField] private Image icon;
-    public int itemId { get; private set; }
+    public bool isClick { get; private set; }
+    public int selectItemId { get; private set; }
     public ISlot slot { get; private set; }
 
     private void Reset()
@@ -15,7 +16,7 @@ public class DragUi : MonoBehaviour, IDragHandler, IEndDragHandler
         if (this.TryGetComponent<Image>(out var target)) icon = target;
         else DebugHelper.ShowBugWindow($"{this.name}에 Image컴포넌트가 존재하지 않음");
 
-        if (this.TryGetComponent<RectTransform>(out var rect)) pos = rect;
+        if (this.TryGetComponent<RectTransform>(out var rect)) fieldPos = rect;
         else DebugHelper.ShowBugWindow($"{this.name}에 RectTransform컴포넌트가 존재하지 않음");
     }
 
@@ -23,36 +24,71 @@ public class DragUi : MonoBehaviour, IDragHandler, IEndDragHandler
     /// 드레그 위치 설정
     /// </summary>
     /// <param name="_slot"></param>
-    public void SetPos(RectTransform _pos)
+    public void SetSlot(RectTransform _pos, ISlot _slot)
     {
+        //슬롯에 터치시 해당 슬롯으로 이동 = 드래그를 위함
+        slot = _slot;
+        fieldPos.sizeDelta = _pos.rect.size;
         this.transform.position = _pos.transform.position;
-        pos.sizeDelta = _pos.rect.size;
     }
 
-    /// <summary>
-    /// 드래그 창 아이템 정보 설정
-    /// </summary>
-    /// <param name="_image"></param>
-    public void ClickItem(int _id, ISlot _slot)
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        itemId = _id;
-        slot = _slot;
+        //터치한 슬롯에 아이템이 존재할 경우에만
+        var slotItemId = slot.itemId;
 
-        icon.sprite = ItemManager.Instance.itemDB[_id].icon;
+        if (!isClick && slotItemId != 0)
+        {
+            UiManager.instance.touch.SetTouch(fieldPos, true);
+            UiManager.instance.status.itemInfo.SetActive(fieldPos.position, slotItemId);
+        }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        //드래그 시작됨
+        isClick = true;
+        selectItemId = slot.itemId;
+        UiManager.instance.status.itemInfo.SetOff();
+
+        icon.sprite = ItemManager.Instance.itemDB[selectItemId].icon;
         icon.color = Color.white;
-
-        if (itemId == 0) DebugHelper.Log("itemId가 0일 수는 없음");
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        //마우스 위치를 추적
         this.transform.position = eventData.position;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        itemId = 0;
+        //드래그 끝남
+        isClick = false;
         icon.color = Color.clear;
-        this.transform.position = Vector3.up * 1000;
+        this.transform.position = Vector3.up * 5000;
+    }
+
+    /// <summary>
+    /// 드래그 창 원위치
+    /// </summary>
+    public void OnEndDrag()
+    {
+        //드래그 끝남
+        isClick = false;
+        this.transform.position = Vector3.up * 5000;
+    }
+
+    public void EndChangeSlot()
+    {
+        //선택된 아이템 존재 하지 않음으로 변경
+        selectItemId = 0;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        //마우스가 완전히 밖에 나갔다는건 범위를 벗어났다는 의미로 간주
+        UiManager.instance.status.itemInfo.SetOff();
+        UiManager.instance.touch.SetTouch(false);
     }
 }

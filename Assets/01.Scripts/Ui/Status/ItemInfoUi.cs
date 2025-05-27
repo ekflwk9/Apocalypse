@@ -1,7 +1,5 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine;
 
 public class ItemInfoUi : MonoBehaviour
 {
@@ -23,7 +21,7 @@ public class ItemInfoUi : MonoBehaviour
 
         if (_component != null)
         {
-            if(!_component.TryGetComponent<TMP_Text>(out findText))
+            if (!_component.TryGetComponent<TMP_Text>(out findText))
             {
                 DebugHelper.ShowBugWindow($"{_component.name}에 TMP_Text가 존재하지 않음");
             }
@@ -38,11 +36,11 @@ public class ItemInfoUi : MonoBehaviour
     /// <param name="_itemId"></param>
     /// <param name="_eventData"></param>
     /// <param name="_isActive"></param>
-    public void SetActive(int _itemId, Vector3 _pos)
+    public void SetActive(Vector3 _pos, int _itemId)
     {
         var item = ItemManager.Instance.itemDB[_itemId];
-        //itemName.text= item.;
-        info.text= item.disciption;
+        itemName.text = item.displayName;
+        info.text = item.disciption;
 
         this.gameObject.SetActive(true);
         this.transform.position = _pos;
@@ -53,6 +51,6 @@ public class ItemInfoUi : MonoBehaviour
     /// </summary>
     public void SetOff()
     {
-        if(this.gameObject.activeSelf) this.gameObject.SetActive(false);
+        if (this.gameObject.activeSelf) this.gameObject.SetActive(false);
     }
 }

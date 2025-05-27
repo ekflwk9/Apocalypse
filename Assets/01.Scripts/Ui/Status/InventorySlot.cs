@@ -2,13 +2,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, ISlot
+public class InventorySlot : MonoBehaviour, IPointerEnterHandler, ISlot
 {
     public RectTransform slotPos { get => pos; }
     [SerializeField] private RectTransform pos;
     [SerializeField] private Image icon;
 
-    public int itemId { get; private set; } = 0;
+    public int itemId { get; set; }
     public int count { get; private set; } = 0;
 
     protected void Reset()
@@ -24,7 +24,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     /// 해당 슬롯에 아이템 설정
     /// </summary>
     /// <param name="_itemId"></param>
-    public void SetItem(int _itemId)
+    public bool SetItem(int _itemId)
     {
         itemId = _itemId;
 
@@ -39,8 +39,10 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         else
         {
             count = 0;
-            if (count == 0) icon.color = Color.clear;
+            icon.color = Color.clear;
         }
+
+        return true;
     }
 
     /// <summary>
@@ -55,37 +57,37 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UiManager.instance.status.drag.SetPos(pos);
+        var status = UiManager.instance.status;
+        var drag = status.drag;
+        var dragItemId = drag.selectItemId;
 
-        if (itemId != 0)
+        //드래그 중이 아닐 경우에만
+        if (!drag.isClick)
         {
-            UiManager.instance.status.itemInfo.SetActive(itemId, this.transform.position);
-        }
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        UiManager.instance.touch.SetTouch(false);
-        UiManager.instance.status.itemInfo.SetOff();
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            if (itemId != 0)
+            //마우스만 움직이고 있을 경우
+            if (dragItemId == 0)
             {
-                UiManager.instance.touch.SetTouch(false);
-
-                var status = UiManager.instance.status;
-                status.drag.ClickItem(itemId, this);
-                status.itemInfo.SetOff();
+                //아이템이 존재할 경우에만
+                if (itemId != 0)
+                {
+                    drag.SetSlot(pos, this);
+                }
             }
-        }
 
-        else if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            //아이템 장착..
+            //드래그 중 끝났을 경우
+            else
+            {
+                //아이템이 존재할 경우 맞교환
+                var item = itemId != 0 ? itemId : 0;
+
+                if (drag.slot.SetItem(item))
+                {
+                    SetItem(dragItemId);
+                    drag.EndChangeSlot();
+
+                    drag.SetSlot(pos, this);
+                }
+            }
         }
     }
 }
