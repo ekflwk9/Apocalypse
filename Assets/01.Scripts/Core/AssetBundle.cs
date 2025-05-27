@@ -106,6 +106,6 @@ public class AssetBundle : ScriptableObject
     Addressables.Release(this);
   }
   
-  public static explicit operator AssetData(AssetBundle bundle) => bundle.LoadSync();
-  public static explicit operator AssetBundle(string name) => FindSync(name);
+  public static implicit operator AssetData(AssetBundle bundle) => bundle.LoadSync();
+  public static implicit operator AssetBundle(string name) => FindSync(name);
 }

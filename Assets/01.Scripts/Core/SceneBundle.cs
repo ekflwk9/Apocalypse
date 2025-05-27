@@ -7,11 +7,20 @@ public abstract class SceneBundle : MonoBehaviour
 {
   public static SceneBundle CurrentBundle { get; protected set; } = null;
 
+  [SerializeField] protected bool isUnloaded = false;
+  private bool loadByLoader = false;
+
   /// <summary>
   /// SceneBundle 로딩전 데이터 번들을 로딩하고 Preload가 호출되기 전 데이터를 할당합니다.
   /// </summary>
   public SerializableDictionary<string, AssetData> bundles = null;
+  
+  /// <summary>
+  /// 인스펙터에 설정해놨을 시 미리 로딩하는 에셋 번들입니다.
+  /// </summary>
+  [SerializeField] private AssetBundle[] preloadBundles;
 
+  #region Static Feature
   /// <summary>
   /// 비동기로 씬 데이터를 로딩합니다.
   /// </summary>
@@ -22,6 +31,7 @@ public abstract class SceneBundle : MonoBehaviour
     if(CurrentBundle)
     {
       CurrentBundle.UnLoad();
+      CurrentBundle.isUnloaded = true;
       if(CurrentBundle) Destroy(CurrentBundle.gameObject);
     }
     
@@ -34,6 +44,7 @@ public abstract class SceneBundle : MonoBehaviour
 
     var bundleObject = new GameObject($"[{typeof(T).Name}_Bundle]");
     var bundle = bundleObject.AddComponent<T>();
+    bundle.loadByLoader = true;
     bundle.bundles = dataBundles;
 
     var loader = bundle.PreLoad(dataBundles);
@@ -57,7 +68,7 @@ public abstract class SceneBundle : MonoBehaviour
   }
 
   /// <summary>
-  /// 
+  /// 현재 활성화된 씬을 가져옵니다.
   /// </summary>
   /// <param name="sceneBundle"></param>
   /// <typeparam name="T"></typeparam>
@@ -78,7 +89,10 @@ public abstract class SceneBundle : MonoBehaviour
     if (TryGetCurrentScene<T>(out var scene)) return scene;
     else throw new Exception($"{typeof(T).Name}는 현재 활성화된 씬이 아닙니다.");
   }
+  
+  #endregion Static Feature
 
+  #region Interface
   /// <summary>
   /// 씬 번들을 불러오기 전 DataBundle 등 에셋들을 비동기로 불러오는 용도
   /// </summary>
@@ -102,4 +116,31 @@ public abstract class SceneBundle : MonoBehaviour
       bundle.Release();
     }
   }
+  
+  #endregion Interface
+  
+  #region Unity Event
+  private void Awake()
+  {
+    foreach (var bundle in preloadBundles)
+    {
+      bundles[bundle.name] = bundle.LoadSync();
+    }
+
+    if (!loadByLoader)
+    {
+      var loader = PreLoad(bundles);
+
+      for (var i = 0; i < 100; i++)
+        if (!loader.MoveNext()) break;
+    
+      Ready();
+    }
+  }
+
+  private void OnDestroy()
+  {
+    if (!isUnloaded) UnLoad();
+  }
+  #endregion Unity Event
 }
