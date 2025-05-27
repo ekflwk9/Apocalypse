@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public abstract class UiButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    [SerializeField] protected Image icon;
     [SerializeField] protected GameObject touch;
     [SerializeField] protected TMP_Text info;
 
@@ -19,25 +18,23 @@ public abstract class UiButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
             return;
         }
 
-        else if (touch == null || icon == null)
-        {
-            touch = Helper.FindChild(this.transform, nameof(touch)).gameObject;
-            icon = Helper.FindChild(this.transform, nameof(icon)).GetComponent<Image>();
-            info = Helper.FindChild(this.transform, nameof(info)).GetComponent<TMP_Text>();
+        touch = Helper.FindChild(this.transform, nameof(touch)).gameObject;
 
-            info.text = "";
-            if (touch.activeSelf) touch.SetActive(false);
-        }
+        info = GetComponentInChildren<TMP_Text>();
+        if (info == null) DebugHelper.ShowBugWindow($"{this.name} 자식 오브젝트에 TMP_text가 존재하지 않음");
+
+        info.text = "";
+        if (touch.activeSelf) touch.SetActive(false);
     }
 
     public abstract void OnPointerClick(PointerEventData eventData);
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
         touch.gameObject.SetActive(true);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public virtual void OnPointerExit(PointerEventData eventData)
     {
         if (touch.activeSelf) touch.gameObject.SetActive(false);
     }

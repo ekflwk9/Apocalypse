@@ -4,12 +4,18 @@ public class UiController : MonoBehaviour
 {
     private void OnInventory()
     {
-        UiManager.instance.status.SetWindow(UiCode.Inventory);
+        var isActive = UiManager.instance.status.inventory.activeSelf;
+
+        UiManager.instance.shader.SetActive(!isActive);
+        UiManager.instance.status.inventory.SetActive(!isActive);
     }
 
     private void OnMenu()
     {
+        //var isActive = UiManager.instance.menu.activeSelf;
 
+        //UiManager.instance.shader.SetActive(!isActive);
+        //UiManager.instance.menu
     }
 
     //테스트용
