@@ -5,7 +5,7 @@ using UnityEngine.AddressableAssets;
 
 public class ItemManager : MonoBehaviour
 {
-    [SerializeField] private DataBundle dataBundle;
+    [SerializeField] private AssetBundle dataBundle;
     public Inventory inventory;
     public ItemEquipment itemEquipment;
     
