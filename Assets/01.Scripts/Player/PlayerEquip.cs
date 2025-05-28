@@ -58,17 +58,22 @@ public class PlayerEquip : MonoBehaviour
     public void EquipNew(int index)
     {
         if(index >= Weapons.Length) return;
-        if(SelectWeapon != null && SelectWeapon.transform.parent != equipPivot) return;
+        if(SelectWeapon != null)
+        {
+            if (SelectWeapon.transform.parent != equipPivot)
+            {
+                return;
+            }
+            
+            if (SelectWeapon == Weapons[index])
+            {
+                Unequip();
+                return;
+            }
+            
+            Unequip();
+        }
         
-        if (SelectWeapon == Weapons[index])
-        {
-            Unequip();
-            return;
-        }
-        if (SelectWeapon != null)
-        {
-            Unequip();
-        }
         SelectWeapon = Weapons[index];
         _equipMelee = true;
         SelectWeapon.SetActive(true);
