@@ -131,7 +131,14 @@ public class PlayerThirdPersonController : MonoBehaviour
         
         JumpAndGravity();
         GroundedCheck();
-        Move();
+        if (LockCameraPosition)
+        {
+            LockMove();
+        }
+        else
+        {
+            NormalMove();
+        }
         Aim();
         DamageCheck();
     }
@@ -200,7 +207,58 @@ public class PlayerThirdPersonController : MonoBehaviour
     }
 
     //이동.
-    private void Move()
+    private void NormalMove()
+    {
+        //========== 기본적으로 인풋 지정값을 받아와서 이동 ==========
+        var targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+    
+        if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+    
+        var currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
+    
+        var speedOffset = 0.1f;
+        var inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
+    
+        if (currentHorizontalSpeed < targetSpeed - speedOffset ||
+            currentHorizontalSpeed > targetSpeed + speedOffset)
+        {
+            _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
+                Time.deltaTime * SpeedChangeRate);
+    
+            _speed = Mathf.Round(_speed * 1000f) / 1000f;
+        }
+        else
+        {
+            _speed = targetSpeed;
+        }
+    
+        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+        if (_animationBlend < 0.01f) _animationBlend = 0f;
+    
+        var inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+    
+        //========== 카메라 방향을 따라 서서히 플레이어 방향이 바뀌는 부분 ==========
+        _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
+                          _mainCamera.transform.eulerAngles.y;
+        var rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
+            RotationSmoothTime);
+    
+        transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+    
+        var targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+    
+        //계산 마친 값 적용해 이동.
+        _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
+                         new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+    
+        if (_hasAnimator)
+        {
+            _animator.SetFloat(_animIDSpeed, _animationBlend);
+            _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+        }
+    }
+
+    private void LockMove()
     {
         //========== 기본적으로 인풋 지정값을 받아와서 이동 ==========
         var targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
@@ -230,18 +288,12 @@ public class PlayerThirdPersonController : MonoBehaviour
         if (_animationBlend < 0.01f)
             _animationBlend = 0f;
 
-        var inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+        _targetRotation = Mathf.Lerp(_targetRotation, _mainCamera.transform.eulerAngles.y, 10f);
 
-        //========== 회전 처리 ==========
-        if (LockCameraPosition)
-        {
-            _targetRotation = Mathf.Lerp(_targetRotation, _mainCamera.transform.eulerAngles.y, 10f);
+        var rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
+            RotationSmoothTime);
 
-            var rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-                RotationSmoothTime);
-
-            transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-        }
+        transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
 
         //========== 이동 방향 계산 ==========
         var targetDirection = Quaternion.Euler(0.0f, _mainCamera.transform.eulerAngles.y, 0.0f) *
@@ -256,6 +308,9 @@ public class PlayerThirdPersonController : MonoBehaviour
             _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
         }
     }
+
+
+
 
     //점프.
     private void JumpAndGravity()
