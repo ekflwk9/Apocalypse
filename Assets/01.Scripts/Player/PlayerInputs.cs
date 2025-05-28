@@ -95,9 +95,17 @@ public class PlayerInputs : MonoBehaviour
 
 	public void OnAttack(InputValue value)
 	{
-		if (value.isPressed && aim && !attack)
+		if (aim)
 		{
-			attack = true;
+			attack = value.isPressed;
+		}
+		else
+		{
+			attack = false;
+		}
+
+		if (attack)
+		{
 			_controller.Attack();
 		}
 	}

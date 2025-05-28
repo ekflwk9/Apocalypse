@@ -6,13 +6,13 @@ public class PlayerEquip : MonoBehaviour
 {
     public GameObject[] weapons;
     public GameObject curWeapon;
+    public PlayerWeapon curWeaponData;
+    
     public WeaponInfo curEquip;
     public PlayerWeaponType curWeaponType = PlayerWeaponType.None;
     
     [SerializeField] private Transform equipPivot;
-    [SerializeField] private Transform meleeWeaponPivot;
-    [SerializeField] private Transform rangedWeaponPivot;
-    private Transform handPosition;
+    [SerializeField] private Transform weaponPivot;
     
     public BoxCollider meleeCollider;
     
@@ -51,19 +51,18 @@ public class PlayerEquip : MonoBehaviour
 
     public void EquipNew(WeaponInfo data)
     {
-        PlayerWeapon _weaponsData;
         WeaponInfo _weaponInfo;
         PlayerWeaponType _weaponType;
         
         foreach (var weapon in weapons)
         {
-            if (!weapon.TryGetComponent(out _weaponsData))
+            if (!weapon.TryGetComponent(out curWeaponData))
             {
                 Debug.Log("무기 정보 없음");
             }
             else
             {
-                (_weaponInfo, _weaponType) = _weaponsData.GetWeaponData();
+                (_weaponInfo, _weaponType) = curWeaponData.GetWeaponData();
                 if (_weaponInfo == null || _weaponInfo.itemId != data.itemId) continue;
                 
                 if(curWeapon != null)
@@ -133,16 +132,11 @@ public class PlayerEquip : MonoBehaviour
     {
         _isWeaponOnHand = !_isWeaponOnHand; 
         
-        if (_equipMelee)
-        {
-            handPosition = meleeWeaponPivot;
-        }
-        else if (_equipRanged)
-        {
-            handPosition = rangedWeaponPivot;
-        }
-        
-        curWeapon.transform.SetParent(_isWeaponOnHand ? handPosition : equipPivot, false);
+        curWeapon.transform.SetParent(_isWeaponOnHand ? weaponPivot : equipPivot, false);
+
+        (Vector3 position, Vector3 rotation) = curWeaponData.GetEquipPosition(_isWeaponOnHand);
+        curWeapon.transform.localPosition = position;
+        curWeapon.transform.localRotation = Quaternion.Euler(rotation);
     }
     
     public void ToggleMeleeCollider()
