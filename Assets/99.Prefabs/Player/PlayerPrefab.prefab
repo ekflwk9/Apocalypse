@@ -2385,17 +2385,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57dac48520d96142a109ab7e50fa637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Weapons: []
   curEquip: {fileID: 0}
   equipPivot: {fileID: 7840712507701071376}
   weaponPivot: {fileID: 8811188247511782452}
   meleeCollider: {fileID: 5562438991182858732}
+  _input: {fileID: 5157845957053353862}
   _animator: {fileID: 1049493359991375101}
   _toggleMelee: 0
-  TestWeapons:
-  - {fileID: 6766861055067233236}
-  - {fileID: 2693600626760186112}
-  - {fileID: 956662572333830327}
-  - {fileID: 4504860879313045964}
   SelectWeapon: {fileID: 0}
 --- !u!65 &5562438991182858732
 BoxCollider:

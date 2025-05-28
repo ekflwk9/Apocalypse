@@ -11,6 +11,7 @@ public class PlayerEquip : MonoBehaviour
     [SerializeField] private Transform weaponPivot;
     public BoxCollider meleeCollider;
     
+    [SerializeField] private PlayerInputs _input;
     [SerializeField] private Animator _animator;
     private int _animIDEquipMelee;
     private int _animIDEquipRanged;
@@ -22,7 +23,13 @@ public class PlayerEquip : MonoBehaviour
     //테스트 코드
     public GameObject SelectWeapon;
     //
-    
+
+    private void Reset()
+    {
+        _animator = GetComponent<Animator>();
+        _input = GetComponent<PlayerInputs>();
+    }
+
     private void Start()
     {
         AssignAnimationIDs();
@@ -51,6 +58,8 @@ public class PlayerEquip : MonoBehaviour
     public void EquipNew(int index)
     {
         if(index >= Weapons.Length) return;
+        if(SelectWeapon != null && SelectWeapon.transform.parent != equipPivot) return;
+        
         if (SelectWeapon == Weapons[index])
         {
             Unequip();
