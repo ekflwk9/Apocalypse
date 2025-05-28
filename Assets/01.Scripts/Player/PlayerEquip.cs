@@ -8,7 +8,10 @@ public class PlayerEquip : MonoBehaviour
     public GameObject[] Weapons;
     public WeaponInfo curEquip;
     [SerializeField] private Transform equipPivot;
-    [SerializeField] private Transform weaponPivot;
+    [SerializeField] private Transform meleeWeaponPivot;
+    [SerializeField] private Transform rangedWeaponPivot;
+    private Transform handPosition;
+    
     public BoxCollider meleeCollider;
     
     [SerializeField] private PlayerInputs _input;
@@ -88,14 +91,14 @@ public class PlayerEquip : MonoBehaviour
                 if (0 < curEquip.itemId && curEquip.itemId <= 50)
                 {
                     _equipMelee = true;
-                    _animator.SetBool(_animIDEquipMelee, true);
                 }
                 else if (50 < curEquip.itemId && curEquip.itemId < 100)
                 {
                     _equipRanged = true;
-                    _animator.SetBool(_animIDEquipRanged, true);
                 }
                 //
+                _animator.SetBool(_animIDEquipMelee, _equipMelee);
+                _animator.SetBool(_animIDEquipRanged, _equipRanged);
             }
         }
     }
@@ -111,8 +114,18 @@ public class PlayerEquip : MonoBehaviour
 
     public void ToggleWeaponLocation()
     {
-        _isWeaponOnHand = !_isWeaponOnHand;
-        SelectWeapon.transform.SetParent(_isWeaponOnHand ? weaponPivot : equipPivot, false);
+        _isWeaponOnHand = !_isWeaponOnHand; 
+        
+        if (_equipMelee)
+        {
+            handPosition = meleeWeaponPivot;
+        }
+        else if (_equipRanged)
+        {
+            handPosition = rangedWeaponPivot;
+        }
+        
+        SelectWeapon.transform.SetParent(_isWeaponOnHand ? handPosition : equipPivot, false);
     }
     
     public void ToggleMeleeCollider()
