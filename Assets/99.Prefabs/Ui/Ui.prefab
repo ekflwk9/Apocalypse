@@ -13680,8 +13680,8 @@ MonoBehaviour:
   - {fileID: 4549918519652005711}
   - {fileID: 8850931124031225802}
   - {fileID: 1161359911432669612}
-  - {fileID: 7876230679922435678}
-  - {fileID: 4213175496231392640}
+  - {fileID: 0}
+  - {fileID: 0}
   shopSlot:
   - {fileID: 8478127139632955209}
   - {fileID: 8772202171907919678}
@@ -34124,7 +34124,6 @@ GameObject:
   - component: {fileID: 2775293207908933214}
   - component: {fileID: 3347444337408186911}
   - component: {fileID: 1455777108803476711}
-  - component: {fileID: 7876230679922435678}
   m_Layer: 0
   m_Name: WeaponSlot (0)
   m_TagString: Untagged
@@ -34191,22 +34190,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7876230679922435678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7387197118826373186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df7cac191bfbb9941bb559213d56589c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  icon: {fileID: 1455777108803476711}
-  pos: {fileID: 2775293207908933214}
-  countText: {fileID: 2275063016390491865}
 --- !u!1 &7411907066735957338
 GameObject:
   m_ObjectHideFlags: 0
@@ -41199,7 +41182,6 @@ GameObject:
   - component: {fileID: 6425276927911653286}
   - component: {fileID: 3019819000188457644}
   - component: {fileID: 595751972383921458}
-  - component: {fileID: 4213175496231392640}
   m_Layer: 0
   m_Name: WeaponSlot (1)
   m_TagString: Untagged
@@ -41266,22 +41248,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4213175496231392640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9003359079146063558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df7cac191bfbb9941bb559213d56589c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  icon: {fileID: 595751972383921458}
-  pos: {fileID: 6425276927911653286}
-  countText: {fileID: 6401405818766967174}
 --- !u!1 &9015459392127686663
 GameObject:
   m_ObjectHideFlags: 0
