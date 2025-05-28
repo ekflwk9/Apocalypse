@@ -48,38 +48,57 @@ public class PlayerEquip : MonoBehaviour
         _animIDEquipRanged = Animator.StringToHash("EquipRanged");
     }
 
-    // public void EquipNew(WeaponInfo weapon)
-    // {
-    //      //curEqip = weapon;
-    //      받아온 무기정보의 종류와 같은 무기 활성화
-    // }
-
-    //테스트 코드
-    public void EquipNew(int index)
+    public void EquipNew(WeaponInfo data)
     {
-        if(index >= Weapons.Length) return;
-        if(SelectWeapon != null)
+        foreach (var weapon in Weapons)
         {
-            if (SelectWeapon.transform.parent != equipPivot)
+            PlayerWeapon weaponsData;
+            WeaponInfo weaponInfo;
+            bool hasWeaponData = weapon.TryGetComponent<PlayerWeapon>(out weaponsData);
+            if (!hasWeaponData)
             {
-                return;
+                Debug.Log("무기 정보 없음");
             }
-            
-            if (SelectWeapon == Weapons[index])
+            else
             {
-                Unequip();
-                return;
-            }
+                weaponInfo = weaponsData.GetWeaponData();
+                if (weaponInfo == null || weaponInfo.itemId != data.itemId) continue;
+                
+                if(SelectWeapon != null)
+                {
+                    if (SelectWeapon.transform.parent != equipPivot)
+                    {
+                        return;
+                    }
             
-            Unequip();
+                    if (SelectWeapon == weapon)
+                    {
+                        Unequip();
+                        return;
+                    }
+            
+                    Unequip();
+                }
+                
+                curEquip = data;
+                SelectWeapon = weapon;
+                SelectWeapon.SetActive(true);
+                
+                //아래 각 조건은 근접, 원거리 무기를 구분하도록 변경해야함.
+                if (0 < curEquip.itemId && curEquip.itemId <= 50)
+                {
+                    _equipMelee = true;
+                    _animator.SetBool(_animIDEquipMelee, true);
+                }
+                else if (50 < curEquip.itemId && curEquip.itemId < 100)
+                {
+                    _equipRanged = true;
+                    _animator.SetBool(_animIDEquipRanged, true);
+                }
+                //
+            }
         }
-        
-        SelectWeapon = Weapons[index];
-        _equipMelee = true;
-        SelectWeapon.SetActive(true);
-        _animator.SetBool(_animIDEquipMelee, true);
     }
-    //
     
     private void Unequip()
     {

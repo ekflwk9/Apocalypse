@@ -22,6 +22,10 @@ public class PlayerInputs : MonoBehaviour
 	
 	[SerializeField] private Player _player;
 	[SerializeField] private PlayerThirdPersonController _controller;
+	
+	//테스트 코드
+	public WeaponInfo TestInventorySelectedWeaponInfo;
+	//
 
 	private void Reset()
 	{
@@ -106,7 +110,8 @@ public class PlayerInputs : MonoBehaviour
 			int numberPressed = Mathf.RoundToInt(key);
 			
 			//테스트코드
-			Player.Instance.Equip.EquipNew(numberPressed - 1);
+			if ( numberPressed == 1 ) 
+				Player.Instance.Equip.EquipNew(TestInventorySelectedWeaponInfo);
 			//
 			
 			//인벤토리 아이템 사용 호출
