@@ -62,9 +62,6 @@ public class PlayerEquip : MonoBehaviour
 
     public void EquipNew(WeaponInfo data)
     {
-        WeaponInfo _weaponInfo;
-        PlayerWeaponType _weaponType;
-        
         if (!weapons.TryGetValue(data, out GameObject weapon))
         {
             Debug.Log("해당 무기를 찾을 수 없습니다.");

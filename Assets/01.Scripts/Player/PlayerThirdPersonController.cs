@@ -124,8 +124,11 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void Update()
     {
-        _hasAnimator = TryGetComponent(out _animator);
-
+        if (Player.Instance.Equip.curWeapon != null)
+        {
+            LockCameraPosition = _input.aim;
+        }
+        
         JumpAndGravity();
         GroundedCheck();
         Move();
@@ -180,13 +183,14 @@ public class PlayerThirdPersonController : MonoBehaviour
     //카메라 회전. 밑과 위를 제한하는 값으로 최대치 제한
     private void CameraRotation()
     {
+        var deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+        
         if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
         {
-            var deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
-
-            _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
             _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
-        }
+        } 
+        _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
+        
 
         _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
         _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
@@ -201,7 +205,8 @@ public class PlayerThirdPersonController : MonoBehaviour
         //========== 기본적으로 인풋 지정값을 받아와서 이동 ==========
         var targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
-        if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+        if (_input.move == Vector2.zero)
+            targetSpeed = 0.0f;
 
         var currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
@@ -222,21 +227,26 @@ public class PlayerThirdPersonController : MonoBehaviour
         }
 
         _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-        if (_animationBlend < 0.01f) _animationBlend = 0f;
+        if (_animationBlend < 0.01f)
+            _animationBlend = 0f;
 
         var inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
 
-        //========== 카메라 방향을 따라 서서히 플레이어 방향이 바뀌는 부분 ==========
-        _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                          _mainCamera.transform.eulerAngles.y;
-        var rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-            RotationSmoothTime);
+        //========== 회전 처리 ==========
+        if (LockCameraPosition)
+        {
+            _targetRotation = Mathf.Lerp(_targetRotation, _mainCamera.transform.eulerAngles.y, 10f);
 
-        transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+            var rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
+                RotationSmoothTime);
 
-        var targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+            transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+        }
 
-        //계산 마친 값 적용해 이동.
+        //========== 이동 방향 계산 ==========
+        var targetDirection = Quaternion.Euler(0.0f, _mainCamera.transform.eulerAngles.y, 0.0f) *
+                              new Vector3(_input.move.x, 0f, _input.move.y);
+
         _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                          new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
@@ -312,11 +322,12 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void Aim()
     {
-        if (Player.Instance.Equip.curWeapon != null) return;
+        if (Player.Instance.Equip.curWeapon == null) return;
 
         Vector3 targetOffset = _input.aim ? AimCamPosition : TPSCamPosition;
-        if (_zoomCoroutine == null)
+        if (_zoomCoroutine == null || !_input.aim)
         {
+            if(_zoomCoroutine != null) StopCoroutine(_zoomCoroutine);
             _zoomCoroutine = StartCoroutine(ZoomIn(targetOffset));
         }
         
@@ -326,11 +337,21 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private IEnumerator ZoomIn(Vector3 targetOffset)
     {
-        Follow.ShoulderOffset = Vector3.Lerp(Follow.ShoulderOffset, targetOffset, Time.deltaTime * 6f);
-        if (Vector3.Distance(targetOffset, Follow.ShoulderOffset) < 0.01f)
+        yield return null;
+        
+        Vector3 startOffset = Follow.ShoulderOffset;
+        float elapsedTime = 0f;
+        float duration = 0.3f;
+
+        while (elapsedTime < duration)
         {
-            Follow.ShoulderOffset = targetOffset;
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            Follow.ShoulderOffset = Vector3.Lerp(startOffset, targetOffset, t);
+            yield return null;
         }
+
+        Follow.ShoulderOffset = targetOffset;
         
         yield return new WaitForSeconds(2f);
         
