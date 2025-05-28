@@ -3,29 +3,19 @@ using UnityEngine;
 
 public class InteractionCollider : MonoBehaviour
 {
-    [SerializeField] private List<ItemHandler> items;
+    private Collider[] colliders;
     private ItemHandler _closestItem;
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        Debug.Log("OnTriggerEnter");
-        if (other.CompareTag("Weapon"))
-        {
-            items.Add(other.GetComponent<ItemHandler>());
-            Debug.Log("Item 찾음");
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.TryGetComponent(out ItemHandler item)) items.Remove(item);
+        colliders = Physics.OverlapBox(transform.position, transform.localScale);
     }
 
     public void InvokePickUp()
     {
         var playerPosition = Player.Instance.transform.position;
         float distance = -1;
-        foreach (var item in items)
+        foreach (var item in colliders)
         {
             if (distance == -1)
             {
