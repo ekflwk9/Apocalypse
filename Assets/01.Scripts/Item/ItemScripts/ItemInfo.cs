@@ -11,7 +11,6 @@ namespace GameItem
         public string disciption;
         public ItemType itemType;
         public Sprite icon;
-        public SpriteRenderer renderer;
         public int cost;
 
         [Header("Data")]

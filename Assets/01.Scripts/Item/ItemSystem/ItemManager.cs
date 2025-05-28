@@ -50,6 +50,7 @@ public class ItemManager : MonoBehaviour
         if (itemDB.ContainsKey(itemId))
         {
             item = itemDB[itemId];
+
             inventory.GetItem(item);
         }
     }

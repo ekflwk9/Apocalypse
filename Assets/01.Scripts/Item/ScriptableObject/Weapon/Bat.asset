@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195975c79d1434902a58194104bc8500, type: 3}
   m_Name: Bat
   m_EditorClassIdentifier: 
-  itemId: 0
-  itemName: 
-  disciption: 
-  itemType: 0
+  itemId: 1
+  itemName: "\uC57C\uAD6C\uBE60\uB530"
+  disciption: "\uC624\uD0C0\uB2C8 \uC1FC\uD5E4\uC774"
+  itemType: 1
   icon: {fileID: 0}
-  renderer: {fileID: 0}
-  cost: 0
+  cost: 100
   canStack: 0
   maxStack: 0
-  durability: 0
-  power: 0
-  AttackSpeed: 0
+  durability: 50
+  power: 20
+  AttackSpeed: 1.5

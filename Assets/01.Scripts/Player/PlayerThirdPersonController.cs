@@ -317,7 +317,7 @@ public class PlayerThirdPersonController : MonoBehaviour
 
         if (_hasAnimator)
         {
-            if(Player.Instance.Equip.TestWeapon != null)
+            if(Player.Instance.Equip.SelectWeapon != null)
                 _animator.SetBool(_animIDEquipWeapon, _input.aim);
             _animator.SetBool(_animIDAim, _input.aim);
         }
