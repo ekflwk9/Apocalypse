@@ -20,7 +20,7 @@ public class InteractionCollider : MonoBehaviour
             if (distance == -1)
             {
                 distance = Vector3.Distance(playerPosition, item.transform.position);
-                _closestItem = item;
+                //_closestItem = item;
                 continue;
             }
 
@@ -28,7 +28,7 @@ public class InteractionCollider : MonoBehaviour
             if (distance > curDistance)
             {
                 distance = curDistance;
-                _closestItem = item;
+                //_closestItem = item;
             }
         }
 
