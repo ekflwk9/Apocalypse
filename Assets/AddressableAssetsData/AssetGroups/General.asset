@@ -23,6 +23,30 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 13c4ca806c357496b8e9fef46ec35200
+    m_Address: Assets/03.Data/ScriptableObject/Stuff/Jack_Daniel's.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fedbc8861c5a645e695083d2356123bd
+    m_Address: Assets/03.Data/ScriptableObject/Stuff/Absolut Vodka.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: df9692cbb982a4b76b355d6c428704e5
+    m_Address: Assets/03.Data/ScriptableObject/Stuff/Jagermeister.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29b6e256cfd364d2bab2f40064a62f5b
+    m_Address: Assets/03.Data/ScriptableObject/Weapon/Bat.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6ec1cec87ffaca74b8b74d2047c4a7af, type: 2}
   m_SchemaSet:

@@ -20,6 +20,7 @@ MonoBehaviour:
   cost: 100
   canStack: 0
   maxStack: 0
+  weight: 10
   durability: 50
   power: 20
   AttackSpeed: 1.5
