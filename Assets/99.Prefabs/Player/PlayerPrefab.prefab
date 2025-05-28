@@ -2082,6 +2082,7 @@ MonoBehaviour:
   cursorInputForLook: 1
   _player: {fileID: 0}
   _controller: {fileID: 4099686563972156944}
+  _interactionCollider: {fileID: 5638533060092471128}
   TestInventorySelectedWeaponInfos:
   - {fileID: 11400000, guid: 2baafeec75f954fd68251fd0cea2d518, type: 2}
   - {fileID: 11400000, guid: 52b949d315fc40843ae676a083821090, type: 2}
@@ -2120,6 +2121,7 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
+  WaistTransform: {fileID: 0}
   _playerInput: {fileID: 4034660285284717347}
   _animator: {fileID: 1049493359991375101}
   _controller: {fileID: 4638764181693632954}
@@ -2138,8 +2140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57dac48520d96142a109ab7e50fa637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapons: []
+  weapons: []
+  curWeapon: {fileID: 0}
   curEquip: {fileID: 0}
+  curWeaponType: 0
   equipPivot: {fileID: 7840712507701071376}
   meleeWeaponPivot: {fileID: 8811188247511782452}
   rangedWeaponPivot: {fileID: 7278542819496188005}
@@ -2147,7 +2151,6 @@ MonoBehaviour:
   _input: {fileID: 5157845957053353862}
   _animator: {fileID: 1049493359991375101}
   _toggleMelee: 0
-  SelectWeapon: {fileID: 0}
 --- !u!65 &5562438991182858732
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2622,6 +2625,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2813081882202579984}
   - component: {fileID: 2602792940872881485}
+  - component: {fileID: 5638533060092471128}
   m_Layer: 0
   m_Name: InteractionCollider
   m_TagString: Untagged
@@ -2665,6 +2669,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5638533060092471128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6194481433833733771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b110282686320341a0cbe6f4a125513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
 --- !u!1 &6291204997299824940
 GameObject:
   m_ObjectHideFlags: 0

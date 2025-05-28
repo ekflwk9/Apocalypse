@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using GameItem;
 using UnityEngine;
 
 public enum PlayerWeaponType
@@ -10,6 +7,7 @@ public enum PlayerWeaponType
     Ranged,
     RangedAuto
 }
+
 public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private WeaponInfo _weponData;
