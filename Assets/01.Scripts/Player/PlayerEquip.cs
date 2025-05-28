@@ -4,30 +4,42 @@ using UnityEngine;
 
 public class PlayerEquip : MonoBehaviour
 {
+    public GameObject[] weapons;
+    public GameObject curWeapon;
     public WeaponInfo curEquip;
+    public PlayerWeaponType curWeaponType = PlayerWeaponType.None;
+    
     [SerializeField] private Transform equipPivot;
-    [SerializeField] private Transform weaponPivot;
+    [SerializeField] private Transform meleeWeaponPivot;
+    [SerializeField] private Transform rangedWeaponPivot;
+    private Transform handPosition;
+    
     public BoxCollider meleeCollider;
     
+    [SerializeField] private PlayerInputs _input;
     [SerializeField] private Animator _animator;
     private int _animIDEquipMelee;
     private int _animIDEquipRanged;
     private bool _equipMelee;
     private bool _equipRanged;
+    private bool _isWeaponOnHand = false;
     [SerializeField] private bool _toggleMelee = false;
-    
-    //테스트 코드
-    public GameObject[] TestWeapons;
-    public GameObject SelectWeapon;
-    //
-    
+
+    private void Reset()
+    {
+        _animator = GetComponent<Animator>();
+        _input = GetComponent<PlayerInputs>();
+    }
+
     private void Start()
     {
         AssignAnimationIDs();
         meleeCollider.enabled = false;
-        foreach (var weapon in TestWeapons)
+        weapons = new GameObject[equipPivot.childCount];
+        for (int i = 0; i < equipPivot.childCount; i++)
         {
-            weapon.SetActive(false);
+            weapons[i] = equipPivot.GetChild(i).gameObject;
+            weapons[i].SetActive(false);
         }
     }
 
@@ -37,59 +49,108 @@ public class PlayerEquip : MonoBehaviour
         _animIDEquipRanged = Animator.StringToHash("EquipRanged");
     }
 
-    // public void EquipNew(WeaponInfo weapon)
-    // {
-    //      //curEqip = weapon;
-    //      받아온 무기정보의 종류와 같은 무기 활성화
-    // }
-
-    //테스트 코드
-    public void EquipNew(int index)
+    public void EquipNew(WeaponInfo data)
     {
-        if(index >= TestWeapons.Length) return;
-        if (SelectWeapon == TestWeapons[index])
+        PlayerWeapon _weaponsData;
+        WeaponInfo _weaponInfo;
+        PlayerWeaponType _weaponType;
+        
+        foreach (var weapon in weapons)
         {
-            Unequip();
-            return;
+            if (!weapon.TryGetComponent(out _weaponsData))
+            {
+                Debug.Log("무기 정보 없음");
+            }
+            else
+            {
+                (_weaponInfo, _weaponType) = _weaponsData.GetWeaponData();
+                if (_weaponInfo == null || _weaponInfo.itemId != data.itemId) continue;
+                
+                if(curWeapon != null)
+                {
+                    if (curWeapon.transform.parent != equipPivot)
+                    {
+                        return;
+                    }
+            
+                    if (curWeapon == weapon)
+                    {
+                        Unequip();
+                        return;
+                    }
+            
+                    Unequip();
+                }
+                
+                switch (_weaponType)
+                {
+                    case PlayerWeaponType.Melee:
+                        _equipMelee = true;
+                        break;
+                    case PlayerWeaponType.Ranged:
+                    case PlayerWeaponType.RangedAuto:
+                        _equipRanged = true;
+                        break;
+                    default:
+                        break;
+                }
+                
+                                
+                curEquip = data;
+                curWeapon = weapon;
+                curWeapon.SetActive(true);
+                curWeaponType = _weaponType;
+
+                UpdateAnimationBools();
+            }
         }
-        if (SelectWeapon != null)
-        {
-            Unequip();
-        }
-        SelectWeapon = TestWeapons[index];
-        _equipMelee = true;
-        SelectWeapon.SetActive(true);
-        _animator.SetBool(_animIDEquipMelee, true);
     }
-    //
     
     private void Unequip()
     {
         curEquip = null;
-        SelectWeapon.SetActive(false);
-        SelectWeapon = null;
+        
+        if (curWeapon != null)
+        {
+            curWeapon.SetActive(false);
+            curWeapon = null;
+        }
+        
+        curWeaponType = PlayerWeaponType.None;
         _equipMelee = false;
         _equipRanged = false;
+
+        UpdateAnimationBools();
     }
 
-    public void MoveWeaponToHand()
+    private void UpdateAnimationBools()
     {
-        //curEquip.GameObject().transform.SetParent(weaponPivot, false);
-        SelectWeapon.transform.SetParent(weaponPivot, false);
+        _animator.SetBool(_animIDEquipMelee, _equipMelee);
+        _animator.SetBool(_animIDEquipRanged, _equipRanged);
     }
 
-    public void MoveWeaponToBack()
+    public void ToggleWeaponLocation()
     {
-        //curEquip.GameObject().transform.SetParent(equipPivot, false);
-        SelectWeapon.transform.SetParent(equipPivot, false);
+        _isWeaponOnHand = !_isWeaponOnHand; 
+        
+        if (_equipMelee)
+        {
+            handPosition = meleeWeaponPivot;
+        }
+        else if (_equipRanged)
+        {
+            handPosition = rangedWeaponPivot;
+        }
+        
+        curWeapon.transform.SetParent(_isWeaponOnHand ? handPosition : equipPivot, false);
     }
     
     public void ToggleMeleeCollider()
     {
         if (_equipMelee)
         {
-            meleeCollider.enabled = !_toggleMelee;
             _toggleMelee = !_toggleMelee;
+            meleeCollider.enabled = _toggleMelee;
         }
     }
     
@@ -104,6 +165,7 @@ public class PlayerEquip : MonoBehaviour
         }
         else
         {
+            Debug.Log($"{other.gameObject.name} 맞았다.");
             damagable.TakeDamage(curEquip != null ? curEquip.power : 10f);
         }
     }

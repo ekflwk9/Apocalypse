@@ -21,6 +21,11 @@ public class PlayerInputs : MonoBehaviour
 	
 	[SerializeField] private Player _player;
 	[SerializeField] private PlayerThirdPersonController _controller;
+	[SerializeField] private InteractionCollider _interactionCollider;
+	
+	//테스트 코드
+	public WeaponInfo[] TestInventorySelectedWeaponInfos;
+	//
 
 	private void Reset()
 	{
@@ -103,16 +108,23 @@ public class PlayerInputs : MonoBehaviour
 		{
 			float key = value.Get<float>();
 			int numberPressed = Mathf.RoundToInt(key);
+			numberPressed--;
+			
 			//테스트코드
-			Player.Instance.Equip.EquipNew(numberPressed - 1);
+			if(numberPressed < TestInventorySelectedWeaponInfos.Length)
+				Player.Instance.Equip.EquipNew(TestInventorySelectedWeaponInfos[numberPressed]);
 			//
+			
 			//인벤토리 아이템 사용 호출
 		}
 	}
 
 	public void OnInteraction(InputValue value)
 	{
-		
+		if (value.isPressed)
+		{
+			_interactionCollider.InvokePickUp();
+		}
 	}
 
 	//화면 집중(에디터에선 개임씬이 눌려있는지, 애플리케이션의 경우 해당 창이 눌려있는지)
