@@ -3,7 +3,7 @@ using UnityEngine;
 public class UiController : MonoBehaviour
 {
     /// <summary>
-    /// ÀÎº¥Åä¸®¸¦ È°¼ºÈ­ÇÏ´Â ¸Ş¼­µå
+    /// ì¸ë²¤í† ë¦¬ë¥¼ í™œì„±í™”í•˜ëŠ” ë©”ì„œë“œ
     /// </summary>
     public void OnInventory()
     {
@@ -12,6 +12,7 @@ public class UiController : MonoBehaviour
 
         UiManager.instance.shader.SetActive(!isActive);
         status.inventory.SetActive(!isActive);
+        status.equipped.SetActive(!isActive);
 
         if (isActive)
         {
@@ -22,7 +23,7 @@ public class UiController : MonoBehaviour
     }
 
     /// <summary>
-    /// ¼³Á¤ Ã¢À» È°¼ºÈ­ ÇÏ´Â ¸Ş¼­µå
+    /// ì„¤ì • ì°½ì„ í™œì„±í™” í•˜ëŠ” ë©”ì„œë“œ
     /// </summary>
     public void OnMenu()
     {
@@ -32,7 +33,7 @@ public class UiController : MonoBehaviour
         //UiManager.instance.menu
     }
 
-    //Å×½ºÆ®¿ë
+    //í…ŒìŠ¤íŠ¸ìš©
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I)) OnInventory();

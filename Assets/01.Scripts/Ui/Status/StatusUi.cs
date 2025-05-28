@@ -94,7 +94,7 @@ public class StatusUi : MonoBehaviour
                 }
 
                 //중복된 아이템이 있을 경우 / 최대 갯수를 넘지 않았을 경우
-                else if (inventorySlot[i].itemId == _itemId && inventorySlot[i].count <= item.maxStack)
+                else if (inventorySlot[i].itemId == _itemId && inventorySlot[i].count < item.maxStack)
                 {
                     inventorySlot[i].SetSlot(inventorySlot[i].count + 1);
                     return true;

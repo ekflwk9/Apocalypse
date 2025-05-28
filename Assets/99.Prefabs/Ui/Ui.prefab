@@ -8382,8 +8382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7cac191bfbb9941bb559213d56589c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  icon: {fileID: 7492159822746338192}
+  type: 3
+  icon: {fileID: 1360089269418660469}
   pos: {fileID: 3811863714296189492}
   countText: {fileID: 4583753871571797755}
 --- !u!1 &1810393721744166683
@@ -26102,7 +26102,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 180}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8040407612240094117
 CanvasRenderer:
@@ -26125,7 +26125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -27482,8 +27482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7cac191bfbb9941bb559213d56589c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  icon: {fileID: 2459222345392556301}
+  type: 1
+  icon: {fileID: 6926901973429536660}
   pos: {fileID: 4040371701227179485}
   countText: {fileID: 18277211667953711}
 --- !u!1 &5790142377724978665
@@ -34124,6 +34124,7 @@ GameObject:
   - component: {fileID: 2775293207908933214}
   - component: {fileID: 3347444337408186911}
   - component: {fileID: 1455777108803476711}
+  - component: {fileID: 5320350374719103885}
   m_Layer: 0
   m_Name: WeaponSlot (0)
   m_TagString: Untagged
@@ -34190,6 +34191,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5320350374719103885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7387197118826373186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e972b70d5c2cc4cb10091c5f669167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 1176295419216152527}
+  pos: {fileID: 2775293207908933214}
+  countText: {fileID: 2275063016390491865}
 --- !u!1 &7411907066735957338
 GameObject:
   m_ObjectHideFlags: 0
@@ -36576,14 +36592,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 11987c1b239938a4b97cbd86ad3448de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -39398,8 +39414,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7cac191bfbb9941bb559213d56589c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  icon: {fileID: 6704916836797333122}
+  type: 2
+  icon: {fileID: 5865264344491717188}
   pos: {fileID: 8963533950750739505}
   countText: {fileID: 2343790382410727383}
 --- !u!1 &8610625829065387940
@@ -41182,6 +41198,7 @@ GameObject:
   - component: {fileID: 6425276927911653286}
   - component: {fileID: 3019819000188457644}
   - component: {fileID: 595751972383921458}
+  - component: {fileID: 5996865226501823867}
   m_Layer: 0
   m_Name: WeaponSlot (1)
   m_TagString: Untagged
@@ -41248,6 +41265,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5996865226501823867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003359079146063558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e972b70d5c2cc4cb10091c5f669167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 5570316760074496104}
+  pos: {fileID: 6425276927911653286}
+  countText: {fileID: 6401405818766967174}
 --- !u!1 &9015459392127686663
 GameObject:
   m_ObjectHideFlags: 0

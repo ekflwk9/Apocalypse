@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragUi : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler
+public class DragUi : MonoBehaviour, 
+IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IPointerClickHandler
 {
     public RectTransform pos { get => fieldPos; }
     [SerializeField] private RectTransform fieldPos;
@@ -21,6 +22,14 @@ public class DragUi : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerEnte
         else DebugHelper.ShowBugWindow($"{this.name}에 RectTransform컴포넌트가 존재하지 않음");
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Right)
+        {
+
+        }
+    }
+
     /// <summary>
     /// 드레그 위치 설정
     /// </summary>
@@ -29,7 +38,7 @@ public class DragUi : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerEnte
     {
         //슬롯에 터치시 해당 슬롯으로 이동 = 드래그를 위함
         slot = _slot;
-        fieldPos.sizeDelta = _pos.rect.size;
+        fieldPos = _pos;
         this.transform.position = _pos.transform.position;
     }
 
