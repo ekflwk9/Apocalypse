@@ -49,7 +49,11 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     public bool LockCameraPosition;
 
+    [Header("Aim")]
+    public Transform WaistTransform;
+
     //컴포넌트들
+    [Header("Componetns")]
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private Animator _animator;
     [SerializeField] private CharacterController _controller;
@@ -130,6 +134,15 @@ public class PlayerThirdPersonController : MonoBehaviour
     private void LateUpdate()
     {
         CameraRotation();
+        
+        if (_input.aim && Player.Instance.Equip.curWeaponType == PlayerWeaponType.Ranged)
+        {
+            WaistTransform.rotation = Quaternion.Lerp(
+                WaistTransform.rotation,
+                Quaternion.Euler(0f, CinemachineCameraTarget.transform.rotation.eulerAngles.y, 0f), 
+                Time.deltaTime * 10f
+            );
+        }
     }
 
     //씬에서 플레이어 선택시 기즈모 그리기
@@ -277,7 +290,7 @@ public class PlayerThirdPersonController : MonoBehaviour
             }
             else
             {
-                if (_hasAnimator) _animator.SetBool(_animIDFreeFall, true);
+                _animator.SetBool(_animIDFreeFall, true);
             }
 
             _input.jump = false;
@@ -299,10 +312,8 @@ public class PlayerThirdPersonController : MonoBehaviour
     {
         if (Player.Instance._damaged)
         {
-            if (_hasAnimator)
-            {
                 _animator.SetTrigger(_animIDDamage);
-            }
+                Player.Instance._damaged = false;
         }
     }
 
@@ -315,23 +326,37 @@ public class PlayerThirdPersonController : MonoBehaviour
             Follow.ShoulderOffset = targetOffset;
         }
 
-        if (_hasAnimator)
+        if (Player.Instance.Equip.curWeapon != null)
         {
-            if(Player.Instance.Equip.SelectWeapon != null)
-                _animator.SetBool(_animIDEquipWeapon, _input.aim);
-            _animator.SetBool(_animIDAim, _input.aim);
+            _animator.SetBool(_animIDEquipWeapon, _input.aim);
         }
+        
+        _animator.SetBool(_animIDAim, _input.aim);
     }
 
     public void Attack()
     {
-        // if (Player.Instance.Equip.curEquip == null)
-        // {
-        //     _input.attack = false;
-        //     return;
-        // }
+        if(Player.Instance.Equip.curEquip == null) return;
+
+        switch (Player.Instance.Equip.curWeaponType)
+        {
+            case PlayerWeaponType.None:
+                return;
+            case PlayerWeaponType.Melee:
+                _animator.SetTrigger(_animIDAttack);
+                _input.attack = false;
+                break;
+            case PlayerWeaponType.Ranged:
+                RangedAttack();
+                break;
+            case PlayerWeaponType.RangedAuto:
+                RangedAttack(true);
+                break;
+        }
+    }
+
+    private void RangedAttack(bool isAuto = false)
+    {
         
-        _animator.SetTrigger(_animIDAttack);
-        _input.attack = false;
     }
 }

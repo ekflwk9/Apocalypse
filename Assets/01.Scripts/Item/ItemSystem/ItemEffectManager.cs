@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using GameItem;
 using UnityEngine;
 
 public class ItemEffectManager : MonoBehaviour

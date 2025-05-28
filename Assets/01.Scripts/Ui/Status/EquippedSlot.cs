@@ -1,11 +1,10 @@
-using GameItem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class EquippedSlot : MonoBehaviour, IPointerEnterHandler, ISlot
 {
-    [Header("ÀåÂø °¡´ÉÇÑ ¾ÆÀÌÅÛ Å¸ÀÔ")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½")]
     [SerializeField] private ArmorType type;
     public int itemId { get; set; }
 
@@ -16,10 +15,10 @@ public class EquippedSlot : MonoBehaviour, IPointerEnterHandler, ISlot
     private void Reset()
     {
         if (this.TryGetComponent<Image>(out var isIcon)) icon = isIcon;
-        else DebugHelper.Log($"{this.name}¿¡ Image°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        else DebugHelper.Log($"{this.name}ï¿½ï¿½ Imageï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
         if (this.TryGetComponent<RectTransform>(out var isPos)) pos = isPos;
-        else DebugHelper.Log($"{this.name}¿¡ RectTransform°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        else DebugHelper.Log($"{this.name}ï¿½ï¿½ RectTransformï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
     }
 
     public bool SetItem(int _itemId)
@@ -33,23 +32,23 @@ public class EquippedSlot : MonoBehaviour, IPointerEnterHandler, ISlot
         var drag = status.drag;
         var dragItemId = drag.selectItemId;
 
-        //µå·¡±× ÁßÀÌ ¾Æ´Ò °æ¿ì¿¡¸¸
+        //ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½
         if (!drag.isClick)
         {
-            //¸¶¿ì½º¸¸ ¿òÁ÷ÀÌ°í ÀÖÀ» °æ¿ì
+            //ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             if (dragItemId == 0)
             {
-                //¾ÆÀÌÅÛÀÌ Á¸ÀçÇÒ °æ¿ì¿¡¸¸
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½
                 if (itemId != 0)
                 {
                     drag.SetSlot(pos, this);
                 }
             }
 
-            //µå·¡±× Áß ³¡³µÀ» °æ¿ì
+            //ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             else
             {
-                //¾ÆÀÌÅÛÀÌ Á¸ÀçÇÒ °æ¿ì ¸Â±³È¯
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Â±ï¿½È¯
                 var item = itemId != 0 ? itemId : 0;
 
                 if (drag.slot.SetItem(item))
