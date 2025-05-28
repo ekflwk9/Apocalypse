@@ -4,7 +4,7 @@ using UnityEngine.AddressableAssets;
 
 public class ItemManager : MonoBehaviour
 {
-    //[SerializeField] private DataBundle dataBundle;
+    [SerializeField] private AssetBundle dataBundle;
     public Inventory _inventory;
     public Inventory Inventory => _inventory ??= Player.Instance.GetComponent<Inventory>();
     public ItemEquipment itemEquipment;
