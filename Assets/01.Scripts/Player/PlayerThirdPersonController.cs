@@ -49,7 +49,11 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     public bool LockCameraPosition;
 
+    [Header("Aim")]
+    public Transform WaistTransform;
+
     //컴포넌트들
+    [Header("Componetns")]
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private Animator _animator;
     [SerializeField] private CharacterController _controller;
@@ -130,6 +134,15 @@ public class PlayerThirdPersonController : MonoBehaviour
     private void LateUpdate()
     {
         CameraRotation();
+        
+        if (_input.aim && Player.Instance.Equip.curWeaponType == PlayerWeaponType.Ranged)
+        {
+            WaistTransform.rotation = Quaternion.Lerp(
+                WaistTransform.rotation,
+                Quaternion.Euler(0f, CinemachineCameraTarget.transform.rotation.eulerAngles.y, 0f), 
+                Time.deltaTime * 10f
+            );
+        }
     }
 
     //씬에서 플레이어 선택시 기즈모 그리기
@@ -314,7 +327,10 @@ public class PlayerThirdPersonController : MonoBehaviour
         }
 
         if (Player.Instance.Equip.curWeapon != null)
+        {
             _animator.SetBool(_animIDEquipWeapon, _input.aim);
+        }
+        
         _animator.SetBool(_animIDAim, _input.aim);
     }
 

@@ -92,6 +92,8 @@ public class PlayerEquip : MonoBehaviour
                     case PlayerWeaponType.RangedAuto:
                         _equipRanged = true;
                         break;
+                    default:
+                        break;
                 }
                 
                                 
@@ -99,9 +101,8 @@ public class PlayerEquip : MonoBehaviour
                 curWeapon = weapon;
                 curWeapon.SetActive(true);
                 curWeaponType = _weaponType;
-                
-                _animator.SetBool(_animIDEquipMelee, _equipMelee);
-                _animator.SetBool(_animIDEquipRanged, _equipRanged);
+
+                UpdateAnimationBools();
             }
         }
     }
@@ -109,11 +110,24 @@ public class PlayerEquip : MonoBehaviour
     private void Unequip()
     {
         curEquip = null;
-        curWeapon.SetActive(false);
-        curWeapon = null;
+        
+        if (curWeapon != null)
+        {
+            curWeapon.SetActive(false);
+            curWeapon = null;
+        }
+        
         curWeaponType = PlayerWeaponType.None;
         _equipMelee = false;
         _equipRanged = false;
+
+        UpdateAnimationBools();
+    }
+
+    private void UpdateAnimationBools()
+    {
+        _animator.SetBool(_animIDEquipMelee, _equipMelee);
+        _animator.SetBool(_animIDEquipRanged, _equipRanged);
     }
 
     public void ToggleWeaponLocation()

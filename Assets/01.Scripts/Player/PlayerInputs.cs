@@ -22,6 +22,7 @@ public class PlayerInputs : MonoBehaviour
 	
 	[SerializeField] private Player _player;
 	[SerializeField] private PlayerThirdPersonController _controller;
+	[SerializeField] private InteractionCollider _interactionCollider;
 	
 	//테스트 코드
 	public WeaponInfo[] TestInventorySelectedWeaponInfos;
@@ -121,7 +122,10 @@ public class PlayerInputs : MonoBehaviour
 
 	public void OnInteraction(InputValue value)
 	{
-		
+		if (value.isPressed)
+		{
+			_interactionCollider.InvokePickUp();
+		}
 	}
 
 	//화면 집중(에디터에선 개임씬이 눌려있는지, 애플리케이션의 경우 해당 창이 눌려있는지)
