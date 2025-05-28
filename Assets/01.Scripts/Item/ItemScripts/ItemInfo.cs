@@ -14,5 +14,6 @@ public class ItemInfo : ScriptableObject
     [Header("Data")]
     public bool canStack;
     public int maxStack;
+    public int weight;
 }
 
