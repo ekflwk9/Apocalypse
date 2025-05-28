@@ -1,20 +1,18 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-namespace GameItem
+public class ItemInfo : ScriptableObject
 {
-    public class ItemInfo : ScriptableObject
-    {
-        [Header("Info")]
-        public int itemId;
-        public string itemName;
-        public string disciption;
-        public ItemType itemType;
-        public Sprite icon;
-        public int cost;
+    [Header("Info")]
+    public int itemId;
+    public string itemName;
+    public string disciption;
+    public ItemType itemType;
+    public Sprite icon;
+    public int cost;
 
-        [Header("Data")]
-        public bool canStack;
-        public int maxStack;
-    }
+    [Header("Data")]
+    public bool canStack;
+    public int maxStack;
 }
+
