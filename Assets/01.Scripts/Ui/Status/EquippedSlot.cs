@@ -1,64 +1,101 @@
-using GameItem;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class EquippedSlot : MonoBehaviour, IPointerEnterHandler, ISlot
 {
-    [Header("ÀåÂø °¡´ÉÇÑ ¾ÆÀÌÅÛ Å¸ÀÔ")]
+    [Header("ì¥ì°© ê°€ëŠ¥í•œ ì•„ì´í…œ íƒ€ì…")]
     [SerializeField] private ArmorType type;
-    public int itemId { get; set; }
+    public int itemId { get; private set; }
+    public int count { get; private set; }
 
     [Space(10f)]
     [SerializeField] private Image icon;
     [SerializeField] private RectTransform pos;
+    [SerializeField] private TMP_Text countText;
 
     private void Reset()
     {
+        countText = Helper.FindChild(this.transform, nameof(countText)).GetComponent<TMP_Text>();
+        if (countText != null) countText.text = "";
+        else DebugHelper.ShowBugWindow($"{this.name}ì— TMP_Textê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
+
         if (this.TryGetComponent<Image>(out var isIcon)) icon = isIcon;
-        else DebugHelper.Log($"{this.name}¿¡ Image°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        else DebugHelper.Log($"{this.name}ì— Imageê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
 
         if (this.TryGetComponent<RectTransform>(out var isPos)) pos = isPos;
-        else DebugHelper.Log($"{this.name}¿¡ RectTransform°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        else DebugHelper.Log($"{this.name}ì— RectTransformê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
     }
 
-    public bool SetItem(int _itemId)
+    public bool SetSlot(int _itemId, int _itemCount)
     {
         return false;
     }
 
+    public void SetSlot(int _itemCount)
+    {
+
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-        var status = UiManager.instance.status;
-        var drag = status.drag;
-        var dragItemId = drag.selectItemId;
+        var drag = UiManager.instance.status.drag;
 
-        //µå·¡±× ÁßÀÌ ¾Æ´Ò °æ¿ì¿¡¸¸
+        //ë“œë˜ê·¸ ì¤‘ì´ ì•„ë‹ ê²½ìš°
         if (!drag.isClick)
         {
-            //¸¶¿ì½º¸¸ ¿òÁ÷ÀÌ°í ÀÖÀ» °æ¿ì
-            if (dragItemId == 0)
+            //ë§ˆìš°ìŠ¤ë§Œ ì›€ì§ì´ê³  ìˆì„ ê²½ìš° / ì•„ì´í…œì´ ì¡´ì¬í•  ê²½ìš°ì—ë§Œ
+            if (drag.selectItemId == 0 && itemId != 0)
             {
-                //¾ÆÀÌÅÛÀÌ Á¸ÀçÇÒ °æ¿ì¿¡¸¸
-                if (itemId != 0)
-                {
-                    drag.SetSlot(pos, this);
-                }
+                drag.SetSlot(pos, this);
             }
 
-            //µå·¡±× Áß ³¡³µÀ» °æ¿ì
-            else
+            //ë“œë˜ê·¸ ì¤‘ ëë‚¬ì„ ê²½ìš°
+            else if (drag.selectItemId != 0)
             {
-                //¾ÆÀÌÅÛÀÌ Á¸ÀçÇÒ °æ¿ì ¸Â±³È¯
-                var item = itemId != 0 ? itemId : 0;
+                var itemData = ItemManager.Instance.itemDB[drag.selectItemId];
 
-                if (drag.slot.SetItem(item))
+                //ì¤‘ë³µ ì•„ì´í…œì¼ ê²½ìš°
+                if (itemData.itemId == itemId)
                 {
-                    SetItem(dragItemId);
-                    drag.EndChangeSlot();
-
-                    drag.SetSlot(pos, this);
+                    //ì¤‘ë³µ íšë“ ê°€ëŠ¥ ì—¬ë¶€, ìµœëŒ€ì¹˜, ë™ì¼ ìŠ¬ë¡¯ì¸ì§€ ê²€ì‚¬
+                    if (itemData.canStack && count <= itemData.maxStack)
+                    {
+                        //ì°¸ì¡° ì£¼ì†Œê°€ ê°™ì§€ ì•Šì„ ê²½ìš°ì—ë§Œ
+                        if (!ReferenceEquals(this, drag.slot))
+                        {
+                            //ì „ ìŠ¬ë¡¯ ì´ˆê¸°í™” í›„ í˜„ì¬ ìŠ¬ë¡¯ ê°¯ìˆ˜ë§Œ ì¶”ê°€
+                            this.SetSlot(count + drag.slot.count);
+                            drag.slot.SetSlot(0);
+                        }
+                    }
                 }
+
+                //í˜„ì¬ ìŠ¬ë¡¯ì— ì•„ì´í…œì´ ì¡´ì¬í•  ê²½ìš°
+                else if (itemId != 0)
+                {
+                    var tempItemId = drag.slot.itemId;
+                    var tempItemCount = drag.slot.count;
+
+                    //ë§êµí™˜ ì„±ê³µì‹œ
+                    if (drag.slot.SetSlot(itemId, count))
+                    {
+                        this.SetSlot(tempItemId, tempItemCount);
+                    }
+                }
+
+                //í˜„ì¬ ìŠ¬ë¡¯ì— ì•„ë¬´ê²ƒë„ ì—†ì„ ê²½ìš°
+                else
+                {
+                    var dragSlot = drag.slot;
+                    this.SetSlot(dragSlot.itemId, dragSlot.count);
+
+                    drag.slot.SetSlot(0);
+                }
+
+                drag.SetSlot(pos, this);
+                drag.EndChangeSlot();
             }
         }
     }

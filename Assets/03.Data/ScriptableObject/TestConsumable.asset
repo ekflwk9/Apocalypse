@@ -16,10 +16,11 @@ MonoBehaviour:
   itemName: "\uBD95\uB300"
   disciption: "\uD53C\uCC38"
   itemType: 4
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c97182709494c7940b980420d51a1275, type: 3}
   cost: 100
   canStack: 1
   maxStack: 30
+  weight: 0
   value: 20
   defense: 0
   coolDown: 3

@@ -10,7 +10,7 @@ public class InventoryInputSystem : UiButton
     public void SetItem(ItemInfo item)
     {
         currentItem = item;
-        icon.sprite = item.icon;
+        //icon.sprite = item.icon;
         info.text = item.itemName;
     }
 

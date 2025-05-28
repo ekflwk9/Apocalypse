@@ -3,23 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class ShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [Header("ÆÇ¸ÅÇÒ ¾ÆÀÌÅÛ ID")]
+    [Header("íŒë§¤í•  ì•„ì´í…œ ID")]
     [SerializeField] private int itemId;
 
     [Space(10f)]
     [SerializeField] private Image icon;
     [SerializeField] private RectTransform pos;
+    [SerializeField] private TMP_Text countText;
 
     private void Reset()
     {
+        countText = Helper.FindChild(this.transform, nameof(countText)).GetComponent<TMP_Text>();
+        if (countText != null) countText.text = "";
+        else DebugHelper.ShowBugWindow($"{this.name}ì— TMP_Textê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
+
         if (this.TryGetComponent<Image>(out var isIcon)) icon = isIcon;
-        else DebugHelper.ShowBugWindow($"{this.name}¿¡ Image°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        else DebugHelper.ShowBugWindow($"{this.name}ì— Imageê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
 
         if (this.TryGetComponent<RectTransform>(out var isPos)) pos = isPos;
-        else DebugHelper.ShowBugWindow($"{this.name}¿¡ RectTransform°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        else DebugHelper.ShowBugWindow($"{this.name}ì— RectTransformê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
     }
 
     private void Start()
@@ -32,7 +38,7 @@ public class ShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     {
         if(eventData.button == PointerEventData.InputButton.Right)
         {
-            //°ñµå °Ë»ç
+            //ê³¨ë“œ ê²€ì‚¬
             UiManager.instance.status.GetItem(itemId);
         }
     }
