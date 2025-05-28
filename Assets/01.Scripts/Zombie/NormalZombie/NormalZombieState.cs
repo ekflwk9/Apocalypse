@@ -142,6 +142,11 @@ public class RunState : EntityState
         Vector3 playerPos = Player.Instance.transform.position;
         Vector3 entityPos = entity.transform.position;
 
+        Vector3 directionPlayer = (playerPos - entityPos).normalized;
+        Quaternion LookDirection = Quaternion.LookRotation(directionPlayer);
+        entity.transform.rotation = LookDirection;
+
+
         float Distance = Vector3.Distance(entityPos, playerPos);
 
         if (CurrentTime >= ResetTime)
@@ -303,7 +308,7 @@ public class HitState : EntityState
     }
 }
 
-//¾²·¯Áö±â ½ÃÀÛ   ÀÌ ¶§ ¸ÂÀ¸¸é µğÁ®¾ßÇÔ
+//ì“°ëŸ¬ì§€ê¸° ì‹œì‘   ì´ ë•Œ ë§ìœ¼ë©´ ë””ì ¸ì•¼í•¨
 public class HurtState : EntityState
 {
     public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
@@ -319,7 +324,7 @@ public class HurtState : EntityState
     }
     public override void Update()
     {
-        if (true == IsAnimationEnd())   // ´Ù ¾²·¯Áö¸é ±â¾î°¡´Ù Á×À½
+        if (true == IsAnimationEnd())   // ë‹¤ ì“°ëŸ¬ì§€ë©´ ê¸°ì–´ê°€ë‹¤ ì£½ìŒ
         {
             StateMachine.SetState(EntityEnum.Dying);
         }
@@ -329,7 +334,7 @@ public class HurtState : EntityState
     }
 }
 
-//ÀÌÁ¦ ±â¾î°¨ ÀÌ¶§ ¸Â¾Æµµ µğÁ®¾ßÇÔ
+//ì´ì œ ê¸°ì–´ê° ì´ë•Œ ë§ì•„ë„ ë””ì ¸ì•¼í•¨
 public class DyingState : EntityState
 {
     public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
