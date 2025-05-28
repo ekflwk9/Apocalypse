@@ -27,10 +27,12 @@ public class Entity : MonoBehaviour, IDamagable
     protected void Reset()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody.isKinematic = true;
         if (_rigidbody == null)
         {
             _rigidbody = gameObject.AddComponent<Rigidbody>();
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            _rigidbody.isKinematic = true;
         }
 
         _NavMeshAgent = GetComponent<NavMeshAgent>();
@@ -93,18 +95,16 @@ public class Entity : MonoBehaviour, IDamagable
     protected void Update()
     {
         _stateMachine.Update();
-        Detect();
+        if (_stateMachine.GetState() == EntityEnum.Idle || _stateMachine.GetState() == EntityEnum.Walk)
+        {
+            Detect();
+        }
     }
 
     void Detect()
     {
-        if (_stateMachine.GetState() != EntityEnum.Idle)
-        {
-            return;
-        }
-
         //오버랩 된넘들
-        Collider[] targets = Physics.OverlapSphere(transform.position, 10f, PlayerMask);
+        Collider[] targets = Physics.OverlapSphere(transform.position, baseStatus.DetectedRange, PlayerMask);
 
         //range for
         foreach (var target in targets)
@@ -113,9 +113,9 @@ public class Entity : MonoBehaviour, IDamagable
             float angle = Vector3.Angle(transform.forward, dirToTarget);
 
             //왼쪽 45도고 오른쪽 45도니 총 90도임
-            if (angle < 45f)
+            if (angle < baseStatus.DetectedAngle)
             {
-                if (Physics.Raycast(transform.position + Vector3.up * 0.5f, dirToTarget, out RaycastHit hit, 10f))
+                if (Physics.Raycast(transform.position + Vector3.up * 0.5f, dirToTarget, out RaycastHit hit, baseStatus.DetectedRange))
                 {
                     //임시
                     if (hit.collider.CompareTag("Player"))
@@ -126,35 +126,6 @@ public class Entity : MonoBehaviour, IDamagable
                 }
             }
         }
-    }
-
-    public bool RunDetect()
-    {
-        //오버랩 된넘들
-        Collider[] targets = Physics.OverlapSphere(transform.position, 20f, PlayerMask);
-
-        //range for
-        foreach (var target in targets)
-        {
-            Vector3 dirToTarget = (target.transform.position - transform.position).normalized;
-            float angle = Vector3.Angle(transform.forward, dirToTarget);
-
-            //왼쪽 45도고 오른쪽 45도니 총 90도임
-            if (angle < 45f)
-            {
-                if (Physics.Raycast(transform.position + Vector3.up * 0.5f, dirToTarget, out RaycastHit hit, 20f))
-                {
-                    //임시
-                    if (hit.collider.CompareTag("Player"))
-                    {
-                        baseStatus.DetectedLocation = hit.point; // 플레이어 위치 저장
-                        _stateMachine.SetState(EntityEnum.Run);
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
 
     public void Dead()
@@ -165,21 +136,22 @@ public class Entity : MonoBehaviour, IDamagable
 
     private void OnDrawGizmos()
     {
+        if (baseStatus == null) return;
         // 감지 반경 색상
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, 10);
+        Gizmos.DrawWireSphere(transform.position, baseStatus.DetectedRange);
 
         // 시야각 (viewAngle)을 시각화 (좌우)
-        Vector3 leftDir = Quaternion.Euler(0, -90f / 2f, 0) * transform.forward;
-        Vector3 rightDir = Quaternion.Euler(0, 90f / 2f, 0) * transform.forward;
+        Vector3 leftDir = Quaternion.Euler(0, -baseStatus.DetectedAngle, 0) * transform.forward;
+        Vector3 rightDir = Quaternion.Euler(0, baseStatus.DetectedAngle, 0) * transform.forward;
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, leftDir * 10);
-        Gizmos.DrawRay(transform.position, rightDir * 10);
+        Gizmos.DrawRay(transform.position, leftDir * baseStatus.DetectedRange);
+        Gizmos.DrawRay(transform.position, rightDir * baseStatus.DetectedRange);
 
         // (선택) 정면 방향 표시
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, transform.forward * 10);
+        Gizmos.DrawRay(transform.position, transform.forward * baseStatus.DetectedRange);
     }
 
     public void Attack()
@@ -209,6 +181,7 @@ public class Entity : MonoBehaviour, IDamagable
             return;
         }
 
+        DebugHelper.Log(baseStatus.CurrentHp.ToString());
 
         _stateMachine.SetState(EntityEnum.Hit);
     }
@@ -228,13 +201,9 @@ public class Entity : MonoBehaviour, IDamagable
 
         // 메인 콜라이더/리지드바디 끄거나 켜기
         _capsuleCollider.enabled = !isActive;
-        _rigidbody.isKinematic = isActive;
 
         // 네브메시나 애니메이터도 끄는게 일반적입니다
         _NavMeshAgent.enabled = !isActive;
         _animator.enabled = !isActive;
     }
-
-
-
 }

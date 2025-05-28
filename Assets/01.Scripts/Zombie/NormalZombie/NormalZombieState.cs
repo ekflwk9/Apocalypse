@@ -31,13 +31,15 @@ public class NormalZombieStateStruct : StateStruct
         HitState hitState = new HitState();
         HurtState hurtState = new HurtState();
         DyingState dyingState = new DyingState();
+        DieState dieState = new DieState();
         StateDictionary.Add(EntityEnum.Idle, idleState);
-        StateDictionary.Add(EntityEnum.Walk, walkState);
         StateDictionary.Add(EntityEnum.Run, runState);
         StateDictionary.Add(EntityEnum.Attack, attackState);
+        StateDictionary.Add(EntityEnum.Walk, walkState);
         StateDictionary.Add(EntityEnum.Hit, hitState);
         StateDictionary.Add(EntityEnum.Hurt, hurtState);
         StateDictionary.Add(EntityEnum.Dying, dyingState);
+        StateDictionary.Add(EntityEnum.Die, dieState);
         base.Init(_StateMachine);
     }
 }
@@ -103,6 +105,8 @@ public class WalkState : EntityState
 public class RunState : EntityState
 {
     NavMeshAgent _NavMeshAgent;
+    float ResetTime = 0.5f;
+    float CurrentTime = 0f;
 
     public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
     {
@@ -118,7 +122,7 @@ public class RunState : EntityState
             IsInit = true;
         }
 
-        if (entity.baseStatus.IsHalf() != true)
+        if (entity.baseStatus.IsHalf() == true)
         {
             SetAnimation(AnimHash.RunHash_2);
             _NavMeshAgent.speed = entity.baseStatus.RunSpeed - 1f;
@@ -128,21 +132,36 @@ public class RunState : EntityState
             SetAnimation(AnimHash.RunHash_1);
             _NavMeshAgent.speed = entity.baseStatus.RunSpeed;
         }
-        _NavMeshAgent.SetDestination(entity.baseStatus.DetectedLocation);
+        CurrentTime = ResetTime;
+        _NavMeshAgent.ResetPath();
     }
 
     public override void Update()
     {
+        CurrentTime += Time.deltaTime;
         Vector3 playerPos = Player.Instance.transform.position;
+        Vector3 entityPos = entity.transform.position;
 
-        _NavMeshAgent.SetDestination(playerPos);
+        float Distance = Vector3.Distance(entityPos, playerPos);
 
-        if (_NavMeshAgent.remainingDistance < entity.baseStatus.AttackRange)
+        if (CurrentTime >= ResetTime)
+        {
+
+            _NavMeshAgent.SetDestination(playerPos);
+            CurrentTime = 0f;
+        }
+
+        if (true == _NavMeshAgent.pathPending)
+        {
+            return;
+        }
+
+        if (Distance < entity.baseStatus.AttackRange)
         {
             StateMachine.SetState(EntityEnum.Attack);
         }
 
-        if (_NavMeshAgent.remainingDistance < entity.baseStatus.AttackRange + 4f)
+        else if (Distance < entity.baseStatus.AttackRange + 4f)
         {
             if (IsAnimationEnd(1) == true)
             {
@@ -158,11 +177,6 @@ public class RunState : EntityState
         }
     }
 
-    // 멀어지면 추격 중단
-    //if (distanceToTarget > 10f)
-    //{
-    //    StateMachine.SetState(EntityEnum.Idle);
-    //}
     public override void Exit()
     {
     }
@@ -185,6 +199,12 @@ public class AttackState : EntityState
         }
         if (IsAnimationEnd(1) == true)
         {
+            Vector3 playerPos = Player.Instance.transform.position;
+            Vector3 entityPos = entity.transform.position;
+            Vector3 directionPlayer = (playerPos - entityPos).normalized;
+            Quaternion LookDirection = Quaternion.LookRotation(directionPlayer);
+            entity.transform.rotation = LookDirection;
+
             if (Random.Range(0, 2) == 0)
             {
                 SetAnimation(AnimHash.AttackHash_1);
@@ -204,7 +224,32 @@ public class AttackState : EntityState
     {
         if (true == IsAnimationEnd(1))
         {
-            StateMachine.SetState(EntityEnum.Run);
+            Vector3 playerPos = Player.Instance.transform.position;
+            Vector3 entityPos = entity.transform.position;
+            Vector3 directionPlayer = (playerPos - entityPos).normalized;
+            Quaternion LookDirection = Quaternion.LookRotation(directionPlayer);
+            entity.transform.rotation = LookDirection;
+
+            float Distance = Vector3.Distance(entityPos, playerPos);
+            if (Distance < entity.baseStatus.AttackRange)
+            {
+                if (Random.Range(0, 2) == 0)
+                {
+                    SetAnimation(AnimHash.AttackHash_1);
+                }
+                else
+                {
+                    SetAnimation(AnimHash.AttackHash_2);
+                }
+            }
+            else if (Distance < 10f)
+            {
+                StateMachine.SetState(EntityEnum.Run);
+            }
+            else
+            {
+                StateMachine.SetState(EntityEnum.Idle);
+            }
         }
     }
     public override void Exit()
@@ -236,7 +281,21 @@ public class HitState : EntityState
     {
         if (true == IsAnimationEnd())
         {
-            StateMachine.SetState(EntityEnum.Idle);
+            Vector3 playerPos = Player.Instance.transform.position;
+            Vector3 entityPos = entity.transform.position;
+            float Distance = Vector3.Distance(entityPos, playerPos);
+            if (Distance < entity.baseStatus.AttackRange)
+            {
+                StateMachine.SetState(EntityEnum.Attack);
+            }
+            else if (Distance < 10f)
+            {
+                StateMachine.SetState(EntityEnum.Run);
+            }
+            else
+            {
+                StateMachine.SetState(EntityEnum.Idle);
+            }
         }
     }
     public override void Exit()
