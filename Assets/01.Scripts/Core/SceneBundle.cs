@@ -3,10 +3,11 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public abstract class SceneBundle : MonoBehaviour
+public class SceneBundle : MonoBehaviour
 {
   public static SceneBundle CurrentBundle { get; protected set; } = null;
 
+  #region Properties
   [SerializeField] protected bool isUnloaded = false;
   private bool loadByLoader = false;
 
@@ -19,6 +20,8 @@ public abstract class SceneBundle : MonoBehaviour
   /// 인스펙터에 설정해놨을 시 미리 로딩하는 에셋 번들입니다.
   /// </summary>
   [SerializeField] private AssetBundle[] preloadBundles;
+  
+  #endregion Properties
 
   #region Static Feature
   /// <summary>
@@ -30,7 +33,7 @@ public abstract class SceneBundle : MonoBehaviour
   {
     if(CurrentBundle)
     {
-      CurrentBundle.UnLoad();
+      CurrentBundle.OnSceneEnd();
       CurrentBundle.isUnloaded = true;
       if(CurrentBundle) Destroy(CurrentBundle.gameObject);
     }
@@ -47,14 +50,14 @@ public abstract class SceneBundle : MonoBehaviour
     bundle.loadByLoader = true;
     bundle.bundles = dataBundles;
 
-    var loader = bundle.PreLoad(dataBundles);
+    var loader = bundle.OnScenePreLoad(dataBundles);
 
     for (var i = 0; i < 100; i++)
       if (!loader.MoveNext()) break;
 
     CurrentBundle = bundle;
     
-    bundle.Ready();
+    bundle.OnSceneStart();
   }
 
   /// <summary>
@@ -93,21 +96,25 @@ public abstract class SceneBundle : MonoBehaviour
   #endregion Static Feature
 
   #region Interface
+
   /// <summary>
   /// 씬 번들을 불러오기 전 DataBundle 등 에셋들을 비동기로 불러오는 용도
   /// </summary>
-  protected abstract IEnumerator PreLoad(SerializableDictionary<string, AssetData> loadedAssets);
+  protected virtual IEnumerator OnScenePreLoad(SerializableDictionary<string, AssetData> loadedAssets)
+  {
+    yield return null;
+  }
   
   /// <summary>
   /// PreLoad가 끝났을 시 호출되는 메소드
   /// </summary>
-  protected abstract void Ready();
+  protected virtual void OnSceneStart(){}
 
   /// <summary>
   /// SceneBundle이 언로드될 떄 호출되는 메소드
   /// 다른 SceneBundle를 호출하기 전 활성화되어있는 SceneBundle이 있을 시 호출함
   /// </summary>
-  protected virtual void UnLoad()
+  protected virtual void OnSceneEnd()
   {
     if(CurrentBundle == this) CurrentBundle = null;
 
@@ -120,7 +127,7 @@ public abstract class SceneBundle : MonoBehaviour
   #endregion Interface
   
   #region Unity Event
-  private void Awake()
+  protected virtual void Awake()
   {
     foreach (var bundle in preloadBundles)
     {
@@ -129,18 +136,19 @@ public abstract class SceneBundle : MonoBehaviour
 
     if (!loadByLoader)
     {
-      var loader = PreLoad(bundles);
+      var loader = OnScenePreLoad(bundles);
 
       for (var i = 0; i < 100; i++)
         if (!loader.MoveNext()) break;
     
-      Ready();
+      OnSceneStart();
     }
   }
 
-  private void OnDestroy()
+  protected virtual void OnDestroy()
   {
-    if (!isUnloaded) UnLoad();
+    if (!isUnloaded) OnSceneEnd();
   }
+  
   #endregion Unity Event
 }

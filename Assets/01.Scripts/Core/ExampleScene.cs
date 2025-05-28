@@ -3,7 +3,7 @@ using GameItem;
 
 public class ExampleScene : SceneBundle
 {
-  protected override IEnumerator PreLoad(SerializableDictionary<string, AssetData> loadedAssets)
+  protected override IEnumerator OnScenePreLoad(SerializableDictionary<string, AssetData> loadedAssets)
   {
     var items = loadedAssets["items"];
     var sprite = items.Sprites[""];
@@ -16,12 +16,12 @@ public class ExampleScene : SceneBundle
     yield return null;
   }
 
-  protected override void Ready()
+  protected override void OnSceneStart()
   {
   }
 
-  protected override void UnLoad()
+  protected override void OnSceneEnd()
   {
-    base.UnLoad();
+    base.OnSceneEnd();
   }
 }
