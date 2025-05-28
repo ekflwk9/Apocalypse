@@ -77,20 +77,21 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, ISlot
             //드래그 중 끝났을 경우
             else
             {
-                //아이템이 존재할 경우 맞교환
-                if (itemId != 0)
+                var item = itemId != 0 ? itemId : 0;
+
+                var itemData = ItemManager.Instance.itemDB[item];
+
+                //같은 아이템일 경우
+                if (drag.selectItemId == itemId)
                 {
-                    var item = ItemManager.Instance.itemDB[itemId];
-
-                    if (drag.selectItemId == itemId)
+                    //중복 획득 가능 여부, 최대치, 동일 슬롯인지 검사
+                    if (itemData.canStack && count <= itemData.maxStack && pos != drag.pos)
                     {
-                        if (item.canStack && count <= item.maxStack && pos != drag.pos)
-                        {
 
-                        }
                     }
                 }
 
+                //아이템이 존재할 경우 맞교환
                 //var item = itemId != 0 ? itemId : 0;
 
                 //if (drag.slot.SetItem(item))

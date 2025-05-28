@@ -40,9 +40,6 @@ public class StatusUi : MonoBehaviour
         fieldItemInfo = this.GetComponentInChildren<ItemInfoUi>(true);
         if (fieldItemInfo == null) DebugHelper.Log($"{this.name}에 ItemInfoUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
 
-        fieldItemInfo = this.GetComponentInChildren<ItemInfoUi>(true);
-        if (fieldItemInfo == null) DebugHelper.Log($"{this.name}에 ItemInfoUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
-
         fieldInventory = Helper.FindChild(this.transform, "Inventory").gameObject;
         inventorySlot = GetComponentArray<InventorySlot>(fieldInventory.transform);
 
