@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 4914782747317134295}
   - component: {fileID: 1398365561796276292}
   m_Layer: 0
-  m_Name: Map_TestWeapon
-  m_TagString: Untagged
+  m_Name: Weapon_Test
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

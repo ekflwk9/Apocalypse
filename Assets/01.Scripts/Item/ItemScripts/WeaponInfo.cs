@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameItem
+[CreateAssetMenu(fileName = "Weapon", menuName = "New Weapon")]
+public class WeaponInfo : ItemInfo
 {
-    [CreateAssetMenu(fileName = "Weapon", menuName = "New Weapon")]
-    public class WeaponInfo : ItemInfo
-    {
-        public int durability;
-        public int power;
-        public float AttackSpeed;
-    }
+    public int durability;
+    public int power;
+    public float AttackSpeed;
 }
+
