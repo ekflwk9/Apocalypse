@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour
     public void GetItem(ItemInfo item) // 아이템 추가시 호출
     {
         items.Add(item);
+        UiManager.instance.status.GetItem(item.itemId);
     }
 
     public void RemoveItem(ItemInfo item) // 아이템 제거, 판매시 호출
@@ -28,10 +29,5 @@ public class Inventory : MonoBehaviour
     public void ClickItem(ItemInfo item) // 아이템 클릭시 호출
     {
         selectItemId = item.itemId;
-    }
-
-    public void EqButton() // 장착 버튼 누를시 호출
-    {
-        ItemManager.Instance.itemEquipment.SelectEquipment(selectItemId);
     }
 }

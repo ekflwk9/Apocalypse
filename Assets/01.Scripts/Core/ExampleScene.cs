@@ -1,5 +1,4 @@
 using System.Collections;
-using GameItem;
 
 public class ExampleScene : SceneBundle
 {

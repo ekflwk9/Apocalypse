@@ -18,7 +18,7 @@ MonoBehaviour:
   itemType: 1
   icon: {fileID: 0}
   cost: 0
-  canStack: 0
+  canStack: 1
   maxStack: 0
   durability: 1000
   power: 1000

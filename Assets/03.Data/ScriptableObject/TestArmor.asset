@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: TestArmor
   m_EditorClassIdentifier: 
   itemId: 100
-  displayName: Test Armor
+  itemName: "\uAC11\uBE60"
   disciption: "\uB534\uB534\uB370\uC2A4\uB124"
   itemType: 2
   icon: {fileID: 0}
   cost: 10
-  cell: 00000000
   canStack: 0
   maxStack: 0
   armorType: 1
