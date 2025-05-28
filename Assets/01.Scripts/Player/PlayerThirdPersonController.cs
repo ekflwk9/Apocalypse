@@ -277,7 +277,7 @@ public class PlayerThirdPersonController : MonoBehaviour
             }
             else
             {
-                if (_hasAnimator) _animator.SetBool(_animIDFreeFall, true);
+                _animator.SetBool(_animIDFreeFall, true);
             }
 
             _input.jump = false;
@@ -299,11 +299,8 @@ public class PlayerThirdPersonController : MonoBehaviour
     {
         if (Player.Instance._damaged)
         {
-            if (_hasAnimator)
-            {
                 _animator.SetTrigger(_animIDDamage);
                 Player.Instance._damaged = false;
-            }
         }
     }
 
@@ -316,27 +313,34 @@ public class PlayerThirdPersonController : MonoBehaviour
             Follow.ShoulderOffset = targetOffset;
         }
 
-        if (_hasAnimator)
-        {
-            if(Player.Instance.Equip.SelectWeapon != null)
-                _animator.SetBool(_animIDEquipWeapon, _input.aim);
-            _animator.SetBool(_animIDAim, _input.aim);
-        }
+        if (Player.Instance.Equip.curWeapon != null)
+            _animator.SetBool(_animIDEquipWeapon, _input.aim);
+        _animator.SetBool(_animIDAim, _input.aim);
     }
 
     public void Attack()
     {
-        if (Player.Instance._damaged) return;
-        // if (Player.Instance.Equip.curEquip == null)
-        // {
-        //     _input.attack = false;
-        //     return;
-        // }
+        if(Player.Instance.Equip.curEquip == null) return;
 
-        if (_hasAnimator)
+        switch (Player.Instance.Equip.curWeaponType)
         {
-            _animator.SetTrigger(_animIDAttack);
-            _input.attack = false;
+            case PlayerWeaponType.None:
+                return;
+            case PlayerWeaponType.Melee:
+                _animator.SetTrigger(_animIDAttack);
+                _input.attack = false;
+                break;
+            case PlayerWeaponType.Ranged:
+                RangedAttack();
+                break;
+            case PlayerWeaponType.RangedAuto:
+                RangedAttack(true);
+                break;
         }
+    }
+
+    private void RangedAttack(bool isAuto = false)
+    {
+        
     }
 }

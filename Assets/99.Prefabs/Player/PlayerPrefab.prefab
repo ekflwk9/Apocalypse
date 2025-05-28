@@ -2794,6 +2794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weponData: {fileID: 11400000, guid: 2baafeec75f954fd68251fd0cea2d518, type: 2}
+  type: 0
 --- !u!1 &6627713693849366836
 GameObject:
   m_ObjectHideFlags: 0
@@ -2999,6 +3000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weponData: {fileID: 11400000, guid: 52b949d315fc40843ae676a083821090, type: 2}
+  type: 1
 --- !u!1 &6822913156991570233
 GameObject:
   m_ObjectHideFlags: 0
@@ -3834,6 +3836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weponData: {fileID: 0}
+  type: 0
 --- !u!1 &8847556209078721066
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class PlayerEquip : MonoBehaviour
 {
-    public GameObject[] Weapons;
+    public GameObject[] weapons;
+    public GameObject curWeapon;
     public WeaponInfo curEquip;
+    public PlayerWeaponType curWeaponType = PlayerWeaponType.None;
+    
     [SerializeField] private Transform equipPivot;
     [SerializeField] private Transform meleeWeaponPivot;
     [SerializeField] private Transform rangedWeaponPivot;
@@ -22,10 +25,6 @@ public class PlayerEquip : MonoBehaviour
     private bool _equipRanged;
     private bool _isWeaponOnHand = false;
     [SerializeField] private bool _toggleMelee = false;
-    
-    //테스트 코드
-    public GameObject SelectWeapon;
-    //
 
     private void Reset()
     {
@@ -37,11 +36,11 @@ public class PlayerEquip : MonoBehaviour
     {
         AssignAnimationIDs();
         meleeCollider.enabled = false;
-        Weapons = new GameObject[equipPivot.childCount];
+        weapons = new GameObject[equipPivot.childCount];
         for (int i = 0; i < equipPivot.childCount; i++)
         {
-            Weapons[i] = equipPivot.GetChild(i).gameObject;
-            Weapons[i].SetActive(false);
+            weapons[i] = equipPivot.GetChild(i).gameObject;
+            weapons[i].SetActive(false);
         }
     }
 
@@ -53,28 +52,29 @@ public class PlayerEquip : MonoBehaviour
 
     public void EquipNew(WeaponInfo data)
     {
-        foreach (var weapon in Weapons)
+        PlayerWeapon _weaponsData;
+        WeaponInfo _weaponInfo;
+        PlayerWeaponType _weaponType;
+        
+        foreach (var weapon in weapons)
         {
-            PlayerWeapon weaponsData;
-            WeaponInfo weaponInfo;
-            bool hasWeaponData = weapon.TryGetComponent<PlayerWeapon>(out weaponsData);
-            if (!hasWeaponData)
+            if (!weapon.TryGetComponent(out _weaponsData))
             {
                 Debug.Log("무기 정보 없음");
             }
             else
             {
-                weaponInfo = weaponsData.GetWeaponData();
-                if (weaponInfo == null || weaponInfo.itemId != data.itemId) continue;
+                (_weaponInfo, _weaponType) = _weaponsData.GetWeaponData();
+                if (_weaponInfo == null || _weaponInfo.itemId != data.itemId) continue;
                 
-                if(SelectWeapon != null)
+                if(curWeapon != null)
                 {
-                    if (SelectWeapon.transform.parent != equipPivot)
+                    if (curWeapon.transform.parent != equipPivot)
                     {
                         return;
                     }
             
-                    if (SelectWeapon == weapon)
+                    if (curWeapon == weapon)
                     {
                         Unequip();
                         return;
@@ -83,20 +83,23 @@ public class PlayerEquip : MonoBehaviour
                     Unequip();
                 }
                 
-                curEquip = data;
-                SelectWeapon = weapon;
-                SelectWeapon.SetActive(true);
+                switch (_weaponType)
+                {
+                    case PlayerWeaponType.Melee:
+                        _equipMelee = true;
+                        break;
+                    case PlayerWeaponType.Ranged:
+                    case PlayerWeaponType.RangedAuto:
+                        _equipRanged = true;
+                        break;
+                }
                 
-                //아래 각 조건은 근접, 원거리 무기를 구분하도록 변경해야함.
-                if (0 < curEquip.itemId && curEquip.itemId <= 50)
-                {
-                    _equipMelee = true;
-                }
-                else if (50 < curEquip.itemId && curEquip.itemId < 100)
-                {
-                    _equipRanged = true;
-                }
-                //
+                                
+                curEquip = data;
+                curWeapon = weapon;
+                curWeapon.SetActive(true);
+                curWeaponType = _weaponType;
+                
                 _animator.SetBool(_animIDEquipMelee, _equipMelee);
                 _animator.SetBool(_animIDEquipRanged, _equipRanged);
             }
@@ -106,8 +109,9 @@ public class PlayerEquip : MonoBehaviour
     private void Unequip()
     {
         curEquip = null;
-        SelectWeapon.SetActive(false);
-        SelectWeapon = null;
+        curWeapon.SetActive(false);
+        curWeapon = null;
+        curWeaponType = PlayerWeaponType.None;
         _equipMelee = false;
         _equipRanged = false;
     }
@@ -125,7 +129,7 @@ public class PlayerEquip : MonoBehaviour
             handPosition = rangedWeaponPivot;
         }
         
-        SelectWeapon.transform.SetParent(_isWeaponOnHand ? handPosition : equipPivot, false);
+        curWeapon.transform.SetParent(_isWeaponOnHand ? handPosition : equipPivot, false);
     }
     
     public void ToggleMeleeCollider()

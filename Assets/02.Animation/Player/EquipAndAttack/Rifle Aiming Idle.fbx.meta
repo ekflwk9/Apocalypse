@@ -36,7 +36,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Weapon_R_Aiming Idle
+      name: Ranged Aim
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0

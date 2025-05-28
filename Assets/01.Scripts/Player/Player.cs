@@ -132,6 +132,5 @@ public class Player : MonoBehaviour, IDamagable
     public void TakeDamage(float damage)
     {
         Health -= damage;
-        _damaged = true;
     }
 }
