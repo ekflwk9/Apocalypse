@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384823be4855943039690a396e7e9aa6, type: 3}
+  m_Name: Absolut Vodka
+  m_EditorClassIdentifier: 
+  itemId: 402
+  itemName: "\uC571\uC194\uB8E8\uD2B8 \uBCF4\uB4DC\uCE74"
+  disciption: "\uC2A4\uC6E8\uB374\uC0B0 750ml"
+  itemType: 8
+  icon: {fileID: 21300000, guid: 07f381518064043fd86010878f8e402e, type: 3}
+  cost: 200
+  canStack: 0
+  maxStack: 0
+  weight: 5

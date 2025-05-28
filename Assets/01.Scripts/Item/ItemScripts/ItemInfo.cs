@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
+[CreateAssetMenu(fileName = "Item", menuName = "New Item")]
 public class ItemInfo : ScriptableObject
 {
     [Header("Info")]

@@ -25,7 +25,8 @@ public class Inventory : MonoBehaviour
         ItemEffectManager.Instance.ItemEffect(item);
         items.Remove(item);
     }
-
+    
+    //테스트용
     public void ClickItem(ItemInfo item) // 아이템 클릭시 호출
     {
         selectItemId = item.itemId;

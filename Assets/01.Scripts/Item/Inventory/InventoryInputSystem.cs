@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+//테스트용 소스파일
 public class InventoryInputSystem : UiButton
 {
     private ItemInfo currentItem;
@@ -17,7 +17,7 @@ public class InventoryInputSystem : UiButton
     {
         if (currentItem != null)
         {
-            ItemManager.Instance.inventory.ClickItem(currentItem);
+            ItemManager.Instance.Inventory.ClickItem(currentItem);
         }
     }
 }
