@@ -45,11 +45,11 @@ public class ShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UiManager.instance.touch.SetTouch(pos, true);
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        UiManager.instance.touch.SetTouch(false);
+
     }
 }
