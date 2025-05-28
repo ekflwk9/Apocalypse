@@ -53,6 +53,11 @@ public class PlayerInputs : MonoBehaviour
 		{
 			_canSprint = true;
 		}
+		
+		if (attack)
+		{
+			_controller.Attack();
+		}
 	}
 
 	//WASD입력 받을때(PlayerInput에서 설정)
@@ -95,10 +100,13 @@ public class PlayerInputs : MonoBehaviour
 
 	public void OnAttack(InputValue value)
 	{
-		if (value.isPressed && aim && !attack)
+		if (aim)
 		{
-			attack = true;
-			_controller.Attack();
+			attack = value.isPressed;
+		}
+		else
+		{
+			attack = false;
 		}
 	}
 

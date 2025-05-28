@@ -4,10 +4,11 @@ using UnityEngine.AddressableAssets;
 
 public class ItemManager : MonoBehaviour
 {
-    //[SerializeField] private DataBundle dataBundle;
-    public Inventory inventory;
+    [SerializeField] private AssetBundle dataBundle;
+    public Inventory _inventory;
+    public Inventory Inventory => _inventory ??= Player.Instance.GetComponent<Inventory>();
     public ItemEquipment itemEquipment;
-    
+
     private static ItemManager _instance;
     public static ItemManager Instance
     {
@@ -50,7 +51,7 @@ public class ItemManager : MonoBehaviour
         {
             item = itemDB[itemId];
 
-            inventory.GetItem(item);
+            Inventory.GetItem(item);
         }
     }
     // public void UseItem(ItemInfo itemInfo)
