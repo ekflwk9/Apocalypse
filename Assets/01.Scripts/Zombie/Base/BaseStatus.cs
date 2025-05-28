@@ -4,10 +4,29 @@ using UnityEngine;
 
 public class BaseStatus
 {
+    public BaseStatus()
+    {
+        currentHp = maxHp;
+    }
+
+    public void Init()
+    {
+        currentHp = maxHp;
+    }
+
     public float RunSpeed { get; protected set; } = 5f;
     public float WalkSpeed { get; protected set; } = 2f;
+    public float Damage { get; protected set; } = 10f;
+
+    public float DetectedRange { get; protected set; } = 10f;
+
+    public float DetectedAngle { get; protected set; } = 45f;
+
+    public float AttackRange { get; protected set; } = 2f;
 
     public float CrowlSpeed { get; protected set; } = 0.5f;
+
+    public Vector3 DetectedLocation { get; set; }
 
     public bool IsHalf()
     {
@@ -32,7 +51,7 @@ public class BaseStatus
         }
     }
 
-    private float maxHp;
+    private float maxHp = 20;
 
     public float MaxHp
     {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,25 +10,34 @@ public class Entity : MonoBehaviour, IDamagable
 {
     [SerializeField] protected Rigidbody _rigidbody;
     [SerializeField] protected CapsuleCollider _capsuleCollider;
+    [SerializeField] protected EntityAttack _entityAttack;
+
     protected EntityStateMachine _stateMachine;
     public BaseStatus baseStatus;
     public NavMeshAgent _NavMeshAgent;
     public Animator _animator;
     [SerializeField] LayerMask PlayerMask;
 
+    [SerializeField] Collider[] ragdollColliders;
+    [SerializeField] Rigidbody[] ragdollRigidbodies;
+
+
+
 
     protected void Reset()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody.isKinematic = true;
         if (_rigidbody == null)
         {
             _rigidbody = gameObject.AddComponent<Rigidbody>();
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            _rigidbody.isKinematic = true;
         }
 
         _NavMeshAgent = GetComponent<NavMeshAgent>();
 
-        if(_NavMeshAgent == null)
+        if (_NavMeshAgent == null)
         {
             _NavMeshAgent = gameObject.AddComponent<NavMeshAgent>();
             _NavMeshAgent.updateRotation = false;
@@ -41,28 +51,60 @@ public class Entity : MonoBehaviour, IDamagable
             _capsuleCollider.height = 2f;
             _capsuleCollider.radius = 0.5f;
             _capsuleCollider.center = Vector3.up;
-        }   
+        }
+
+        _entityAttack = GetComponentInChildren<EntityAttack>();
+
+        if (_entityAttack == null)
+        {
+            _entityAttack = gameObject.AddComponent<EntityAttack>();
+        }
+
 
         _animator = GetComponentInChildren<Animator>();
 
         PlayerMask = LayerMask.GetMask("Player");
+
+        // linq고 gpt꺼 따옴
+        ragdollColliders = GetComponentsInChildren<Collider>()
+         .Where(c => c.tag != "Monster")
+         .ToArray();
+
+        ragdollRigidbodies = GetComponentsInChildren<Rigidbody>(true)
+         .Where(rb => rb.tag != "Monster")
+         .ToArray();
+
+
+        foreach (var col in ragdollColliders)
+        {
+            col.enabled = false; // 초기에는 비활성화
+        }
+
+        foreach (var rb in ragdollRigidbodies)
+        {
+            rb.isKinematic = true; // 초기에는 Kinematic 설정
+        }
+
+    }
+
+    private void OnEnable()
+    {
+        SetRagdollActive(false);
     }
 
     protected void Update()
     {
         _stateMachine.Update();
-        Detect();
+        if (_stateMachine.GetState() == EntityEnum.Idle || _stateMachine.GetState() == EntityEnum.Walk)
+        {
+            Detect();
+        }
     }
 
     void Detect()
     {
-        if(_stateMachine.GetState() != EntityEnum.Idle)
-        {
-            return;
-        }
-
         //오버랩 된넘들
-        Collider[] targets = Physics.OverlapSphere(transform.position, 20f, PlayerMask);
+        Collider[] targets = Physics.OverlapSphere(transform.position, baseStatus.DetectedRange, PlayerMask);
 
         //range for
         foreach (var target in targets)
@@ -71,15 +113,15 @@ public class Entity : MonoBehaviour, IDamagable
             float angle = Vector3.Angle(transform.forward, dirToTarget);
 
             //왼쪽 45도고 오른쪽 45도니 총 90도임
-            if (angle < 45f) 
+            if (angle < baseStatus.DetectedAngle)
             {
-                if (Physics.Raycast(transform.position + Vector3.up * 0.5f, dirToTarget, out RaycastHit hit, 20f))
+                if (Physics.Raycast(transform.position + Vector3.up * 0.5f, dirToTarget, out RaycastHit hit, baseStatus.DetectedRange))
                 {
                     //임시
                     if (hit.collider.CompareTag("Player"))
                     {
+                        baseStatus.DetectedLocation = hit.point; // 플레이어 위치 저장
                         _stateMachine.SetState(EntityEnum.Run);
-                        Debug.Log("확인");
                     }
                 }
             }
@@ -88,36 +130,80 @@ public class Entity : MonoBehaviour, IDamagable
 
     public void Dead()
     {
-        Debug.Log("dead");
+        _entityAttack.StopAttack();
+        SetRagdollActive(true);
     }
 
     private void OnDrawGizmos()
     {
+        if (baseStatus == null) return;
         // 감지 반경 색상
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, 20);
+        Gizmos.DrawWireSphere(transform.position, baseStatus.DetectedRange);
 
         // 시야각 (viewAngle)을 시각화 (좌우)
-        Vector3 leftDir = Quaternion.Euler(0, -90f / 2f, 0) * transform.forward;
-        Vector3 rightDir = Quaternion.Euler(0, 90f / 2f, 0) * transform.forward;
+        Vector3 leftDir = Quaternion.Euler(0, -baseStatus.DetectedAngle, 0) * transform.forward;
+        Vector3 rightDir = Quaternion.Euler(0, baseStatus.DetectedAngle, 0) * transform.forward;
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, leftDir * 20);
-        Gizmos.DrawRay(transform.position, rightDir * 20);
+        Gizmos.DrawRay(transform.position, leftDir * baseStatus.DetectedRange);
+        Gizmos.DrawRay(transform.position, rightDir * baseStatus.DetectedRange);
 
         // (선택) 정면 방향 표시
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, transform.forward * 20);
+        Gizmos.DrawRay(transform.position, transform.forward * baseStatus.DetectedRange);
     }
 
     public void Attack()
     {
-        Debug.Log("attack");
+        _entityAttack.Attack();
     }
 
 
     public void TakeDamage(float damage)
     {
+        if (_stateMachine.GetState() == EntityEnum.Die)
+        {
+            return;
+        }
+
+        if (_stateMachine.GetState() == EntityEnum.Hurt || _stateMachine.GetState() == EntityEnum.Dying)
+        {
+            _stateMachine.SetState(EntityEnum.Die);
+            return;
+        }
+
+        baseStatus.CurrentHp -= damage;
+
+        if (baseStatus.CurrentHp <= 0)
+        {
+            _stateMachine.SetState(EntityEnum.Die);
+            return;
+        }
+
+        DebugHelper.Log(baseStatus.CurrentHp.ToString());
+
         _stateMachine.SetState(EntityEnum.Hit);
+    }
+
+    public void SetRagdollActive(bool isActive)  //true면 ragdoll 활성화, false면 비활성화
+    {
+        foreach (var col in ragdollColliders)
+        {
+            col.enabled = isActive;
+        }
+
+        // 리지드바디 kinematic 설정 (false = 물리 적용, true = 비활성화)
+        foreach (var rb in ragdollRigidbodies)
+        {
+            rb.isKinematic = !isActive;
+        }
+
+        // 메인 콜라이더/리지드바디 끄거나 켜기
+        _capsuleCollider.enabled = !isActive;
+
+        // 네브메시나 애니메이터도 끄는게 일반적입니다
+        _NavMeshAgent.enabled = !isActive;
+        _animator.enabled = !isActive;
     }
 }

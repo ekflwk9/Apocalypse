@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace GameItem
-{
     public enum ItemType
     {
         None = 0,
@@ -16,9 +11,10 @@ namespace GameItem
 
     public enum ArmorType
     {
+        None,
         Head,
         Top,
-        Bottom,
+        // Bottom,
         Shoes,
     }
-}
+

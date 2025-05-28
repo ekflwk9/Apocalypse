@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using GameItem;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 public class ItemManager : MonoBehaviour
 {
     [SerializeField] private AssetBundle dataBundle;
-    public Inventory inventory;
+    public Inventory _inventory;
+    public Inventory Inventory => _inventory ??= Player.Instance.GetComponent<Inventory>();
     public ItemEquipment itemEquipment;
-    
+
     private static ItemManager _instance;
     public static ItemManager Instance
     {
@@ -44,16 +44,15 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    public ItemInfo PickUp(int itemId) // 플레이어가 아이템 주웠을때 호출되는 메서드
+    public void PickUp(int itemId) // 플레이어가 아이템 주웠을때 호출되는 메서드
     {
         ItemInfo item;
         if (itemDB.ContainsKey(itemId))
         {
             item = itemDB[itemId];
-            inventory.GetItem(item);
-            return item;
+
+            Inventory.GetItem(item);
         }
-        return null;
     }
     // public void UseItem(ItemInfo itemInfo)
     // {

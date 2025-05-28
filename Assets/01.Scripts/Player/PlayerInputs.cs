@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,7 +19,18 @@ public class PlayerInputs : MonoBehaviour
 	[Header("Mouse Cursor Settings")] public bool cursorLocked = true;
 	public bool cursorInputForLook = true;
 	
-	private Player _player;
+	[SerializeField] private Player _player;
+	[SerializeField] private PlayerThirdPersonController _controller;
+	[SerializeField] private InteractionCollider _interactionCollider;
+	
+	//테스트 코드
+	public WeaponInfo[] TestInventorySelectedWeaponInfos;
+	//
+
+	private void Reset()
+	{
+		_controller = GetComponent<PlayerThirdPersonController>();
+	}
 
 	private void Start()
 	{
@@ -83,9 +95,18 @@ public class PlayerInputs : MonoBehaviour
 
 	public void OnAttack(InputValue value)
 	{
-		if (value.isPressed && aim && !attack)
+		if (aim)
 		{
-			attack = true;
+			attack = value.isPressed;
+		}
+		else
+		{
+			attack = false;
+		}
+
+		if (attack)
+		{
+			_controller.Attack();
 		}
 	}
 
@@ -95,7 +116,22 @@ public class PlayerInputs : MonoBehaviour
 		{
 			float key = value.Get<float>();
 			int numberPressed = Mathf.RoundToInt(key);
-			Debug.Log($"Pressed {numberPressed}");
+			numberPressed--;
+			
+			//테스트코드
+			if(numberPressed < TestInventorySelectedWeaponInfos.Length)
+				Player.Instance.Equip.EquipNew(TestInventorySelectedWeaponInfos[numberPressed]);
+			//
+			
+			//인벤토리 아이템 사용 호출
+		}
+	}
+
+	public void OnInteraction(InputValue value)
+	{
+		if (value.isPressed)
+		{
+			_interactionCollider.InvokePickUp();
 		}
 	}
 

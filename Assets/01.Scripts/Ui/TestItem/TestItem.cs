@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class TestItem : MonoBehaviour
 {
-    public int id;
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.G)) UiManager.instance.status.GetItem(100);
+        else if(Input.GetKeyDown(KeyCode.H)) UiManager.instance.status.GetItem(200);
+    }
 }
