@@ -1,18 +1,19 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerEquip : MonoBehaviour
 {
-    public GameObject[] weapons;
+    public Dictionary<WeaponInfo, GameObject> weapons;
     public GameObject curWeapon;
+    public PlayerWeapon curWeaponData;
+    
     public WeaponInfo curEquip;
     public PlayerWeaponType curWeaponType = PlayerWeaponType.None;
     
     [SerializeField] private Transform equipPivot;
-    [SerializeField] private Transform meleeWeaponPivot;
-    [SerializeField] private Transform rangedWeaponPivot;
-    private Transform handPosition;
+    [SerializeField] private Transform weaponPivot;
     
     public BoxCollider meleeCollider;
     
@@ -35,11 +36,21 @@ public class PlayerEquip : MonoBehaviour
     {
         AssignAnimationIDs();
         meleeCollider.enabled = false;
-        weapons = new GameObject[equipPivot.childCount];
+        
+        weapons = new Dictionary<WeaponInfo, GameObject>();
+        
         for (int i = 0; i < equipPivot.childCount; i++)
         {
-            weapons[i] = equipPivot.GetChild(i).gameObject;
-            weapons[i].SetActive(false);
+            GameObject weapon = equipPivot.GetChild(i).gameObject;
+            if (weapon.TryGetComponent(out PlayerWeapon weaponData))
+            {
+                var info = weaponData.GetWeaponData().Item1;
+                if (info != null && !weapons.ContainsKey(info))
+                {
+                    weapons.Add(info, weapon);
+                    weapon.SetActive(false);
+                }
+            }
         }
     }
 
@@ -51,59 +62,60 @@ public class PlayerEquip : MonoBehaviour
 
     public void EquipNew(WeaponInfo data)
     {
-        PlayerWeapon _weaponsData;
         WeaponInfo _weaponInfo;
         PlayerWeaponType _weaponType;
         
-        foreach (var weapon in weapons)
+        if (!weapons.TryGetValue(data, out GameObject weapon))
         {
-            if (!weapon.TryGetComponent(out _weaponsData))
-            {
-                Debug.Log("무기 정보 없음");
-            }
-            else
-            {
-                (_weaponInfo, _weaponType) = _weaponsData.GetWeaponData();
-                if (_weaponInfo == null || _weaponInfo.itemId != data.itemId) continue;
-                
-                if(curWeapon != null)
-                {
-                    if (curWeapon.transform.parent != equipPivot)
-                    {
-                        return;
-                    }
-            
-                    if (curWeapon == weapon)
-                    {
-                        Unequip();
-                        return;
-                    }
-            
-                    Unequip();
-                }
-                
-                switch (_weaponType)
-                {
-                    case PlayerWeaponType.Melee:
-                        _equipMelee = true;
-                        break;
-                    case PlayerWeaponType.Ranged:
-                    case PlayerWeaponType.RangedAuto:
-                        _equipRanged = true;
-                        break;
-                    default:
-                        break;
-                }
-                
-                                
-                curEquip = data;
-                curWeapon = weapon;
-                curWeapon.SetActive(true);
-                curWeaponType = _weaponType;
-
-                UpdateAnimationBools();
-            }
+            Debug.Log("해당 무기를 찾을 수 없습니다.");
+            return;
         }
+
+        if (!weapon.TryGetComponent(out PlayerWeapon weaponData))
+        {
+            Debug.Log("무기 컴포넌트를 찾을 수 없습니다.");
+            return;
+        }
+
+        var (info, type) = weaponData.GetWeaponData();
+        if (info == null || info.itemId != data.itemId)
+        {
+            Debug.Log("무기 정보가 일치하지 않습니다.");
+            return;
+        }
+
+        if (curWeapon != null)
+        {
+            if (curWeapon.transform.parent != equipPivot)
+                return;
+
+            if (curWeapon == weapon)
+            {
+                Unequip();
+                return;
+            }
+
+            Unequip();
+        }
+
+        switch (type)
+        {
+            case PlayerWeaponType.Melee:
+                _equipMelee = true;
+                break;
+            case PlayerWeaponType.Ranged:
+            case PlayerWeaponType.RangedAuto:
+                _equipRanged = true;
+                break;
+        }
+
+        curEquip = data;
+        curWeapon = weapon;
+        curWeaponData = weaponData;
+        curWeapon.SetActive(true);
+        curWeaponType = type;
+
+        UpdateAnimationBools();
     }
     
     private void Unequip()
@@ -133,16 +145,11 @@ public class PlayerEquip : MonoBehaviour
     {
         _isWeaponOnHand = !_isWeaponOnHand; 
         
-        if (_equipMelee)
-        {
-            handPosition = meleeWeaponPivot;
-        }
-        else if (_equipRanged)
-        {
-            handPosition = rangedWeaponPivot;
-        }
-        
-        curWeapon.transform.SetParent(_isWeaponOnHand ? handPosition : equipPivot, false);
+        curWeapon.transform.SetParent(_isWeaponOnHand ? weaponPivot : equipPivot, false);
+
+        (Vector3 position, Vector3 rotation) = curWeaponData.GetEquipPosition(_isWeaponOnHand);
+        curWeapon.transform.localPosition = position;
+        curWeapon.transform.localRotation = Quaternion.Euler(rotation);
     }
     
     public void ToggleMeleeCollider()

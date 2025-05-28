@@ -134,15 +134,6 @@ public class PlayerThirdPersonController : MonoBehaviour
     private void LateUpdate()
     {
         CameraRotation();
-        
-        if (_input.aim && Player.Instance.Equip.curWeaponType == PlayerWeaponType.Ranged)
-        {
-            WaistTransform.rotation = Quaternion.Lerp(
-                WaistTransform.rotation,
-                Quaternion.Euler(0f, CinemachineCameraTarget.transform.rotation.eulerAngles.y, 0f), 
-                Time.deltaTime * 10f
-            );
-        }
     }
 
     //씬에서 플레이어 선택시 기즈모 그리기
@@ -357,6 +348,13 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void RangedAttack(bool isAuto = false)
     {
-        
+        (Vector3 rayOrigin, Vector3 direction) = Player.Instance.Equip.curWeaponData.GetBulletStartPoint();
+        Physics.Raycast(rayOrigin, direction, out RaycastHit hit, Player.Instance.Equip.curWeaponData.Range);
+        Debug.DrawRay(rayOrigin, direction, Color.red);
+        if (hit.collider != null && hit.collider.TryGetComponent<IDamagable>(out IDamagable damagable))
+        {
+            damagable.TakeDamage(Player.Instance.Equip.curEquip.power);
+        }
+        if (!isAuto) _input.attack = false;
     }
 }
