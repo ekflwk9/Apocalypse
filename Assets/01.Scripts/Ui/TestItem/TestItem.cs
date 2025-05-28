@@ -6,7 +6,7 @@ public class TestItem : MonoBehaviour
 {
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.G)) UiManager.instance.status.GetItem(100);
-        else if(Input.GetKeyDown(KeyCode.H)) UiManager.instance.status.GetItem(200);
+        if (Input.GetKeyDown(KeyCode.G)) UiManager.instance.status.GetItem(100);
+        else if (Input.GetKeyDown(KeyCode.H)) UiManager.instance.status.GetItem(201);
     }
 }

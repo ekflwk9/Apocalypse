@@ -15,19 +15,19 @@ public class DragUi : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerEnte
     private void Reset()
     {
         if (this.TryGetComponent<Image>(out var target)) icon = target;
-        else DebugHelper.ShowBugWindow($"{this.name}¿¡ ImageÄÄÆ÷³ÍÆ®°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        else DebugHelper.ShowBugWindow($"{this.name}ì— Imageì»´í¬ë„ŒíŠ¸ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
 
         if (this.TryGetComponent<RectTransform>(out var rect)) fieldPos = rect;
-        else DebugHelper.ShowBugWindow($"{this.name}¿¡ RectTransformÄÄÆ÷³ÍÆ®°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        else DebugHelper.ShowBugWindow($"{this.name}ì— RectTransformì»´í¬ë„ŒíŠ¸ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
     }
 
     /// <summary>
-    /// µå·¹±× À§Ä¡ ¼³Á¤
+    /// ë“œë ˆê·¸ ìœ„ì¹˜ ì„¤ì •
     /// </summary>
     /// <param name="_slot"></param>
     public void SetSlot(RectTransform _pos, ISlot _slot)
     {
-        //½½·Ô¿¡ ÅÍÄ¡½Ã ÇØ´ç ½½·ÔÀ¸·Î ÀÌµ¿ = µå·¡±×¸¦ À§ÇÔ
+        //ìŠ¬ë¡¯ì— í„°ì¹˜ì‹œ í•´ë‹¹ ìŠ¬ë¡¯ìœ¼ë¡œ ì´ë™ = ë“œë˜ê·¸ë¥¼ ìœ„í•¨
         slot = _slot;
         fieldPos.sizeDelta = _pos.rect.size;
         this.transform.position = _pos.transform.position;
@@ -35,7 +35,7 @@ public class DragUi : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerEnte
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //ÅÍÄ¡ÇÑ ½½·Ô¿¡ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÒ °æ¿ì¿¡¸¸
+        //í„°ì¹˜í•œ ìŠ¬ë¡¯ì— ì•„ì´í…œì´ ì¡´ì¬í•  ê²½ìš°ì—ë§Œ
         var slotItemId = slot.itemId;
 
         if (!isClick && slotItemId != 0)
@@ -47,48 +47,48 @@ public class DragUi : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerEnte
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //µå·¡±× ½ÃÀÛµÊ
+        //ë“œë˜ê·¸ ì‹œì‘ë¨
         isClick = true;
         selectItemId = slot.itemId;
-        UiManager.instance.status.itemInfo.SetOff();
 
+        UiManager.instance.status.itemInfo.SetOff();
         icon.sprite = ItemManager.Instance.itemDB[selectItemId].icon;
         icon.color = Color.white;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        //¸¶¿ì½º À§Ä¡¸¦ ÃßÀû
+        //ë§ˆìš°ìŠ¤ ìœ„ì¹˜ë¥¼ ì¶”ì 
         this.transform.position = eventData.position;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //µå·¡±× ³¡³²
+        //ë“œë˜ê·¸ ëë‚¨
         isClick = false;
         icon.color = Color.clear;
         this.transform.position = Vector3.up * 5000;
     }
 
     /// <summary>
-    /// µå·¡±× Ã¢ ¿øÀ§Ä¡
+    /// ë“œë˜ê·¸ ì°½ ì›ìœ„ì¹˜
     /// </summary>
     public void OnEndDrag()
     {
-        //µå·¡±× ³¡³²
+        //ë“œë˜ê·¸ ëë‚¨
         isClick = false;
         this.transform.position = Vector3.up * 5000;
     }
 
     public void EndChangeSlot()
     {
-        //¼±ÅÃµÈ ¾ÆÀÌÅÛ Á¸Àç ÇÏÁö ¾ÊÀ½À¸·Î º¯°æ
+        //ì„ íƒëœ ì•„ì´í…œ ì¡´ì¬ í•˜ì§€ ì•ŠìŒìœ¼ë¡œ ë³€ê²½
         selectItemId = 0;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        //¸¶¿ì½º°¡ ¿ÏÀüÈ÷ ¹Û¿¡ ³ª°¬´Ù´Â°Ç ¹üÀ§¸¦ ¹ş¾î³µ´Ù´Â ÀÇ¹Ì·Î °£ÁÖ
+        //ë§ˆìš°ìŠ¤ê°€ ì™„ì „íˆ ë°–ì— ë‚˜ê°”ë‹¤ëŠ”ê±´ ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ë‹¤ëŠ” ì˜ë¯¸ë¡œ ê°„ì£¼
         UiManager.instance.status.itemInfo.SetOff();
         UiManager.instance.touch.SetTouch(false);
     }

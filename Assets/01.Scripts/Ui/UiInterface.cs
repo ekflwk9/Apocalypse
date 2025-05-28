@@ -4,6 +4,8 @@ using UnityEngine;
 
 public interface ISlot
 {
-    public int itemId { get; set; }
-    public bool SetItem(int _itemId); 
+    public int itemId { get; }
+    public int count { get; }
+    public void SetSlot(int _itemCount);
+    public bool SetSlot(int _itemId, int _itemCount);
 }
