@@ -1,4 +1,5 @@
-﻿using Cinemachine;
+﻿using System.Collections;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -51,6 +52,7 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     [Header("Aim")]
     public Transform WaistTransform;
+    private Coroutine _zoomCoroutine;
 
     //컴포넌트들
     [Header("Componetns")]
@@ -310,19 +312,29 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void Aim()
     {
+        if (Player.Instance.Equip.curWeapon != null) return;
+
         Vector3 targetOffset = _input.aim ? AimCamPosition : TPSCamPosition;
+        if (_zoomCoroutine == null)
+        {
+            _zoomCoroutine = StartCoroutine(ZoomIn(targetOffset));
+        }
+        
+        _animator.SetBool(_animIDEquipWeapon, _input.aim);
+        _animator.SetBool(_animIDAim, _input.aim);
+    }
+
+    private IEnumerator ZoomIn(Vector3 targetOffset)
+    {
         Follow.ShoulderOffset = Vector3.Lerp(Follow.ShoulderOffset, targetOffset, Time.deltaTime * 6f);
         if (Vector3.Distance(targetOffset, Follow.ShoulderOffset) < 0.01f)
         {
             Follow.ShoulderOffset = targetOffset;
         }
-
-        if (Player.Instance.Equip.curWeapon != null)
-        {
-            _animator.SetBool(_animIDEquipWeapon, _input.aim);
-        }
         
-        _animator.SetBool(_animIDAim, _input.aim);
+        yield return new WaitForSeconds(2f);
+        
+        _zoomCoroutine = null;
     }
 
     public void Attack()

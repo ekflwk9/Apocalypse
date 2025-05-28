@@ -21,7 +21,7 @@ public class PlayerInputs : MonoBehaviour
 	
 	[SerializeField] private Player _player;
 	[SerializeField] private PlayerThirdPersonController _controller;
-	[SerializeField] private InteractionCollider _interactionCollider;
+	[SerializeField] private PlayerInteraction _playerInteraction;
 	
 	//테스트 코드
 	public WeaponInfo[] TestInventorySelectedWeaponInfos;
@@ -131,7 +131,7 @@ public class PlayerInputs : MonoBehaviour
 	{
 		if (value.isPressed)
 		{
-			_interactionCollider.InvokePickUp();
+			_playerInteraction.InvokePickUp();
 		}
 	}
 

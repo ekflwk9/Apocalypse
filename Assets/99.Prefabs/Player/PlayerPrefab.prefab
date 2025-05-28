@@ -1917,6 +1917,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6127235004694739238}
   - {fileID: 5762334296500837219}
   - {fileID: 8783331889392103069}
   - {fileID: 6047248199980064973}
@@ -2082,7 +2083,7 @@ MonoBehaviour:
   cursorInputForLook: 1
   _player: {fileID: 0}
   _controller: {fileID: 4099686563972156944}
-  _interactionCollider: {fileID: 0}
+  _playerInteraction: {fileID: 6778714753677613108}
   TestInventorySelectedWeaponInfos:
   - {fileID: 11400000, guid: 29b6e256cfd364d2bab2f40064a62f5b, type: 2}
   - {fileID: 11400000, guid: 4ef78ea5bf215bd49a12e156e2a0a687, type: 2}
@@ -2188,6 +2189,53 @@ MonoBehaviour:
   firstId: {fileID: 0}
   secondId: {fileID: 0}
   items: []
+--- !u!1 &5353754830572176258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6127235004694739238}
+  - component: {fileID: 6778714753677613108}
+  m_Layer: 3
+  m_Name: Interaction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6127235004694739238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5353754830572176258}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6612394396655758167}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6778714753677613108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5353754830572176258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b110282686320341a0cbe6f4a125513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliders: []
+  _closestItem: {fileID: 0}
+  halfExtents: {x: 0, y: 0, z: 0}
 --- !u!1 &5475061807072394606
 GameObject:
   m_ObjectHideFlags: 0

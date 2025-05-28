@@ -1,26 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractionCollider : MonoBehaviour
+public class PlayerInteraction : MonoBehaviour
 {
-    private Collider[] colliders;
-    private ItemHandler _closestItem;
-
+    [SerializeField] private Collider[] colliders;
+    [SerializeField] private ItemHandler closestItem;
+    [SerializeField] private Vector3 halfExtents;
+    
     private void Update()
     {
-        colliders = Physics.OverlapBox(transform.position, transform.localScale);
+        colliders = Physics.OverlapBox(transform.position, halfExtents);
+        foreach (Collider col in colliders)
+        {
+            Debug.Log(col.name);
+        }
     }
 
     public void InvokePickUp()
     {
         var playerPosition = Player.Instance.transform.position;
-        float distance = -1;
+        bool isFirstItem = true;
+        float distance = 0f;
         foreach (var item in colliders)
         {
-            if (distance == -1)
+            if (isFirstItem)
             {
                 distance = Vector3.Distance(playerPosition, item.transform.position);
-                //_closestItem = item;
+                closestItem = item.gameObject.GetComponent<ItemHandler>();
+                isFirstItem = false;
                 continue;
             }
 
@@ -28,10 +35,10 @@ public class InteractionCollider : MonoBehaviour
             if (distance > curDistance)
             {
                 distance = curDistance;
-                //_closestItem = item;
+                closestItem = item.gameObject.GetComponent<ItemHandler>();
             }
         }
 
-        if (_closestItem != null) _closestItem.PickUpItem();
+        if (closestItem != null) closestItem.PickUpItem();
     }
 }
