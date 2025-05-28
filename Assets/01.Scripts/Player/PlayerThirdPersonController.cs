@@ -302,6 +302,7 @@ public class PlayerThirdPersonController : MonoBehaviour
             if (_hasAnimator)
             {
                 _animator.SetTrigger(_animIDDamage);
+                Player.Instance._damaged = false;
             }
         }
     }
@@ -325,13 +326,17 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     public void Attack()
     {
+        if (Player.Instance._damaged) return;
         // if (Player.Instance.Equip.curEquip == null)
         // {
         //     _input.attack = false;
         //     return;
         // }
-        
-        _animator.SetTrigger(_animIDAttack);
-        _input.attack = false;
+
+        if (_hasAnimator)
+        {
+            _animator.SetTrigger(_animIDAttack);
+            _input.attack = false;
+        }
     }
 }

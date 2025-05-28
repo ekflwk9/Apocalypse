@@ -104,9 +104,11 @@ public class PlayerInputs : MonoBehaviour
 		{
 			float key = value.Get<float>();
 			int numberPressed = Mathf.RoundToInt(key);
+			
 			//테스트코드
 			Player.Instance.Equip.EquipNew(numberPressed - 1);
 			//
+			
 			//인벤토리 아이템 사용 호출
 		}
 	}

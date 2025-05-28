@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerEquip : MonoBehaviour
 {
+    public GameObject[] Weapons;
     public WeaponInfo curEquip;
     [SerializeField] private Transform equipPivot;
     [SerializeField] private Transform weaponPivot;
@@ -15,10 +16,10 @@ public class PlayerEquip : MonoBehaviour
     private int _animIDEquipRanged;
     private bool _equipMelee;
     private bool _equipRanged;
+    private bool _isWeaponOnHand = false;
     [SerializeField] private bool _toggleMelee = false;
     
     //테스트 코드
-    public GameObject[] TestWeapons;
     public GameObject SelectWeapon;
     //
     
@@ -26,9 +27,11 @@ public class PlayerEquip : MonoBehaviour
     {
         AssignAnimationIDs();
         meleeCollider.enabled = false;
-        foreach (var weapon in TestWeapons)
+        Weapons = new GameObject[equipPivot.childCount];
+        for (int i = 0; i < equipPivot.childCount; i++)
         {
-            weapon.SetActive(false);
+            Weapons[i] = equipPivot.GetChild(i).gameObject;
+            Weapons[i].SetActive(false);
         }
     }
 
@@ -47,8 +50,8 @@ public class PlayerEquip : MonoBehaviour
     //테스트 코드
     public void EquipNew(int index)
     {
-        if(index >= TestWeapons.Length) return;
-        if (SelectWeapon == TestWeapons[index])
+        if(index >= Weapons.Length) return;
+        if (SelectWeapon == Weapons[index])
         {
             Unequip();
             return;
@@ -57,7 +60,7 @@ public class PlayerEquip : MonoBehaviour
         {
             Unequip();
         }
-        SelectWeapon = TestWeapons[index];
+        SelectWeapon = Weapons[index];
         _equipMelee = true;
         SelectWeapon.SetActive(true);
         _animator.SetBool(_animIDEquipMelee, true);
@@ -73,24 +76,18 @@ public class PlayerEquip : MonoBehaviour
         _equipRanged = false;
     }
 
-    public void MoveWeaponToHand()
+    public void ToggleWeaponLocation()
     {
-        //curEquip.GameObject().transform.SetParent(weaponPivot, false);
-        SelectWeapon.transform.SetParent(weaponPivot, false);
-    }
-
-    public void MoveWeaponToBack()
-    {
-        //curEquip.GameObject().transform.SetParent(equipPivot, false);
-        SelectWeapon.transform.SetParent(equipPivot, false);
+        _isWeaponOnHand = !_isWeaponOnHand;
+        SelectWeapon.transform.SetParent(_isWeaponOnHand ? weaponPivot : equipPivot, false);
     }
     
     public void ToggleMeleeCollider()
     {
         if (_equipMelee)
         {
-            meleeCollider.enabled = !_toggleMelee;
             _toggleMelee = !_toggleMelee;
+            meleeCollider.enabled = _toggleMelee;
         }
     }
     
@@ -105,6 +102,7 @@ public class PlayerEquip : MonoBehaviour
         }
         else
         {
+            Debug.Log($"{other.gameObject.name} 맞았다.");
             damagable.TakeDamage(curEquip != null ? curEquip.power : 10f);
         }
     }

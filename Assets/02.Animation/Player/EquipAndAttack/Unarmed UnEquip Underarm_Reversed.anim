@@ -44302,7 +44302,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.61950845
-    functionName: MoveWeaponToBack
+    functionName: ToggleWeaponLocation
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

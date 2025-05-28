@@ -61,7 +61,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.49769586
-        functionName: MoveWeaponToHand
+        functionName: ToggleWeaponLocation
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
