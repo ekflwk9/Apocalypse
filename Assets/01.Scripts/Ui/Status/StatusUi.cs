@@ -1,63 +1,123 @@
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StatusUi : MonoBehaviour
 {
-    Dictionary<UiCode, GameObject> window = new Dictionary<UiCode, GameObject>();
+    public DragUi drag { get => fieldDrag; }
+    [SerializeField] private DragUi fieldDrag;
 
-    private Slot[] inventorySlot;
-    private Slot[] storageSlot;
-    private Slot[] statusSlot;
+    public ItemInfoUi itemInfo { get => fieldItemInfo; }
+    [SerializeField] private ItemInfoUi fieldItemInfo;
 
-    private void Awake()
+    public GameObject inventory { get => fieldInventory; }
+    [SerializeField] private GameObject fieldInventory;
+
+    public GameObject equipped { get => fieldEquipped; }
+    [SerializeField] private GameObject fieldEquipped;
+
+    public GameObject storage { get => fieldStorage; }
+    [SerializeField] private GameObject fieldStorage;
+
+    public GameObject farming { get => fieldFarming; }
+    [SerializeField] private GameObject fieldFarming;
+
+    public GameObject shop { get => fieldShop; }
+    [SerializeField] private GameObject fieldShop;
+
+    [SerializeField] private InventorySlot[] inventorySlot;
+    [SerializeField] private InventorySlot[] storageSlot;
+    [SerializeField] private InventorySlot[] farminSlot;
+    [SerializeField] private EquippedSlot[] equippedSlot;
+    [SerializeField] private ShopSlot[] shopSlot;
+
+    private void Reset()
     {
-        
+        fieldDrag = this.GetComponentInChildren<DragUi>(true);
+        if (fieldDrag == null) DebugHelper.Log($"{this.name}에 DragImage스크립트가 있는 자식 오브젝트가 존재하지 않음");
+
+        fieldItemInfo = this.GetComponentInChildren<ItemInfoUi>(true);
+        if (fieldItemInfo == null) DebugHelper.Log($"{this.name}에 ItemInfoUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
+
+        fieldItemInfo = this.GetComponentInChildren<ItemInfoUi>(true);
+        if (fieldItemInfo == null) DebugHelper.Log($"{this.name}에 ItemInfoUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
+
+        fieldInventory = Helper.FindChild(this.transform, "Inventory").gameObject;
+        inventorySlot = GetComponentArray<InventorySlot>(fieldInventory.transform);
+
+        fieldEquipped = Helper.FindChild(this.transform, "Equipped").gameObject;
+        equippedSlot = GetComponentArray<EquippedSlot>(fieldEquipped.transform);
+
+        fieldStorage = Helper.FindChild(this.transform, "Storage").gameObject;
+        storageSlot = GetComponentArray<InventorySlot>(fieldStorage.transform);
+
+        fieldFarming = Helper.FindChild(this.transform, "Farming").gameObject;
+        farminSlot = GetComponentArray<InventorySlot>(fieldFarming.transform);
+
+        fieldShop = Helper.FindChild(this.transform, "Shop").gameObject;
+        shopSlot = GetComponentArray<ShopSlot>(fieldShop.transform);
     }
 
-    private void FindInventorySlot(string _parentName)
+    private T[] GetComponentArray<T>(Transform _parent) where T : class
     {
-        var parent = Helper.FindChild(this.transform, _parentName);
+        var childCount = _parent.childCount;
+        var tempList = new List<T>();
 
-    }
-
-    private void ASD()
-    {
-        var tempList = new List<Slot>();
-
-        for (int i = 0; i < inventorySlot.Length; i++)
+        for (int i = 0; i < childCount; i++)
         {
+            var child = _parent.GetChild(i);
 
+            if (child.TryGetComponent<T>(out var target)) tempList.Add(target);
         }
-    }
 
+        var tempArray = new T[tempList.Count];
+        tempList.CopyTo(0, tempArray, 0, tempList.Count);
+
+        return tempArray;
+    }
 
     /// <summary>
-    /// 켜져있을 경우 꺼짐 / 꺼져있을 경우 켜짐
+    /// 아이템 획득 성공 여부 (성공시 아이템 추가됨)
     /// </summary>
-    /// <param name="_uiType"></param>
-    public void SetWindow(UiCode _uiType)
+    /// <param name="_itemId"></param>
+    /// <returns></returns>
+    public bool GetItem(int _itemId)
     {
-        if (window.ContainsKey(_uiType))
+        var item = ItemManager.Instance.itemDB[_itemId];
+
+        //중복 획득 가능한 아이템인가?
+        if (item.canStack)
         {
-            var isActive = window[(_uiType)].activeSelf;
-            window[_uiType].SetActive(!isActive);
+            for (int i = 0; i < inventorySlot.Length; i++)
+            {
+                if (inventorySlot[i].itemId == 0)
+                {
+                    inventorySlot[i].SetItem(_itemId);
+                    return true;
+                }
+
+                else if (inventorySlot[i].itemId == _itemId)
+                {
+                    inventorySlot[i].SetItemCount(_itemId);
+                    return true;
+                }
+            }
         }
 
+        //불가능시
         else
         {
-            DebugHelper.Log($"{_uiType}이라는 값이 존재하지 않음");
+            for (int i = 0; i < inventorySlot.Length; i++)
+            {
+                if (inventorySlot[i].itemId == 0)
+                {
+                    inventorySlot[i].SetItem(_itemId);
+                    return true;
+                }
+            }
         }
-    }
 
-   
-    /// <summary>
-    /// Ui 활성화 상태를 직접 지정함
-    /// </summary>
-    /// <param name="_uiType"></param>
-    /// <param name="_isActive"></param>
-    public void SetWindow(UiCode _uiType, bool _isActive)
-    {
-        if (window.ContainsKey(_uiType)) window[_uiType].SetActive(_isActive);
-        else DebugHelper.Log($"{_uiType}이라는 값이 존재하지 않음");
+        return false;
     }
 }

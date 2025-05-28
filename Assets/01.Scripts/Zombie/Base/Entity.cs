@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,11 +10,16 @@ public class Entity : MonoBehaviour, IDamagable
 {
     [SerializeField] protected Rigidbody _rigidbody;
     [SerializeField] protected CapsuleCollider _capsuleCollider;
+    [SerializeField] protected EntityAttack _entityAttack;
+
     protected EntityStateMachine _stateMachine;
     public BaseStatus baseStatus;
     public NavMeshAgent _NavMeshAgent;
     public Animator _animator;
     [SerializeField] LayerMask PlayerMask;
+
+    [SerializeField] Collider[] ragdollColliders;
+    [SerializeField] Rigidbody[] ragdollRigidbodies;
 
 
     protected void Reset()
@@ -27,7 +33,7 @@ public class Entity : MonoBehaviour, IDamagable
 
         _NavMeshAgent = GetComponent<NavMeshAgent>();
 
-        if(_NavMeshAgent == null)
+        if (_NavMeshAgent == null)
         {
             _NavMeshAgent = gameObject.AddComponent<NavMeshAgent>();
             _NavMeshAgent.updateRotation = false;
@@ -41,11 +47,45 @@ public class Entity : MonoBehaviour, IDamagable
             _capsuleCollider.height = 2f;
             _capsuleCollider.radius = 0.5f;
             _capsuleCollider.center = Vector3.up;
-        }   
+        }
+
+        _entityAttack = GetComponentInChildren<EntityAttack>();
+
+        if (_entityAttack == null)
+        {
+            _entityAttack = gameObject.AddComponent<EntityAttack>();
+        }
+
 
         _animator = GetComponentInChildren<Animator>();
 
         PlayerMask = LayerMask.GetMask("Player");
+
+        // linq고 gpt꺼 따옴
+        ragdollColliders = GetComponentsInChildren<Collider>()
+         .Where(c => c.tag != "Monster")
+         .ToArray();
+
+        ragdollRigidbodies = GetComponentsInChildren<Rigidbody>(true)
+         .Where(rb => rb.tag != "Monster")
+         .ToArray();
+
+
+        foreach (var col in ragdollColliders)
+        {
+            col.enabled = false; // 초기에는 비활성화
+        }
+
+        foreach (var rb in ragdollRigidbodies)
+        {
+            rb.isKinematic = true; // 초기에는 Kinematic 설정
+        }
+
+    }
+
+    private void OnEnable()
+    {
+        SetRagdollActive(false);
     }
 
     protected void Update()
@@ -56,7 +96,7 @@ public class Entity : MonoBehaviour, IDamagable
 
     void Detect()
     {
-        if(_stateMachine.GetState() != EntityEnum.Idle)
+        if (_stateMachine.GetState() != EntityEnum.Idle)
         {
             return;
         }
@@ -71,7 +111,7 @@ public class Entity : MonoBehaviour, IDamagable
             float angle = Vector3.Angle(transform.forward, dirToTarget);
 
             //왼쪽 45도고 오른쪽 45도니 총 90도임
-            if (angle < 45f) 
+            if (angle < 45f)
             {
                 if (Physics.Raycast(transform.position + Vector3.up * 0.5f, dirToTarget, out RaycastHit hit, 20f))
                 {
@@ -88,7 +128,8 @@ public class Entity : MonoBehaviour, IDamagable
 
     public void Dead()
     {
-        Debug.Log("dead");
+        _entityAttack.StopAttack();
+        SetRagdollActive(true);
     }
 
     private void OnDrawGizmos()
@@ -112,12 +153,57 @@ public class Entity : MonoBehaviour, IDamagable
 
     public void Attack()
     {
-        Debug.Log("attack");
+        _entityAttack.Attack();
     }
 
 
     public void TakeDamage(float damage)
     {
+        if (_stateMachine.GetState() == EntityEnum.Die)
+        {
+            return;
+        }
+
+        if (_stateMachine.GetState() == EntityEnum.Hurt || _stateMachine.GetState() == EntityEnum.Dying)
+        {
+            _stateMachine.SetState(EntityEnum.Die);
+            return;
+        }
+
+        baseStatus.CurrentHp -= damage;
+
+        if (baseStatus.CurrentHp <= 0)
+        {
+            _stateMachine.SetState(EntityEnum.Die);
+            return;
+        }
+
+
         _stateMachine.SetState(EntityEnum.Hit);
     }
+
+    public void SetRagdollActive(bool isActive)  //true면 ragdoll 활성화, false면 비활성화
+    {
+        foreach (var col in ragdollColliders)
+        {
+            col.enabled = isActive;
+        }
+
+        // 리지드바디 kinematic 설정 (false = 물리 적용, true = 비활성화)
+        foreach (var rb in ragdollRigidbodies)
+        {
+            rb.isKinematic = !isActive;
+        }
+
+        // 메인 콜라이더/리지드바디 끄거나 켜기
+        _capsuleCollider.enabled = !isActive;
+        _rigidbody.isKinematic = isActive;
+
+        // 네브메시나 애니메이터도 끄는게 일반적입니다
+        _NavMeshAgent.enabled = !isActive;
+        _animator.enabled = !isActive;
+    }
+
+
+
 }
