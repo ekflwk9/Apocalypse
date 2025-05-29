@@ -2237,7 +2237,6 @@ MonoBehaviour:
   TestInventorySelectedWeaponInfos:
   - {fileID: 11400000, guid: 29b6e256cfd364d2bab2f40064a62f5b, type: 2}
   - {fileID: 11400000, guid: 4ef78ea5bf215bd49a12e156e2a0a687, type: 2}
-  - {fileID: 11400000, guid: e56faf25bd2d9084c815460732bb8699, type: 2}
 --- !u!114 &4099686563972156944
 MonoBehaviour:
   m_ObjectHideFlags: 0

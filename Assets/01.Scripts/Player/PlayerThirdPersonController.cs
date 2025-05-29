@@ -14,8 +14,12 @@ public class PlayerThirdPersonController : MonoBehaviour
     public float MoveSpeed = 10f;
 
     public float SprintSpeed = 30f;
+    
+    [Range(0.0f, 10.0f)]
+    public float mouseSesitive = 5f;
 
-    [Range(0.0f, 0.3f)] public float RotationSmoothTime = 0.12f;
+    [Range(0.0f, 0.3f)]
+    public float RotationSmoothTime = 0.12f;
     public float SpeedChangeRate = 10.0f;
 
     [Space(10)] //점프관련
@@ -175,7 +179,7 @@ public class PlayerThirdPersonController : MonoBehaviour
     //카메라 회전. 밑과 위를 제한하는 값으로 최대치 제한
     private void CameraRotation()
     {
-        var deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.fixedDeltaTime;
+        var deltaTimeMultiplier = IsCurrentDeviceMouse ? mouseSesitive : Time.fixedDeltaTime;
         
         if (LockCameraPosition)
         {
