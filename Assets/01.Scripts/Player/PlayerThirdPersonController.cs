@@ -3,8 +3,6 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(PlayerInput))]
 public class PlayerThirdPersonController : MonoBehaviour
 {
     private const float _threshold = 0.01f;
@@ -51,17 +49,16 @@ public class PlayerThirdPersonController : MonoBehaviour
     public bool LockCameraPosition;
 
     [Header("Aim")]
-    public Transform WaistTransform;
     private Coroutine _zoomCoroutine;
 
     //컴포넌트들
     [Header("Componetns")]
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private Animator _animator;
-    [SerializeField] private CharacterController _controller;
     [SerializeField] private PlayerInputs _input;
     [SerializeField] private GameObject _mainCamera;
     [SerializeField] private bool _hasAnimator;
+    [SerializeField] private Rigidbody _rigidbody;
     private float _animationBlend;
     private int _animIDAim;
     private int _animIDAttack;
@@ -102,7 +99,7 @@ public class PlayerThirdPersonController : MonoBehaviour
         GroundLayers = LayerMask.GetMask("Default");
 
         _playerInput = GetComponent<PlayerInput>();
-        _controller = GetComponent<CharacterController>();
+        _rigidbody = GetComponent<Rigidbody>();
         _input = GetComponent<PlayerInputs>();
         _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         VirtualCamera = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
@@ -131,18 +128,15 @@ public class PlayerThirdPersonController : MonoBehaviour
         
         JumpAndGravity();
         GroundedCheck();
-        if (LockCameraPosition)
-        {
-            LockMove();
-        }
-        else
-        {
-            NormalMove();
-        }
         Aim();
         DamageCheck();
     }
-
+    
+    private void FixedUpdate()
+    {
+        Move();
+    }
+    
     private void LateUpdate()
     {
         CameraRotation();
@@ -207,100 +201,57 @@ public class PlayerThirdPersonController : MonoBehaviour
     }
 
     //이동.
-    private void NormalMove()
+    private void Move()
     {
-        //========== 기본적으로 인풋 지정값을 받아와서 이동 ==========
+        //========== 이동값 받음 ==========
         var targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-    
         if (_input.move == Vector2.zero) targetSpeed = 0.0f;
-    
-        var currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-    
+
+        var currentHorizontalSpeed = new Vector3(_rigidbody.velocity.x, 0.0f, _rigidbody.velocity.z).magnitude;
         var speedOffset = 0.1f;
         var inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
-    
-        if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-            currentHorizontalSpeed > targetSpeed + speedOffset)
+
+        if (Mathf.Abs(currentHorizontalSpeed - targetSpeed) > speedOffset)
         {
-            _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
-                Time.deltaTime * SpeedChangeRate);
-    
+            _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
             _speed = Mathf.Round(_speed * 1000f) / 1000f;
         }
         else
         {
             _speed = targetSpeed;
         }
-    
+
         _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
         if (_animationBlend < 0.01f) _animationBlend = 0f;
-    
-        var inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
-    
-        //========== 카메라 방향을 따라 서서히 플레이어 방향이 바뀌는 부분 ==========
-        _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                          _mainCamera.transform.eulerAngles.y;
-        var rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-            RotationSmoothTime);
-    
-        transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-    
-        var targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
-    
-        //계산 마친 값 적용해 이동.
-        _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                         new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-    
-        if (_hasAnimator)
+
+        Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+        Vector3 targetDirection = Vector3.zero;
+
+        if (LockCameraPosition)
         {
-            _animator.SetFloat(_animIDSpeed, _animationBlend);
-            _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
-        }
-    }
-
-    private void LockMove()
-    {
-        //========== 기본적으로 인풋 지정값을 받아와서 이동 ==========
-        var targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-
-        if (_input.move == Vector2.zero)
-            targetSpeed = 0.0f;
-
-        var currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-
-        var speedOffset = 0.1f;
-        var inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
-
-        if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-            currentHorizontalSpeed > targetSpeed + speedOffset)
-        {
-            _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
-                Time.deltaTime * SpeedChangeRate);
-
-            _speed = Mathf.Round(_speed * 1000f) / 1000f;
+            _targetRotation = _mainCamera.transform.eulerAngles.y;
+            targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * inputDirection;
         }
         else
         {
-            _speed = targetSpeed;
+            _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg
+                              + _mainCamera.transform.eulerAngles.y;
+            targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
         }
 
-        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-        if (_animationBlend < 0.01f)
-            _animationBlend = 0f;
-
-        _targetRotation = Mathf.Lerp(_targetRotation, _mainCamera.transform.eulerAngles.y, 10f);
-
-        var rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-            RotationSmoothTime);
-
+        float rotation = Mathf.SmoothDampAngle(
+            transform.eulerAngles.y,
+            _targetRotation,
+            ref _rotationVelocity,
+            RotationSmoothTime
+        );
         transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
 
-        //========== 이동 방향 계산 ==========
-        var targetDirection = Quaternion.Euler(0.0f, _mainCamera.transform.eulerAngles.y, 0.0f) *
-                              new Vector3(_input.move.x, 0f, _input.move.y);
-
-        _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                         new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+        //========== 이동 처리 ==========
+        Vector3 move = targetDirection.normalized * (_speed * Time.fixedDeltaTime)
+                       + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime;
+        Vector3 newPosition = _rigidbody.position + move;
+        _rigidbody.MovePosition(newPosition);
 
         if (_hasAnimator)
         {
@@ -308,6 +259,7 @@ public class PlayerThirdPersonController : MonoBehaviour
             _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
         }
     }
+
 
 
 
