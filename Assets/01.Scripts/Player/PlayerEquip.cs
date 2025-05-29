@@ -101,7 +101,6 @@ public class PlayerEquip : MonoBehaviour
                 _equipMelee = true;
                 break;
             case PlayerWeaponType.Ranged:
-            case PlayerWeaponType.RangedAuto:
                 _equipRanged = true;
                 break;
         }

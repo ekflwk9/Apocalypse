@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -106,11 +107,6 @@ public class PlayerThirdPersonController : MonoBehaviour
         _hasAnimator = TryGetComponent(out _animator);
     }
 
-    private void Awake()
-    {
-        _input.AimEvent += Aim;
-    }
-
     //컴포넌트 캐싱 및 값 초기화
     private void Start()
     {
@@ -120,6 +116,8 @@ public class PlayerThirdPersonController : MonoBehaviour
 
         _jumpTimeoutDelta = JumpTimeout;
         _fallTimeoutDelta = FallTimeout;
+
+        _input.AimEvent += AimSwitch;
     }
 
     private void Update()
@@ -133,11 +131,6 @@ public class PlayerThirdPersonController : MonoBehaviour
     {
         Move();
         CameraRotation();
-    }
-    
-    private void LateUpdate()
-    {
-
     }
 
     //씬에서 플레이어 선택시 기즈모 그리기
@@ -210,7 +203,7 @@ public class PlayerThirdPersonController : MonoBehaviour
     private void Move()
     {
         //========== 이동값 받음 ==========
-        var targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+        var targetSpeed = _input.Sprint ? SprintSpeed : MoveSpeed;
         if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
         var currentHorizontalSpeed = new Vector3(_rigidbody.velocity.x, 0.0f, _rigidbody.velocity.z).magnitude;
@@ -282,7 +275,7 @@ public class PlayerThirdPersonController : MonoBehaviour
 
             if (_verticalVelocity < 0.0f) _verticalVelocity = -2f;
 
-            if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+            if (_input.Jump && _jumpTimeoutDelta <= 0.0f)
             {
                 _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
@@ -304,8 +297,6 @@ public class PlayerThirdPersonController : MonoBehaviour
             {
                 _animator.SetBool(_animIDFreeFall, true);
             }
-
-            _input.jump = false;
         }
 
         //최대 추락 속력까지 중력 부여
@@ -330,31 +321,48 @@ public class PlayerThirdPersonController : MonoBehaviour
     }
     
     private Coroutine _zoomInCoroutine;
-    
-    private void Aim(bool isAimed)
+    private Coroutine _zoomOutCoroutine;
+
+    private void AimSwitch(bool isAimed)
     {
         if (Player.Instance.Equip.curWeapon == null) return;
-
         LockCameraPosition = isAimed;
-		
         Vector3 targetOffset = isAimed ? AimCamPosition : TPSCamPosition;
-        
-        if(_zoomInCoroutine != null)
-            StopCoroutine(_zoomInCoroutine);
-        _zoomInCoroutine = StartCoroutine(ZoomIn(targetOffset));
+        if (isAimed)
+        {
+            if (_zoomInCoroutine != null)
+            {
+                return;
+            }
+            if (_zoomOutCoroutine != null)
+            {
+                return;
+            }
+            _zoomInCoroutine = StartCoroutine(ZoomIn(targetOffset));
+        }
+        else
+        {
+            if (_zoomInCoroutine != null)
+            {
+                return;
+            }
+            if (_zoomOutCoroutine != null)
+            {
+                return;
+            }
+            _zoomOutCoroutine = StartCoroutine(ZoomOut(targetOffset));
+        }
         
         _animator.SetBool(_animIDEquipWeapon, isAimed);
         _animator.SetBool(_animIDAim, isAimed);
     }
-    
+
     private IEnumerator ZoomIn(Vector3 targetOffset)
     {
-        yield return null;
-        
         Vector3 startOffset = Follow.ShoulderOffset;
         float elapsedTime = 0f;
         float duration = 0.3f;
-
+        
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
@@ -362,36 +370,58 @@ public class PlayerThirdPersonController : MonoBehaviour
             Follow.ShoulderOffset = Vector3.Lerp(startOffset, targetOffset, t);
             yield return null;
         }
-
+        
         Follow.ShoulderOffset = targetOffset;
         
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.3f);
         
         _zoomInCoroutine = null;
     }
 
-    public void Attack()
+    private IEnumerator ZoomOut(Vector3 targetOffset)
     {
-        if(Player.Instance.Equip.curEquip == null) return;
-
-        switch (Player.Instance.Equip.curWeaponType)
+        Vector3 startOffset = Follow.ShoulderOffset;
+        float elapsedTime = 0f;
+        float duration = 0.3f;
+        
+        while (elapsedTime < duration)
         {
-            case PlayerWeaponType.None:
-                return;
-            case PlayerWeaponType.Melee:
-                _animator.SetTrigger(_animIDAttack);
-                _input.attack = false;
-                break;
-            case PlayerWeaponType.Ranged:
-                RangedAttack();
-                break;
-            case PlayerWeaponType.RangedAuto:
-                RangedAttack(true);
-                break;
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            Follow.ShoulderOffset = Vector3.Lerp(startOffset, targetOffset, t);
+            yield return null;
         }
+        
+        Follow.ShoulderOffset = targetOffset;
+        
+        yield return new WaitForSeconds(0.3f);
+        
+        _zoomOutCoroutine = null;
+    }
+    
+    private void Zoom(bool isZoomIn)
+    {
+        LockCameraPosition = isZoomIn;
+        Vector3 targetOffset = isZoomIn ? AimCamPosition : TPSCamPosition;
+
+        Follow.ShoulderOffset = Vector3.Lerp(Follow.ShoulderOffset, targetOffset, Time.deltaTime * 6f);
+        if (Vector3.Distance(targetOffset, Follow.ShoulderOffset) < 0.01f)
+        {
+            Follow.ShoulderOffset = targetOffset;
+        }
+        
+        _animator.SetBool(_animIDEquipWeapon, isZoomIn);
+        _animator.SetBool(_animIDAim, isZoomIn);
     }
 
-    private void RangedAttack(bool isAuto = false)
+
+    public void MeleeAttack()
+    {
+        _animator.SetTrigger(_animIDAttack);
+        //휘두르는 소리 울려라
+    }
+
+    public void RangedAttack()
     {
         (Vector3 rayOrigin, Vector3 direction) = Player.Instance.Equip.curWeaponData.GetBulletStartPoint();
         Physics.Raycast(rayOrigin, direction, out RaycastHit hit, Player.Instance.Equip.curWeaponData.Range);
@@ -400,6 +430,6 @@ public class PlayerThirdPersonController : MonoBehaviour
         {
             damagable.TakeDamage(Player.Instance.Equip.curEquip.power);
         }
-        if (!isAuto) _input.attack = false;
+        //총소리 울려라
     }
 }

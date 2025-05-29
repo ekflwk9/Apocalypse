@@ -4,16 +4,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputs : MonoBehaviour
 {
-	public event Action<bool> AimEvent;
+    public event Action<bool> AimEvent;
 	[Header("Character Input Values")]
 	public Vector2 move;
 	public Vector2 look;
-	public bool jump;
-	public bool sprint;
+	private bool _jump;
+    public bool Jump => _jump;
+	private bool _sprint;
+    public bool Sprint => _sprint;
 	
-	private bool aim;
-	public bool attack;
-
+	private bool _aim;
+    public bool Aim => _aim;
+    private bool _prevAim = false;
+    
+	private bool _attack;
+    public bool Attack => _attack;
+    
 	private bool _canSprint = true;
 
 	[Header("Movement Settings")] public bool analogMovement;
@@ -42,13 +48,13 @@ public class PlayerInputs : MonoBehaviour
 
 	private void Update()
 	{
-		if (sprint)
+		if (_sprint)
 		{
 			_player.SetStamina(-(Time.deltaTime * _player.sprintStamina));
 
 			if (_player.Stamina <= 0f)
 			{
-				sprint = false;
+				_sprint = false;
 				_canSprint = false;
 			}
 		}
@@ -56,10 +62,22 @@ public class PlayerInputs : MonoBehaviour
 		{
 			_canSprint = true;
 		}
+        
+        AimEvent?.Invoke(_aim);
 		
-		if (attack)
+		if (_attack)
 		{
-			_controller.Attack();
+            switch (Player.Instance.Equip.curWeaponType)
+            {
+                case PlayerWeaponType.Melee:
+                    _controller.MeleeAttack();
+                    _attack = false;
+                    break;
+                case PlayerWeaponType.Ranged:
+                    _controller.RangedAttack();
+                    _attack = false;
+                    break;
+            }
 		}
 	}
 
@@ -75,35 +93,38 @@ public class PlayerInputs : MonoBehaviour
 	
 	public void OnJump(InputAction.CallbackContext context)
 	{
-		if (!jump && context.performed)
-		{
-			if (_player.Stamina < _player.jumpStamina) return;
-			_player.SetStamina(_player.jumpStamina);
-			jump = true;
-		}
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (_player.Stamina < _player.jumpStamina) return;
+            _player.SetStamina(_player.jumpStamina);
+            _jump = true;
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            _jump = false;
+        }
 	}
 	
 	public void OnSprint(InputAction.CallbackContext context)
 	{
 		if (!_canSprint) return;
-		sprint = context.ReadValueAsButton();
+		_sprint = context.ReadValueAsButton();
 	}
 	
 	public void OnAim(InputAction.CallbackContext context)
 	{
-		aim = context.ReadValueAsButton();
-		AimEvent?.Invoke(aim);
-	}
+        _aim = context.ReadValueAsButton();
+    }
 	
 	public void OnAttack(InputAction.CallbackContext context)
 	{
-		if (aim)
+		if (_aim)
 		{
-			attack = context.ReadValueAsButton();
+			_attack = context.ReadValueAsButton();
 		}
 		else
 		{
-			attack = false;
+			_attack = false;
 		}
 	}
 	

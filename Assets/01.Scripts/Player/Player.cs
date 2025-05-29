@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 
 public interface IDamagable
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour, IDamagable
 {
     public static Player Instance { get; private set; }
     public PlayerEquip Equip;
+    public CinemachineVirtualCamera cinemachineCamera;
     
     [Header("State")]
     public float maxHealth = 100f;
@@ -24,10 +26,11 @@ public class Player : MonoBehaviour, IDamagable
 
     public float passiveStamina = 5f;
 
-    [Header("Stamina Use")] public float sprintStamina = 5f;
+    [Header("Stamina Use")]
+    public float sprintStamina = 5f;
     public float jumpStamina = 10f;
     public float staminaRegenCooldown = 5f;
-
+    
     private bool _staminaRegen;
     private Coroutine _staminaRegenCoroutine;
 
@@ -169,9 +172,25 @@ public class Player : MonoBehaviour, IDamagable
         _staminaRegenCoroutine = null;
     }
 
+    private Coroutine _damagedCoroutine;
+    
     public void TakeDamage(float damage)
     {
         Health -= damage;
+        if (_damagedCoroutine != null)
+            StopCoroutine(_damagedCoroutine);
+        _damagedCoroutine = StartCoroutine(DamagedCoroutine());
+    }
+
+    private IEnumerator DamagedCoroutine()
+    {
+        var perlin = cinemachineCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        
+        perlin.m_FrequencyGain = 20f;
+
+        yield return new WaitForSeconds(0.2f);
+
+        perlin.m_FrequencyGain = 0f;
     }
 
     public void Heal(float heal)
