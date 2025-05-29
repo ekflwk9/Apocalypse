@@ -16,7 +16,7 @@ public class Entity : MonoBehaviour, IDamagable
     public BaseStatus baseStatus;
     public NavMeshAgent _NavMeshAgent;
     public Animator _animator;
-    [SerializeField] LayerMask PlayerMask;
+    [SerializeField] protected LayerMask PlayerMask;
 
     [SerializeField] Collider[] ragdollColliders;
     [SerializeField] Rigidbody[] ragdollRigidbodies;
@@ -24,7 +24,7 @@ public class Entity : MonoBehaviour, IDamagable
 
 
 
-    protected void Reset()
+    protected virtual void Reset()
     {
         gameObject.tag = TagHelper.Monster;
 
@@ -103,7 +103,7 @@ public class Entity : MonoBehaviour, IDamagable
         }
     }
 
-    void Detect()
+    public virtual void Detect()
     {
         //오버랩 된넘들
         Collider[] targets = Physics.OverlapSphere(transform.position, baseStatus.DetectedRange, PlayerMask);
@@ -167,7 +167,7 @@ public class Entity : MonoBehaviour, IDamagable
         Gizmos.DrawRay(transform.position, transform.forward * baseStatus.DetectedRange);
     }
 
-    public void Attack()
+    public virtual void Attack()
     {
         _entityAttack.Attack();
     }

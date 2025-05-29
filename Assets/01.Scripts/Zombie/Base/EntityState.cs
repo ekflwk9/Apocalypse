@@ -3,6 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
+public static class AnimHash
+{
+    public static readonly int IdleHash = Animator.StringToHash("Idle");
+    public static readonly int WalkHash = Animator.StringToHash("Walking");
+    public static readonly int RunHash_1 = Animator.StringToHash("Run_1");
+    public static readonly int RunHash_2 = Animator.StringToHash("Run_2");
+    public static readonly int HitHash_1 = Animator.StringToHash("Hit_1");
+    public static readonly int HitHash_2 = Animator.StringToHash("Hit_2");
+    public static readonly int YellingHash = Animator.StringToHash("Yelling");
+    public static readonly int AttackHash_1 = Animator.StringToHash("Attack_1");
+    public static readonly int AttackHash_2 = Animator.StringToHash("Attack_2");
+    public static readonly int HurtHash = Animator.StringToHash("Hurt");
+    public static readonly int DieHash = Animator.StringToHash("Dying");
+}
 public enum EntityEnum
 {
     None = -1,
@@ -10,6 +24,7 @@ public enum EntityEnum
     Walk,
     Hearing,
     Run,
+    Yelling,
     Attack,
     Hit,
     Hurt,
