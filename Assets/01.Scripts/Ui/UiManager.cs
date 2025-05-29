@@ -4,6 +4,8 @@ public class UiManager : MonoBehaviour
 {
     public static UiManager instance { get; private set; }
 
+    public bool isActive { get; private set; }
+
     public MenuUi menu { get => fieldMenu; }
     [SerializeField] private MenuUi fieldMenu;
 
@@ -58,4 +60,6 @@ public class UiManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    public void SetActive(bool _isActive) => isActive = _isActive;
 }
