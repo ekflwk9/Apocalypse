@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee02b760704ba44acad5eb6d40730353, type: 3}
+  m_Name: Ballistic Mask
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 4171911919187017070, guid: 7ce4f42c810964281a5c0780ad794935,
+    type: 3}
+  itemId: 202
+  itemName: "\uBC1C\uB77C\uC2A4\uD2F1 \uB9C8\uC2A4\uD06C"
+  disciption: "\uCF00\uBE14\uB77C \uC18C\uC7AC \uC548\uBA74 \uBCF4\uD638\uAD6C"
+  itemType: 2
+  icon: {fileID: 21300000, guid: 7d4f3d2e7c2f24f2da91e95f2865fe85, type: 3}
+  cost: 400
+  canStack: 0
+  maxStack: 0
+  weight: 7
+  armorType: 1
+  durability: 100
+  defense: 20
