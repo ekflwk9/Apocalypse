@@ -80,18 +80,31 @@ public class ItemManager : MonoBehaviour
     /// 주아이템 등록시 호출 요망
     /// </summary>
     /// <param name="index"></param>
-    public void SetFirstItem(int index)
+    public void SetItemSlot(int index, bool isFirst)
     {
-        Inventory.firstSlotItem = Instance.itemDB[index];
-    }
+        if (isFirst)
+        {
+            if (index == 0)
+            {
+                Inventory.firstSlotItem = null;
+            }
+            else
+            {
+                Inventory.firstSlotItem = Instance.itemDB[index];
+            }
 
-    /// <summary>
-    /// 보조아이템 등록시 호출 요망
-    /// </summary>
-    /// <param name="index"></param>
-    public void SetSecondItem(int index) // 보조무기 
-    {
-        Inventory.secondSlotItem = Instance.itemDB[index];
+        }
+        else
+        {
+            if (index == 0)
+            {
+                Inventory.secondSlotItem = null;
+            }
+            else
+            {
+                Inventory.secondSlotItem = Instance.itemDB[index];
+            }
+        }
     }
 
     /// <summary>

@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weponData: {fileID: 11400000, guid: 4ef78ea5bf215bd49a12e156e2a0a687, type: 2}
-  type: 2
+  type: 0
   equipPosition: {x: 0, y: 0, z: 0}
   equipRotation: {x: 90, y: 0, z: 0}
   handPosition: {x: 0.4, y: -0.1, z: 0.15}
