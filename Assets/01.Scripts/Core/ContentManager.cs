@@ -2,7 +2,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Serialization;
 
 public sealed class ContentManager : MonoBehaviour
 {
@@ -43,7 +42,7 @@ public sealed class ContentManager : MonoBehaviour
   {
     if (Instance && Instance.sharedAssetData != null)
     {
-      return Instance.sharedAssetData.Get<T>(key);
+      return Instance.sharedAssetData.GetAsset<T>(key);
     }
     
     throw new System.Exception("AssetData is null");
