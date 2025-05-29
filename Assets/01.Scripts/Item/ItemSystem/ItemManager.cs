@@ -8,31 +8,35 @@ public class ItemManager : MonoBehaviour
     public Inventory _inventory;
     public Inventory Inventory => _inventory ??= Player.Instance.GetComponent<Inventory>();
 
+    private static ItemManager _instance;
     public static ItemManager Instance
     {
-        get; private set;
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new GameObject("ItemManager").AddComponent<ItemManager>();
+            }
+            return _instance;
+        }
     }
 
     private void Awake()
     {
-        if (Instance == null)
+        if (_instance == null)
         {
-            Instance = this;
+            _instance = this;
             DontDestroyOnLoad(gameObject);
 
-            dataBundle = ContentManager.LoadBundleSync("ItemBundle").LoadSync();
-
-            foreach (var obj in dataBundle.AllAssets)
+            Addressables.LoadAssetsAsync<ItemInfo>
+            (new AssetLabelReference() { labelString = "Item" }, item =>
             {
-                if (obj.Value is ItemInfo itemInfo)
-                {
-                    itemDB[itemInfo.itemId] = itemInfo;
-                }
-            }
+                itemDB[item.itemId] = item;
+            }).WaitForCompletion();
         }
         else
         {
-            if (Instance != this)
+            if (_instance != this)
             {
                 Destroy(gameObject);
             }
