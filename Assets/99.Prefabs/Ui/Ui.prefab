@@ -1761,6 +1761,7 @@ MonoBehaviour:
   icon: {fileID: 7323323784225156457}
   pos: {fileID: 5246008995406165778}
   countText: {fileID: 6284896993860716480}
+  id: 0
 --- !u!1 &418038318866424085
 GameObject:
   m_ObjectHideFlags: 0
@@ -2535,6 +2536,7 @@ MonoBehaviour:
   icon: {fileID: 1245981685004260506}
   pos: {fileID: 6534791874674963169}
   countText: {fileID: 5071141189113686921}
+  id: 0
 --- !u!1 &595966723262691719
 GameObject:
   m_ObjectHideFlags: 0
@@ -2814,6 +2816,7 @@ MonoBehaviour:
   icon: {fileID: 1896364630273290865}
   pos: {fileID: 6210825097477871873}
   countText: {fileID: 6044904656988405609}
+  id: 0
 --- !u!1 &714036852818070014
 GameObject:
   m_ObjectHideFlags: 0
@@ -4355,6 +4358,7 @@ MonoBehaviour:
   icon: {fileID: 3744200720555396170}
   pos: {fileID: 2402108982918317001}
   countText: {fileID: 7134878512756931203}
+  id: 0
 --- !u!1 &1011286008211746114
 GameObject:
   m_ObjectHideFlags: 0
@@ -11069,6 +11073,7 @@ MonoBehaviour:
   icon: {fileID: 9128527640575223319}
   pos: {fileID: 4194992064773407500}
   countText: {fileID: 6275703349301907144}
+  id: 0
 --- !u!1 &2439608848038575523
 GameObject:
   m_ObjectHideFlags: 0
@@ -11162,6 +11167,7 @@ MonoBehaviour:
   icon: {fileID: 8610587629034574312}
   pos: {fileID: 3743687835846848568}
   countText: {fileID: 7054705325398806364}
+  id: 0
 --- !u!1 &2467977840691735731
 GameObject:
   m_ObjectHideFlags: 0
@@ -11255,6 +11261,7 @@ MonoBehaviour:
   icon: {fileID: 8892716489126649252}
   pos: {fileID: 7412868702547372490}
   countText: {fileID: 2241809144174828355}
+  id: 0
 --- !u!1 &2486995819598833081
 GameObject:
   m_ObjectHideFlags: 0
@@ -12308,6 +12315,7 @@ MonoBehaviour:
   icon: {fileID: 8011291023471176742}
   pos: {fileID: 1894766037841361858}
   countText: {fileID: 8736641151186668640}
+  id: 0
 --- !u!1 &2776373440286430552
 GameObject:
   m_ObjectHideFlags: 0
@@ -13118,7 +13126,7 @@ GameObject:
   - component: {fileID: 2530694548279039641}
   - component: {fileID: 4114053657175264104}
   m_Layer: 0
-  m_Name: Text
+  m_Name: TitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13171,7 +13179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC778\uBCA4\uD1A0\uB9AC"
+  m_text: "\uC0C1\uC778 \uC7A5\uC9C4\uAC74"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5f11d35360d50424f8b1d9adc3e3cdbf, type: 2}
   m_sharedMaterial: {fileID: 2168553391835340402, guid: 5f11d35360d50424f8b1d9adc3e3cdbf,
@@ -13515,8 +13523,6 @@ MonoBehaviour:
   - {fileID: 4549918519652005711}
   - {fileID: 8850931124031225802}
   - {fileID: 1161359911432669612}
-  - {fileID: 0}
-  - {fileID: 0}
   shopSlot:
   - {fileID: 8478127139632955209}
   - {fileID: 8772202171907919678}
@@ -15207,6 +15213,7 @@ MonoBehaviour:
   icon: {fileID: 5920362291431688266}
   pos: {fileID: 3547208310680282216}
   countText: {fileID: 654628166311525516}
+  id: 0
 --- !u!1 &3579108879400439941
 GameObject:
   m_ObjectHideFlags: 0
@@ -16605,6 +16612,7 @@ MonoBehaviour:
   icon: {fileID: 2602007660023192563}
   pos: {fileID: 4844304194461346504}
   countText: {fileID: 3000932184967521038}
+  id: 0
 --- !u!1 &3843975103617526436
 GameObject:
   m_ObjectHideFlags: 0
@@ -17061,6 +17069,7 @@ MonoBehaviour:
   icon: {fileID: 5518078023177014044}
   pos: {fileID: 8747060814130436766}
   countText: {fileID: 4022619763194143270}
+  id: 0
 --- !u!1 &3912543371392141661
 GameObject:
   m_ObjectHideFlags: 0
@@ -17970,6 +17979,7 @@ MonoBehaviour:
   icon: {fileID: 6914598260238959414}
   pos: {fileID: 915093892607034461}
   countText: {fileID: 8076198926057515385}
+  id: 0
 --- !u!1 &4016058342297918051
 GameObject:
   m_ObjectHideFlags: 0
@@ -18348,6 +18358,7 @@ MonoBehaviour:
   icon: {fileID: 672091675116103335}
   pos: {fileID: 6986034532822544205}
   countText: {fileID: 270294114575409593}
+  id: 0
 --- !u!1 &4057080754238963578
 GameObject:
   m_ObjectHideFlags: 0
@@ -19853,6 +19864,7 @@ MonoBehaviour:
   icon: {fileID: 3621281559949377003}
   pos: {fileID: 3296810061681073120}
   countText: {fileID: 5186181894122312177}
+  id: 0
 --- !u!1 &4473398556296444613
 GameObject:
   m_ObjectHideFlags: 0
@@ -21240,6 +21252,7 @@ MonoBehaviour:
   icon: {fileID: 6431591069004141917}
   pos: {fileID: 8657872683982403771}
   countText: {fileID: 889494878653847490}
+  id: 0
 --- !u!1 &4693516612798418281
 GameObject:
   m_ObjectHideFlags: 0
@@ -24022,6 +24035,7 @@ MonoBehaviour:
   icon: {fileID: 62619997085630333}
   pos: {fileID: 6063886529646686211}
   countText: {fileID: 5440984307010938080}
+  id: 0
 --- !u!1 &5217414650811186795
 GameObject:
   m_ObjectHideFlags: 0
@@ -24301,6 +24315,7 @@ MonoBehaviour:
   icon: {fileID: 5583440844337978428}
   pos: {fileID: 5865930430306887817}
   countText: {fileID: 1224983519841709463}
+  id: 0
 --- !u!1 &5284052885182724330
 GameObject:
   m_ObjectHideFlags: 0
@@ -25312,6 +25327,7 @@ MonoBehaviour:
   icon: {fileID: 3040720336278953849}
   pos: {fileID: 2414785702926100709}
   countText: {fileID: 1861854578455778937}
+  id: 0
 --- !u!1 &5479309066971142363
 GameObject:
   m_ObjectHideFlags: 0
@@ -26104,6 +26120,7 @@ MonoBehaviour:
   icon: {fileID: 8778428335397624057}
   pos: {fileID: 5356640920250087547}
   countText: {fileID: 3440592684505815809}
+  id: 0
 --- !u!1 &5700247564757262794
 GameObject:
   m_ObjectHideFlags: 0
@@ -26500,6 +26517,7 @@ MonoBehaviour:
   icon: {fileID: 6459058795743513197}
   pos: {fileID: 9186472810932284011}
   countText: {fileID: 8059990684082213764}
+  id: 0
 --- !u!1 &5727266973597868313
 GameObject:
   m_ObjectHideFlags: 0
@@ -28439,6 +28457,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8953335878349722835}
+  - component: {fileID: 5701563366477279341}
   m_Layer: 0
   m_Name: Shop
   m_TagString: Untagged
@@ -28494,6 +28513,19 @@ Transform:
   - {fileID: 6933669649931694076}
   m_Father: {fileID: 4820955423210210076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5701563366477279341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6037673699885251614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e45e2dc253c944c84bb62f9dced39c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 4114053657175264104}
 --- !u!1 &6045054165637906499
 GameObject:
   m_ObjectHideFlags: 0
@@ -28737,6 +28769,7 @@ MonoBehaviour:
   icon: {fileID: 3902152311738356411}
   pos: {fileID: 8980189917007108448}
   countText: {fileID: 4480556675929923652}
+  id: 0
 --- !u!1 &6093736450596878628
 GameObject:
   m_ObjectHideFlags: 0
@@ -29685,6 +29718,7 @@ MonoBehaviour:
   icon: {fileID: 3921494260598320492}
   pos: {fileID: 9044946655564861913}
   countText: {fileID: 3613723414423263335}
+  id: 0
 --- !u!1 &6427543615903000590
 GameObject:
   m_ObjectHideFlags: 0
@@ -31184,6 +31218,7 @@ MonoBehaviour:
   icon: {fileID: 5585709196667148755}
   pos: {fileID: 6675283691411305153}
   countText: {fileID: 3573935887172045503}
+  id: 0
 --- !u!1 &6847811613987885232
 GameObject:
   m_ObjectHideFlags: 0
@@ -33944,6 +33979,7 @@ MonoBehaviour:
   icon: {fileID: 3315812706268671382}
   pos: {fileID: 8612995787955133405}
   countText: {fileID: 8395994947234124432}
+  id: 0
 --- !u!1 &7472682540546580215
 GameObject:
   m_ObjectHideFlags: 0
@@ -34685,6 +34721,7 @@ MonoBehaviour:
   icon: {fileID: 4609943952733593284}
   pos: {fileID: 6933669649931694076}
   countText: {fileID: 7278924395868351269}
+  id: 0
 --- !u!1 &7685141983312088069
 GameObject:
   m_ObjectHideFlags: 0
@@ -35411,6 +35448,7 @@ MonoBehaviour:
   icon: {fileID: 675467549110309132}
   pos: {fileID: 8465932902369987381}
   countText: {fileID: 7093841402799038948}
+  id: 0
 --- !u!1 &7760415705290222745
 GameObject:
   m_ObjectHideFlags: 0
@@ -36695,6 +36733,7 @@ MonoBehaviour:
   icon: {fileID: 6583388010516996600}
   pos: {fileID: 7031739034295866646}
   countText: {fileID: 7446234507086102917}
+  id: 0
 --- !u!1 &8052573388561645383
 GameObject:
   m_ObjectHideFlags: 0
@@ -38097,6 +38136,7 @@ MonoBehaviour:
   icon: {fileID: 6282718539318267148}
   pos: {fileID: 8235867243167350171}
   countText: {fileID: 1469586753107652122}
+  id: 0
 --- !u!1 &8379701288766437085
 GameObject:
   m_ObjectHideFlags: 0
@@ -38998,6 +39038,7 @@ MonoBehaviour:
   icon: {fileID: 8816541928745270188}
   pos: {fileID: 8103638835069354201}
   countText: {fileID: 3262501306166766274}
+  id: 0
 --- !u!1 &8671774044877271124
 GameObject:
   m_ObjectHideFlags: 0
@@ -39091,6 +39132,7 @@ MonoBehaviour:
   icon: {fileID: 6517524530633559993}
   pos: {fileID: 8262908296970421480}
   countText: {fileID: 5653009181670679268}
+  id: 0
 --- !u!1 &8714160186308323333
 GameObject:
   m_ObjectHideFlags: 0

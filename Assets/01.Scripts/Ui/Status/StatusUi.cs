@@ -25,10 +25,9 @@ public class StatusUi : MonoBehaviour
     [SerializeField] private ShopUi fieldShop;
 
     [SerializeField] private InventorySlot[] inventorySlot;
-    [SerializeField] private InventorySlot[] storageSlot;
     [SerializeField] private InventorySlot[] farminSlot;
-    [SerializeField] private EquippedSlot[] equippedSlot;
-    [SerializeField] private ShopSlot[] shopSlot;
+    //[SerializeField] private InventorySlot[] storageSlot;
+    //[SerializeField] private EquippedSlot[] equippedSlot;
 
     private void Reset()
     {
@@ -42,18 +41,17 @@ public class StatusUi : MonoBehaviour
         inventorySlot = GetComponentArray<InventorySlot>(fieldInventory.transform);
 
         fieldEquipped = Helper.FindChild(this.transform, "Equipped").gameObject;
-        equippedSlot = GetComponentArray<EquippedSlot>(fieldEquipped.transform);
+        //equippedSlot = GetComponentArray<EquippedSlot>(fieldEquipped.transform);
 
         fieldStorage = Helper.FindChild(this.transform, "Storage").gameObject;
-        storageSlot = GetComponentArray<InventorySlot>(fieldStorage.transform);
+        //storageSlot = GetComponentArray<InventorySlot>(fieldStorage.transform);
 
         fieldFarming = Helper.FindChild(this.transform, "Farming").gameObject;
         farminSlot = GetComponentArray<InventorySlot>(fieldFarming.transform);
 
-        var ShopPos = Helper.FindChild(this.transform, "Shop");
-        if (ShopPos.TryGetComponent<ShopUi>(out var isShop)) fieldShop = isShop;
-        else DebugHelper.ShowBugWindow($"Shop 오브젝트에 ShopUi컴포넌트가 존재하지 않음");
-        shopSlot = GetComponentArray<ShopSlot>(ShopPos.transform);
+        var shopPos = Helper.FindChild(this.transform, "Shop");
+        if (shopPos.TryGetComponent<ShopUi>(out var isShop)) fieldShop = isShop;
+        else DebugHelper.ShowBugWindow($"{shopPos.name}에 스크립트가 있는 자식 오브젝트가 존재하지 않음");
     }
 
     private T[] GetComponentArray<T>(Transform _parent) where T : class
