@@ -26,6 +26,7 @@ public class NormalZombieStateStruct : StateStruct
     {
         IdleState idleState = new IdleState();
         WalkState walkState = new WalkState();
+        HearingState hearingState = new HearingState();
         RunState runState = new RunState();
         AttackState attackState = new AttackState();
         HitState hitState = new HitState();
@@ -33,6 +34,7 @@ public class NormalZombieStateStruct : StateStruct
         DyingState dyingState = new DyingState();
         DieState dieState = new DieState();
         StateDictionary.Add(EntityEnum.Idle, idleState);
+        StateDictionary.Add(EntityEnum.Hearing, hearingState);
         StateDictionary.Add(EntityEnum.Run, runState);
         StateDictionary.Add(EntityEnum.Attack, attackState);
         StateDictionary.Add(EntityEnum.Walk, walkState);
@@ -102,6 +104,61 @@ public class WalkState : EntityState
     }
 }
 
+
+public class HearingState : EntityState
+{
+    NavMeshAgent _NavMeshAgent;
+
+    public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
+    {
+        _EntityEnum = EntityEnum.Hearing;
+        base.SetOwner(_Entity, _StateMachine);
+    }
+
+    public override void Enter()
+    {
+        Vector3 detectedPos = entity.baseStatus.DetectedLocation;
+        Vector3 entityPos = entity.transform.position;
+
+        if (true != IsInit)
+        {
+            _NavMeshAgent = entity.GetComponent<NavMeshAgent>();
+            IsInit = true;
+        }
+
+        if (entity.baseStatus.IsHalf() == true)
+        {
+            SetAnimation(AnimHash.RunHash_2);
+            _NavMeshAgent.speed = entity.baseStatus.RunSpeed / 2f;
+        }
+        else
+        {
+            SetAnimation(AnimHash.RunHash_1);
+            _NavMeshAgent.speed = entity.baseStatus.RunSpeed;
+        }
+        _NavMeshAgent.ResetPath();
+        _NavMeshAgent.SetDestination(detectedPos);
+    }
+
+    public override void Update()
+    {
+        Vector3 detectedPos = entity.baseStatus.DetectedLocation;
+        Vector3 entityPos = entity.transform.position;
+
+        float Distance = Vector3.Distance(detectedPos, entityPos);
+
+
+        if ((Distance < 3))
+        {
+            StateMachine.SetState(EntityEnum.Idle);
+        }
+    }
+
+    public override void Exit()
+    {
+    }
+}
+
 public class RunState : EntityState
 {
     NavMeshAgent _NavMeshAgent;
@@ -125,7 +182,7 @@ public class RunState : EntityState
         if (entity.baseStatus.IsHalf() == true)
         {
             SetAnimation(AnimHash.RunHash_2);
-            _NavMeshAgent.speed = entity.baseStatus.RunSpeed - 1f;
+            _NavMeshAgent.speed = entity.baseStatus.RunSpeed / 2f;
         }
         else
         {
@@ -347,17 +404,21 @@ public class DyingState : EntityState
     {
         entity._NavMeshAgent.SetDestination(Player.Instance.transform.position);
         entity._NavMeshAgent.speed = entity.baseStatus.CrowlSpeed;
-        SetAnimation(AnimHash.HurtHash);
+        SetAnimationFade(AnimHash.HurtHash, 0.2f);
+        CoroutineManager.Instance.SetCoroutine(entity, DieCoroutine());
     }
     public override void Update()
     {
-        if (true == IsAnimationEnd())
-        {
-            entity.Dead();
-        }
+
     }
     public override void Exit()
     {
+    }
+
+    IEnumerator DieCoroutine()
+    {
+        yield return CoroutineHelper.GetTime(6.0f);
+        entity.Dead();
     }
 }
 

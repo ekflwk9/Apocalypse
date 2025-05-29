@@ -8,6 +8,7 @@ public enum EntityEnum
     None = -1,
     Idle,
     Walk,
+    Hearing,
     Run,
     Attack,
     Hit,
@@ -46,6 +47,26 @@ public abstract class EntityState
     {
         HashAnim = _HashAnim;
         entity._animator.Play(HashAnim, 1);
+    }
+
+    public void SetAnimationFade(int _HashAnim, float _Time)
+    {
+        HashAnim = _HashAnim;
+        entity._animator.CrossFade(HashAnim, _Time, 0);
+        entity._animator.CrossFade(HashAnim, _Time, 1);
+    }
+
+
+    public void SetBottomAnimationFade(int _HashAnim, float _Time)
+    {
+        HashAnim = _HashAnim;
+        entity._animator.CrossFade(HashAnim, _Time, 0);
+    }
+
+    public void SetUpperAnimationFade(int _HashAnim, float _Time)
+    {
+        HashAnim = _HashAnim;
+        entity._animator.CrossFade(HashAnim, _Time, 1);
     }
 
     public bool IsAnimationEnd(int _Layer = 0)

@@ -26,14 +26,16 @@ public class Entity : MonoBehaviour, IDamagable
 
     protected void Reset()
     {
+        gameObject.tag = TagHelper.Monster;
+
         _rigidbody = GetComponent<Rigidbody>();
-        _rigidbody.isKinematic = true;
         if (_rigidbody == null)
         {
             _rigidbody = gameObject.AddComponent<Rigidbody>();
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             _rigidbody.isKinematic = true;
         }
+        _rigidbody.isKinematic = true;
 
         _NavMeshAgent = GetComponent<NavMeshAgent>();
 
@@ -63,15 +65,15 @@ public class Entity : MonoBehaviour, IDamagable
 
         _animator = GetComponentInChildren<Animator>();
 
-        PlayerMask = LayerMask.GetMask("Player");
+        PlayerMask = LayerMask.GetMask(LayerHelper.Player);
 
         // linq고 gpt꺼 따옴
         ragdollColliders = GetComponentsInChildren<Collider>()
-         .Where(c => c.tag != "Monster")
+         .Where(c => c.tag != TagHelper.Monster)
          .ToArray();
 
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>(true)
-         .Where(rb => rb.tag != "Monster")
+         .Where(rb => rb.tag != TagHelper.Monster)
          .ToArray();
 
 
@@ -118,7 +120,7 @@ public class Entity : MonoBehaviour, IDamagable
                 if (Physics.Raycast(transform.position + Vector3.up * 0.5f, dirToTarget, out RaycastHit hit, baseStatus.DetectedRange))
                 {
                     //임시
-                    if (hit.collider.CompareTag("Player"))
+                    if (hit.collider.CompareTag(TagHelper.Player))
                     {
                         baseStatus.DetectedLocation = hit.point; // 플레이어 위치 저장
                         _stateMachine.SetState(EntityEnum.Run);
@@ -128,10 +130,21 @@ public class Entity : MonoBehaviour, IDamagable
         }
     }
 
+    public EntityEnum GetState()
+    {
+        return _stateMachine.GetState();
+    }
+
+    public void Hearing(Vector3 _position)
+    {
+        baseStatus.DetectedLocation = _position;
+        _stateMachine.SetState(EntityEnum.Hearing);
+    }
+
     public void Dead()
     {
-        _entityAttack.StopAttack();
         SetRagdollActive(true);
+        CoroutineManager.Instance.UnSetAllCoroutine(this);
     }
 
     private void OnDrawGizmos()
@@ -186,8 +199,6 @@ public class Entity : MonoBehaviour, IDamagable
             _stateMachine.SetState(EntityEnum.Die);
             return;
         }
-
-        DebugHelper.Log(baseStatus.CurrentHp.ToString());
 
         _stateMachine.SetState(EntityEnum.Hit);
     }
