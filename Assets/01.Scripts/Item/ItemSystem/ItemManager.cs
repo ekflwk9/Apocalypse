@@ -50,7 +50,6 @@ public class ItemManager : MonoBehaviour
             if (UiManager.instance.status.GetItem(itemId))
             {
                 Inventory.GetItem(itemDB[itemId]);
-                UiManager.instance.status.GetItem(itemId);
             }
         }
         else
