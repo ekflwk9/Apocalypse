@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputs : MonoBehaviour
 {
-    public event Action<bool> AimEvent;
 	[Header("Character Input Values")]
 	public Vector2 move;
 	public Vector2 look;
@@ -62,8 +61,6 @@ public class PlayerInputs : MonoBehaviour
 		{
 			_canSprint = true;
 		}
-        
-        AimEvent?.Invoke(_aim);
 		
 		if (_attack)
 		{

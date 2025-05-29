@@ -43,15 +43,17 @@ public class PlayerInteraction : MonoBehaviour
         if (other.gameObject.CompareTag("Item"))
         {
             isTouched = false;
+            touchedItem = null;
         }
     }
 
     public void InvokePickUp()
     {
-        if (isTouched)
+        if (isTouched && touchedItem != null)
         {
             interactionCollider.enabled = false;
             touchedItem?.PickUpItem();
+            touchedItem = null;
             interactionCollider.enabled = true;
         }
     }

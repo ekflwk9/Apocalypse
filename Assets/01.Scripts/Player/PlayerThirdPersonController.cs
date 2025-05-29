@@ -120,8 +120,6 @@ public class PlayerThirdPersonController : MonoBehaviour
 
         _jumpTimeoutDelta = JumpTimeout;
         _fallTimeoutDelta = FallTimeout;
-
-        _input.AimEvent += AimSwitch;
     }
 
     private void Update()
@@ -129,6 +127,7 @@ public class PlayerThirdPersonController : MonoBehaviour
         JumpAndGravity();
         GroundedCheck();
         DamageCheck();
+        AimSwitch(_input.Aim);
     }
     
     private void FixedUpdate()
@@ -377,7 +376,7 @@ public class PlayerThirdPersonController : MonoBehaviour
         
         Follow.ShoulderOffset = targetOffset;
         
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(2f);
         
         _zoomInCoroutine = null;
     }
