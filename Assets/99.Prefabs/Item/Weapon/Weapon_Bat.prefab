@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5121319967035857931}
   - component: {fileID: 3558662655207927234}
   - component: {fileID: 6699052583318365829}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseBall_Bat_LOD_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6306337405008232543}
   - component: {fileID: 535209653555365000}
   - component: {fileID: 6022249320261002572}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseBall_Bat_LOD_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 7432416193750500928}
   - component: {fileID: 4012585321402464169}
   - component: {fileID: 6282846542583059716}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseBall_Bat_LOD_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,11 +259,11 @@ GameObject:
   m_Component:
   - component: {fileID: 96395878513159232}
   - component: {fileID: 5838418245374845005}
-  - component: {fileID: 5720400932363285335}
+  - component: {fileID: 1046808560987296834}
   - component: {fileID: 2223294358567025655}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Weapon_Bat
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -277,7 +277,7 @@ Transform:
   m_GameObject: {fileID: 5764002304329306248}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.61}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -323,8 +323,8 @@ LODGroup:
     renderers:
     - renderer: {fileID: 6282846542583059716}
   m_Enabled: 1
---- !u!64 &5720400932363285335
-MeshCollider:
+--- !u!65 &1046808560987296834
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -338,13 +338,12 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3024677357141577303, guid: b62b8f690ef3859459494beaffaf8c0d, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.82040995, z: 0.1}
+  m_Center: {x: 1.4096797e-15, y: 0.4008025, z: 0}
 --- !u!114 &2223294358567025655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,7 +368,7 @@ GameObject:
   - component: {fileID: 5274569129377040831}
   - component: {fileID: 3725149351510911653}
   - component: {fileID: 7580327187275466882}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseBall_Bat_LOD_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +451,7 @@ GameObject:
   - component: {fileID: 8960002219654753547}
   - component: {fileID: 5319633513934948307}
   - component: {fileID: 3722718743211958386}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseBall_Bat_LOD_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

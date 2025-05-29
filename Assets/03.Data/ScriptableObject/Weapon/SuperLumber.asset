@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 195975c79d1434902a58194104bc8500, type: 3}
-  m_Name: TestWeapon
+  m_Name: SuperLumber
   m_EditorClassIdentifier: 
-  itemId: 0
-  itemName: "\uAC01\uBAA9"
+  itemPrefab: {fileID: 7718849399657880233, guid: fa726a62613cc4a788da75256f930a9e,
+    type: 3}
+  itemId: 101
+  itemName: "\uC9F1\uC9F1\uC318 \uAC01\uBAA9"
   disciption: "\uC774\uB530\uC774\uB370\uC2A4\uB124"
   itemType: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 876a5d8b8591b45c39fa5ece20ec7efc, type: 3}
   cost: 0
   canStack: 0
   maxStack: 0

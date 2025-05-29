@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 384823be4855943039690a396e7e9aa6, type: 3}
   m_Name: Jagermeister
   m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 2568570897556476279, guid: 03725e5646efe4fe6bba9999d82713ef,
+    type: 3}
   itemId: 403
   itemName: "\uC608\uAC70 \uB9C8\uC774\uC2A4\uD130"
   disciption: "\uD5C8\uBE0C \uB9AC\uD050\uB974"

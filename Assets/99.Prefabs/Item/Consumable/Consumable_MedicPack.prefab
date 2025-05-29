@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 8071548942436371094}
   - component: {fileID: 286811338979282305}
   - component: {fileID: 5057879165076593959}
-  - component: {fileID: 6083509135115399289}
+  - component: {fileID: -6089096259699036062}
   - component: {fileID: 7289969749672497466}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Consumable_MedicPack
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,8 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6083509135115399289
-MeshCollider:
+--- !u!65 &-6089096259699036062
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -100,13 +100,12 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1186677606167542470, guid: 307fdda90af4de34ea64d387ae1bdcb4, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.13, y: 0.049999997, z: 0.19999999}
+  m_Center: {x: 0, y: 0.024999999, z: 0}
 --- !u!114 &7289969749672497466
 MonoBehaviour:
   m_ObjectHideFlags: 0
