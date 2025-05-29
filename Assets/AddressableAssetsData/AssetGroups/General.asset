@@ -47,10 +47,89 @@ MonoBehaviour:
     m_SerializedLabels:
     - Item
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bfc3dcaed12dc854f9b22023761814d8
-    m_Address: Assets/03.Data/test/3/new Asset Bundle.asset
+  - m_GUID: 7c3eadc7da63d45ab9525cfa7c85b7d9
+    m_Address: Assets/99.Prefabs/Item/Consumable/Consumable_MedicPack.prefab
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 13e2b17f608344815960435dbef465ec
+    m_Address: Assets/03.Data/ScriptableObject/Consumable/Syringe.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86df013f345114811bcc0c1f7cdcd45c
+    m_Address: Assets/03.Data/ScriptableObject/Armor/Ballistic Mask.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 01bfd7daf06754fb8be75b1d9035a702
+    m_Address: Assets/03.Data/ScriptableObject/Armor/BattleVest.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ce4f42c810964281a5c0780ad794935
+    m_Address: Assets/99.Prefabs/Item/Armor/Armor_Ballistic Mask.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 20e396f49cad74b108e16124e210f061
+    m_Address: Assets/99.Prefabs/Item/Armor/Armor_Battle Vest.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 57142042eaeb6437392bf8ca487c5d05
+    m_Address: Assets/99.Prefabs/Item/Weapon/Weapon_Bat.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa726a62613cc4a788da75256f930a9e
+    m_Address: Assets/99.Prefabs/Item/Weapon/Weapon_SuperLumber.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a46cd3cf62664617aeaea8ec7303ee1
+    m_Address: Assets/99.Prefabs/Item/Stuff/Stuff_Absolut Vodka.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c73b3c9b37b7446099592b8e73a53dea
+    m_Address: Assets/99.Prefabs/Item/Stuff/Stuff_JackDaniel's.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 03725e5646efe4fe6bba9999d82713ef
+    m_Address: Assets/99.Prefabs/Item/Stuff/Stuff_Jagermeister.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9a5b4fa6cdc084d7eac89fefbc71afda
+    m_Address: Assets/99.Prefabs/Item/Consumable/Consumable_Syringe.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 627d87f9a17ace144aef455ea5b0ec95
+    m_Address: Assets/99.Prefabs/Player/PlayerWeapons/Equip_Test.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b85f15903cdb39c438719b0815d29124
+    m_Address: Assets/99.Prefabs/Player/PlayerWeapons/Equip_Weapon_Bat.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6ec1cec87ffaca74b8b74d2047c4a7af, type: 2}
