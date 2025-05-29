@@ -7,20 +7,12 @@ public class EntityAttack : MonoBehaviour
     [SerializeField] BoxCollider attackCollider;
     [SerializeField] Entity _entity;
 
-    Coroutine AttackCoroutine;
-
     private void Reset()
     {
-        attackCollider = GetComponent<BoxCollider>();
+        attackCollider = GetComponentInChildren<BoxCollider>();
 
-        if(attackCollider == null)
-        {
-            attackCollider = gameObject.AddComponent<BoxCollider>();
-            attackCollider.isTrigger = true;
-            attackCollider.size = new Vector3(1f, 1f, 1f);
-            attackCollider.center = Vector3.zero;
-        }
-        attackCollider.enabled = false; 
+        attackCollider.isTrigger = true;
+        attackCollider.enabled = false;
 
         _entity = GetComponentInParent<Entity>();
     }
@@ -39,22 +31,13 @@ public class EntityAttack : MonoBehaviour
 
     public void Attack()
     {
-        AttackCoroutine = StartCoroutine(AttackOn());
-    }
-
-    public void StopAttack()
-    {
-        if (AttackCoroutine != null)
-        {
-            StopCoroutine(AttackCoroutine);
-            AttackCoroutine = null;
-        }
+       CoroutineManager.Instance.SetCoroutine(_entity, AttackOn());
     }
 
     IEnumerator AttackOn()
     {
         attackCollider.enabled = true;
-        yield return new WaitForSeconds(0.2f);
+        yield return CoroutineHelper.GetTime(0.2f);
         attackCollider.enabled = false;
         yield return null;
     }

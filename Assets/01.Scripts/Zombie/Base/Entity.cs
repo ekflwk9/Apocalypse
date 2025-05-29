@@ -26,14 +26,16 @@ public class Entity : MonoBehaviour, IDamagable
 
     protected void Reset()
     {
+        gameObject.tag = TagHelper.Monster;
+
         _rigidbody = GetComponent<Rigidbody>();
-        _rigidbody.isKinematic = true;
         if (_rigidbody == null)
         {
             _rigidbody = gameObject.AddComponent<Rigidbody>();
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             _rigidbody.isKinematic = true;
         }
+        _rigidbody.isKinematic = true;
 
         _NavMeshAgent = GetComponent<NavMeshAgent>();
 
@@ -63,26 +65,26 @@ public class Entity : MonoBehaviour, IDamagable
 
         _animator = GetComponentInChildren<Animator>();
 
-        PlayerMask = LayerMask.GetMask("Player");
+        PlayerMask = LayerMask.GetMask(LayerHelper.Player);
 
-        // linq°í gpt²¨ µû¿È
+        // linqê³  gptêº¼ ë”°ì˜´
         ragdollColliders = GetComponentsInChildren<Collider>()
-         .Where(c => c.tag != "Monster")
+         .Where(c => c.tag != TagHelper.Monster)
          .ToArray();
 
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>(true)
-         .Where(rb => rb.tag != "Monster")
+         .Where(rb => rb.tag != TagHelper.Monster)
          .ToArray();
 
 
         foreach (var col in ragdollColliders)
         {
-            col.enabled = false; // ÃÊ±â¿¡´Â ºñÈ°¼ºÈ­
+            col.enabled = false; // ì´ˆê¸°ì—ëŠ” ë¹„í™œì„±í™”
         }
 
         foreach (var rb in ragdollRigidbodies)
         {
-            rb.isKinematic = true; // ÃÊ±â¿¡´Â Kinematic ¼³Á¤
+            rb.isKinematic = true; // ì´ˆê¸°ì—ëŠ” Kinematic ì„¤ì •
         }
 
     }
@@ -103,7 +105,7 @@ public class Entity : MonoBehaviour, IDamagable
 
     void Detect()
     {
-        //¿À¹ö·¦ µÈ³Ñµé
+        //ì˜¤ë²„ë© ëœë„˜ë“¤
         Collider[] targets = Physics.OverlapSphere(transform.position, baseStatus.DetectedRange, PlayerMask);
 
         //range for
@@ -112,15 +114,15 @@ public class Entity : MonoBehaviour, IDamagable
             Vector3 dirToTarget = (target.transform.position - transform.position).normalized;
             float angle = Vector3.Angle(transform.forward, dirToTarget);
 
-            //¿ŞÂÊ 45µµ°í ¿À¸¥ÂÊ 45µµ´Ï ÃÑ 90µµÀÓ
+            //ì™¼ìª½ 45ë„ê³  ì˜¤ë¥¸ìª½ 45ë„ë‹ˆ ì´ 90ë„ì„
             if (angle < baseStatus.DetectedAngle)
             {
                 if (Physics.Raycast(transform.position + Vector3.up * 0.5f, dirToTarget, out RaycastHit hit, baseStatus.DetectedRange))
                 {
-                    //ÀÓ½Ã
-                    if (hit.collider.CompareTag("Player"))
+                    //ì„ì‹œ
+                    if (hit.collider.CompareTag(TagHelper.Player))
                     {
-                        baseStatus.DetectedLocation = hit.point; // ÇÃ·¹ÀÌ¾î À§Ä¡ ÀúÀå
+                        baseStatus.DetectedLocation = hit.point; // í”Œë ˆì´ì–´ ìœ„ì¹˜ ì €ì¥
                         _stateMachine.SetState(EntityEnum.Run);
                     }
                 }
@@ -128,20 +130,31 @@ public class Entity : MonoBehaviour, IDamagable
         }
     }
 
+    public EntityEnum GetState()
+    {
+        return _stateMachine.GetState();
+    }
+
+    public void Hearing(Vector3 _position)
+    {
+        baseStatus.DetectedLocation = _position;
+        _stateMachine.SetState(EntityEnum.Hearing);
+    }
+
     public void Dead()
     {
-        _entityAttack.StopAttack();
         SetRagdollActive(true);
+        CoroutineManager.Instance.UnSetAllCoroutine(this);
     }
 
     private void OnDrawGizmos()
     {
         if (baseStatus == null) return;
-        // °¨Áö ¹İ°æ »ö»ó
+        // ê°ì§€ ë°˜ê²½ ìƒ‰ìƒ
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, baseStatus.DetectedRange);
 
-        // ½Ã¾ß°¢ (viewAngle)À» ½Ã°¢È­ (ÁÂ¿ì)
+        // ì‹œì•¼ê° (viewAngle)ì„ ì‹œê°í™” (ì¢Œìš°)
         Vector3 leftDir = Quaternion.Euler(0, -baseStatus.DetectedAngle, 0) * transform.forward;
         Vector3 rightDir = Quaternion.Euler(0, baseStatus.DetectedAngle, 0) * transform.forward;
 
@@ -149,7 +162,7 @@ public class Entity : MonoBehaviour, IDamagable
         Gizmos.DrawRay(transform.position, leftDir * baseStatus.DetectedRange);
         Gizmos.DrawRay(transform.position, rightDir * baseStatus.DetectedRange);
 
-        // (¼±ÅÃ) Á¤¸é ¹æÇâ Ç¥½Ã
+        // (ì„ íƒ) ì •ë©´ ë°©í–¥ í‘œì‹œ
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, transform.forward * baseStatus.DetectedRange);
     }
@@ -175,34 +188,38 @@ public class Entity : MonoBehaviour, IDamagable
 
         baseStatus.CurrentHp -= damage;
 
+        if(baseStatus.IsQuater() == true)
+        {
+            _stateMachine.SetState(EntityEnum.Hurt);
+            return;
+        }
+
         if (baseStatus.CurrentHp <= 0)
         {
             _stateMachine.SetState(EntityEnum.Die);
             return;
         }
 
-        DebugHelper.Log(baseStatus.CurrentHp.ToString());
-
         _stateMachine.SetState(EntityEnum.Hit);
     }
 
-    public void SetRagdollActive(bool isActive)  //true¸é ragdoll È°¼ºÈ­, false¸é ºñÈ°¼ºÈ­
+    public void SetRagdollActive(bool isActive)  //trueë©´ ragdoll í™œì„±í™”, falseë©´ ë¹„í™œì„±í™”
     {
         foreach (var col in ragdollColliders)
         {
             col.enabled = isActive;
         }
 
-        // ¸®Áöµå¹Ùµğ kinematic ¼³Á¤ (false = ¹°¸® Àû¿ë, true = ºñÈ°¼ºÈ­)
+        // ë¦¬ì§€ë“œë°”ë”” kinematic ì„¤ì • (false = ë¬¼ë¦¬ ì ìš©, true = ë¹„í™œì„±í™”)
         foreach (var rb in ragdollRigidbodies)
         {
             rb.isKinematic = !isActive;
         }
 
-        // ¸ŞÀÎ Äİ¶óÀÌ´õ/¸®Áöµå¹Ùµğ ²ô°Å³ª ÄÑ±â
+        // ë©”ì¸ ì½œë¼ì´ë”/ë¦¬ì§€ë“œë°”ë”” ë„ê±°ë‚˜ ì¼œê¸°
         _capsuleCollider.enabled = !isActive;
 
-        // ³×ºê¸Ş½Ã³ª ¾Ö´Ï¸ŞÀÌÅÍµµ ²ô´Â°Ô ÀÏ¹İÀûÀÔ´Ï´Ù
+        // ë„¤ë¸Œë©”ì‹œë‚˜ ì• ë‹ˆë©”ì´í„°ë„ ë„ëŠ”ê²Œ ì¼ë°˜ì ì…ë‹ˆë‹¤
         _NavMeshAgent.enabled = !isActive;
         _animator.enabled = !isActive;
     }
