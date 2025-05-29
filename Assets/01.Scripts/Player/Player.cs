@@ -128,6 +128,8 @@ public class Player : MonoBehaviour, IDamagable
             }
         }
     }
+
+    public int MaxWeight => _maxWeight;
     
     private void Reset()
     {
