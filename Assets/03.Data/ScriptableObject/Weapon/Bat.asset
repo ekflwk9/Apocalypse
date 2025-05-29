@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195975c79d1434902a58194104bc8500, type: 3}
   m_Name: Bat
   m_EditorClassIdentifier: 
-  itemId: 1
+  itemPrefab: {fileID: 5764002304329306248, guid: 57142042eaeb6437392bf8ca487c5d05,
+    type: 3}
+  itemId: 102
   itemName: "\uC57C\uAD6C\uBE60\uB530"
   disciption: "\uC624\uD0C0\uB2C8 \uC1FC\uD5E4\uC774"
   itemType: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 158483731c8c044ae80526586884a0ce, type: 3}
   cost: 100
   canStack: 0
   maxStack: 0

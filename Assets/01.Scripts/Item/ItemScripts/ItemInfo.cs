@@ -5,6 +5,7 @@ using UnityEngine.Rendering.Universal;
 public class ItemInfo : ScriptableObject
 {
     [Header("Info")]
+    public GameObject itemPrefab;
     public int itemId;
     public string itemName;
     public string disciption;
