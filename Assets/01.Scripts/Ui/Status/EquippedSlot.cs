@@ -24,6 +24,7 @@ public class EquippedSlot : Slot
                 icon.sprite = item.icon;
 
                 if (_itemCount > 1) countText.text = count.ToString();
+                else countText.text = "";
 
                 return true;
             }
