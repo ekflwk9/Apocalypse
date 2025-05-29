@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -47,9 +48,6 @@ public class PlayerThirdPersonController : MonoBehaviour
     public float CameraAngleOverride;
 
     public bool LockCameraPosition;
-
-    [Header("Aim")]
-    private Coroutine _zoomCoroutine;
 
     //컴포넌트들
     [Header("Componetns")]
@@ -108,6 +106,11 @@ public class PlayerThirdPersonController : MonoBehaviour
         _hasAnimator = TryGetComponent(out _animator);
     }
 
+    private void Awake()
+    {
+        _input.AimEvent += Aim;
+    }
+
     //컴포넌트 캐싱 및 값 초기화
     private void Start()
     {
@@ -121,25 +124,20 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void Update()
     {
-        if (Player.Instance.Equip.curWeapon != null)
-        {
-            LockCameraPosition = _input.aim;
-        }
-        
         JumpAndGravity();
         GroundedCheck();
-        Aim();
         DamageCheck();
     }
     
     private void FixedUpdate()
     {
         Move();
+        CameraRotation();
     }
     
     private void LateUpdate()
     {
-        CameraRotation();
+
     }
 
     //씬에서 플레이어 선택시 기즈모 그리기
@@ -184,14 +182,22 @@ public class PlayerThirdPersonController : MonoBehaviour
     //카메라 회전. 밑과 위를 제한하는 값으로 최대치 제한
     private void CameraRotation()
     {
-        var deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+        var deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.fixedDeltaTime;
         
-        if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+        if (LockCameraPosition)
         {
-            _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
-        } 
-        _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
+            _cinemachineTargetPitch = Mathf.Lerp(_cinemachineTargetPitch, 10f, Time.fixedDeltaTime * 5f);
+        }
+        else
+        {
+            if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+            {
+                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+            } 
+        }
         
+        _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
+
 
         _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
         _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
@@ -213,7 +219,7 @@ public class PlayerThirdPersonController : MonoBehaviour
 
         if (Mathf.Abs(currentHorizontalSpeed - targetSpeed) > speedOffset)
         {
-            _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
+            _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.fixedDeltaTime * SpeedChangeRate);
             _speed = Mathf.Round(_speed * 1000f) / 1000f;
         }
         else
@@ -221,7 +227,7 @@ public class PlayerThirdPersonController : MonoBehaviour
             _speed = targetSpeed;
         }
 
-        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.fixedDeltaTime * SpeedChangeRate);
         if (_animationBlend < 0.01f) _animationBlend = 0f;
 
         Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
@@ -259,10 +265,6 @@ public class PlayerThirdPersonController : MonoBehaviour
             _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
         }
     }
-
-
-
-
 
     //점프.
     private void JumpAndGravity()
@@ -326,22 +328,25 @@ public class PlayerThirdPersonController : MonoBehaviour
                 Player.Instance._damaged = false;
         }
     }
-
-    private void Aim()
+    
+    private Coroutine _zoomInCoroutine;
+    
+    private void Aim(bool isAimed)
     {
         if (Player.Instance.Equip.curWeapon == null) return;
 
-        Vector3 targetOffset = _input.aim ? AimCamPosition : TPSCamPosition;
-        if (_zoomCoroutine == null || !_input.aim)
-        {
-            if(_zoomCoroutine != null) StopCoroutine(_zoomCoroutine);
-            _zoomCoroutine = StartCoroutine(ZoomIn(targetOffset));
-        }
+        LockCameraPosition = isAimed;
+		
+        Vector3 targetOffset = isAimed ? AimCamPosition : TPSCamPosition;
         
-        _animator.SetBool(_animIDEquipWeapon, _input.aim);
-        _animator.SetBool(_animIDAim, _input.aim);
+        if(_zoomInCoroutine != null)
+            StopCoroutine(_zoomInCoroutine);
+        _zoomInCoroutine = StartCoroutine(ZoomIn(targetOffset));
+        
+        _animator.SetBool(_animIDEquipWeapon, isAimed);
+        _animator.SetBool(_animIDAim, isAimed);
     }
-
+    
     private IEnumerator ZoomIn(Vector3 targetOffset)
     {
         yield return null;
@@ -362,7 +367,7 @@ public class PlayerThirdPersonController : MonoBehaviour
         
         yield return new WaitForSeconds(2f);
         
-        _zoomCoroutine = null;
+        _zoomInCoroutine = null;
     }
 
     public void Attack()

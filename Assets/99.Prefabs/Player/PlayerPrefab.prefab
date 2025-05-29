@@ -1981,7 +1981,7 @@ CapsuleCollider:
   m_Radius: 0.3
   m_Height: 1.8
   m_Direction: 1
-  m_Center: {x: 0, y: 0.98, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!95 &1049493359991375101
 Animator:
   serializedVersion: 5
@@ -2101,7 +2101,6 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   jump: 0
   sprint: 0
-  aim: 0
   attack: 0
   analogMovement: 0
   cursorLocked: 1

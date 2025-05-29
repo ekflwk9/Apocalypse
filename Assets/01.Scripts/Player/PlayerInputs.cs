@@ -4,12 +4,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputs : MonoBehaviour
 {
+	public event Action<bool> AimEvent;
 	[Header("Character Input Values")]
 	public Vector2 move;
 	public Vector2 look;
 	public bool jump;
 	public bool sprint;
-	public bool aim;
+	
+	private bool aim;
 	public bool attack;
 
 	private bool _canSprint = true;
@@ -96,6 +98,7 @@ public class PlayerInputs : MonoBehaviour
 	public void OnAim(InputValue value)
 	{
 		aim = value.isPressed;
+		AimEvent?.Invoke(aim);
 	}
 
 	public void OnAttack(InputValue value)
