@@ -3,15 +3,16 @@ using UnityEngine;
 public class UiController : MonoBehaviour
 {
     /// <summary>
-    /// ÀÎº¥Åä¸®¸¦ È°¼ºÈ­ÇÏ´Â ¸Ş¼­µå
+    /// ì¸ë²¤í† ë¦¬ë¥¼ í™œì„±í™”í•˜ëŠ” ë©”ì„œë“œ
     /// </summary>
     public void OnInventory()
     {
-        var isActive = UiManager.instance.status.inventory.activeSelf;
+        var isActive = UiManager.instance.status.inventory.gameObject.activeSelf;
         var status = UiManager.instance.status;
 
         UiManager.instance.shader.SetActive(!isActive);
-        status.inventory.SetActive(!isActive);
+        status.inventory.gameObject.SetActive(!isActive);
+        status.equipped.SetActive(!isActive);
 
         if (isActive)
         {
@@ -22,7 +23,7 @@ public class UiController : MonoBehaviour
     }
 
     /// <summary>
-    /// ¼³Á¤ Ã¢À» È°¼ºÈ­ ÇÏ´Â ¸Ş¼­µå
+    /// ì„¤ì • ì°½ì„ í™œì„±í™” í•˜ëŠ” ë©”ì„œë“œ
     /// </summary>
     public void OnMenu()
     {
@@ -32,10 +33,14 @@ public class UiController : MonoBehaviour
         //UiManager.instance.menu
     }
 
-    //Å×½ºÆ®¿ë
+    //********************í…ŒìŠ¤íŠ¸ìš©
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I)) OnInventory();
         //else if (Input.GetKeyDown(KeyCode.Escape)) OnMenu();
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            UiManager.instance.status.shop.SetActive(!UiManager.instance.status.shop.gameObject.activeSelf);
+        }
     }
 }

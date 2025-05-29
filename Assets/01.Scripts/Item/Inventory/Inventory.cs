@@ -4,31 +4,25 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public int selectItemId;
-    public ItemInfo firstId;
-    public ItemInfo secondId;
+    public ItemInfo firstSlotItem;
+    public ItemInfo secondSlotItem;
     public List<ItemInfo> items = new List<ItemInfo>(); // 인벤토리
 
     public void GetItem(ItemInfo item) // 아이템 추가시 호출
     {
         items.Add(item);
-        UiManager.instance.status.GetItem(item.itemId);
     }
 
-    public void RemoveItem(ItemInfo item) // 아이템 제거, 판매시 호출
+    public void RemoveInventoryItem(int index) // 아이템 제거, 판매시 호출
     {
+        ItemInfo item = ItemManager.Instance.itemDB[index];
         items.Remove(item);
     }
 
-    public void UseItem(ItemInfo item) // 소모 아이템 사용시 호출
+    public void UseInventoryItem(int index) // 소모 아이템 사용시 호출
     {
+        ItemInfo item = ItemManager.Instance.itemDB[index];
         ItemEffectManager.Instance.ItemEffect(item);
         items.Remove(item);
-    }
-    
-    //테스트용
-    public void ClickItem(ItemInfo item) // 아이템 클릭시 호출
-    {
-        selectItemId = item.itemId;
     }
 }

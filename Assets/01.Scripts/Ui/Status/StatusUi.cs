@@ -1,10 +1,14 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class StatusUi : MonoBehaviour
 {
-    public DragUi drag { get => fieldDrag; }
-    [SerializeField] private DragUi fieldDrag;
+    public TMP_Text weightText { get => fieldWeightText; }
+    [SerializeField] private TMP_Text fieldWeightText;
+
+    public SelectUi drag { get => fieldDrag; }
+    [SerializeField] private SelectUi fieldDrag;
 
     public ItemInfoUi itemInfo { get => fieldItemInfo; }
     [SerializeField] private ItemInfoUi fieldItemInfo;
@@ -21,18 +25,21 @@ public class StatusUi : MonoBehaviour
     public GameObject farming { get => fieldFarming; }
     [SerializeField] private GameObject fieldFarming;
 
-    public GameObject shop { get => fieldShop; }
-    [SerializeField] private GameObject fieldShop;
+    public ShopUi shop { get => fieldShop; }
+    [SerializeField] private ShopUi fieldShop;
 
     [SerializeField] private InventorySlot[] inventorySlot;
-    [SerializeField] private InventorySlot[] storageSlot;
     [SerializeField] private InventorySlot[] farminSlot;
-    [SerializeField] private EquippedSlot[] equippedSlot;
-    [SerializeField] private ShopSlot[] shopSlot;
+    //[SerializeField] private InventorySlot[] storageSlot;
+    //[SerializeField] private EquippedSlot[] equippedSlot;
 
     private void Reset()
     {
-        fieldDrag = this.GetComponentInChildren<DragUi>(true);
+        var weight = Helper.FindChild(this.transform, "WeightText");
+        if(weight.TryGetComponent<TMP_Text>(out var isWeight)) fieldWeightText = isWeight;
+        if (fieldWeightText == null) DebugHelper.Log($"{this.name}에 DragImage스크립트가 있는 자식 오브젝트가 존재하지 않음");
+
+        fieldDrag = this.GetComponentInChildren<SelectUi>(true);
         if (fieldDrag == null) DebugHelper.Log($"{this.name}에 DragImage스크립트가 있는 자식 오브젝트가 존재하지 않음");
 
         fieldItemInfo = this.GetComponentInChildren<ItemInfoUi>(true);
@@ -42,16 +49,19 @@ public class StatusUi : MonoBehaviour
         inventorySlot = GetComponentArray<InventorySlot>(fieldInventory.transform);
 
         fieldEquipped = Helper.FindChild(this.transform, "Equipped").gameObject;
-        equippedSlot = GetComponentArray<EquippedSlot>(fieldEquipped.transform);
+        //equippedSlot = GetComponentArray<EquippedSlot>(fieldEquipped.transform);
 
         fieldStorage = Helper.FindChild(this.transform, "Storage").gameObject;
-        storageSlot = GetComponentArray<InventorySlot>(fieldStorage.transform);
+        //storageSlot = GetComponentArray<InventorySlot>(fieldStorage.transform);
 
         fieldFarming = Helper.FindChild(this.transform, "Farming").gameObject;
         farminSlot = GetComponentArray<InventorySlot>(fieldFarming.transform);
 
-        fieldShop = Helper.FindChild(this.transform, "Shop").gameObject;
-        shopSlot = GetComponentArray<ShopSlot>(fieldShop.transform);
+        var shopPos = Helper.FindChild(this.transform, "Shop");
+        if (shopPos.TryGetComponent<ShopUi>(out var isShop)) fieldShop = isShop;
+        else DebugHelper.ShowBugWindow($"{shopPos.name}에 스크립트가 있는 자식 오브젝트가 존재하지 않음");
+
+        Debug.Log(fieldFarming.transform.position);
     }
 
     private T[] GetComponentArray<T>(Transform _parent) where T : class
@@ -94,7 +104,7 @@ public class StatusUi : MonoBehaviour
                 }
 
                 //중복된 아이템이 있을 경우 / 최대 갯수를 넘지 않았을 경우
-                else if (inventorySlot[i].itemId == _itemId && inventorySlot[i].count <= item.maxStack)
+                else if (inventorySlot[i].itemId == _itemId && inventorySlot[i].count < item.maxStack)
                 {
                     inventorySlot[i].SetSlot(inventorySlot[i].count + 1);
                     return true;
@@ -116,5 +126,11 @@ public class StatusUi : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void SetWeightText(int _weight)
+    {
+        //Player.Instance.Weight
+        //weightText.text = $"{}";
     }
 }
