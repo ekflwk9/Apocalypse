@@ -1,9 +1,10 @@
-﻿using Cinemachine;
+﻿using System;
+using System.Collections;
+using Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(PlayerInput))]
 public class PlayerThirdPersonController : MonoBehaviour
 {
     private const float _threshold = 0.01f;
@@ -49,17 +50,14 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     public bool LockCameraPosition;
 
-    [Header("Aim")]
-    public Transform WaistTransform;
-
     //컴포넌트들
     [Header("Componetns")]
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private Animator _animator;
-    [SerializeField] private CharacterController _controller;
     [SerializeField] private PlayerInputs _input;
     [SerializeField] private GameObject _mainCamera;
     [SerializeField] private bool _hasAnimator;
+    [SerializeField] private Rigidbody _rigidbody;
     private float _animationBlend;
     private int _animIDAim;
     private int _animIDAttack;
@@ -100,7 +98,7 @@ public class PlayerThirdPersonController : MonoBehaviour
         GroundLayers = LayerMask.GetMask("Default");
 
         _playerInput = GetComponent<PlayerInput>();
-        _controller = GetComponent<CharacterController>();
+        _rigidbody = GetComponent<Rigidbody>();
         _input = GetComponent<PlayerInputs>();
         _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         VirtualCamera = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
@@ -118,21 +116,20 @@ public class PlayerThirdPersonController : MonoBehaviour
 
         _jumpTimeoutDelta = JumpTimeout;
         _fallTimeoutDelta = FallTimeout;
+
+        _input.AimEvent += AimSwitch;
     }
 
     private void Update()
     {
-        _hasAnimator = TryGetComponent(out _animator);
-
         JumpAndGravity();
         GroundedCheck();
-        Move();
-        Aim();
         DamageCheck();
     }
-
-    private void LateUpdate()
+    
+    private void FixedUpdate()
     {
+        Move();
         CameraRotation();
     }
 
@@ -178,13 +175,22 @@ public class PlayerThirdPersonController : MonoBehaviour
     //카메라 회전. 밑과 위를 제한하는 값으로 최대치 제한
     private void CameraRotation()
     {
-        if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+        var deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.fixedDeltaTime;
+        
+        if (LockCameraPosition)
         {
-            var deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
-
-            _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
-            _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+            _cinemachineTargetPitch = Mathf.Lerp(_cinemachineTargetPitch, 10f, Time.fixedDeltaTime * 5f);
         }
+        else
+        {
+            if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+            {
+                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+            } 
+        }
+        
+        _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
+
 
         _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
         _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
@@ -196,22 +202,17 @@ public class PlayerThirdPersonController : MonoBehaviour
     //이동.
     private void Move()
     {
-        //========== 기본적으로 인풋 지정값을 받아와서 이동 ==========
-        var targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-
+        //========== 이동값 받음 ==========
+        var targetSpeed = _input.Sprint ? SprintSpeed : MoveSpeed;
         if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
-        var currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-
+        var currentHorizontalSpeed = new Vector3(_rigidbody.velocity.x, 0.0f, _rigidbody.velocity.z).magnitude;
         var speedOffset = 0.1f;
         var inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
-        if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-            currentHorizontalSpeed > targetSpeed + speedOffset)
+        if (Mathf.Abs(currentHorizontalSpeed - targetSpeed) > speedOffset)
         {
-            _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
-                Time.deltaTime * SpeedChangeRate);
-
+            _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.fixedDeltaTime * SpeedChangeRate);
             _speed = Mathf.Round(_speed * 1000f) / 1000f;
         }
         else
@@ -219,24 +220,37 @@ public class PlayerThirdPersonController : MonoBehaviour
             _speed = targetSpeed;
         }
 
-        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.fixedDeltaTime * SpeedChangeRate);
         if (_animationBlend < 0.01f) _animationBlend = 0f;
 
-        var inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+        Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+        Vector3 targetDirection = Vector3.zero;
 
-        //========== 카메라 방향을 따라 서서히 플레이어 방향이 바뀌는 부분 ==========
-        _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                          _mainCamera.transform.eulerAngles.y;
-        var rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-            RotationSmoothTime);
+        if (LockCameraPosition)
+        {
+            _targetRotation = _mainCamera.transform.eulerAngles.y;
+            targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * inputDirection;
+        }
+        else
+        {
+            _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg
+                              + _mainCamera.transform.eulerAngles.y;
+            targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+        }
 
+        float rotation = Mathf.SmoothDampAngle(
+            transform.eulerAngles.y,
+            _targetRotation,
+            ref _rotationVelocity,
+            RotationSmoothTime
+        );
         transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
 
-        var targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
-
-        //계산 마친 값 적용해 이동.
-        _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                         new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+        //========== 이동 처리 ==========
+        Vector3 move = targetDirection.normalized * (_speed * Time.fixedDeltaTime)
+                       + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime;
+        Vector3 newPosition = _rigidbody.position + move;
+        _rigidbody.MovePosition(newPosition);
 
         if (_hasAnimator)
         {
@@ -261,7 +275,7 @@ public class PlayerThirdPersonController : MonoBehaviour
 
             if (_verticalVelocity < 0.0f) _verticalVelocity = -2f;
 
-            if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+            if (_input.Jump && _jumpTimeoutDelta <= 0.0f)
             {
                 _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
@@ -283,8 +297,6 @@ public class PlayerThirdPersonController : MonoBehaviour
             {
                 _animator.SetBool(_animIDFreeFall, true);
             }
-
-            _input.jump = false;
         }
 
         //최대 추락 속력까지 중력 부여
@@ -307,46 +319,109 @@ public class PlayerThirdPersonController : MonoBehaviour
                 Player.Instance._damaged = false;
         }
     }
+    
+    private Coroutine _zoomInCoroutine;
+    private Coroutine _zoomOutCoroutine;
 
-    private void Aim()
+    private void AimSwitch(bool isAimed)
     {
-        Vector3 targetOffset = _input.aim ? AimCamPosition : TPSCamPosition;
+        if (Player.Instance.Equip.curWeapon == null) return;
+        LockCameraPosition = isAimed;
+        Vector3 targetOffset = isAimed ? AimCamPosition : TPSCamPosition;
+        if (isAimed)
+        {
+            if (_zoomInCoroutine != null)
+            {
+                return;
+            }
+            if (_zoomOutCoroutine != null)
+            {
+                return;
+            }
+            _zoomInCoroutine = StartCoroutine(ZoomIn(targetOffset));
+        }
+        else
+        {
+            if (_zoomInCoroutine != null)
+            {
+                return;
+            }
+            if (_zoomOutCoroutine != null)
+            {
+                return;
+            }
+            _zoomOutCoroutine = StartCoroutine(ZoomOut(targetOffset));
+        }
+        
+        _animator.SetBool(_animIDEquipWeapon, isAimed);
+        _animator.SetBool(_animIDAim, isAimed);
+    }
+
+    private IEnumerator ZoomIn(Vector3 targetOffset)
+    {
+        Vector3 startOffset = Follow.ShoulderOffset;
+        float elapsedTime = 0f;
+        float duration = 0.3f;
+        
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            Follow.ShoulderOffset = Vector3.Lerp(startOffset, targetOffset, t);
+            yield return null;
+        }
+        
+        Follow.ShoulderOffset = targetOffset;
+        
+        yield return new WaitForSeconds(0.3f);
+        
+        _zoomInCoroutine = null;
+    }
+
+    private IEnumerator ZoomOut(Vector3 targetOffset)
+    {
+        Vector3 startOffset = Follow.ShoulderOffset;
+        float elapsedTime = 0f;
+        float duration = 0.3f;
+        
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            Follow.ShoulderOffset = Vector3.Lerp(startOffset, targetOffset, t);
+            yield return null;
+        }
+        
+        Follow.ShoulderOffset = targetOffset;
+        
+        yield return new WaitForSeconds(0.3f);
+        
+        _zoomOutCoroutine = null;
+    }
+    
+    private void Zoom(bool isZoomIn)
+    {
+        LockCameraPosition = isZoomIn;
+        Vector3 targetOffset = isZoomIn ? AimCamPosition : TPSCamPosition;
+
         Follow.ShoulderOffset = Vector3.Lerp(Follow.ShoulderOffset, targetOffset, Time.deltaTime * 6f);
         if (Vector3.Distance(targetOffset, Follow.ShoulderOffset) < 0.01f)
         {
             Follow.ShoulderOffset = targetOffset;
         }
-
-        if (Player.Instance.Equip.curWeapon != null)
-        {
-            _animator.SetBool(_animIDEquipWeapon, _input.aim);
-        }
         
-        _animator.SetBool(_animIDAim, _input.aim);
+        _animator.SetBool(_animIDEquipWeapon, isZoomIn);
+        _animator.SetBool(_animIDAim, isZoomIn);
     }
 
-    public void Attack()
+
+    public void MeleeAttack()
     {
-        if(Player.Instance.Equip.curEquip == null) return;
-
-        switch (Player.Instance.Equip.curWeaponType)
-        {
-            case PlayerWeaponType.None:
-                return;
-            case PlayerWeaponType.Melee:
-                _animator.SetTrigger(_animIDAttack);
-                _input.attack = false;
-                break;
-            case PlayerWeaponType.Ranged:
-                RangedAttack();
-                break;
-            case PlayerWeaponType.RangedAuto:
-                RangedAttack(true);
-                break;
-        }
+        _animator.SetTrigger(_animIDAttack);
+        //휘두르는 소리 울려라
     }
 
-    private void RangedAttack(bool isAuto = false)
+    public void RangedAttack()
     {
         (Vector3 rayOrigin, Vector3 direction) = Player.Instance.Equip.curWeaponData.GetBulletStartPoint();
         Physics.Raycast(rayOrigin, direction, out RaycastHit hit, Player.Instance.Equip.curWeaponData.Range);
@@ -355,6 +430,6 @@ public class PlayerThirdPersonController : MonoBehaviour
         {
             damagable.TakeDamage(Player.Instance.Equip.curEquip.power);
         }
-        if (!isAuto) _input.attack = false;
+        //총소리 울려라
     }
 }

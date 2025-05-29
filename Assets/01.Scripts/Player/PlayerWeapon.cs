@@ -6,8 +6,7 @@ public enum PlayerWeaponType
 {
     None,
     Melee,
-    Ranged,
-    RangedAuto
+    Ranged
 }
 public class PlayerWeapon : MonoBehaviour
 {

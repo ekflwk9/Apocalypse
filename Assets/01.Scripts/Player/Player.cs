@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 
 public interface IDamagable
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour, IDamagable
 {
     public static Player Instance { get; private set; }
     public PlayerEquip Equip;
+    public CinemachineVirtualCamera cinemachineCamera;
     
     [Header("State")]
     public float maxHealth = 100f;
@@ -18,14 +20,17 @@ public class Player : MonoBehaviour, IDamagable
 
     [SerializeField] private float _health;
     [SerializeField] private float _stamina;
-    [SerializeField] int _gold;
+    [SerializeField] private int _gold;
+    [SerializeField] private int _level;
+    [SerializeField] private int _weight;
 
     public float passiveStamina = 5f;
 
-    [Header("Stamina Use")] public float sprintStamina = 5f;
+    [Header("Stamina Use")]
+    public float sprintStamina = 5f;
     public float jumpStamina = 10f;
     public float staminaRegenCooldown = 5f;
-
+    
     private bool _staminaRegen;
     private Coroutine _staminaRegenCoroutine;
 
@@ -34,7 +39,7 @@ public class Player : MonoBehaviour, IDamagable
     public float Health
     {
         get => _health;
-        set
+        private set
         {
             float changedValue = Mathf.Clamp(value, 0, maxHealth);
 
@@ -50,7 +55,7 @@ public class Player : MonoBehaviour, IDamagable
     public float Stamina
     {
         get => _stamina;
-        set
+        private set
         {
             float changedValue = Mathf.Clamp(value, 0, maxStamina);
 
@@ -72,7 +77,7 @@ public class Player : MonoBehaviour, IDamagable
         {
             return _gold;
         }
-        set
+        private set
         {
             if (value <= 0)
             {
@@ -81,6 +86,44 @@ public class Player : MonoBehaviour, IDamagable
             else
             {
                 _gold = value;
+            }
+        }
+    }
+
+    public int Level
+    {
+        get
+        {
+            return _level;
+        }
+        private set
+        {
+            if (value <= 0)
+            {
+                _level = 0;
+            }
+            else
+            {
+                _level = value;
+            }
+        }
+    }
+
+    public int Weight
+    {
+        get
+        {
+            return _weight;
+        }
+        private set
+        {
+            if (value <= 0)
+            {
+                _weight = 0;
+            }
+            else
+            {
+                _weight = value;
             }
         }
     }
@@ -129,8 +172,50 @@ public class Player : MonoBehaviour, IDamagable
         _staminaRegenCoroutine = null;
     }
 
+    private Coroutine _damagedCoroutine;
+    
     public void TakeDamage(float damage)
     {
         Health -= damage;
+        if (_damagedCoroutine != null)
+            StopCoroutine(_damagedCoroutine);
+        _damagedCoroutine = StartCoroutine(DamagedCoroutine());
+    }
+
+    private IEnumerator DamagedCoroutine()
+    {
+        var perlin = cinemachineCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        
+        perlin.m_FrequencyGain = 20f;
+
+        yield return new WaitForSeconds(0.2f);
+
+        perlin.m_FrequencyGain = 0f;
+    }
+
+    public void Heal(float heal)
+    {
+        float changedHealth = Health + heal;
+        Health = Mathf.Lerp(Health, changedHealth, 3f);
+    }
+
+    public void SetStamina(float stamina)
+    {
+        Stamina += stamina;
+    }
+
+    public void SetGold(int money)
+    {
+        Gold += money;
+    }
+
+    public void SetLevel(int level)
+    {
+        Level += level;
+    }
+
+    public void SetWeight(int weight)
+    {
+        Weight += weight;
     }
 }

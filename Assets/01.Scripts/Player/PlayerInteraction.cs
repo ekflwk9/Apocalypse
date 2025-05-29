@@ -1,37 +1,84 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class InteractionCollider : MonoBehaviour
+public class PlayerInteraction : MonoBehaviour
 {
-    private Collider[] colliders;
-    private ItemHandler _closestItem;
+    private Dictionary<string, GameObject> touchItems = new Dictionary<string, GameObject>();
+    private ItemHandler touchedItem;
+    private bool isTouched;
+    [SerializeField] private Collider[] colliders;
+    [SerializeField] private Collider closestItem;
+    [SerializeField] private float positionOffset;
+    [SerializeField] private Vector3 halfExtents;
 
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        colliders = Physics.OverlapBox(transform.position, transform.localScale);
+        if (other.gameObject.CompareTag("Item"))
+        {
+            RaycastHit hit;
+            
+            isTouched = true;
+            
+            var origin = transform.position;
+            var direction = other.transform.position - origin;
+
+            if (Physics.Raycast(origin, direction, out hit, 5f))
+            {
+                if (hit.collider.CompareTag("Item") && hit.collider.TryGetComponent<ItemHandler>(out var isItem))
+                {
+                    touchedItem = isItem;
+                }
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Item"))
+        {
+            isTouched = false;
+        }
     }
 
     public void InvokePickUp()
     {
-        var playerPosition = Player.Instance.transform.position;
-        float distance = -1;
-        foreach (var item in colliders)
+        if (isTouched)
         {
-            if (distance == -1)
-            {
-                distance = Vector3.Distance(playerPosition, item.transform.position);
-                //_closestItem = item;
-                continue;
-            }
-
-            var curDistance = Vector3.Distance(playerPosition, item.transform.position);
-            if (distance > curDistance)
-            {
-                distance = curDistance;
-                //_closestItem = item;
-            }
+            touchedItem?.PickUpItem();
         }
-
-        if (_closestItem != null) _closestItem.PickUpItem();
+        // var playerPosition = Player.Instance.transform.position;
+        // bool isFirstItem = true;
+        // float distance = 0f;
+        // foreach (var itemCollider in colliders)
+        // {
+        //     if (!touchItems.ContainsKey(itemCollider.gameObject.name))
+        //     {
+        //         touchItems.Add(itemCollider.gameObject.name, itemCollider.gameObject);
+        //     }
+        //     
+        //     if (isFirstItem)
+        //     {
+        //         distance = Vector3.Distance(playerPosition, itemCollider.transform.position);
+        //         closestItem = itemCollider;
+        //         isFirstItem = false;
+        //         continue;
+        //     }
+        //
+        //     var curDistance = Vector3.Distance(playerPosition, itemCollider.transform.position);
+        //     
+        //     if (distance > curDistance)
+        //     {
+        //         distance = curDistance;
+        //         closestItem = itemCollider;
+        //     }
+        // }
+        //
+        // if (closestItem != null)
+        // {
+        //     Debug.Log(closestItem);
+        //     closestItem = null;
+        // }
     }
 }
