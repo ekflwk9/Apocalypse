@@ -129,12 +129,12 @@ public class PlayerInputs : MonoBehaviour
                 case 1:
                     var firstItem = ItemManager.Instance.Inventory.firstSlotItem;
                     if(firstItem == null) return;
-                    Player.Instance.Equip.EquipNew(ItemManager.Instance.itemDB[firstItem.itemId]);
+                    Player.Instance.Equip.EquipItem(ItemManager.Instance.itemDB[firstItem.itemId]);
                     break;
                 case 2:
                     var secondItem = ItemManager.Instance.Inventory.secondSlotItem;
                     if (secondItem == null) return;
-                    Player.Instance.Equip.EquipNew(ItemManager.Instance.itemDB[secondItem.itemId]);
+                    Player.Instance.Equip.EquipItem(ItemManager.Instance.itemDB[secondItem.itemId]);
                     break;
             }
         }

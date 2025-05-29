@@ -23,7 +23,7 @@ public class PlayerEquip : MonoBehaviour
     
     [SerializeField] private PlayerInputs _input;
     [SerializeField] private Animator _animator;
-    private int _animIDEquipWeapon;
+    private int _animIDEquip;
     private int _animIDEquipMelee;
     private int _animIDEquipRanged;
     private int _animIDEquipItem;
@@ -58,11 +58,28 @@ public class PlayerEquip : MonoBehaviour
 
     private void AssignAnimationIDs()
     {
-        _animIDEquipWeapon = Animator.StringToHash("EquipWeapon");
+        _animIDEquip = Animator.StringToHash("Equip");
         _animIDEquipMelee = Animator.StringToHash("EquipMelee");
         _animIDEquipRanged = Animator.StringToHash("EquipRanged");
         _animIDEquipItem = Animator.StringToHash("EquipItem");
         _animIDUnEquip = Animator.StringToHash("UnEquip");
+    }
+    
+    public void EquipItem(ItemInfo itemInfo)
+    {
+        if (curWeaponPrefab == null)
+        {
+            EquipNew(itemInfo); // 아무 것도 장착되지 않았을 때
+            return;
+        }
+
+        if (itemInfo == curWeaponData.GetItemData())
+        {
+            UnEquip(); // 같은 아이템이면 해제
+            return;
+        }
+
+        Swap(itemInfo); // 다른 아이템이면 스왑
     }
 
     public void EquipNew(ItemInfo data)
@@ -73,14 +90,14 @@ public class PlayerEquip : MonoBehaviour
             return;
         }
 
-        if (!equip.TryGetComponent(out PlayerWeapon weaponData))
+        if (!equip.TryGetComponent(out PlayerWeapon equipData))
         {
             Debug.Log("무기 장착 아이템을 찾을 수 없습니다.");
             return;
         }
         
-        var (weaponInfo, weaponType) = weaponData.GetWeaponData();
-        var (consumableInfo, consumableType) = weaponData.GetConsumableData();
+        var (weaponInfo, weaponType) = equipData.GetWeaponData();
+        var (consumableInfo, consumableType) = equipData.GetConsumableData();
         
         if (weaponInfo == null && consumableInfo == null)
         {
@@ -88,70 +105,64 @@ public class PlayerEquip : MonoBehaviour
             return;
         }
 
-        if (curWeaponPrefab != null)
-        {
-            if (curWeaponPrefab == equip)
-            {
-                UnEquip();
-                return;
-            }
-
-            UnEquip(true);
-        }
-
-        if (weaponInfo != null)
-        {
-            switch (weaponType)
-            {
-                case PlayerWeaponType.Melee:
-                    _equipMelee = true;
-                    break;
-                case PlayerWeaponType.Ranged:
-                    _equipRanged = true;
-                    break;
-            }
-
-            curWeapon = weaponInfo;
-            curWeaponType = weaponType;
-        }
-        else
-        {
-            _equipItem = true;
-            
-            curWeaponType = consumableType;
-        }
-        
+        curWeapon = weaponInfo != null ? weaponInfo : null;
+        curWeaponType = weaponInfo != null ? weaponType : consumableType;
         curWeaponPrefab = equip;
-        curWeaponData = weaponData;
+        curWeaponData = equipData;
+        
+        _equipMelee = weaponType == PlayerWeaponType.Melee;
+        _equipRanged = weaponType == PlayerWeaponType.Ranged;
+        _equipItem = weaponInfo == null;
+        
+        
         curWeaponPrefab.SetActive(true);
 
         UpdateAnimationBools();
+
+        StartCoroutine(WaitForEquip(curWeaponPrefab, curWeaponData));
+    }
+
+    private IEnumerator WaitForEquip(GameObject obj, PlayerWeapon data)
+    {
+        _animator.SetBool(_animIDEquip, _equipMelee || _equipRanged || _equipItem);
+        yield return WaitUntilAnimationEnd("Equip");
+        ToggleWeaponLocation(obj, data);
     }
     
-    public void UnEquip(bool isSwap = false)
+    public void UnEquip()
     {
         GameObject weaponToUnEquip = curWeaponPrefab;
+        PlayerWeapon weaponDataToUnEquip = curWeaponData;
+        _animator.SetTrigger(_animIDUnEquip);
+        StartCoroutine(WaitForUnEquip(weaponToUnEquip, weaponDataToUnEquip)); 
         
-        curEquip = null;
+        curWeaponPrefab = null;
+        curWeaponData = null;
+        curWeapon = null;
         curWeaponType = PlayerWeaponType.None;
+        
         _equipMelee = false;
         _equipRanged = false;
         _equipItem = false;
-
-        if (isSwap) _animator.SetTrigger(_animIDUnEquip);
+        
         UpdateAnimationBools();
-
-        StartCoroutine(UnEquipCoroutine(weaponToUnEquip));
     }
 
-    private IEnumerator UnEquipCoroutine(GameObject weaponToUnEquip)
+    private IEnumerator WaitForUnEquip(GameObject obj, PlayerWeapon data)
     {
-        yield return new WaitForSeconds(2f);
-        
-        if (weaponToUnEquip != null)
+        UpdateAnimationBools();
+        yield return WaitUntilAnimationEnd("UnEquip");
+        ToggleWeaponLocation(obj, data);
+        if (obj != null)
         {
-            weaponToUnEquip.SetActive(false);
+            obj.SetActive(false);
         }
+    }
+
+    private void Swap(ItemInfo data)
+    {
+        UnEquip();
+        EquipNew(data);
     }
 
     private void UpdateAnimationBools()
@@ -159,18 +170,25 @@ public class PlayerEquip : MonoBehaviour
         _animator.SetBool(_animIDEquipMelee, _equipMelee);
         _animator.SetBool(_animIDEquipRanged, _equipRanged);
         _animator.SetBool(_animIDEquipItem, _equipItem);
-        _animator.SetBool(_animIDEquipWeapon, _equipMelee || _equipRanged || _equipItem);
     }
 
-    public void ToggleWeaponLocation()
+    private void ToggleWeaponLocation(GameObject obj, PlayerWeapon data)
     {
         _isWeaponOnHand = !_isWeaponOnHand; 
         
-        curWeaponPrefab.transform.SetParent(_isWeaponOnHand ? weaponPivot : equipPivot, false);
-
-        (Vector3 position, Vector3 rotation) = curWeaponData.GetEquipPosition(_isWeaponOnHand);
-        curWeaponPrefab.transform.localPosition = position;
-        curWeaponPrefab.transform.localRotation = Quaternion.Euler(rotation);
+        obj.transform.SetParent(_isWeaponOnHand ? weaponPivot : equipPivot, false);
+        
+        (Vector3 position, Vector3 rotation) = data.GetEquipPosition(_isWeaponOnHand);
+        obj.transform.localPosition = position;
+        obj.transform.localRotation = Quaternion.Euler(rotation);
+    }
+    
+    private IEnumerator WaitUntilAnimationEnd(string stateName)
+    {
+        int upperBodyLayer = _animator.GetLayerIndex("UpperBody");
+        // 현재 재생 중인 상태로 바뀔 때까지 대기
+        while (!_animator.GetCurrentAnimatorStateInfo(upperBodyLayer).IsName(stateName))
+            yield return null;
     }
     
     public void ToggleMeleeCollider()

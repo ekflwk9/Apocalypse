@@ -3722,6 +3722,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3361089720476702508, guid: 29f9c71f7d425d04ebbe2a32ccd778c8,
         type: 3}
+      propertyPath: handPosition.y
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: -3361089720476702508, guid: 29f9c71f7d425d04ebbe2a32ccd778c8,
+        type: 3}
       propertyPath: handPosition.z
       value: 0.035
       objectReference: {fileID: 0}
