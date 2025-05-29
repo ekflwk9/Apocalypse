@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 384823be4855943039690a396e7e9aa6, type: 3}
   m_Name: Jack_Daniel's
   m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 8021613260972251737, guid: c73b3c9b37b7446099592b8e73a53dea,
+    type: 3}
   itemId: 401
   itemName: "\uC7AD\uB2E4\uB2C8\uC5D8"
   disciption: "\uD14C\uB124\uC2DC \uC704\uC2A4\uD0A4"

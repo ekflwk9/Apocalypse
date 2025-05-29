@@ -7,25 +7,28 @@ public class PlayerInputs : MonoBehaviour
 	[Header("Character Input Values")]
 	public Vector2 move;
 	public Vector2 look;
-	public bool jump;
-	public bool sprint;
-	public bool aim;
-	public bool attack;
-
+	private bool _jump;
+    public bool Jump => _jump;
+	private bool _sprint;
+    public bool Sprint => _sprint;
+	
+	private bool _aim;
+    public bool Aim => _aim;
+    private bool _prevAim = false;
+    
+	private bool _attack;
+    public bool Attack => _attack;
+    
 	private bool _canSprint = true;
 
 	[Header("Movement Settings")] public bool analogMovement;
 
-	[Header("Mouse Cursor Settings")] public bool cursorLocked = true;
-	public bool cursorInputForLook = true;
+	[Header("Mouse Cursor Settings")]
+    public bool cursorLocked = true;
 	
 	[SerializeField] private Player _player;
 	[SerializeField] private PlayerThirdPersonController _controller;
-	[SerializeField] private InteractionCollider _interactionCollider;
-	
-	//테스트 코드
-	public WeaponInfo[] TestInventorySelectedWeaponInfos;
-	//
+	[SerializeField] private PlayerInteraction _playerInteraction;
 
 	private void Reset()
 	{
@@ -35,17 +38,18 @@ public class PlayerInputs : MonoBehaviour
 	private void Start()
 	{
 		_player = Player.Instance;
+        SetCursorState(cursorLocked);
 	}
 
 	private void Update()
 	{
-		if (sprint)
+		if (_sprint)
 		{
-			_player.Stamina -= Time.deltaTime * _player.sprintStamina;
+			_player.SetStamina(-(Time.deltaTime * _player.sprintStamina));
 
 			if (_player.Stamina <= 0f)
 			{
-				sprint = false;
+				_sprint = false;
 				_canSprint = false;
 			}
 		}
@@ -53,94 +57,122 @@ public class PlayerInputs : MonoBehaviour
 		{
 			_canSprint = true;
 		}
-	}
-
-	//WASD입력 받을때(PlayerInput에서 설정)
-	public void OnMove(InputValue value) 
-	{
-		move = value.Get<Vector2>();
-	}
-
-	//마우스위치 따라가기(PlayerInput에서 설정)
-	public void OnLook(InputValue value) 
-	{
-		if (cursorInputForLook)
+		
+		if (_attack)
 		{
-			look = value.Get<Vector2>();
+            switch (Player.Instance.Equip.curWeaponType)
+            {
+                case PlayerWeaponType.Melee:
+                    _controller.MeleeAttack();
+                    _attack = false;
+                    break;
+                case PlayerWeaponType.Ranged:
+                    _controller.RangedAttack();
+                    _attack = false;
+                    break;
+            }
 		}
 	}
 
-	//점프 입력(PlayerInput에서 설정)
-	public void OnJump(InputValue value) 
+	public void OnMove(InputAction.CallbackContext context)
 	{
-		if (!jump && value.isPressed)
+		move = context.ReadValue<Vector2>();
+	}
+	
+	public void OnLook(InputAction.CallbackContext context)
+	{
+        look = context.ReadValue<Vector2>();
+	}
+	
+	public void OnJump(InputAction.CallbackContext context)
+	{
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (_player.Stamina < _player.jumpStamina) return;
+            _player.SetStamina(_player.jumpStamina);
+            _jump = true;
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            _jump = false;
+        }
+	}
+	
+	public void OnSprint(InputAction.CallbackContext context)
+	{
+		if (!_canSprint) return;
+		_sprint = context.ReadValueAsButton();
+	}
+	
+	public void OnAim(InputAction.CallbackContext context)
+	{
+        _aim = context.ReadValueAsButton();
+    }
+	
+	public void OnAttack(InputAction.CallbackContext context)
+	{
+		if (_aim)
 		{
-			if(_player.Stamina < _player.jumpStamina) return;
-			_player.Stamina -= _player.jumpStamina;
-			jump = true;
-		}
-	}
-
-	//달리기 입력(PlayerInput에서 설정)
-	public void OnSprint(InputValue value) 
-	{
-		if(!_canSprint) return;
-		sprint = value.isPressed;
-	}
-
-	public void OnAim(InputValue value)
-	{
-		aim = value.isPressed;
-	}
-
-	public void OnAttack(InputValue value)
-	{
-		if (aim)
-		{
-			attack = value.isPressed;
+			_attack = context.ReadValueAsButton();
 		}
 		else
 		{
-			attack = false;
-		}
-
-		if (attack)
-		{
-			_controller.Attack();
+			_attack = false;
 		}
 	}
-
-	public void OnNumberInput(InputValue value)
+	
+	public void OnNumberInput(InputAction.CallbackContext context)
 	{
-		if (value.isPressed)
+		if (context.performed)
 		{
-			float key = value.Get<float>();
+			float key = context.ReadValue<float>();
 			int numberPressed = Mathf.RoundToInt(key);
-			numberPressed--;
-			
-			//테스트코드
-			if(numberPressed < TestInventorySelectedWeaponInfos.Length)
-				Player.Instance.Equip.EquipNew(TestInventorySelectedWeaponInfos[numberPressed]);
-			//
-			
-			//인벤토리 아이템 사용 호출
-		}
+            switch (numberPressed)
+            {
+                case 1:
+                    var firstItem = ItemManager.Instance.Inventory.firstSlotItem;
+                    if(firstItem == null) return;
+                    switch (firstItem.itemType)
+                    {
+                        case ItemType.Weapon:
+                            Player.Instance.Equip.EquipNew((WeaponInfo)ItemManager.Instance.itemDB[firstItem.itemId]);
+                            break;
+                        case ItemType.Consumable:
+                            ItemEffectManager.Instance.ItemEffect((ConsumableInfo)ItemManager.Instance.itemDB[firstItem.itemId]);
+                            break;
+                    }
+                    break;
+                case 2:
+                    var secondItem = ItemManager.Instance.Inventory.secondSlotItem;
+                    if (secondItem == null) return;
+                    switch (secondItem.itemType)
+                    {
+                        case ItemType.Weapon:
+                            Player.Instance.Equip.EquipNew((WeaponInfo)ItemManager.Instance.itemDB[secondItem.itemId]);
+                            break;
+                        case ItemType.Consumable:
+                            ItemEffectManager.Instance.ItemEffect((ConsumableInfo)ItemManager.Instance.itemDB[secondItem.itemId]);
+                            break;
+                    }
+                    break;
+            }
+        }
 	}
-
-	public void OnInteraction(InputValue value)
-	{
-		if (value.isPressed)
+	
+	public void OnInteraction(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
 		{
-			_interactionCollider.InvokePickUp();
+			_playerInteraction.InvokePickUp();
 		}
 	}
 
-	//화면 집중(에디터에선 개임씬이 눌려있는지, 애플리케이션의 경우 해당 창이 눌려있는지)
-	private void OnApplicationFocus(bool hasFocus)
-	{
-		SetCursorState(cursorLocked);
-	}
-
+    public void ToggleMouseLock()
+    {
+        cursorLocked = !cursorLocked;
+        SetCursorState(cursorLocked);
+    }
+    
 	//마우스 잠금처리
 	private void SetCursorState(bool newState) 
 	{

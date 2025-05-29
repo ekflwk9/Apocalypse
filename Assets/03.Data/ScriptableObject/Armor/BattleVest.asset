@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee02b760704ba44acad5eb6d40730353, type: 3}
+  m_Name: BattleVest
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 4623833250117269473, guid: 20e396f49cad74b108e16124e210f061,
+    type: 3}
+  itemId: 203
+  itemName: "\uBC29\uD0C4\uC870\uB07C"
+  disciption: "\uAC1C\uBB34\uAC81\uB2E4\uB370\uC2A4"
+  itemType: 2
+  icon: {fileID: 21300000, guid: 6f2a366f12dad45b6a150f85f752419e, type: 3}
+  cost: 500
+  canStack: 0
+  maxStack: 0
+  weight: 20
+  armorType: 2
+  durability: 150
+  defense: 50

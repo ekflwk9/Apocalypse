@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class StatusUi : MonoBehaviour
 {
-    public DragUi drag { get => fieldDrag; }
-    [SerializeField] private DragUi fieldDrag;
+    public SelectUi drag { get => fieldDrag; }
+    [SerializeField] private SelectUi fieldDrag;
 
     public ItemInfoUi itemInfo { get => fieldItemInfo; }
     [SerializeField] private ItemInfoUi fieldItemInfo;
@@ -23,37 +21,37 @@ public class StatusUi : MonoBehaviour
     public GameObject farming { get => fieldFarming; }
     [SerializeField] private GameObject fieldFarming;
 
-    public GameObject shop { get => fieldShop; }
-    [SerializeField] private GameObject fieldShop;
+    public ShopUi shop { get => fieldShop; }
+    [SerializeField] private ShopUi fieldShop;
 
     [SerializeField] private InventorySlot[] inventorySlot;
-    [SerializeField] private InventorySlot[] storageSlot;
     [SerializeField] private InventorySlot[] farminSlot;
-    [SerializeField] private EquippedSlot[] equippedSlot;
-    [SerializeField] private ShopSlot[] shopSlot;
+    //[SerializeField] private InventorySlot[] storageSlot;
+    //[SerializeField] private EquippedSlot[] equippedSlot;
 
     private void Reset()
     {
-        fieldDrag = this.GetComponentInChildren<DragUi>(true);
-        if (fieldDrag == null) DebugHelper.Log($"{this.name}¿¡ DragImage½ºÅ©¸³Æ®°¡ ÀÖ´Â ÀÚ½Ä ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        fieldDrag = this.GetComponentInChildren<SelectUi>(true);
+        if (fieldDrag == null) DebugHelper.Log($"{this.name}ì— DragImageìŠ¤í¬ë¦½íŠ¸ê°€ ìˆëŠ” ìì‹ ì˜¤ë¸Œì íŠ¸ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
 
         fieldItemInfo = this.GetComponentInChildren<ItemInfoUi>(true);
-        if (fieldItemInfo == null) DebugHelper.Log($"{this.name}¿¡ ItemInfoUi½ºÅ©¸³Æ®°¡ ÀÖ´Â ÀÚ½Ä ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        if (fieldItemInfo == null) DebugHelper.Log($"{this.name}ì— ItemInfoUiìŠ¤í¬ë¦½íŠ¸ê°€ ìˆëŠ” ìì‹ ì˜¤ë¸Œì íŠ¸ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
 
         fieldInventory = Helper.FindChild(this.transform, "Inventory").gameObject;
         inventorySlot = GetComponentArray<InventorySlot>(fieldInventory.transform);
 
         fieldEquipped = Helper.FindChild(this.transform, "Equipped").gameObject;
-        equippedSlot = GetComponentArray<EquippedSlot>(fieldEquipped.transform);
+        //equippedSlot = GetComponentArray<EquippedSlot>(fieldEquipped.transform);
 
         fieldStorage = Helper.FindChild(this.transform, "Storage").gameObject;
-        storageSlot = GetComponentArray<InventorySlot>(fieldStorage.transform);
+        //storageSlot = GetComponentArray<InventorySlot>(fieldStorage.transform);
 
         fieldFarming = Helper.FindChild(this.transform, "Farming").gameObject;
         farminSlot = GetComponentArray<InventorySlot>(fieldFarming.transform);
 
-        fieldShop = Helper.FindChild(this.transform, "Shop").gameObject;
-        shopSlot = GetComponentArray<ShopSlot>(fieldShop.transform);
+        var shopPos = Helper.FindChild(this.transform, "Shop");
+        if (shopPos.TryGetComponent<ShopUi>(out var isShop)) fieldShop = isShop;
+        else DebugHelper.ShowBugWindow($"{shopPos.name}ì— ìŠ¤í¬ë¦½íŠ¸ê°€ ìˆëŠ” ìì‹ ì˜¤ë¸Œì íŠ¸ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
     }
 
     private T[] GetComponentArray<T>(Transform _parent) where T : class
@@ -75,7 +73,7 @@ public class StatusUi : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ È¹µæ ¼º°ø ¿©ºÎ (¼º°ø½Ã ¾ÆÀÌÅÛ Ãß°¡µÊ)
+    /// ì•„ì´í…œ íšë“ ì„±ê³µ ì—¬ë¶€ (ì„±ê³µì‹œ ì•„ì´í…œ ì¶”ê°€ë¨)
     /// </summary>
     /// <param name="_itemId"></param>
     /// <returns></returns>
@@ -83,33 +81,35 @@ public class StatusUi : MonoBehaviour
     {
         var item = ItemManager.Instance.itemDB[_itemId];
 
-        //Áßº¹ È¹µæ °¡´ÉÇÑ ¾ÆÀÌÅÛÀÎ°¡?
+        //ì¤‘ë³µ íšë“ ê°€ëŠ¥í•œ ì•„ì´í…œì¸ê°€?
         if (item.canStack)
         {
             for (int i = 0; i < inventorySlot.Length; i++)
             {
+                //ìŠ¬ë¡¯ì— ì•„ì´í…œì´ ì—†ì„ ê²½ìš°
                 if (inventorySlot[i].itemId == 0)
                 {
-                    inventorySlot[i].SetItem(_itemId);
+                    inventorySlot[i].SetSlot(_itemId, 1);
                     return true;
                 }
 
-                else if (inventorySlot[i].itemId == _itemId)
+                //ì¤‘ë³µëœ ì•„ì´í…œì´ ìˆì„ ê²½ìš° / ìµœëŒ€ ê°¯ìˆ˜ë¥¼ ë„˜ì§€ ì•Šì•˜ì„ ê²½ìš°
+                else if (inventorySlot[i].itemId == _itemId && inventorySlot[i].count < item.maxStack)
                 {
-                    inventorySlot[i].SetItemCount(_itemId);
+                    inventorySlot[i].SetSlot(inventorySlot[i].count + 1);
                     return true;
                 }
             }
         }
 
-        //ºÒ°¡´É½Ã
+        //ë¶ˆê°€ëŠ¥ì‹œ
         else
         {
             for (int i = 0; i < inventorySlot.Length; i++)
             {
                 if (inventorySlot[i].itemId == 0)
                 {
-                    inventorySlot[i].SetItem(_itemId);
+                    inventorySlot[i].SetSlot(_itemId, 1);
                     return true;
                 }
             }

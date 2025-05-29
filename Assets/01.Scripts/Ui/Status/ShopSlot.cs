@@ -1,49 +1,77 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class ShopSlot : Slot, IPointerClickHandler, IPointerExitHandler
 {
-    [Header("∆«∏≈«“ æ∆¿Ã≈€ ID")]
-    [SerializeField] private int itemId;
-
-    [Space(10f)]
-    [SerializeField] private Image icon;
-    [SerializeField] private RectTransform pos;
-
-    private void Reset()
-    {
-        if (this.TryGetComponent<Image>(out var isIcon)) icon = isIcon;
-        else DebugHelper.ShowBugWindow($"{this.name}ø° Image∞° ¡∏¿Á«œ¡ˆ æ ¿Ω");
-
-        if (this.TryGetComponent<RectTransform>(out var isPos)) pos = isPos;
-        else DebugHelper.ShowBugWindow($"{this.name}ø° RectTransform∞° ¡∏¿Á«œ¡ˆ æ ¿Ω");
-    }
+    [SerializeField] private int id;
 
     private void Start()
-    {      
-        var item = ItemManager.Instance.itemDB[itemId];
-        icon.sprite = item.icon;
+    {
+        if (id != 0)
+        {
+            itemId = id;
+
+            var item = ItemManager.Instance.itemDB[itemId];
+            icon.sprite = item.icon;
+            icon.color = Color.white;
+            count = 1;
+        }
+
+        countText.text = count > 1 ? count.ToString() : "";
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Right && id != 0)
         {
-            //∞ÒµÂ ∞ÀªÁ
+            //*******************Í≥®Îìú Í≤ÄÏÇ¨ / Î¨¥Í≤å Í≤ÄÏÇ¨
+            //ÏÇ¨Ïö¥Îìú Ïû¨ÏÉù
+
             UiManager.instance.status.GetItem(itemId);
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public override void OnPointerEnter(PointerEventData eventData)
     {
-        UiManager.instance.touch.SetTouch(pos, true);
+        var drag = UiManager.instance.status.drag;
+        var dragSlot = drag.slot;
+
+        //ÎìúÎûòÍ∑∏ Ï§ëÏù¥ ÏïÑÎãê Í≤ΩÏö∞
+        if (!drag.isClick)
+        {
+            //ÎßàÏö∞Ïä§Îßå ÏõÄÏßÅÏù¥Í≥† ÏûàÏùÑ Í≤ΩÏö∞ / ÏïÑÏù¥ÌÖúÏù¥ Ï°¥Ïû¨Ìï† Í≤ΩÏö∞ÏóêÎßå
+            if (drag.selectItemId == 0 && itemId != 0)
+            {
+                UiManager.instance.touch.SetTouch(pos, true);
+                UiManager.instance.status.itemInfo.SetActive(pos.position, itemId);
+            }
+
+            //ÎìúÎûòÍ∑∏ Ï§ë ÎÅùÎÇ¨ÏùÑ Í≤ΩÏö∞
+            else if (drag.selectItemId != 0)
+            {
+                //********************Í≥®Îìú ÏóÖÎç∞Ïù¥Ìä∏
+
+                dragSlot.SetSlot(0);
+                drag.EndChangeSlot();
+
+                if (itemId != 0)
+                {
+                    UiManager.instance.touch.SetTouch(pos, true);
+                    UiManager.instance.status.itemInfo.SetActive(pos.position, itemId);
+                }
+            }
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        UiManager.instance.touch.SetTouch(false);
+        if (itemId != 0)
+        {
+            UiManager.instance.touch.SetTouch(false);
+            UiManager.instance.status.itemInfo.SetOff();
+        }
     }
+
+    protected override bool CheckItem(Slot _dragSlot) => true;
+    public override bool SetSlot(int _itemId, int _itemCount) => true;
 }
