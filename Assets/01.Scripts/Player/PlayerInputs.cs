@@ -97,7 +97,6 @@ public class PlayerInputs : MonoBehaviour
 	{
         if (context.phase == InputActionPhase.Started)
         {
-            Debug.Log("눌렀다고");
             _attack = true;
             
             switch (Player.Instance.Equip.curWeaponType)

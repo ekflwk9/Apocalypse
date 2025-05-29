@@ -55,7 +55,6 @@ public class PlayerWeapon : MonoBehaviour
 
     public (Vector3, Vector3) GetEquipPosition(bool isOnHand)
     {
-        Debug.Log($"GetthePoint! {isOnHand}");
         Vector3 position = isOnHand ? handPosition : equipPosition;
         Vector3 rotation = isOnHand ? handRotation : equipRotation;
         return (position, rotation);

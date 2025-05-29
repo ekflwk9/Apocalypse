@@ -211,7 +211,6 @@ public class PlayerEquip : MonoBehaviour
         }
         else
         {
-            Debug.Log($"{other.gameObject.name} 맞았다.");
             damagable.TakeDamage(curEquip != null ? curWeapon.power : 10f);
         }
     }
