@@ -15,6 +15,8 @@ public class PlaySlot : MonoBehaviour
 
         if (iconPos.TryGetComponent<TMP_Text>(out var isText)) countText = isText;
         else DebugHelper.ShowBugWindow($"{this.name}에 가 존재하지 않음");
+
+
     }
 
     /// <summary>
