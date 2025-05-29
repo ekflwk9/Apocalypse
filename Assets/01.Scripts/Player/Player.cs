@@ -18,7 +18,9 @@ public class Player : MonoBehaviour, IDamagable
 
     [SerializeField] private float _health;
     [SerializeField] private float _stamina;
-    [SerializeField] int _gold;
+    [SerializeField] private int _gold;
+    [SerializeField] private int _level;
+    [SerializeField] private int _weight;
 
     public float passiveStamina = 5f;
 
@@ -34,7 +36,7 @@ public class Player : MonoBehaviour, IDamagable
     public float Health
     {
         get => _health;
-        set
+        private set
         {
             float changedValue = Mathf.Clamp(value, 0, maxHealth);
 
@@ -50,7 +52,7 @@ public class Player : MonoBehaviour, IDamagable
     public float Stamina
     {
         get => _stamina;
-        set
+        private set
         {
             float changedValue = Mathf.Clamp(value, 0, maxStamina);
 
@@ -72,7 +74,7 @@ public class Player : MonoBehaviour, IDamagable
         {
             return _gold;
         }
-        set
+        private set
         {
             if (value <= 0)
             {
@@ -81,6 +83,44 @@ public class Player : MonoBehaviour, IDamagable
             else
             {
                 _gold = value;
+            }
+        }
+    }
+
+    public int Level
+    {
+        get
+        {
+            return _level;
+        }
+        private set
+        {
+            if (value <= 0)
+            {
+                _level = 0;
+            }
+            else
+            {
+                _level = value;
+            }
+        }
+    }
+
+    public int Weight
+    {
+        get
+        {
+            return _weight;
+        }
+        private set
+        {
+            if (value <= 0)
+            {
+                _weight = 0;
+            }
+            else
+            {
+                _weight = value;
             }
         }
     }
@@ -132,5 +172,30 @@ public class Player : MonoBehaviour, IDamagable
     public void TakeDamage(float damage)
     {
         Health -= damage;
+    }
+
+    public void Heal(float heal)
+    {
+        Health += heal;
+    }
+
+    public void SetStamina(float stamina)
+    {
+        Stamina += stamina;
+    }
+
+    public void SetGold(int money)
+    {
+        Gold += money;
+    }
+
+    public void SetLevel(int level)
+    {
+        Level += level;
+    }
+
+    public void SetWeight(int weight)
+    {
+        Weight += weight;
     }
 }

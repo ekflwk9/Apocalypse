@@ -43,7 +43,7 @@ public class PlayerInputs : MonoBehaviour
 	{
 		if (sprint)
 		{
-			_player.Stamina -= Time.deltaTime * _player.sprintStamina;
+			_player.SetStamina(-(Time.deltaTime * _player.sprintStamina));
 
 			if (_player.Stamina <= 0f)
 			{
@@ -83,7 +83,7 @@ public class PlayerInputs : MonoBehaviour
 		if (!jump && value.isPressed)
 		{
 			if(_player.Stamina < _player.jumpStamina) return;
-			_player.Stamina -= _player.jumpStamina;
+			_player.SetStamina(_player.jumpStamina);
 			jump = true;
 		}
 	}
