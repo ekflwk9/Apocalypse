@@ -26,12 +26,6 @@ public class PlayerEquip : MonoBehaviour
     private bool _isWeaponOnHand = false;
     [SerializeField] private bool _toggleMelee = false;
 
-    private void Reset()
-    {
-        _animator = GetComponent<Animator>();
-        _input = GetComponent<PlayerInputs>();
-    }
-
     private void Start()
     {
         AssignAnimationIDs();
@@ -62,9 +56,6 @@ public class PlayerEquip : MonoBehaviour
 
     public void EquipNew(WeaponInfo data)
     {
-        WeaponInfo _weaponInfo;
-        PlayerWeaponType _weaponType;
-        
         if (!weapons.TryGetValue(data, out GameObject weapon))
         {
             Debug.Log("해당 무기를 찾을 수 없습니다.");
@@ -104,7 +95,6 @@ public class PlayerEquip : MonoBehaviour
                 _equipMelee = true;
                 break;
             case PlayerWeaponType.Ranged:
-            case PlayerWeaponType.RangedAuto:
                 _equipRanged = true;
                 break;
         }

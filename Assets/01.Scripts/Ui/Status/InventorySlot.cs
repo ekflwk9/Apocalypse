@@ -1,40 +1,11 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IPointerEnterHandler, ISlot
+public class InventorySlot : Slot
 {
-    public int itemId { get; private set; }
-    public int count { get; private set; }
     public RectTransform slotPos { get => pos; }
 
-    [Space(10f)]
-    [SerializeField] private RectTransform pos;
-    [SerializeField] private TMP_Text countText;
-    [SerializeField] private Image icon;
-
-    protected void Reset()
-    {
-        countText = Helper.FindChild(this.transform, nameof(countText)).GetComponent<TMP_Text>();
-        if (countText != null) countText.text = "";
-        else DebugHelper.ShowBugWindow($"{this.name}에 TMP_Text가 존재하지 않음");
-
-        var iconPos = Helper.FindChild(this.transform, nameof(icon)).GetComponent<Image>();
-        if (iconPos.TryGetComponent<Image>(out var isIcon)) icon = isIcon;
-
-        if (icon != null) icon.color = Color.clear;
-        else DebugHelper.ShowBugWindow($"{this.name}에 Image가 존재하지 않음");
-
-        if (this.TryGetComponent<RectTransform>(out var target)) pos = target;
-        else DebugHelper.ShowBugWindow($"{this.name}에 RectTransform가 존재하지 않음");
-    }
-
-    /// <summary>
-    /// 해당 슬롯에 아이템 설정
-    /// </summary>
-    /// <param name="_itemId"></param>
-    public bool SetSlot(int _itemId, int _itemCount)
+    public override bool SetSlot(int _itemId, int _itemCount)
     {
         count = _itemCount;
 
@@ -58,28 +29,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, ISlot
         return true;
     }
 
-    /// <summary>
-    /// 아이템 카운트만 설정
-    /// </summary>
-    /// <param name="_itemCount"></param>
-    public void SetSlot(int _itemCount)
-    {
-        count = _itemCount;
-
-        if (_itemCount > 1)
-        {
-            countText.text = _itemCount.ToString();
-        }
-
-        else
-        {
-            itemId = 0;
-            countText.text = "";
-            icon.color = Color.clear;
-        }
-    }
-
-    private bool CheckArmor(ISlot _dragSlot)
+    protected override bool CheckItem(Slot _dragSlot)
     {
         //주무기 슬롯에서 왔을 경우에만
         if (_dragSlot is HandSlot)
@@ -92,7 +42,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, ISlot
         return true;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public override void OnPointerEnter(PointerEventData eventData)
     {
         var drag = UiManager.instance.status.drag;
         var dragSlot = drag.slot;
@@ -131,7 +81,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, ISlot
                 else if (itemId != 0)
                 {
                     //현재 주무기에서 아머 타입으로 교체 시도를 하고 있는가?
-                    if (CheckArmor(dragSlot))
+                    if (CheckItem(dragSlot))
                     {
                         var tempItemId = dragSlot.itemId;
                         var tempItemCount = dragSlot.count;

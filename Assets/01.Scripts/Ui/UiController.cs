@@ -7,11 +7,11 @@ public class UiController : MonoBehaviour
     /// </summary>
     public void OnInventory()
     {
-        var isActive = UiManager.instance.status.inventory.activeSelf;
+        var isActive = UiManager.instance.status.inventory.gameObject.activeSelf;
         var status = UiManager.instance.status;
 
         UiManager.instance.shader.SetActive(!isActive);
-        status.inventory.SetActive(!isActive);
+        status.inventory.gameObject.SetActive(!isActive);
         status.equipped.SetActive(!isActive);
 
         if (isActive)
@@ -33,10 +33,14 @@ public class UiController : MonoBehaviour
         //UiManager.instance.menu
     }
 
-    //테스트용
+    //********************테스트용
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I)) OnInventory();
         //else if (Input.GetKeyDown(KeyCode.Escape)) OnMenu();
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            UiManager.instance.status.shop.SetActive(!UiManager.instance.status.shop.gameObject.activeSelf);
+        }
     }
 }

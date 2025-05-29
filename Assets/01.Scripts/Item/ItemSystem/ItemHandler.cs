@@ -13,8 +13,7 @@ public class ItemHandler : MonoBehaviour
     {
         if (UiManager.instance.status.GetItem(itemInfo.itemId))
         {
-            ItemManager.Instance.PickUp(itemInfo.itemId);
-            UiManager.instance.status.GetItem(itemInfo.itemId);
+            ItemManager.Instance.Inventory.GetItem(itemInfo);
             this.gameObject.SetActive(false);
         }
         // 이후 주울 수 있는지 else문 작성해야함
