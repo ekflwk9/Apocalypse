@@ -7,7 +7,6 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private AssetData dataBundle;
     public Inventory _inventory;
     public Inventory Inventory => _inventory ??= Player.Instance.GetComponent<Inventory>();
-    public ItemEquipment itemEquipment;
 
     public static ItemManager Instance
     {
