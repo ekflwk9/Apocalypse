@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195975c79d1434902a58194104bc8500, type: 3}
   m_Name: RangedTest1
   m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 0}
   itemId: 222
-  itemName: "\uAC01\uBAA9"
-  disciption: "\uC774\uB530\uC774\uB370\uC2A4\uB124"
+  itemName: Test1
+  disciption: Test1
   itemType: 1
   icon: {fileID: 0}
   cost: 0

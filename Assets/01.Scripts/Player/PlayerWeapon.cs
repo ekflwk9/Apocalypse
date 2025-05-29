@@ -6,11 +6,13 @@ public enum PlayerWeaponType
 {
     None,
     Melee,
-    Ranged
+    Ranged,
+    Consumable
 }
 public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private WeaponInfo _weponData;
+    [SerializeField] private ConsumableInfo _consumableData;
     [SerializeField] private PlayerWeaponType type;
     
     [SerializeField] private Vector3 equipPosition;
@@ -27,9 +29,28 @@ public class PlayerWeapon : MonoBehaviour
         get => _range;
     }
 
+    public ItemInfo GetItemData()
+    {
+        ItemInfo itemInfo = null;
+        if (_weponData != null)
+        {
+            itemInfo = _weponData;
+        }
+        else if (_consumableData != null)
+        {
+            itemInfo = _consumableData;
+        }
+        return itemInfo;
+    }
+
     public (WeaponInfo, PlayerWeaponType) GetWeaponData()
     {
         return (_weponData, type);
+    }
+
+    public (ConsumableInfo, PlayerWeaponType) GetConsumableData()
+    {
+        return (_consumableData, type);
     }
 
     public (Vector3, Vector3) GetEquipPosition(bool isOnHand)
