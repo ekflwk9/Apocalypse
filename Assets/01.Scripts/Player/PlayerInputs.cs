@@ -62,77 +62,72 @@ public class PlayerInputs : MonoBehaviour
 		}
 	}
 
-	//WASD입력 받을때(PlayerInput에서 설정)
-	public void OnMove(InputValue value) 
+	public void OnMove(InputAction.CallbackContext context)
 	{
-		move = value.Get<Vector2>();
+		move = context.ReadValue<Vector2>();
 	}
-
-	//마우스위치 따라가기(PlayerInput에서 설정)
-	public void OnLook(InputValue value) 
+	
+	public void OnLook(InputAction.CallbackContext context)
 	{
 		if (cursorInputForLook)
 		{
-			look = value.Get<Vector2>();
+			look = context.ReadValue<Vector2>();
 		}
 	}
-
-	//점프 입력(PlayerInput에서 설정)
-	public void OnJump(InputValue value) 
+	
+	public void OnJump(InputAction.CallbackContext context)
 	{
-		if (!jump && value.isPressed)
+		if (!jump && context.performed)
 		{
-			if(_player.Stamina < _player.jumpStamina) return;
+			if (_player.Stamina < _player.jumpStamina) return;
 			_player.SetStamina(_player.jumpStamina);
 			jump = true;
 		}
 	}
-
-	//달리기 입력(PlayerInput에서 설정)
-	public void OnSprint(InputValue value) 
+	
+	public void OnSprint(InputAction.CallbackContext context)
 	{
-		if(!_canSprint) return;
-		sprint = value.isPressed;
+		if (!_canSprint) return;
+		sprint = context.ReadValueAsButton();
 	}
-
-	public void OnAim(InputValue value)
+	
+	public void OnAim(InputAction.CallbackContext context)
 	{
-		aim = value.isPressed;
+		aim = context.ReadValueAsButton();
 		AimEvent?.Invoke(aim);
 	}
-
-	public void OnAttack(InputValue value)
+	
+	public void OnAttack(InputAction.CallbackContext context)
 	{
 		if (aim)
 		{
-			attack = value.isPressed;
+			attack = context.ReadValueAsButton();
 		}
 		else
 		{
 			attack = false;
 		}
 	}
-
-	public void OnNumberInput(InputValue value)
+	
+	public void OnNumberInput(InputAction.CallbackContext context)
 	{
-		if (value.isPressed)
+		if (context.performed)
 		{
-			float key = value.Get<float>();
-			int numberPressed = Mathf.RoundToInt(key);
-			numberPressed--;
-			
-			//테스트코드
-			if(numberPressed < TestInventorySelectedWeaponInfos.Length)
+			float key = context.ReadValue<float>();
+			int numberPressed = Mathf.RoundToInt(key) - 1;
+
+			// 테스트코드
+			if (numberPressed >= 0 && numberPressed < TestInventorySelectedWeaponInfos.Length)
+			{
 				Player.Instance.Equip.EquipNew(TestInventorySelectedWeaponInfos[numberPressed]);
+			}
 			//
-			
-			//인벤토리 아이템 사용 호출
 		}
 	}
-
-	public void OnInteraction(InputValue value)
+	
+	public void OnInteraction(InputAction.CallbackContext context)
 	{
-		if (value.isPressed)
+		if (context.performed)
 		{
 			_playerInteraction.InvokePickUp();
 		}

@@ -176,7 +176,8 @@ public class Player : MonoBehaviour, IDamagable
 
     public void Heal(float heal)
     {
-        Health += heal;
+        float changedHealth = Health + heal;
+        Health = Mathf.Lerp(Health, changedHealth, 3f);
     }
 
     public void SetStamina(float stamina)
