@@ -2237,7 +2237,6 @@ MonoBehaviour:
   TestInventorySelectedWeaponInfos:
   - {fileID: 11400000, guid: 29b6e256cfd364d2bab2f40064a62f5b, type: 2}
   - {fileID: 11400000, guid: 4ef78ea5bf215bd49a12e156e2a0a687, type: 2}
-  - {fileID: 11400000, guid: e56faf25bd2d9084c815460732bb8699, type: 2}
 --- !u!114 &4099686563972156944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2252,6 +2251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 10
   SprintSpeed: 30
+  mouseSesitive: 5
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
   JumpHeight: 1.2
@@ -2382,10 +2382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b110282686320341a0cbe6f4a125513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliders: []
-  closestItem: {fileID: 0}
-  positionOffset: 0
-  halfExtents: {x: 1, y: 1, z: 1}
+  interactionCollider: {fileID: 6393651030707324152}
 --- !u!65 &6393651030707324152
 BoxCollider:
   m_ObjectHideFlags: 0
