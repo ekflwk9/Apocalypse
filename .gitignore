@@ -75,4 +75,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Rider cache directory
-.idea/
+/.idea
+/Assets/TerrainDemoScene_URP
+/Assets/_TerrainAutoUpgrade
+/Assets/Flooded_Grounds
