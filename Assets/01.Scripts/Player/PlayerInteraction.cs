@@ -9,6 +9,7 @@ public class PlayerInteraction : MonoBehaviour
     private ItemHandler touchedItem;
     private bool isTouched;
     [SerializeField] private Collider interactionCollider;
+    [SerializeField] private LayerMask itemLayer;
 
     private void Reset()
     {
@@ -26,7 +27,7 @@ public class PlayerInteraction : MonoBehaviour
             var origin = transform.position;
             var direction = other.transform.position - origin;
             
-            if (Physics.Raycast(origin, direction, out hit, 5f))
+            if (Physics.Raycast(origin, direction, out hit, 5f, itemLayer))
             {
                 if (hit.collider.CompareTag("Item") && hit.collider.TryGetComponent<ItemHandler>(out var isItem))
                 {

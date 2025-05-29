@@ -2383,6 +2383,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionCollider: {fileID: 6393651030707324152}
+  itemLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!65 &6393651030707324152
 BoxCollider:
   m_ObjectHideFlags: 0
