@@ -211,7 +211,7 @@ public class PlayerEquip : MonoBehaviour
         }
         else
         {
-            damagable.TakeDamage(curEquip != null ? curWeapon.power : 10f);
+            damagable.TakeDamage(curWeapon != null ? curWeapon.power : 10f);
         }
     }
 }
