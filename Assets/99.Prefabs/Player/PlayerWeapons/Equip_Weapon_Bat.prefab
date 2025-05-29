@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weponData: {fileID: 11400000, guid: 29b6e256cfd364d2bab2f40064a62f5b, type: 2}
-  type: 1
+  type: 0
   equipPosition: {x: 0, y: 0.3, z: 0}
   equipRotation: {x: 0, y: 0, z: 180}
   handPosition: {x: 0.1, y: -0.05, z: -0.15}
