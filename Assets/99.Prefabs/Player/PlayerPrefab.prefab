@@ -448,8 +448,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600541686208233550}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.20000005, y: 1.6, z: -4.6}
+  m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.20000005, y: 1.6, z: -4.5999994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -571,7 +571,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -2157,6 +2157,34 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3e11eeee-72d6-4bef-89aa-1b70d60f47f0
     m_ActionName: Player/Interaction[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5157845957053353862}
+        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
+        m_MethodName: ToggleMouseLock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UiController, Assembly-CSharp
+        m_MethodName: OnInventory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 577ff2b7-3d15-4f13-aee2-f3e1fdc28331
+    m_ActionName: Player/Inventory[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2206,7 +2234,6 @@ MonoBehaviour:
   attack: 0
   analogMovement: 0
   cursorLocked: 1
-  cursorInputForLook: 1
   _player: {fileID: 0}
   _controller: {fileID: 4099686563972156944}
   _playerInteraction: {fileID: 6778714753677613108}
@@ -2310,9 +2337,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7dbc81b40bf544759ea139842d45450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectItemId: 0
-  firstId: {fileID: 0}
-  secondId: {fileID: 0}
+  firstSlotItem: {fileID: 0}
+  secondSlotItem: {fileID: 0}
   items: []
 --- !u!1 &5353754830572176258
 GameObject:
@@ -2324,6 +2350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6127235004694739238}
   - component: {fileID: 6778714753677613108}
+  - component: {fileID: 6393651030707324152}
   m_Layer: 3
   m_Name: Interaction
   m_TagString: Untagged
@@ -2360,7 +2387,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliders: []
   closestItem: {fileID: 0}
-  halfExtents: {x: 0, y: 0, z: 0}
+  positionOffset: 0
+  halfExtents: {x: 1, y: 1, z: 1}
+--- !u!65 &6393651030707324152
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5353754830572176258}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 127
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 2}
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!1 &5475061807072394606
 GameObject:
   m_ObjectHideFlags: 0
@@ -3148,7 +3197,7 @@ Transform:
   m_GameObject: {fileID: 7586674193230038013}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.20000005, y: 1.6, z: -4.6}
+  m_LocalPosition: {x: 0.20000005, y: 1.6, z: -4.5999994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3636,6 +3685,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Equip_Weapon_Bat
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764002304329306248, guid: b85f15903cdb39c438719b0815d29124,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5794316791853665280, guid: b85f15903cdb39c438719b0815d29124,
         type: 3}

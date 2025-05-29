@@ -18,8 +18,8 @@ public class PlayerInputs : MonoBehaviour
 
 	[Header("Movement Settings")] public bool analogMovement;
 
-	[Header("Mouse Cursor Settings")] public bool cursorLocked = true;
-	public bool cursorInputForLook = true;
+	[Header("Mouse Cursor Settings")]
+    public bool cursorLocked = true;
 	
 	[SerializeField] private Player _player;
 	[SerializeField] private PlayerThirdPersonController _controller;
@@ -37,6 +37,7 @@ public class PlayerInputs : MonoBehaviour
 	private void Start()
 	{
 		_player = Player.Instance;
+        SetCursorState(cursorLocked);
 	}
 
 	private void Update()
@@ -69,10 +70,7 @@ public class PlayerInputs : MonoBehaviour
 	
 	public void OnLook(InputAction.CallbackContext context)
 	{
-		if (cursorInputForLook)
-		{
-			look = context.ReadValue<Vector2>();
-		}
+        look = context.ReadValue<Vector2>();
 	}
 	
 	public void OnJump(InputAction.CallbackContext context)
@@ -126,19 +124,19 @@ public class PlayerInputs : MonoBehaviour
 	}
 	
 	public void OnInteraction(InputAction.CallbackContext context)
-	{
-		if (context.performed)
+    {
+        if (context.phase == InputActionPhase.Started)
 		{
 			_playerInteraction.InvokePickUp();
 		}
 	}
 
-	//화면 집중(에디터에선 개임씬이 눌려있는지, 애플리케이션의 경우 해당 창이 눌려있는지)
-	private void OnApplicationFocus(bool hasFocus)
-	{
-		SetCursorState(cursorLocked);
-	}
-
+    public void ToggleMouseLock()
+    {
+        cursorLocked = !cursorLocked;
+        SetCursorState(cursorLocked);
+    }
+    
 	//마우스 잠금처리
 	private void SetCursorState(bool newState) 
 	{
