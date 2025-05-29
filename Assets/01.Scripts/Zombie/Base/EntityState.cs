@@ -37,6 +37,13 @@ public abstract class EntityState
         entity._animator.Play(HashAnim, 1);
     }
 
+    public void SetAnimationForce(int _HashAnim)
+    {
+        HashAnim = _HashAnim;
+        entity._animator.Play(HashAnim, 0, 0f);
+        entity._animator.Play(HashAnim, 1, 0f);
+    }
+
     public void SetBottomAnimation(int _HashAnim)
     {
         HashAnim = _HashAnim;

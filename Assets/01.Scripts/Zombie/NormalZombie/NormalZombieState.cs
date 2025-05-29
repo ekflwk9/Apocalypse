@@ -332,11 +332,11 @@ public class HitState : EntityState
         entity._NavMeshAgent.ResetPath();
         if (Random.Range(0, 2) == 0)
         {
-            SetAnimation(AnimHash.HitHash_1);
+            SetAnimationForce(AnimHash.HitHash_1);
         }
         else
         {
-            SetAnimation(AnimHash.HitHash_2);
+            SetAnimationForce(AnimHash.HitHash_2);
         }
     }
     public override void Update()
