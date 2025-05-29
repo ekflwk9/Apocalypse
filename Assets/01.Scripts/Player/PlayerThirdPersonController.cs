@@ -51,6 +51,7 @@ public class PlayerThirdPersonController : MonoBehaviour
     public float CameraAngleOverride;
 
     public bool LockCameraPosition;
+    public bool LockPlayerInput = false;
 
     //컴포넌트들
     [Header("Componetns")]
@@ -68,7 +69,7 @@ public class PlayerThirdPersonController : MonoBehaviour
     private int _animIDGrounded;
     private int _animIDJump;
     private int _animIDMotionSpeed;
-    private int _animIDEquipWeapon;
+    private int _animIDUse;
 
     //애니메이션 값 가져올 변수
     private int _animIDSpeed;
@@ -130,6 +131,7 @@ public class PlayerThirdPersonController : MonoBehaviour
     
     private void FixedUpdate()
     {
+        if(LockPlayerInput) return;
         Move();
         CameraRotation();
     }
@@ -159,7 +161,7 @@ public class PlayerThirdPersonController : MonoBehaviour
         _animIDAim = Animator.StringToHash("Aim");
         _animIDAttack = Animator.StringToHash("Attack");
         _animIDDamage = Animator.StringToHash("Damage");
-        _animIDEquipWeapon = Animator.StringToHash("EquipWeapon");
+        _animIDUse = Animator.StringToHash("Use");
     }
 
     //바닥 판정 함수(바닥판정을 위한 원의 중심위치 정하고 원이랑 바닥레이어랑 충돌하면 바닥판정
@@ -355,7 +357,6 @@ public class PlayerThirdPersonController : MonoBehaviour
             _zoomOutCoroutine = StartCoroutine(ZoomOut(targetOffset));
         }
         
-        _animator.SetBool(_animIDEquipWeapon, isAimed);
         _animator.SetBool(_animIDAim, isAimed);
     }
 
@@ -400,21 +401,6 @@ public class PlayerThirdPersonController : MonoBehaviour
         
         _zoomOutCoroutine = null;
     }
-    
-    private void Zoom(bool isZoomIn)
-    {
-        LockCameraPosition = isZoomIn;
-        Vector3 targetOffset = isZoomIn ? AimCamPosition : TPSCamPosition;
-
-        Follow.ShoulderOffset = Vector3.Lerp(Follow.ShoulderOffset, targetOffset, Time.deltaTime * 6f);
-        if (Vector3.Distance(targetOffset, Follow.ShoulderOffset) < 0.01f)
-        {
-            Follow.ShoulderOffset = targetOffset;
-        }
-        
-        _animator.SetBool(_animIDEquipWeapon, isZoomIn);
-        _animator.SetBool(_animIDAim, isZoomIn);
-    }
 
 
     public void MeleeAttack()
@@ -430,8 +416,15 @@ public class PlayerThirdPersonController : MonoBehaviour
         Debug.DrawRay(rayOrigin, direction, Color.red);
         if (hit.collider != null && hit.collider.TryGetComponent<IDamagable>(out IDamagable damagable))
         {
-            damagable.TakeDamage(Player.Instance.Equip.curEquip.power);
+            damagable.TakeDamage(Player.Instance.Equip.curWeapon.power);
         }
         //총소리 울려라
+    }
+
+    public void UseItem()
+    {
+        ItemEffectManager.Instance.ItemEffect(ItemManager.Instance.itemDB[Player.Instance.Equip.curEquip.itemId]);
+        _animator.SetTrigger(_animIDUse);
+        Player.Instance.Equip.UnEquip();
     }
 }
