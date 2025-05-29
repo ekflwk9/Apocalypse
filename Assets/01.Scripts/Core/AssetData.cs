@@ -147,6 +147,25 @@ public class AssetData
   }
 
   /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="key"></param>
+  /// <typeparam name="T"></typeparam>
+  /// <returns></returns>
+  public T GetAsset<T>(string key) where T : Object
+  {
+    if(TryGet(key, out T value)) return value;
+    throw new Exception($"AssetData does not contain {key}");
+  }
+  
+  public GameObject Instantiate(string key)
+  {
+    if(Prefabs.TryGetValue(key, out var prefab)) return Object.Instantiate(prefab);
+    
+    throw new Exception($"AssetData does not contain {key}");
+  }
+
+  /// <summary>
   /// 생성자를 감추기 위해 어쩔 수 없이 AssetData에 구현했습니다.
   /// </summary>
   /// <param name="package">불러올 데이터의 패키지입니다.</param>
