@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class StatusUi : MonoBehaviour
 {
-    public DragUi drag { get => fieldDrag; }
-    [SerializeField] private DragUi fieldDrag;
+    public SelectUi drag { get => fieldDrag; }
+    [SerializeField] private SelectUi fieldDrag;
 
     public ItemInfoUi itemInfo { get => fieldItemInfo; }
     [SerializeField] private ItemInfoUi fieldItemInfo;
@@ -21,8 +21,8 @@ public class StatusUi : MonoBehaviour
     public GameObject farming { get => fieldFarming; }
     [SerializeField] private GameObject fieldFarming;
 
-    public GameObject shop { get => fieldShop; }
-    [SerializeField] private GameObject fieldShop;
+    public ShopUi shop { get => fieldShop; }
+    [SerializeField] private ShopUi fieldShop;
 
     [SerializeField] private InventorySlot[] inventorySlot;
     [SerializeField] private InventorySlot[] storageSlot;
@@ -32,7 +32,7 @@ public class StatusUi : MonoBehaviour
 
     private void Reset()
     {
-        fieldDrag = this.GetComponentInChildren<DragUi>(true);
+        fieldDrag = this.GetComponentInChildren<SelectUi>(true);
         if (fieldDrag == null) DebugHelper.Log($"{this.name}에 DragImage스크립트가 있는 자식 오브젝트가 존재하지 않음");
 
         fieldItemInfo = this.GetComponentInChildren<ItemInfoUi>(true);
@@ -50,8 +50,10 @@ public class StatusUi : MonoBehaviour
         fieldFarming = Helper.FindChild(this.transform, "Farming").gameObject;
         farminSlot = GetComponentArray<InventorySlot>(fieldFarming.transform);
 
-        fieldShop = Helper.FindChild(this.transform, "Shop").gameObject;
-        shopSlot = GetComponentArray<ShopSlot>(fieldShop.transform);
+        var ShopPos = Helper.FindChild(this.transform, "Shop");
+        if (ShopPos.TryGetComponent<ShopUi>(out var isShop)) fieldShop = isShop;
+        else DebugHelper.ShowBugWindow($"Shop 오브젝트에 ShopUi컴포넌트가 존재하지 않음");
+        shopSlot = GetComponentArray<ShopSlot>(ShopPos.transform);
     }
 
     private T[] GetComponentArray<T>(Transform _parent) where T : class

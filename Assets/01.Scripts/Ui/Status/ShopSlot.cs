@@ -1,55 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using TMPro;
 
-public class ShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class ShopSlot : Slot, IPointerClickHandler
 {
-    [Header("판매할 아이템 ID")]
-    [SerializeField] private int itemId;
-
-    [Space(10f)]
-    [SerializeField] private Image icon;
-    [SerializeField] private RectTransform pos;
-    [SerializeField] private TMP_Text countText;
-
-    private void Reset()
-    {
-        countText = Helper.FindChild(this.transform, nameof(countText)).GetComponent<TMP_Text>();
-        if (countText != null) countText.text = "";
-        else DebugHelper.ShowBugWindow($"{this.name}에 TMP_Text가 존재하지 않음");
-
-        if (this.TryGetComponent<Image>(out var isIcon)) icon = isIcon;
-        else DebugHelper.ShowBugWindow($"{this.name}에 Image가 존재하지 않음");
-
-        if (this.TryGetComponent<RectTransform>(out var isPos)) pos = isPos;
-        else DebugHelper.ShowBugWindow($"{this.name}에 RectTransform가 존재하지 않음");
-    }
+    [SerializeField] private int id;
 
     private void Start()
-    {      
+    {
+        itemId = id;
+
         var item = ItemManager.Instance.itemDB[itemId];
         icon.sprite = item.icon;
+
+        count = 1;
+        countText.text = count > 1 ? count.ToString() : "";
+    }
+
+    public void SetActive(bool _isActive)
+    {
+        var status = UiManager.instance.status;
+        var inventory = status.inventory;
+
+        if (_isActive) inventory.transform.position = new Vector3(96f, 54f, 0f);
+        else inventory.transform.position = inventory.transform.position = new Vector3(this.transform.position.x * -1f, 54f, 0f);
+
+        inventory.SetActive(_isActive);
+        this.gameObject.SetActive(_isActive);
+        UiManager.instance.shader.SetActive(_isActive);
+
+        if (_isActive)
+        {
+            status.drag.OnEndDrag();
+            status.itemInfo.SetOff();
+            UiManager.instance.touch.SetTouch(false);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
-            //골드 검사
+
+            //*******************골드 검사 / 무게 검사
             UiManager.instance.status.GetItem(itemId);
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public override void OnPointerEnter(PointerEventData eventData)
     {
 
     }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
 
-    }
+    protected override bool CheckItem(Slot _dragSlot) => true;
+    public override bool SetSlot(int _itemId, int _itemCount) => true;
 }

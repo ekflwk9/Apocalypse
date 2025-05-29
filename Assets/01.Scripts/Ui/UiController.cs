@@ -33,10 +33,11 @@ public class UiController : MonoBehaviour
         //UiManager.instance.menu
     }
 
-    //테스트용
+    //********************테스트용
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I)) OnInventory();
+        //if (Input.GetKeyDown(KeyCode.I)) OnInventory();
         //else if (Input.GetKeyDown(KeyCode.Escape)) OnMenu();
+        //else if (Input.GetKeyDown(KeyCode.O)) UiManager.instance.status.shop.SetActive(!UiManager.instance.status.shop.activeSelf);
     }
 }

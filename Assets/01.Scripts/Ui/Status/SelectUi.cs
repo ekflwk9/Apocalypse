@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragUi : MonoBehaviour, 
+public class SelectUi : MonoBehaviour, 
 IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IPointerClickHandler
 {
     public RectTransform pos { get => fieldPos; }
@@ -11,7 +11,7 @@ IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IBegin
 
     public bool isClick { get; private set; }
     public int selectItemId { get; private set; }
-    public ISlot slot { get; private set; }
+    public Slot slot { get; private set; }
 
     private void Reset()
     {
@@ -34,7 +34,7 @@ IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IBegin
     /// 드레그 위치 설정
     /// </summary>
     /// <param name="_slot"></param>
-    public void SetSlot(RectTransform _pos, ISlot _slot)
+    public void SetSlot(RectTransform _pos, Slot _slot)
     {
         //슬롯에 터치시 해당 슬롯으로 이동 = 드래그를 위함
         slot = _slot;
