@@ -11,7 +11,6 @@ public class Inventory : MonoBehaviour
     public void GetItem(ItemInfo item) // 아이템 추가시 호출
     {
         items.Add(item);
-        UiManager.instance.status.GetItem(item.itemId);
     }
 
     public void RemoveInventoryItem(int index) // 아이템 제거, 판매시 호출
