@@ -8,14 +8,6 @@ public class ItemEquipment : MonoBehaviour
     public ArmorInfo[] eqArmor;
     private bool isWeaponEquiped;
     private bool[] isArmorEquiped = new bool[4];
-    private void Reset()
-    {
-        isWeaponEquiped = false;
-        for (int i = 0; i < 4; i++)
-        {
-            isArmorEquiped[i] = false;
-        }
-    }
 
     public void SelectEquipment(int itemId)
     {

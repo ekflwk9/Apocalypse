@@ -45,15 +45,20 @@ public sealed class ContentManager : MonoBehaviour
   /// <param name="label">불러올 DataBundle의 어드레서블 라벨입니다.</param>
   public static async Task<AssetBundle> LoadBundle(string bundleName, AssetLabelReference label)
   {
-    var result = (await Addressables.LoadAssetsAsync<AssetBundle>(label, null).Task).ToArray();
+    var bundles = (await Addressables.LoadAssetsAsync<AssetBundle>(label, null).Task).ToArray();
     
-    if (result.Length == 0)
+    if (bundles.Length == 0)
     {
       Debug.LogError("Package Not Found");
       return null;
     }
 
-    return (from bundle in result where bundle.name == bundleName select bundle).First();
+    var result = (from bundle in bundles where bundle.name == bundleName select bundle).First();
+    
+    foreach (var bundle in bundles)
+      if(bundle != result) Addressables.Release(bundle);
+
+    return result;
   }
   
   /// <summary>

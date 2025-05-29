@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 6220502339458085479}
+  countText: {fileID: 761056405132573588}
   icon: {fileID: 1157286807428626072}
 --- !u!1 &21642543968109646
 GameObject:
@@ -258,6 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 8945869721957881758}
+  countText: {fileID: 4477200762613959950}
   icon: {fileID: 8571932139072384595}
 --- !u!1 &44000297639214617
 GameObject:
@@ -500,6 +502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 8617754476271519926}
+  countText: {fileID: 6115889591222219261}
   icon: {fileID: 5399694426204136289}
 --- !u!1 &135613626346124412
 GameObject:
@@ -592,6 +595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 2867433111451553318}
+  countText: {fileID: 2494038713500862659}
   icon: {fileID: 4748941703467758627}
 --- !u!1 &148180664852734048
 GameObject:
@@ -684,6 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 2769587025473799231}
+  countText: {fileID: 8804957903896999126}
   icon: {fileID: 9009494470493224071}
 --- !u!1 &190393429020679915
 GameObject:
@@ -697,7 +702,7 @@ GameObject:
   - component: {fileID: 2531523235219680177}
   - component: {fileID: 9012190975950538730}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1121,6 +1126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 3333888865864615471}
+  countText: {fileID: 947878567142139968}
   icon: {fileID: 5487199573770960629}
 --- !u!1 &276096351479670358
 GameObject:
@@ -1288,6 +1294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 1135345432346666184}
+  countText: {fileID: 2369041280933122324}
   icon: {fileID: 3774736687550017123}
 --- !u!1 &340094496771261985
 GameObject:
@@ -1380,6 +1387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 7395800231925554697}
+  countText: {fileID: 2196822332660156706}
   icon: {fileID: 634647384069220861}
 --- !u!1 &363623462157370338
 GameObject:
@@ -1472,6 +1480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 9092898096117817763}
+  countText: {fileID: 7811836847850650063}
   icon: {fileID: 7717559330663410619}
 --- !u!1 &385262690896982966
 GameObject:
@@ -1564,6 +1573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 667646906839914071}
+  countText: {fileID: 2509135891536932590}
   icon: {fileID: 8170426951443622583}
 --- !u!1 &403374482828996707
 GameObject:
@@ -1656,6 +1666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 5312002557673817073}
+  countText: {fileID: 2027330657979157469}
   icon: {fileID: 3527824567813524911}
 --- !u!1 &416732517486093264
 GameObject:
@@ -1750,6 +1761,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 5060266446369786615}
   pos: {fileID: 5246008995406165778}
+  countText: {fileID: 0}
 --- !u!1 &418038318866424085
 GameObject:
   m_ObjectHideFlags: 0
@@ -1762,7 +1774,7 @@ GameObject:
   - component: {fileID: 5397959141546571580}
   - component: {fileID: 4334082193257883968}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1976,6 +1988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 2676756714881648672}
+  countText: {fileID: 1211827584321854363}
   icon: {fileID: 7877656966524228463}
 --- !u!1 &476280187697984029
 GameObject:
@@ -2064,7 +2077,7 @@ GameObject:
   - component: {fileID: 8234225044063405542}
   - component: {fileID: 1108211592688218886}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2428,6 +2441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 4300364461226130489}
+  countText: {fileID: 5026082027396218817}
   icon: {fileID: 4345760942305779866}
 --- !u!1 &554085405466023468
 GameObject:
@@ -2522,6 +2536,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 3291341973278201464}
   pos: {fileID: 6534791874674963169}
+  countText: {fileID: 0}
 --- !u!1 &595966723262691719
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,6 +2628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 3648223222721577761}
+  countText: {fileID: 1266160683658755867}
   icon: {fileID: 4836663743268312150}
 --- !u!1 &601545551929381071
 GameObject:
@@ -2705,6 +2721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 6914853424391946852}
+  countText: {fileID: 4817193230354366765}
   icon: {fileID: 6005381069535067812}
 --- !u!1 &696307446823682922
 GameObject:
@@ -2799,6 +2816,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 1777883260860525218}
   pos: {fileID: 6210825097477871873}
+  countText: {fileID: 0}
 --- !u!1 &714036852818070014
 GameObject:
   m_ObjectHideFlags: 0
@@ -2811,7 +2829,7 @@ GameObject:
   - component: {fileID: 119635653062177676}
   - component: {fileID: 2934570490812882075}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2946,7 +2964,7 @@ GameObject:
   - component: {fileID: 5945189542392864006}
   - component: {fileID: 1492544696605042738}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3081,7 +3099,7 @@ GameObject:
   - component: {fileID: 7194223562884261811}
   - component: {fileID: 4502872143956113901}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3334,6 +3352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 5152838693698021962}
+  countText: {fileID: 3338306495877086191}
   icon: {fileID: 8259838924575586597}
 --- !u!1 &786298593599500102
 GameObject:
@@ -3426,6 +3445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 3334553215098922183}
+  countText: {fileID: 5906920022129209010}
   icon: {fileID: 6442743682417801124}
 --- !u!1 &840371845442201951
 GameObject:
@@ -3938,6 +3958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 4341608367070940216}
+  countText: {fileID: 475052585615180482}
   icon: {fileID: 2016174861036112348}
 --- !u!1 &914865957819186799
 GameObject:
@@ -4030,6 +4051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 528226496324744909}
+  countText: {fileID: 1599498389906857967}
   icon: {fileID: 2841873315541263009}
 --- !u!1 &951077323295844795
 GameObject:
@@ -4122,6 +4144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 7263982509029260329}
+  countText: {fileID: 1166778886951662661}
   icon: {fileID: 5226220018030806590}
 --- !u!1 &954366086227912000
 GameObject:
@@ -4335,6 +4358,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 7497826244699518653}
   pos: {fileID: 2402108982918317001}
+  countText: {fileID: 0}
 --- !u!1 &1011286008211746114
 GameObject:
   m_ObjectHideFlags: 0
@@ -4426,6 +4450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 9146523576725716411}
+  countText: {fileID: 7957089808965931310}
   icon: {fileID: 2840781771523110197}
 --- !u!1 &1039858118609120448
 GameObject:
@@ -4968,6 +4993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 2853158245010141682}
+  countText: {fileID: 6784507055997465955}
   icon: {fileID: 6280830834555834539}
 --- !u!1 &1186504684807197453
 GameObject:
@@ -4981,7 +5007,7 @@ GameObject:
   - component: {fileID: 8892797593800288592}
   - component: {fileID: 3761623620210256509}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5195,6 +5221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 343137417982259906}
+  countText: {fileID: 4545093902451827191}
   icon: {fileID: 1187389156018160518}
 --- !u!1 &1236911174968876680
 GameObject:
@@ -5289,7 +5316,7 @@ GameObject:
   - component: {fileID: 2123807132026865175}
   - component: {fileID: 7218139310659047301}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5578,6 +5605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 956673154450234965}
+  countText: {fileID: 5438299368108332165}
   icon: {fileID: 5432599680165041748}
 --- !u!1 &1311270986723433436
 GameObject:
@@ -5745,6 +5773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 7451668622111056104}
+  countText: {fileID: 2191599289622112064}
   icon: {fileID: 7311463034904452791}
 --- !u!1 &1350436283069877108
 GameObject:
@@ -5758,7 +5787,7 @@ GameObject:
   - component: {fileID: 1965649659667905924}
   - component: {fileID: 1266160683658755867}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5893,7 +5922,7 @@ GameObject:
   - component: {fileID: 4815296209118775268}
   - component: {fileID: 3803745317233396192}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6178,7 +6207,7 @@ GameObject:
   - component: {fileID: 7045468238437414241}
   - component: {fileID: 2249965622630070157}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6313,7 +6342,7 @@ GameObject:
   - component: {fileID: 8976152078456297134}
   - component: {fileID: 7206939750527663283}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6765,7 +6794,7 @@ GameObject:
   - component: {fileID: 5738166117469849376}
   - component: {fileID: 7921967432106712022}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6975,7 +7004,7 @@ GameObject:
   - component: {fileID: 4567158410557779144}
   - component: {fileID: 339682569629992695}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7414,6 +7443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 5115806581120417504}
+  countText: {fileID: 5413270375255145392}
   icon: {fileID: 7237762908350679054}
 --- !u!1 &1730601542446101785
 GameObject:
@@ -7594,6 +7624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 1808661173632577216}
+  countText: {fileID: 3439480264025474112}
   icon: {fileID: 101632893961796834}
 --- !u!1 &1741266191331060469
 GameObject:
@@ -7607,7 +7638,7 @@ GameObject:
   - component: {fileID: 32599859998092127}
   - component: {fileID: 9107163096789096948}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7742,7 +7773,7 @@ GameObject:
   - component: {fileID: 1948353970456693852}
   - component: {fileID: 18277211667953711}
   m_Layer: 0
-  m_Name: icon
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8031,6 +8062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 6490789961536775206}
+  countText: {fileID: 4453219072626782861}
   icon: {fileID: 8160337639745644702}
 --- !u!1 &1774476691235541242
 GameObject:
@@ -8123,6 +8155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 7533111354344273655}
+  countText: {fileID: 1951324640299754882}
   icon: {fileID: 3242207976071157736}
 --- !u!1 &1791632240369159486
 GameObject:
@@ -8136,7 +8169,7 @@ GameObject:
   - component: {fileID: 6800710623724528136}
   - component: {fileID: 3222430688694090239}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8350,8 +8383,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  icon: {fileID: 7492159822746338192}
+  icon: {fileID: 1360089269418660469}
   pos: {fileID: 3811863714296189492}
+  countText: {fileID: 4583753871571797755}
 --- !u!1 &1810393721744166683
 GameObject:
   m_ObjectHideFlags: 0
@@ -8443,6 +8477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 5540369282845329376}
+  countText: {fileID: 3662831846260885319}
   icon: {fileID: 891571871944891204}
 --- !u!1 &1814257553030793681
 GameObject:
@@ -8607,7 +8642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76bb98c0c53c7341b512a2d0779d948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldPos: {fileID: 0}
+  fieldPos: {fileID: 8521176829422639957}
   icon: {fileID: 5950264639896511262}
 --- !u!1 &1831235243230042600
 GameObject:
@@ -8700,6 +8735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 9120246424152084267}
+  countText: {fileID: 2503701826241525441}
   icon: {fileID: 6868894267667589732}
 --- !u!1 &1861021851844251663
 GameObject:
@@ -9163,6 +9199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 3089707288178141065}
+  countText: {fileID: 5902856546244614750}
   icon: {fileID: 5816141706380298189}
 --- !u!1 &1977288312469898353
 GameObject:
@@ -9176,7 +9213,7 @@ GameObject:
   - component: {fileID: 4056680468785794384}
   - component: {fileID: 4545093902451827191}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9386,7 +9423,7 @@ GameObject:
   - component: {fileID: 8160985409771869892}
   - component: {fileID: 1266619455140937343}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9521,7 +9558,7 @@ GameObject:
   - component: {fileID: 1144057462362536100}
   - component: {fileID: 198850925512569135}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9806,7 +9843,7 @@ GameObject:
   - component: {fileID: 7126252786707650216}
   - component: {fileID: 3307877439306889790}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10020,6 +10057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 7126559262615538400}
+  countText: {fileID: 6053667241213621839}
   icon: {fileID: 3768684527161373102}
 --- !u!1 &2197318813693636319
 GameObject:
@@ -10262,6 +10300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 7408016697363111937}
+  countText: {fileID: 6444343821293906217}
   icon: {fileID: 4556281730364491690}
 --- !u!1 &2247831982407957884
 GameObject:
@@ -10354,6 +10393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 7949287730260492278}
+  countText: {fileID: 3082389466193338782}
   icon: {fileID: 309713327943970229}
 --- !u!1 &2274481354318593420
 GameObject:
@@ -10446,6 +10486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 2705889928761150484}
+  countText: {fileID: 610249960479141561}
   icon: {fileID: 2497274414893232221}
 --- !u!1 &2296190897410470480
 GameObject:
@@ -10534,7 +10575,7 @@ GameObject:
   - component: {fileID: 4797521704661854254}
   - component: {fileID: 7538014367599921752}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10883,6 +10924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 3622827818567113654}
+  countText: {fileID: 771716734434836939}
   icon: {fileID: 4468949835227980984}
 --- !u!1 &2319086822597649903
 GameObject:
@@ -10896,7 +10938,7 @@ GameObject:
   - component: {fileID: 3336970360725164903}
   - component: {fileID: 7006788275408718504}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11187,6 +11229,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 2150189813394820139}
   pos: {fileID: 4194992064773407500}
+  countText: {fileID: 0}
 --- !u!1 &2439608848038575523
 GameObject:
   m_ObjectHideFlags: 0
@@ -11280,6 +11323,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 3451940500319776684}
   pos: {fileID: 3743687835846848568}
+  countText: {fileID: 0}
 --- !u!1 &2467977840691735731
 GameObject:
   m_ObjectHideFlags: 0
@@ -11373,6 +11417,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 9193342869886196384}
   pos: {fileID: 7412868702547372490}
+  countText: {fileID: 0}
 --- !u!1 &2486995819598833081
 GameObject:
   m_ObjectHideFlags: 0
@@ -11539,6 +11584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 1199633121213239984}
+  countText: {fileID: 3803745317233396192}
   icon: {fileID: 2148243474695645223}
 --- !u!1 &2535656198209133229
 GameObject:
@@ -11552,7 +11598,7 @@ GameObject:
   - component: {fileID: 5769124062468547545}
   - component: {fileID: 6444343821293906217}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11766,6 +11812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 2947800037013121628}
+  countText: {fileID: 3307877439306889790}
   icon: {fileID: 6924613831596938575}
 --- !u!1 &2618271013982794286
 GameObject:
@@ -11858,6 +11905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 1754954822049316055}
+  countText: {fileID: 7538014367599921752}
   icon: {fileID: 8601286462245961895}
 --- !u!1 &2635374918018183101
 GameObject:
@@ -11871,7 +11919,7 @@ GameObject:
   - component: {fileID: 8238060514444783316}
   - component: {fileID: 6392636152332287594}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12085,6 +12133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 3493325697222442375}
+  countText: {fileID: 6674292182085477231}
   icon: {fileID: 9077543661115402826}
 --- !u!1 &2659157978351398016
 GameObject:
@@ -12252,6 +12301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 2165687083123798627}
+  countText: {fileID: 6392636152332287594}
   icon: {fileID: 4935484949620941555}
 --- !u!1 &2743259658024774242
 GameObject:
@@ -12421,6 +12471,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 7819833907035130872}
   pos: {fileID: 1894766037841361858}
+  countText: {fileID: 0}
 --- !u!1 &2776373440286430552
 GameObject:
   m_ObjectHideFlags: 0
@@ -12433,7 +12484,7 @@ GameObject:
   - component: {fileID: 7371043315661888915}
   - component: {fileID: 4648890572351866089}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12568,7 +12619,7 @@ GameObject:
   - component: {fileID: 5974129356753099091}
   - component: {fileID: 4495983808816914264}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12782,6 +12833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 4761615035940360740}
+  countText: {fileID: 1362639897208064221}
   icon: {fileID: 3760477452633146104}
 --- !u!1 &2878296449643576124
 GameObject:
@@ -13628,8 +13680,8 @@ MonoBehaviour:
   - {fileID: 4549918519652005711}
   - {fileID: 8850931124031225802}
   - {fileID: 1161359911432669612}
-  - {fileID: 7876230679922435678}
-  - {fileID: 4213175496231392640}
+  - {fileID: 0}
+  - {fileID: 0}
   shopSlot:
   - {fileID: 8478127139632955209}
   - {fileID: 8772202171907919678}
@@ -13827,6 +13879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 870402199950271904}
+  countText: {fileID: 1401288159640279397}
   icon: {fileID: 1796587553403405132}
 --- !u!1 &3289596727154735337
 GameObject:
@@ -14050,7 +14103,7 @@ GameObject:
   - component: {fileID: 1264835373011517673}
   - component: {fileID: 5507118164762605466}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14185,7 +14238,7 @@ GameObject:
   - component: {fileID: 5081118547558036502}
   - component: {fileID: 4794600028102613262}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14320,7 +14373,7 @@ GameObject:
   - component: {fileID: 3439592522841112}
   - component: {fileID: 947878567142139968}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14455,7 +14508,7 @@ GameObject:
   - component: {fileID: 8624305601095003581}
   - component: {fileID: 5026082027396218817}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14669,6 +14722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 8113354689781692098}
+  countText: {fileID: 339682569629992695}
   icon: {fileID: 5856801618536586228}
 --- !u!1 &3397967039108045632
 GameObject:
@@ -15102,7 +15156,7 @@ GameObject:
   - component: {fileID: 7294957205752662561}
   - component: {fileID: 2196822332660156706}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15318,6 +15372,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 5068780864275516369}
   pos: {fileID: 3547208310680282216}
+  countText: {fileID: 0}
 --- !u!1 &3579108879400439941
 GameObject:
   m_ObjectHideFlags: 0
@@ -15484,6 +15539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 8931055188776631123}
+  countText: {fileID: 4495983808816914264}
   icon: {fileID: 1490895770384073823}
 --- !u!1 &3596633954461851876
 GameObject:
@@ -15572,7 +15628,7 @@ GameObject:
   - component: {fileID: 4872138695707683742}
   - component: {fileID: 6674292182085477231}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15786,6 +15842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 488443220269887960}
+  countText: {fileID: 4769057368850130595}
   icon: {fileID: 7033436695926696511}
 --- !u!1 &3649777795836621418
 GameObject:
@@ -16219,7 +16276,7 @@ GameObject:
   - component: {fileID: 852917824659537641}
   - component: {fileID: 2191599289622112064}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16540,7 +16597,7 @@ GameObject:
   - component: {fileID: 5093739625922710252}
   - component: {fileID: 1951324640299754882}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16754,6 +16811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 6171223534761334150}
+  countText: {fileID: 7315167811157534171}
   icon: {fileID: 9082490962771383315}
 --- !u!1 &3837698169281298367
 GameObject:
@@ -16848,6 +16906,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 1787169157790117594}
   pos: {fileID: 4844304194461346504}
+  countText: {fileID: 0}
 --- !u!1 &3843975103617526436
 GameObject:
   m_ObjectHideFlags: 0
@@ -16939,6 +16998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 742654623564998085}
+  countText: {fileID: 4275198572348871385}
   icon: {fileID: 2732021924443979539}
 --- !u!1 &3861121230474589877
 GameObject:
@@ -16952,7 +17012,7 @@ GameObject:
   - component: {fileID: 2019339334679470790}
   - component: {fileID: 1915388340325760239}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17087,7 +17147,7 @@ GameObject:
   - component: {fileID: 3821373633985560156}
   - component: {fileID: 3198158526474339661}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17303,6 +17363,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 4768241259077906392}
   pos: {fileID: 8747060814130436766}
+  countText: {fileID: 0}
 --- !u!1 &3912543371392141661
 GameObject:
   m_ObjectHideFlags: 0
@@ -17544,6 +17605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 9057503512014428709}
+  countText: {fileID: 3948420769777547569}
   icon: {fileID: 4744573254383093596}
 --- !u!1 &3946007424730963299
 GameObject:
@@ -17636,6 +17698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 7768999233333624933}
+  countText: {fileID: 2648607153080442684}
   icon: {fileID: 5710655530613718109}
 --- !u!1 &3948295411583919332
 GameObject:
@@ -17649,7 +17712,7 @@ GameObject:
   - component: {fileID: 1546209660788232112}
   - component: {fileID: 2509135891536932590}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17784,7 +17847,7 @@ GameObject:
   - component: {fileID: 8529855546384332257}
   - component: {fileID: 2503701826241525441}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18210,6 +18273,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 8695216999610148014}
   pos: {fileID: 915093892607034461}
+  countText: {fileID: 0}
 --- !u!1 &4016058342297918051
 GameObject:
   m_ObjectHideFlags: 0
@@ -18297,7 +18361,7 @@ GameObject:
   - component: {fileID: 4877527183770125368}
   - component: {fileID: 3928596255360938063}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18588,6 +18652,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 7202108341245745620}
   pos: {fileID: 6986034532822544205}
+  countText: {fileID: 0}
 --- !u!1 &4057080754238963578
 GameObject:
   m_ObjectHideFlags: 0
@@ -19004,6 +19069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 4771465224653372808}
+  countText: {fileID: 186730387063218531}
   icon: {fileID: 8476213750287491992}
 --- !u!1 &4145217557266019197
 GameObject:
@@ -19096,6 +19162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 2280703399857610722}
+  countText: {fileID: 5849141802023470216}
   icon: {fileID: 5277092709981958497}
 --- !u!1 &4159221751616034209
 GameObject:
@@ -19188,6 +19255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 1876513766162903359}
+  countText: {fileID: 8467192176059365506}
   icon: {fileID: 1100705119044875713}
 --- !u!1 &4169083951249006869
 GameObject:
@@ -19369,6 +19437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 835117359343560538}
+  countText: {fileID: 2934570490812882075}
   icon: {fileID: 4356176999753729291}
 --- !u!1 &4189755399756116921
 GameObject:
@@ -19461,6 +19530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 6485611059450658671}
+  countText: {fileID: 3814031050042575181}
   icon: {fileID: 8561019316411566026}
 --- !u!1 &4227237466918568214
 GameObject:
@@ -19553,6 +19623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 6473875110726845214}
+  countText: {fileID: 3198158526474339661}
   icon: {fileID: 7754548793554875968}
 --- !u!1 &4273285618940544055
 GameObject:
@@ -19566,7 +19637,7 @@ GameObject:
   - component: {fileID: 515206621550596190}
   - component: {fileID: 4769057368850130595}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19836,7 +19907,7 @@ GameObject:
   - component: {fileID: 5414179070766980896}
   - component: {fileID: 1401288159640279397}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20046,7 +20117,7 @@ GameObject:
   - component: {fileID: 3394819788025069653}
   - component: {fileID: 3814031050042575181}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20262,6 +20333,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 4975613524969409913}
   pos: {fileID: 3296810061681073120}
+  countText: {fileID: 0}
 --- !u!1 &4473398556296444613
 GameObject:
   m_ObjectHideFlags: 0
@@ -20619,7 +20691,7 @@ GameObject:
   - component: {fileID: 7363505583273438691}
   - component: {fileID: 186730387063218531}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20754,7 +20826,7 @@ GameObject:
   - component: {fileID: 6397249196394166385}
   - component: {fileID: 6784507055997465955}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20889,7 +20961,7 @@ GameObject:
   - component: {fileID: 7893521938747771005}
   - component: {fileID: 610249960479141561}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21433,7 +21505,7 @@ GameObject:
   - component: {fileID: 3695692142137265078}
   - component: {fileID: 1599498389906857967}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21649,6 +21721,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 3250085623453055839}
   pos: {fileID: 8657872683982403771}
+  countText: {fileID: 0}
 --- !u!1 &4693516612798418281
 GameObject:
   m_ObjectHideFlags: 0
@@ -21946,7 +22019,7 @@ GameObject:
   - component: {fileID: 2163895177567131868}
   - component: {fileID: 3121738337644611568}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22160,6 +22233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 4414231932495592010}
+  countText: {fileID: 4502872143956113901}
   icon: {fileID: 6895867513445141772}
 --- !u!1 &4800386448668375793
 GameObject:
@@ -22173,7 +22247,7 @@ GameObject:
   - component: {fileID: 8167601423346050896}
   - component: {fileID: 771716734434836939}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22308,7 +22382,7 @@ GameObject:
   - component: {fileID: 5007444531390850036}
   - component: {fileID: 7990949431271909827}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22942,6 +23016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 7207726743315362543}
+  countText: {fileID: 5507118164762605466}
   icon: {fileID: 6200358230845825127}
 --- !u!1 &4930151456934035428
 GameObject:
@@ -23034,6 +23109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 5090614387636167273}
+  countText: {fileID: 7792162183059096176}
   icon: {fileID: 1809911644876927879}
 --- !u!1 &4971648576008500599
 GameObject:
@@ -23047,7 +23123,7 @@ GameObject:
   - component: {fileID: 4116572851906158828}
   - component: {fileID: 8804957903896999126}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23257,7 +23333,7 @@ GameObject:
   - component: {fileID: 8576888486144413163}
   - component: {fileID: 7713564907664172569}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23471,6 +23547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 8519327271489477517}
+  countText: {fileID: 4648890572351866089}
   icon: {fileID: 7932848583933989067}
 --- !u!1 &5025882580843855491
 GameObject:
@@ -23484,7 +23561,7 @@ GameObject:
   - component: {fileID: 1382320144634505561}
   - component: {fileID: 3338306495877086191}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23912,6 +23989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 4641138396068793303}
+  countText: {fileID: 3222430688694090239}
   icon: {fileID: 1451471583443264489}
 --- !u!1 &5177718984368360225
 GameObject:
@@ -24075,7 +24153,7 @@ GameObject:
   - component: {fileID: 4791837882461703525}
   - component: {fileID: 5906920022129209010}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24426,6 +24504,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 1302339938986844399}
   pos: {fileID: 6063886529646686211}
+  countText: {fileID: 0}
 --- !u!1 &5217414650811186795
 GameObject:
   m_ObjectHideFlags: 0
@@ -24517,6 +24596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 1096601429734801284}
+  countText: {fileID: 4876223371409756266}
   icon: {fileID: 542516213266911901}
 --- !u!1 &5258821216581293408
 GameObject:
@@ -24609,6 +24689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 8452061804350796405}
+  countText: {fileID: 4093178448253591420}
   icon: {fileID: 2964082677863435204}
 --- !u!1 &5264758534046491812
 GameObject:
@@ -24703,6 +24784,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 6521576062016519641}
   pos: {fileID: 5865930430306887817}
+  countText: {fileID: 0}
 --- !u!1 &5284052885182724330
 GameObject:
   m_ObjectHideFlags: 0
@@ -24865,7 +24947,7 @@ GameObject:
   - component: {fileID: 4944717541974364517}
   - component: {fileID: 3439480264025474112}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25214,6 +25296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 1337640637180419260}
+  countText: {fileID: 4334082193257883968}
   icon: {fileID: 3545649667662706614}
 --- !u!1 &5358233745556651817
 GameObject:
@@ -25227,7 +25310,7 @@ GameObject:
   - component: {fileID: 5135150365122122938}
   - component: {fileID: 3135390029638714106}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25497,7 +25580,7 @@ GameObject:
   - component: {fileID: 7064224194811289902}
   - component: {fileID: 7163744253705028714}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25713,6 +25796,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 4709790544429014085}
   pos: {fileID: 2414785702926100709}
+  countText: {fileID: 0}
 --- !u!1 &5479309066971142363
 GameObject:
   m_ObjectHideFlags: 0
@@ -25725,7 +25809,7 @@ GameObject:
   - component: {fileID: 8200346820998223774}
   - component: {fileID: 3948420769777547569}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25860,7 +25944,7 @@ GameObject:
   - component: {fileID: 6188572191363642780}
   - component: {fileID: 2369041280933122324}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26018,7 +26102,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 180}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8040407612240094117
 CanvasRenderer:
@@ -26041,7 +26125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -26224,6 +26308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 2520164671245720789}
+  countText: {fileID: 1352894046151844464}
   icon: {fileID: 3059352995582171101}
 --- !u!1 &5636500294651136924
 GameObject:
@@ -26316,6 +26401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 3348525557506793821}
+  countText: {fileID: 3928596255360938063}
   icon: {fileID: 7548060963386919385}
 --- !u!1 &5640414369829263634
 GameObject:
@@ -26408,6 +26494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 5054917242872385167}
+  countText: {fileID: 7163744253705028714}
   icon: {fileID: 5764809765610957532}
 --- !u!1 &5672757061081210615
 GameObject:
@@ -26502,6 +26589,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 5443180818993064247}
   pos: {fileID: 5356640920250087547}
+  countText: {fileID: 0}
 --- !u!1 &5700247564757262794
 GameObject:
   m_ObjectHideFlags: 0
@@ -26593,6 +26681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 2932717823158995451}
+  countText: {fileID: 3135390029638714106}
   icon: {fileID: 5755539563014564940}
 --- !u!1 &5708164039935973216
 GameObject:
@@ -26681,7 +26770,7 @@ GameObject:
   - component: {fileID: 7643905761681985124}
   - component: {fileID: 1362639897208064221}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26897,6 +26986,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 3608235813632235265}
   pos: {fileID: 9186472810932284011}
+  countText: {fileID: 0}
 --- !u!1 &5727266973597868313
 GameObject:
   m_ObjectHideFlags: 0
@@ -26909,7 +26999,7 @@ GameObject:
   - component: {fileID: 9131041847883183240}
   - component: {fileID: 1352894046151844464}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27044,7 +27134,7 @@ GameObject:
   - component: {fileID: 7925002337026817569}
   - component: {fileID: 475052585615180482}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27179,7 +27269,7 @@ GameObject:
   - component: {fileID: 2405974870837653128}
   - component: {fileID: 5413270375255145392}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27392,9 +27482,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7cac191bfbb9941bb559213d56589c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  icon: {fileID: 2459222345392556301}
+  type: 1
+  icon: {fileID: 6926901973429536660}
   pos: {fileID: 4040371701227179485}
+  countText: {fileID: 18277211667953711}
 --- !u!1 &5790142377724978665
 GameObject:
   m_ObjectHideFlags: 0
@@ -27482,7 +27573,7 @@ GameObject:
   - component: {fileID: 8805544614959470336}
   - component: {fileID: 3662831846260885319}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27696,6 +27787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 1913248944813122636}
+  countText: {fileID: 198850925512569135}
   icon: {fileID: 4522027910849321682}
 --- !u!1 &5832736416124338074
 GameObject:
@@ -27788,6 +27880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 3753551902057435807}
+  countText: {fileID: 2249965622630070157}
   icon: {fileID: 4361126348638001033}
 --- !u!1 &5878059065965623541
 GameObject:
@@ -27801,7 +27894,7 @@ GameObject:
   - component: {fileID: 5101090649126624343}
   - component: {fileID: 4876223371409756266}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27936,7 +28029,7 @@ GameObject:
   - component: {fileID: 6047856495855778986}
   - component: {fileID: 2275063016390491865}
   m_Layer: 0
-  m_Name: icon
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28071,7 +28164,7 @@ GameObject:
   - component: {fileID: 4794289254389543046}
   - component: {fileID: 4817193230354366765}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28416,7 +28509,7 @@ GameObject:
   - component: {fileID: 7939604230151063856}
   - component: {fileID: 7315167811157534171}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28551,7 +28644,7 @@ GameObject:
   - component: {fileID: 5314043916573345942}
   - component: {fileID: 1499339363507224202}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29131,6 +29224,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 8140190160160034677}
   pos: {fileID: 8980189917007108448}
+  countText: {fileID: 0}
 --- !u!1 &6093736450596878628
 GameObject:
   m_ObjectHideFlags: 0
@@ -29293,7 +29387,7 @@ GameObject:
   - component: {fileID: 2683377151012584712}
   - component: {fileID: 4093178448253591420}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29428,7 +29522,7 @@ GameObject:
   - component: {fileID: 5799242605521196733}
   - component: {fileID: 2494038713500862659}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30079,6 +30173,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 5417590997530256682}
   pos: {fileID: 9044946655564861913}
+  countText: {fileID: 0}
 --- !u!1 &6427543615903000590
 GameObject:
   m_ObjectHideFlags: 0
@@ -30167,7 +30262,7 @@ GameObject:
   - component: {fileID: 5037345801304712842}
   - component: {fileID: 5902856546244614750}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30302,7 +30397,7 @@ GameObject:
   - component: {fileID: 2770829378844647957}
   - component: {fileID: 6053667241213621839}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30591,6 +30686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 1464744373834476866}
+  countText: {fileID: 1266619455140937343}
   icon: {fileID: 6715973973291324012}
 --- !u!1 &6586804444215618306
 GameObject:
@@ -31104,6 +31200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 7682203655121071256}
+  countText: {fileID: 1492544696605042738}
   icon: {fileID: 824538069110397055}
 --- !u!1 &6703215512907279964
 GameObject:
@@ -31271,6 +31368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 7628039380910309131}
+  countText: {fileID: 7990949431271909827}
   icon: {fileID: 1494639200102037549}
 --- !u!1 &6744999753587763153
 GameObject:
@@ -31575,6 +31673,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 8836087404155331138}
   pos: {fileID: 6675283691411305153}
+  countText: {fileID: 0}
 --- !u!1 &6847811613987885232
 GameObject:
   m_ObjectHideFlags: 0
@@ -31662,7 +31761,7 @@ GameObject:
   - component: {fileID: 8470770209197866695}
   - component: {fileID: 6401405818766967174}
   m_Layer: 0
-  m_Name: info
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31876,6 +31975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 5245468885222240905}
+  countText: {fileID: 7279259956473280008}
   icon: {fileID: 5380464268575683342}
 --- !u!1 &6920178788598029739
 GameObject:
@@ -32399,7 +32499,7 @@ GameObject:
   - component: {fileID: 8403458767309454837}
   - component: {fileID: 761056405132573588}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32684,7 +32784,7 @@ GameObject:
   - component: {fileID: 3474780429653565079}
   - component: {fileID: 3082389466193338782}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33029,7 +33129,7 @@ GameObject:
   - component: {fileID: 8330922123239477851}
   - component: {fileID: 6115889591222219261}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33239,7 +33339,7 @@ GameObject:
   - component: {fileID: 6505394205727632698}
   - component: {fileID: 7279259956473280008}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34024,7 +34124,7 @@ GameObject:
   - component: {fileID: 2775293207908933214}
   - component: {fileID: 3347444337408186911}
   - component: {fileID: 1455777108803476711}
-  - component: {fileID: 7876230679922435678}
+  - component: {fileID: 5320350374719103885}
   m_Layer: 0
   m_Name: WeaponSlot (0)
   m_TagString: Untagged
@@ -34091,7 +34191,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7876230679922435678
+--- !u!114 &5320350374719103885
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -34100,12 +34200,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7387197118826373186}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df7cac191bfbb9941bb559213d56589c, type: 3}
+  m_Script: {fileID: 11500000, guid: b2e972b70d5c2cc4cb10091c5f669167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  icon: {fileID: 1455777108803476711}
+  icon: {fileID: 1176295419216152527}
   pos: {fileID: 2775293207908933214}
+  countText: {fileID: 2275063016390491865}
 --- !u!1 &7411907066735957338
 GameObject:
   m_ObjectHideFlags: 0
@@ -34253,7 +34353,7 @@ GameObject:
   - component: {fileID: 1347053801120319384}
   - component: {fileID: 7957089808965931310}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34469,6 +34569,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 6617533517369923000}
   pos: {fileID: 8612995787955133405}
+  countText: {fileID: 0}
 --- !u!1 &7472682540546580215
 GameObject:
   m_ObjectHideFlags: 0
@@ -34481,7 +34582,7 @@ GameObject:
   - component: {fileID: 4996627769564628288}
   - component: {fileID: 4583753871571797755}
   m_Layer: 0
-  m_Name: icon
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34695,6 +34796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 4947031425688203318}
+  countText: {fileID: 9012190975950538730}
   icon: {fileID: 134277067859366467}
 --- !u!1 &7529607704701330823
 GameObject:
@@ -34858,7 +34960,7 @@ GameObject:
   - component: {fileID: 8705864964818715296}
   - component: {fileID: 7792162183059096176}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34993,7 +35095,7 @@ GameObject:
   - component: {fileID: 4744111251364168777}
   - component: {fileID: 8467192176059365506}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35209,6 +35311,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 1347758309872719023}
   pos: {fileID: 6933669649931694076}
+  countText: {fileID: 0}
 --- !u!1 &7685141983312088069
 GameObject:
   m_ObjectHideFlags: 0
@@ -35221,7 +35324,7 @@ GameObject:
   - component: {fileID: 4171548522968895578}
   - component: {fileID: 2648607153080442684}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35435,6 +35538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 7855047371805435475}
+  countText: {fileID: 3121738337644611568}
   icon: {fileID: 2231687523656536684}
 --- !u!1 &7710641786690142426
 GameObject:
@@ -35448,7 +35552,7 @@ GameObject:
   - component: {fileID: 1879985116287544008}
   - component: {fileID: 7811836847850650063}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35583,7 +35687,7 @@ GameObject:
   - component: {fileID: 6481778336060850563}
   - component: {fileID: 5849141802023470216}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35718,7 +35822,7 @@ GameObject:
   - component: {fileID: 3453564981603551835}
   - component: {fileID: 4477200762613959950}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35934,6 +36038,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 673377894943532061}
   pos: {fileID: 8465932902369987381}
+  countText: {fileID: 0}
 --- !u!1 &7760415705290222745
 GameObject:
   m_ObjectHideFlags: 0
@@ -35946,7 +36051,7 @@ GameObject:
   - component: {fileID: 1589174195291737278}
   - component: {fileID: 1166778886951662661}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36156,7 +36261,7 @@ GameObject:
   - component: {fileID: 7353699760709102489}
   - component: {fileID: 4453219072626782861}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36487,14 +36592,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 11987c1b239938a4b97cbd86ad3448de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -36805,6 +36910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 794468840130575291}
+  countText: {fileID: 526319159328972733}
   icon: {fileID: 2651780516364500321}
 --- !u!1 &7990283112939006638
 GameObject:
@@ -36972,6 +37078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 3434262185263825737}
+  countText: {fileID: 7218139310659047301}
   icon: {fileID: 3931037979594414929}
 --- !u!1 &8014989904297415406
 GameObject:
@@ -37216,6 +37323,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 7338149591431654693}
   pos: {fileID: 7031739034295866646}
+  countText: {fileID: 0}
 --- !u!1 &8026571739088163281
 GameObject:
   m_ObjectHideFlags: 0
@@ -37624,7 +37732,7 @@ GameObject:
   - component: {fileID: 941204889151982708}
   - component: {fileID: 2027330657979157469}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37834,7 +37942,7 @@ GameObject:
   - component: {fileID: 7896548684127324374}
   - component: {fileID: 5438299368108332165}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38048,6 +38156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 2346281074103800757}
+  countText: {fileID: 7921967432106712022}
   icon: {fileID: 3114724004990198663}
 --- !u!1 &8133987691154457974
 GameObject:
@@ -38140,6 +38249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 9220941305228729378}
+  countText: {fileID: 1499339363507224202}
   icon: {fileID: 2662690324610004264}
 --- !u!1 &8139488365209065334
 GameObject:
@@ -38307,6 +38417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 3583998150342955525}
+  countText: {fileID: 4794600028102613262}
   icon: {fileID: 5284033768942215046}
 --- !u!1 &8253252597862017550
 GameObject:
@@ -38706,6 +38817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 5747403601612997491}
+  countText: {fileID: 9107163096789096948}
   icon: {fileID: 6239364405736570654}
 --- !u!1 &8367529904865300522
 GameObject:
@@ -38800,6 +38912,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 5658474127014523731}
   pos: {fileID: 8235867243167350171}
+  countText: {fileID: 0}
 --- !u!1 &8379701288766437085
 GameObject:
   m_ObjectHideFlags: 0
@@ -38891,6 +39004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 8403019607666442154}
+  countText: {fileID: 3761623620210256509}
   icon: {fileID: 7840885140458516833}
 --- !u!1 &8396927432835265509
 GameObject:
@@ -39208,6 +39322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 5268326364576173787}
+  countText: {fileID: 7006788275408718504}
   icon: {fileID: 6975090816542235551}
 --- !u!1 &8595196832386714189
 GameObject:
@@ -39299,9 +39414,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7cac191bfbb9941bb559213d56589c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
-  icon: {fileID: 6704916836797333122}
+  type: 2
+  icon: {fileID: 5865264344491717188}
   pos: {fileID: 8963533950750739505}
+  countText: {fileID: 2343790382410727383}
 --- !u!1 &8610625829065387940
 GameObject:
   m_ObjectHideFlags: 0
@@ -39449,7 +39565,7 @@ GameObject:
   - component: {fileID: 3086044185810558454}
   - component: {fileID: 2343790382410727383}
   m_Layer: 0
-  m_Name: icon
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39663,6 +39779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 8117432935550034441}
+  countText: {fileID: 7713564907664172569}
   icon: {fileID: 4906332221616966379}
 --- !u!1 &8650205686250354786
 GameObject:
@@ -39832,6 +39949,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 2258778388269160832}
   pos: {fileID: 8103638835069354201}
+  countText: {fileID: 0}
 --- !u!1 &8671774044877271124
 GameObject:
   m_ObjectHideFlags: 0
@@ -39925,6 +40043,7 @@ MonoBehaviour:
   itemId: 0
   icon: {fileID: 3563104782518553001}
   pos: {fileID: 8262908296970421480}
+  countText: {fileID: 0}
 --- !u!1 &8714160186308323333
 GameObject:
   m_ObjectHideFlags: 0
@@ -40147,7 +40266,7 @@ GameObject:
   - component: {fileID: 7580937752583199222}
   - component: {fileID: 4275198572348871385}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40282,7 +40401,7 @@ GameObject:
   - component: {fileID: 431642770606642858}
   - component: {fileID: 1211827584321854363}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40631,6 +40750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 1201548958786674337}
+  countText: {fileID: 1915388340325760239}
   icon: {fileID: 9017092038747650888}
 --- !u!1 &8896665292404758822
 GameObject:
@@ -40869,7 +40989,7 @@ GameObject:
   - component: {fileID: 4883709234864100501}
   - component: {fileID: 6565537546729006395}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41078,7 +41198,7 @@ GameObject:
   - component: {fileID: 6425276927911653286}
   - component: {fileID: 3019819000188457644}
   - component: {fileID: 595751972383921458}
-  - component: {fileID: 4213175496231392640}
+  - component: {fileID: 5996865226501823867}
   m_Layer: 0
   m_Name: WeaponSlot (1)
   m_TagString: Untagged
@@ -41145,7 +41265,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4213175496231392640
+--- !u!114 &5996865226501823867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41154,12 +41274,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 9003359079146063558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df7cac191bfbb9941bb559213d56589c, type: 3}
+  m_Script: {fileID: 11500000, guid: b2e972b70d5c2cc4cb10091c5f669167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  icon: {fileID: 595751972383921458}
+  icon: {fileID: 5570316760074496104}
   pos: {fileID: 6425276927911653286}
+  countText: {fileID: 6401405818766967174}
 --- !u!1 &9015459392127686663
 GameObject:
   m_ObjectHideFlags: 0
@@ -41461,6 +41581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 8472806819202337250}
+  countText: {fileID: 7206939750527663283}
   icon: {fileID: 6839069557319553242}
 --- !u!1 &9047476866513073881
 GameObject:
@@ -41624,7 +41745,7 @@ GameObject:
   - component: {fileID: 5902637237993171015}
   - component: {fileID: 526319159328972733}
   m_Layer: 0
-  m_Name: number
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41988,6 +42109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 197658449949013332}
+  countText: {fileID: 1108211592688218886}
   icon: {fileID: 1386957683906985715}
 --- !u!1 &9178659930400191915
 GameObject:
@@ -42290,6 +42412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {fileID: 4789709133630756605}
+  countText: {fileID: 6565537546729006395}
   icon: {fileID: 837509353193048498}
 --- !u!1 &9222443109612108286
 GameObject:
