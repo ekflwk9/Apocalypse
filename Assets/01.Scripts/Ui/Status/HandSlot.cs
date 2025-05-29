@@ -3,6 +3,8 @@ using UnityEngine.EventSystems;
 
 public class HandSlot : Slot
 {
+    [SerializeField] private bool isFirstSlot;
+
     public override bool SetSlot(int _itemId, int _itemCount)
     {
         count = _itemCount;
@@ -12,13 +14,19 @@ public class HandSlot : Slot
             var item = ItemManager.Instance.itemDB[_itemId];
             if (ItemType.Armor == item.itemType) return false;
 
-            //***********************아이템 등록...
+            //인벤토리 셋팅
+            ItemManager.Instance.SetItemSlot(_itemId, isFirstSlot);
+
+            var playUi = UiManager.instance.play;
+            if (isFirstSlot) playUi.firstSlot.SetSlotView(itemId, count);
+            else playUi.secondSlot.SetSlotView(itemId, count);
 
             itemId = _itemId;
             icon.color = Color.white;
             icon.sprite = item.icon;
 
             if (_itemCount > 1) countText.text = count.ToString();
+            else countText.text = "";
         }
 
         else
@@ -45,8 +53,7 @@ public class HandSlot : Slot
             countText.text = "";
             icon.color = Color.clear;
 
-            //주무기 검사 후 삭제
-            //ItemManager.Instance.Inventory.RemoveItem(itemId);
+            ItemManager.Instance.SetItemSlot(0, isFirstSlot);
         }
     }
 

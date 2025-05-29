@@ -7,6 +7,9 @@ public class UiManager : MonoBehaviour
     public MenuUi menu { get => fieldMenu; }
     [SerializeField] private MenuUi fieldMenu;
 
+    public PlayUi play { get => fieldPlay; }
+    [SerializeField] private PlayUi fieldPlay;
+
     public StatusUi status { get => fieldStatus; }
     [SerializeField] private StatusUi fieldStatus;
 
@@ -21,21 +24,25 @@ public class UiManager : MonoBehaviour
 
     private void Reset()
     {
-        //true = ºñÈ°¼ºÈ­ ¿ÀºêÁ§Æ®µµ °Ë»ö
-        fieldMenu = this.GetComponentInChildren<MenuUi>(true);
-        if (fieldMenu == null) DebugHelper.Log($"{this.name}¿¡ MenuUi½ºÅ©¸³Æ®°¡ ÀÖ´Â ÀÚ½Ä ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        var playPos = Helper.FindChild(this.transform, "PlayUi");
+        if(playPos.TryGetComponent<PlayUi>(out var isPlay)) fieldPlay = isPlay;
+        else DebugHelper.Log($"{this.name}ì— PlayUiê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
+
+        var menuPos = Helper.FindChild(this.transform, "MenuUi").gameObject;
+        if (menuPos.TryGetComponent<MenuUi>(out var isMenu)) fieldMenu = isMenu;
+        else DebugHelper.Log($"{this.name}ì— MenuUiê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
 
         fieldStatus = this.GetComponentInChildren<StatusUi>(true);
-        if (fieldStatus == null) DebugHelper.Log($"{this.name}¿¡ StatusUi½ºÅ©¸³Æ®°¡ ÀÖ´Â ÀÚ½Ä ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        if (fieldStatus == null) DebugHelper.Log($"{this.name}ì— StatusUiìŠ¤í¬ë¦½íŠ¸ê°€ ìˆëŠ” ìì‹ ì˜¤ë¸Œì íŠ¸ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
 
         fieldShader = this.GetComponentInChildren<ShaderUi>(true);
-        if (fieldShader == null) DebugHelper.Log($"{this.name}¿¡ ShaderUi½ºÅ©¸³Æ®°¡ ÀÖ´Â ÀÚ½Ä ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        if (fieldShader == null) DebugHelper.Log($"{this.name}ì— ShaderUiìŠ¤í¬ë¦½íŠ¸ê°€ ìˆëŠ” ìì‹ ì˜¤ë¸Œì íŠ¸ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
 
         fieldTouch = this.GetComponentInChildren<TouchUi>(true);
-        if (fieldTouch == null) DebugHelper.Log($"{this.name}¿¡ TouchUi½ºÅ©¸³Æ®°¡ ÀÖ´Â ÀÚ½Ä ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        if (fieldTouch == null) DebugHelper.Log($"{this.name}ì— TouchUiìŠ¤í¬ë¦½íŠ¸ê°€ ìˆëŠ” ìì‹ ì˜¤ë¸Œì íŠ¸ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
 
         fieldFade = this.GetComponentInChildren<Fade>(true);
-        if (fieldFade == null) DebugHelper.Log($"{this.name}¿¡ Fade½ºÅ©¸³Æ®°¡ ÀÖ´Â ÀÚ½Ä ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        if (fieldFade == null) DebugHelper.Log($"{this.name}ì— FadeìŠ¤í¬ë¦½íŠ¸ê°€ ìˆëŠ” ìì‹ ì˜¤ë¸Œì íŠ¸ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
     }
 
     private void Awake()
