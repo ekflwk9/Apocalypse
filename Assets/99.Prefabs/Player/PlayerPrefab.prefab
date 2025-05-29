@@ -2337,8 +2337,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7dbc81b40bf544759ea139842d45450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSlotItem: {fileID: 11400000, guid: 13e2b17f608344815960435dbef465ec, type: 2}
-  secondSlotItem: {fileID: 11400000, guid: 63b8e73bd6c2f4a80ac8ae1f02cf0512, type: 2}
+  firstSlotItem: {fileID: 11400000, guid: 63b8e73bd6c2f4a80ac8ae1f02cf0512, type: 2}
+  secondSlotItem: {fileID: 11400000, guid: 2baafeec75f954fd68251fd0cea2d518, type: 2}
   items: []
 --- !u!1 &5353754830572176258
 GameObject:
@@ -3693,6 +3693,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5794316791853665280, guid: b85f15903cdb39c438719b0815d29124,
         type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5794316791853665280, guid: b85f15903cdb39c438719b0815d29124,
+        type: 3}
       propertyPath: handPosition.z
       value: -0.15
       objectReference: {fileID: 0}
@@ -3918,6 +3923,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7840712507701071376}
     m_Modifications:
+    - target: {fileID: 136950713235612334, guid: 627d87f9a17ace144aef455ea5b0ec95,
+        type: 3}
+      propertyPath: type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5987982000373210322, guid: 627d87f9a17ace144aef455ea5b0ec95,
         type: 3}
       propertyPath: m_LocalPosition.x
