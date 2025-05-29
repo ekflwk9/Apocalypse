@@ -26,12 +26,6 @@ public class PlayerEquip : MonoBehaviour
     private bool _isWeaponOnHand = false;
     [SerializeField] private bool _toggleMelee = false;
 
-    private void Reset()
-    {
-        _animator = GetComponent<Animator>();
-        _input = GetComponent<PlayerInputs>();
-    }
-
     private void Start()
     {
         AssignAnimationIDs();

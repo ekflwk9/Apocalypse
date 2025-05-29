@@ -23,6 +23,7 @@ public class Player : MonoBehaviour, IDamagable
     [SerializeField] private int _gold;
     [SerializeField] private int _level;
     [SerializeField] private int _weight;
+    [SerializeField] private int _maxWeight = 50;
 
     public float passiveStamina = 5f;
 
@@ -127,6 +128,8 @@ public class Player : MonoBehaviour, IDamagable
             }
         }
     }
+
+    public int MaxWeight => _maxWeight;
     
     private void Reset()
     {

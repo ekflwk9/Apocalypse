@@ -29,10 +29,6 @@ public class PlayerInputs : MonoBehaviour
 	[SerializeField] private Player _player;
 	[SerializeField] private PlayerThirdPersonController _controller;
 	[SerializeField] private PlayerInteraction _playerInteraction;
-	
-	//테스트 코드
-	public WeaponInfo[] TestInventorySelectedWeaponInfos;
-	//
 
 	private void Reset()
 	{
@@ -130,15 +126,37 @@ public class PlayerInputs : MonoBehaviour
 		if (context.performed)
 		{
 			float key = context.ReadValue<float>();
-			int numberPressed = Mathf.RoundToInt(key) - 1;
-
-			// 테스트코드
-			if (numberPressed >= 0 && numberPressed < TestInventorySelectedWeaponInfos.Length)
-			{
-				Player.Instance.Equip.EquipNew(TestInventorySelectedWeaponInfos[numberPressed]);
-			}
-			//
-		}
+			int numberPressed = Mathf.RoundToInt(key);
+            switch (numberPressed)
+            {
+                case 1:
+                    var firstItem = ItemManager.Instance.Inventory.firstSlotItem;
+                    if(firstItem == null) return;
+                    switch (firstItem.itemType)
+                    {
+                        case ItemType.Weapon:
+                            Player.Instance.Equip.EquipNew((WeaponInfo)ItemManager.Instance.itemDB[firstItem.itemId]);
+                            break;
+                        case ItemType.Consumable:
+                            ItemEffectManager.Instance.ItemEffect((ConsumableInfo)ItemManager.Instance.itemDB[firstItem.itemId]);
+                            break;
+                    }
+                    break;
+                case 2:
+                    var secondItem = ItemManager.Instance.Inventory.secondSlotItem;
+                    if (secondItem == null) return;
+                    switch (secondItem.itemType)
+                    {
+                        case ItemType.Weapon:
+                            Player.Instance.Equip.EquipNew((WeaponInfo)ItemManager.Instance.itemDB[secondItem.itemId]);
+                            break;
+                        case ItemType.Consumable:
+                            ItemEffectManager.Instance.ItemEffect((ConsumableInfo)ItemManager.Instance.itemDB[secondItem.itemId]);
+                            break;
+                    }
+                    break;
+            }
+        }
 	}
 	
 	public void OnInteraction(InputAction.CallbackContext context)

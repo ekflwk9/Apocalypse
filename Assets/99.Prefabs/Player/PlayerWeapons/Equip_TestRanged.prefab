@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 5226745283629861951}
   - component: {fileID: 136950713235612334}
   m_Layer: 0
-  m_Name: Equip_Test
+  m_Name: Equip_TestRanged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

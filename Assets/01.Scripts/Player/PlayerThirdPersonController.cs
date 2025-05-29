@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -325,6 +323,7 @@ public class PlayerThirdPersonController : MonoBehaviour
     
     private Coroutine _zoomInCoroutine;
     private Coroutine _zoomOutCoroutine;
+    
 
     private void AimSwitch(bool isAimed)
     {
