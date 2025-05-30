@@ -27,10 +27,12 @@ public class UiController : MonoBehaviour
     /// </summary>
     public void OnMenu()
     {
-        //var isActive = UiManager.instance.menu.activeSelf;
+        var menu = UiManager.instance.menu;
+        var isActive = menu.menuWindow.activeSelf;
 
-        //UiManager.instance.shader.SetActive(!isActive);
-        //UiManager.instance.menu
+        UiManager.instance.shader.SetActive(!isActive);
+        menu.menuWindow.SetActive(!isActive);
+
     }
 
     //********************테스트용

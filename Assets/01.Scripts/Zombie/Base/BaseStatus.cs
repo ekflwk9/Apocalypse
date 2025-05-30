@@ -15,7 +15,7 @@ public class BaseStatus
     }
 
     public float RunSpeed { get; protected set; } = 5f;
-    public float WalkSpeed { get; protected set; } = 2f;
+    public float WalkSpeed { get; protected set; } = 1f;
     public float Damage { get; protected set; } = 10f;
 
     public float DetectedRange { get; protected set; } = 10f;
@@ -32,6 +32,25 @@ public class BaseStatus
     {
         return currentHp <= maxHp * 0.5f;
     }
+
+    public bool IsQuater()
+    {
+        if(currentHp <= maxHp * 0.25f)
+        {
+           int value = Random.Range(0, 4);
+            if(value == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return false;
+    }
+
+
 
     private float currentHp;
 
@@ -51,7 +70,7 @@ public class BaseStatus
         }
     }
 
-    private float maxHp = 20;
+    private float maxHp = 100;
 
     public float MaxHp
     {

@@ -24,8 +24,8 @@ public class ShopUi : MonoBehaviour
         var inventory = status.inventory;
 
         //인벤토리 위치 조정
-        if(!_isActive) inventory.transform.position = new Vector3(960, 540, 0);
-        else inventory.transform.position = new Vector3(1230, 540, 0);
+        if(!_isActive) inventory.transform.position = new Vector3(960, 595, 0);
+        else inventory.transform.position = new Vector3(1230, 595, 0);
 
         this.gameObject.SetActive(_isActive);
         inventory.gameObject.SetActive(_isActive);

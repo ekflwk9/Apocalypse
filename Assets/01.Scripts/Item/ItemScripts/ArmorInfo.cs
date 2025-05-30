@@ -6,6 +6,5 @@ using UnityEngine;
 public class ArmorInfo : ItemInfo
 {
     public ArmorType armorType;
-    public int durability;
     public int defense;
 }

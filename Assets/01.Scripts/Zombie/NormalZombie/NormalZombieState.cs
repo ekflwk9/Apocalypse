@@ -5,44 +5,7 @@ using UnityEngine.AI;
 using static UnityEditor.VersionControl.Asset;
 using static UnityEngine.EventSystems.EventTrigger;
 
-public static class AnimHash
-{
-    public static readonly int IdleHash = Animator.StringToHash("Idle");
-    public static readonly int WalkHash = Animator.StringToHash("Walking");
-    public static readonly int RunHash_1 = Animator.StringToHash("Run_1");
-    public static readonly int RunHash_2 = Animator.StringToHash("Run_2");
-    public static readonly int HitHash_1 = Animator.StringToHash("Hit_1");
-    public static readonly int HitHash_2 = Animator.StringToHash("Hit_2");
-    public static readonly int AttackHash_1 = Animator.StringToHash("Attack_1");
-    public static readonly int AttackHash_2 = Animator.StringToHash("Attack_2");
-    public static readonly int HurtHash = Animator.StringToHash("Hurt");
-    public static readonly int DieHash = Animator.StringToHash("Dying");
-}
 
-
-public class NormalZombieStateStruct : StateStruct
-{
-    public override void Init(EntityStateMachine _StateMachine)
-    {
-        IdleState idleState = new IdleState();
-        WalkState walkState = new WalkState();
-        RunState runState = new RunState();
-        AttackState attackState = new AttackState();
-        HitState hitState = new HitState();
-        HurtState hurtState = new HurtState();
-        DyingState dyingState = new DyingState();
-        DieState dieState = new DieState();
-        StateDictionary.Add(EntityEnum.Idle, idleState);
-        StateDictionary.Add(EntityEnum.Run, runState);
-        StateDictionary.Add(EntityEnum.Attack, attackState);
-        StateDictionary.Add(EntityEnum.Walk, walkState);
-        StateDictionary.Add(EntityEnum.Hit, hitState);
-        StateDictionary.Add(EntityEnum.Hurt, hurtState);
-        StateDictionary.Add(EntityEnum.Dying, dyingState);
-        StateDictionary.Add(EntityEnum.Die, dieState);
-        base.Init(_StateMachine);
-    }
-}
 
 public class IdleState : EntityState
 {
@@ -88,7 +51,7 @@ public class WalkState : EntityState
         Vector3 TargetPos = NaviHelper.GetRandomNavMeshPosition(entity.transform.position, 30f);
         _NavMeshAgent.SetDestination(TargetPos);
         _NavMeshAgent.speed = entity.baseStatus.WalkSpeed;
-        entity._animator.Play(AnimHash.WalkHash);
+        SetAnimation(AnimHash.WalkHash);
     }
     public override void Update()
     {
@@ -97,6 +60,61 @@ public class WalkState : EntityState
             StateMachine.SetState(EntityEnum.Idle);
         }
     }
+    public override void Exit()
+    {
+    }
+}
+
+
+public class HearingState : EntityState
+{
+    NavMeshAgent _NavMeshAgent;
+
+    public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
+    {
+        _EntityEnum = EntityEnum.Hearing;
+        base.SetOwner(_Entity, _StateMachine);
+    }
+
+    public override void Enter()
+    {
+        Vector3 detectedPos = entity.baseStatus.DetectedLocation;
+        Vector3 entityPos = entity.transform.position;
+
+        if (true != IsInit)
+        {
+            _NavMeshAgent = entity.GetComponent<NavMeshAgent>();
+            IsInit = true;
+        }
+
+        if (entity.baseStatus.IsHalf() == true)
+        {
+            SetAnimation(AnimHash.RunHash_2);
+            _NavMeshAgent.speed = entity.baseStatus.RunSpeed / 2f;
+        }
+        else
+        {
+            SetAnimation(AnimHash.RunHash_1);
+            _NavMeshAgent.speed = entity.baseStatus.RunSpeed;
+        }
+        _NavMeshAgent.ResetPath();
+        _NavMeshAgent.SetDestination(detectedPos);
+    }
+
+    public override void Update()
+    {
+        Vector3 detectedPos = entity.baseStatus.DetectedLocation;
+        Vector3 entityPos = entity.transform.position;
+
+        float Distance = Vector3.Distance(detectedPos, entityPos);
+
+
+        if ((Distance < 3))
+        {
+            StateMachine.SetState(EntityEnum.Idle);
+        }
+    }
+
     public override void Exit()
     {
     }
@@ -124,12 +142,12 @@ public class RunState : EntityState
 
         if (entity.baseStatus.IsHalf() == true)
         {
-            SetAnimation(AnimHash.RunHash_2);
-            _NavMeshAgent.speed = entity.baseStatus.RunSpeed - 1f;
+            SetAnimationForce(AnimHash.RunHash_2);
+            _NavMeshAgent.speed = entity.baseStatus.RunSpeed / 2f;
         }
         else
         {
-            SetAnimation(AnimHash.RunHash_1);
+            SetAnimationForce(AnimHash.RunHash_1);
             _NavMeshAgent.speed = entity.baseStatus.RunSpeed;
         }
         CurrentTime = ResetTime;
@@ -141,6 +159,11 @@ public class RunState : EntityState
         CurrentTime += Time.deltaTime;
         Vector3 playerPos = Player.Instance.transform.position;
         Vector3 entityPos = entity.transform.position;
+
+        Vector3 directionPlayer = (playerPos - entityPos).normalized;
+        Quaternion LookDirection = Quaternion.LookRotation(directionPlayer);
+        entity.transform.rotation = LookDirection;
+
 
         float Distance = Vector3.Distance(entityPos, playerPos);
 
@@ -270,11 +293,11 @@ public class HitState : EntityState
         entity._NavMeshAgent.ResetPath();
         if (Random.Range(0, 2) == 0)
         {
-            SetAnimation(AnimHash.HitHash_1);
+            SetAnimationForce(AnimHash.HitHash_1);
         }
         else
         {
-            SetAnimation(AnimHash.HitHash_2);
+            SetAnimationForce(AnimHash.HitHash_2);
         }
     }
     public override void Update()
@@ -303,7 +326,7 @@ public class HitState : EntityState
     }
 }
 
-//¾²·¯Áö±â ½ÃÀÛ   ÀÌ ¶§ ¸ÂÀ¸¸é µðÁ®¾ßÇÔ
+//ì“°ëŸ¬ì§€ê¸° ì‹œìž‘   ì´ ë•Œ ë§žìœ¼ë©´ ë””ì ¸ì•¼í•¨
 public class HurtState : EntityState
 {
     public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
@@ -319,7 +342,7 @@ public class HurtState : EntityState
     }
     public override void Update()
     {
-        if (true == IsAnimationEnd())   // ´Ù ¾²·¯Áö¸é ±â¾î°¡´Ù Á×À½
+        if (true == IsAnimationEnd())   // ë‹¤ ì“°ëŸ¬ì§€ë©´ ê¸°ì–´ê°€ë‹¤ ì£½ìŒ
         {
             StateMachine.SetState(EntityEnum.Dying);
         }
@@ -329,7 +352,7 @@ public class HurtState : EntityState
     }
 }
 
-//ÀÌÁ¦ ±â¾î°¨ ÀÌ¶§ ¸Â¾Æµµ µðÁ®¾ßÇÔ
+//ì´ì œ ê¸°ì–´ê° ì´ë•Œ ë§žì•„ë„ ë””ì ¸ì•¼í•¨
 public class DyingState : EntityState
 {
     public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
@@ -342,17 +365,21 @@ public class DyingState : EntityState
     {
         entity._NavMeshAgent.SetDestination(Player.Instance.transform.position);
         entity._NavMeshAgent.speed = entity.baseStatus.CrowlSpeed;
-        SetAnimation(AnimHash.HurtHash);
+        SetAnimationFade(AnimHash.HurtHash, 0.2f);
+        CoroutineManager.Instance.SetCoroutine(entity, DieCoroutine());
     }
     public override void Update()
     {
-        if (true == IsAnimationEnd())
-        {
-            entity.Dead();
-        }
+
     }
     public override void Exit()
     {
+    }
+
+    IEnumerator DieCoroutine()
+    {
+        yield return CoroutineHelper.GetTime(6.0f);
+        entity.Dead();
     }
 }
 
