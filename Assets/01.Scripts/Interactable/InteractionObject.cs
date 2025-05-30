@@ -6,20 +6,31 @@ using UnityEngine;
 public interface IInteractionObject
 {
     public void Interaction();
+
+    public void OnSelected();
+    public void UnSelected();
 }
 
 
 public class InteractionObject : MonoBehaviour, IInteractionObject
 {
     List<int> ItemKeys = new List<int>();
+    BoxCollider _collider;
 
 
-    public void Awake()
+    void Reset()
     {
+        _collider = GetComponent<BoxCollider>();
     }
 
-    public void Start()
+    void Start()
     {
+        ItemInfo[] infos = ItemManager.Instance.GetRandomItems(5);
+
+        foreach (ItemInfo info in infos)
+        {
+            ItemKeys.Add(info.itemId);
+        }
     }
 
     public void Interaction()
@@ -33,4 +44,13 @@ public class InteractionObject : MonoBehaviour, IInteractionObject
         UiManager.instance.status.equipped.gameObject.SetActive(true);
     }
 
+    public void OnSelected()
+    {
+
+    }
+
+    public void UnSelected()
+    {
+
+    }
 }
