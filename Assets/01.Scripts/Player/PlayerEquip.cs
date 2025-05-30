@@ -136,10 +136,13 @@ public class PlayerEquip : MonoBehaviour
     {
         if(curWeaponPrefab == null) return;
         
-        GameObject weaponToUnEquip = curWeaponPrefab;
-        PlayerWeapon weaponDataToUnEquip = curWeaponData;
-        _animator.SetTrigger(_animIDUnEquip);
-        _unEquipCoroutine = StartCoroutine(WaitForUnEquip(weaponToUnEquip, weaponDataToUnEquip)); 
+        if (curWeaponPrefab.activeInHierarchy)
+        {
+            GameObject weaponToUnEquip = curWeaponPrefab;
+            PlayerWeapon weaponDataToUnEquip = curWeaponData;
+            _animator.SetTrigger(_animIDUnEquip);
+            _unEquipCoroutine = StartCoroutine(WaitForUnEquip(weaponToUnEquip, weaponDataToUnEquip)); 
+        }
         
         curWeaponPrefab = null;
         curWeaponData = null;
@@ -178,7 +181,7 @@ public class PlayerEquip : MonoBehaviour
         _animator.SetBool(_animIDEquipItem, _equipItem);
     }
 
-    private void ToggleWeaponLocation(GameObject obj, PlayerWeapon data)
+    public void ToggleWeaponLocation(GameObject obj, PlayerWeapon data)
     {
         _isWeaponOnHand = !_isWeaponOnHand; 
         
