@@ -6,6 +6,9 @@ public class UiManager : MonoBehaviour
 
     public bool isActive { get; private set; }
 
+    public GameObject hitUi { get => fieldHitUi; }
+    [SerializeField] private GameObject fieldHitUi;
+
     public MenuUi menu { get => fieldMenu; }
     [SerializeField] private MenuUi fieldMenu;
 
@@ -15,8 +18,8 @@ public class UiManager : MonoBehaviour
     public StatusUi status { get => fieldStatus; }
     [SerializeField] private StatusUi fieldStatus;
 
-    public ShaderUi shader { get => fieldShader; }
-    [SerializeField] private ShaderUi fieldShader;
+    public UiShaderEffect shaderEffect { get => fieldShaderEffect; }
+    [SerializeField] private UiShaderEffect fieldShaderEffect;
 
     public Fade fade { get => fieldFade; }
     [SerializeField] private Fade fieldFade;
@@ -34,11 +37,13 @@ public class UiManager : MonoBehaviour
         if (menuPos.TryGetComponent<MenuUi>(out var isMenu)) fieldMenu = isMenu;
         else DebugHelper.Log($"{this.name}에 MenuUi가 존재하지 않음");
 
+        fieldHitUi = Helper.FindChild(this.transform, "HitVolume").gameObject;
+
         fieldStatus = this.GetComponentInChildren<StatusUi>(true);
         if (fieldStatus == null) DebugHelper.Log($"{this.name}에 StatusUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
 
-        fieldShader = this.GetComponentInChildren<ShaderUi>(true);
-        if (fieldShader == null) DebugHelper.Log($"{this.name}에 ShaderUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
+        fieldShaderEffect = this.GetComponentInChildren<UiShaderEffect>(true);
+        if (fieldShaderEffect == null) DebugHelper.Log($"{this.name}에 UiShaderEffect스크립트가 있는 자식 오브젝트가 존재하지 않음");
 
         fieldTouch = this.GetComponentInChildren<TouchUi>(true);
         if (fieldTouch == null) DebugHelper.Log($"{this.name}에 TouchUi스크립트가 있는 자식 오브젝트가 존재하지 않음");

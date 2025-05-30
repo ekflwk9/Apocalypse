@@ -14,7 +14,7 @@ public class PlayAgain : UiButton
 
         if (!UiManager.instance.status.inventory.gameObject.activeSelf)
         {
-            UiManager.instance.shader.SetActive(!isActive);
+            UiManager.instance.shaderEffect.SetActive(!isActive);
 
             Cursor.lockState = isActive ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !isActive;
