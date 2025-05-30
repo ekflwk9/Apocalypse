@@ -9,8 +9,8 @@ public class UiManager : MonoBehaviour
     public DeadWindow dead { get => fieldDead; }
     [SerializeField] private DeadWindow fieldDead;
 
-    public GameObject hitUi { get => fieldHitUi; }
-    [SerializeField] private GameObject fieldHitUi;
+    public HitShader hitUi { get => fieldHitUi; }
+    [SerializeField] private HitShader fieldHitUi;
 
     public MenuUi menu { get => fieldMenu; }
     [SerializeField] private MenuUi fieldMenu;
@@ -40,7 +40,9 @@ public class UiManager : MonoBehaviour
         if (menuPos.TryGetComponent<MenuUi>(out var isMenu)) fieldMenu = isMenu;
         else DebugHelper.Log($"{this.name}에 MenuUi가 존재하지 않음");
 
-        fieldHitUi = Helper.FindChild(this.transform, "HitVolume").gameObject;
+        var hitPos = Helper.FindChild(this.transform, "MenuUi").gameObject;
+        if (hitPos.TryGetComponent<HitShader>(out var isHit)) fieldHitUi = isHit;
+        else DebugHelper.Log($"{this.name}에 MenuUi가 존재하지 않음");
 
         fieldDead = this.GetComponentInChildren<DeadWindow>(true);
         if (fieldDead == null) DebugHelper.Log($"{this.name}에 DeadWindow스크립트가 있는 자식 오브젝트가 존재하지 않음");

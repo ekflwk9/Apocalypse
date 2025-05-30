@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class PlayUi : MonoBehaviour
 {
-    public Image health { get => fieldHealth; }
-    [SerializeField] private Image fieldHealth;
+    public PlaySlider health { get => fieldHealth; }
+    [SerializeField] private PlaySlider fieldHealth;
 
-    public Image stamina { get => fieldStamina; }
-    [SerializeField] private Image fieldStamina;
+    public PlaySlider stamina { get => fieldStamina; }
+    [SerializeField] private PlaySlider fieldStamina;
 
-    public Image defense { get => fieldDefense; }
-    [SerializeField] private Image fieldDefense;
+    public PlaySlider defense { get => fieldDefense; }
+    [SerializeField] private PlaySlider fieldDefense;
 
     public PlaySlot firstSlot { get => fieldFirstSlot; }
     [SerializeField] private PlaySlot fieldFirstSlot;
@@ -23,15 +23,15 @@ public class PlayUi : MonoBehaviour
     private void Reset()
     {
         var hpPos = Helper.FindChild(this.transform, "Hp");
-        if (hpPos.TryGetComponent<Image>(out var isHealth)) fieldHealth = isHealth;
+        if (hpPos.TryGetComponent<PlaySlider>(out var isHealth)) fieldHealth = isHealth;
         else DebugHelper.ShowBugWindow($"{this.name}에 Image가 존재하지 않음");
 
         var staminaPos = Helper.FindChild(this.transform, "Stamina");
-        if (staminaPos.TryGetComponent<Image>(out var isStamina)) fieldStamina = isStamina;
+        if (staminaPos.TryGetComponent<PlaySlider>(out var isStamina)) fieldStamina = isStamina;
         else DebugHelper.ShowBugWindow($"{this.name}에 Image가 존재하지 않음");
 
         var defensePos = Helper.FindChild(this.transform, "Defense");
-        if (defensePos.TryGetComponent<Image>(out var isDefense)) fieldDefense = isDefense;
+        if (defensePos.TryGetComponent<PlaySlider>(out var isDefense)) fieldDefense = isDefense;
         else DebugHelper.ShowBugWindow($"{this.name}에 Image가 존재하지 않음");
 
         var firstPos = Helper.FindChild(this.transform, "MainSlot");
