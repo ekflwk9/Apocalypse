@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 
 public sealed class ContentManager : MonoBehaviour
 {
@@ -168,6 +169,7 @@ public sealed class ContentManager : MonoBehaviour
   {
     // ui 시작 및 로딩 중 표시
     // 다음 씬 넘어갈 수 있게 ui 표시
+    SceneManager.LoadScene("Loby");
   }
 
   #endregion Unity Events

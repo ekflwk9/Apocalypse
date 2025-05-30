@@ -17,29 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 2383d6f0e0d66ff4b8b1a1fe3692cde1
   m_SerializeEntries:
-  - m_GUID: ce9f6ebea704c4bed843e2799c1ed15b
-    m_Address: Assets/01.Scripts/Item/ScriptableObject/TestArmor.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2baafeec75f954fd68251fd0cea2d518
-    m_Address: Assets/01.Scripts/Item/ScriptableObject/TestWeapon.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8810da646a3c14ea999bef2a75207af3
     m_Address: Assets/01.Scripts/Item/ScriptableObject/ItemBundle.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Bundle
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 63b8e73bd6c2f4a80ac8ae1f02cf0512
-    m_Address: Assets/01.Scripts/Item/ScriptableObject/TestConsumable.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6ec1cec87ffaca74b8b74d2047c4a7af, type: 2}
