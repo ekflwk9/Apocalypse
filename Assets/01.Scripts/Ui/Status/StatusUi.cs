@@ -5,7 +5,6 @@ using UnityEngine;
 public class StatusUi : MonoBehaviour
 {
 
-
     public TMP_Text weightText { get => fieldWeightText; }
     [SerializeField] private TMP_Text fieldWeightText;
 
@@ -39,7 +38,7 @@ public class StatusUi : MonoBehaviour
     private void Reset()
     {
         var weight = Helper.FindChild(this.transform, "WeightText");
-        if(weight.TryGetComponent<TMP_Text>(out var isWeight)) fieldWeightText = isWeight;
+        if (weight.TryGetComponent<TMP_Text>(out var isWeight)) fieldWeightText = isWeight;
         if (fieldWeightText == null) DebugHelper.Log($"{this.name}에 DragImage스크립트가 있는 자식 오브젝트가 존재하지 않음");
 
         fieldDrag = this.GetComponentInChildren<SelectUi>(true);
