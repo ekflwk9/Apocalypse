@@ -15,3 +15,4 @@ MonoBehaviour:
   assetReferences: []
   assetLabelReferences:
   - m_LabelString: Item
+  - m_LabelString: Sound

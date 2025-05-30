@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Audio;
@@ -11,6 +12,9 @@ public static class SoundManager
 {
   public static AudioMixer Mixer;
 
+  private static AudioSource effectSource, backgroundSource;
+  private static AudioMixerGroup masterGroup, effectGroup, backgroundGroup, objectGroup;
+  
   static SoundManager()
   {
     Mixer = Addressables.LoadAssetAsync<AudioMixer>(new AssetLabelReference{labelString = "AudioMixer"}).WaitForCompletion();
@@ -20,6 +24,11 @@ public static class SoundManager
       MasterVolume = PlayerPrefs.GetFloat("MasterVolume", 80);
       BackgroundVolume = PlayerPrefs.GetFloat("BackgroundVolume", 80);
       EffectVolume = PlayerPrefs.GetFloat("EffectVolume", 80);
+      
+      masterGroup = Mixer.FindMatchingGroups("Master")[0];
+      effectGroup = Mixer.FindMatchingGroups("Effect")[0];
+      backgroundGroup = Mixer.FindMatchingGroups("Background")[0];
+      objectGroup = Mixer.FindMatchingGroups("Object")[0];
     }
   }
 
@@ -71,4 +80,105 @@ public static class SoundManager
       PlayerPrefs.SetFloat("EffectVolume", input);
     }
   }
+  
+  /// <summary>
+  /// 오브젝트 볼륨입니다.
+  /// 값은 0~100 사이로 설정할 수 있고, 미만 혹은 초과시 자동으로 포맷팅됩니다.
+  /// </summary>
+  public static float ObjectVolume
+  {
+    get => Mixer && Mixer.GetFloat("Object", out var value) ? value + 80 : PlayerPrefs.GetFloat("ObjectVolume", 80);
+    set
+    {
+      var input = Math.Max(0, Math.Min(100, value));
+
+      if(Mixer) Mixer.SetFloat("Object", input - 80);
+      PlayerPrefs.SetFloat("ObjectVolume", input);
+    }
+  }
+
+  public static AudioSource EffectSource
+  {
+    get
+    {
+      var cam = Camera.main;
+      if (cam == null) return null;
+
+      if (effectSource && effectSource.gameObject == cam.gameObject)
+      {
+        return effectSource;
+      }
+      
+      AudioSource source = cam.GetComponents<AudioSource>().FirstOrDefault(s => s.outputAudioMixerGroup == effectGroup);
+
+      if(!source || source != effectSource)
+      {
+        source = effectSource = cam.gameObject.AddComponent<AudioSource>();
+        effectSource.outputAudioMixerGroup = effectGroup;
+      }
+
+      return source;
+    }
+  }
+  
+  public static AudioSource BackgroundSource
+  {
+    get
+    {
+      var cam = Camera.main;
+      if (!cam) return null;
+      
+      if (backgroundSource && backgroundSource.gameObject == cam.gameObject)
+      {
+        return backgroundSource;
+      }
+      
+      AudioSource source = cam.GetComponents<AudioSource>().FirstOrDefault(s => s.outputAudioMixerGroup == backgroundGroup);
+
+      if(!source || source != backgroundSource)
+      {
+        source = backgroundSource = cam.gameObject.AddComponent<AudioSource>();
+        source.loop = true;
+        backgroundSource.outputAudioMixerGroup = backgroundGroup;
+      }
+
+      return source;
+    }
+  }
+
+  public static void Play(string clipName, GameObject obj)
+  {
+    if(!Mixer) return;
+    
+    AudioSource source;
+    
+    if (obj.TryGetComponent(out source)) {}
+    else source = obj.AddComponent<AudioSource>();
+    
+    source.clip = ContentManager.GetAsset<AudioClip>(clipName);
+    source.outputAudioMixerGroup = objectGroup;
+    source.Play();
+  }
+
+  public static void Play(string clipName, SoundType type = SoundType.Effect)
+  {
+    if(!Mixer) return;
+    
+    AudioSource source = type switch
+    {
+      SoundType.Background => BackgroundSource,
+      SoundType.Effect => EffectSource,
+      _ => EffectSource
+    };
+    
+    source.clip = ContentManager.GetAsset<AudioClip>(clipName);
+    source.outputAudioMixerGroup = type == SoundType.Background ? backgroundGroup : effectGroup;
+    source.Play();
+  }
+}
+
+public enum SoundType
+{
+  Background,
+  Effect
 }
