@@ -142,9 +142,13 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void Update()
     {
-        if (Player.Instance.Dead)
+        if (UiManager.instance.isActive)
         {
             _playerInput.enabled = false;
+        }
+        else
+        {
+            _playerInput.enabled = true;
         }
 
         JumpAndGravity();
