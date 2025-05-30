@@ -64,7 +64,7 @@ public class Player : MonoBehaviour, IDamagable
             {
                 if (Defence > 0)
                 {
-                    //인벤토리 코드 추가
+                    //인벤토리 코드 추가**********************************************************************
                     Defence -= (int)(_health - changedValue);
                     //UiManager.instance.play.
                 }
@@ -78,7 +78,7 @@ public class Player : MonoBehaviour, IDamagable
             {
                 _health = value;
             }
-            Debug.Log("값변화!");
+            
             UiManager.instance.play.health.SetSlider(value / 100f);
         }
     }
@@ -101,6 +101,8 @@ public class Player : MonoBehaviour, IDamagable
             }
 
             _stamina = changedValue;
+            
+            UiManager.instance.play.stamina.SetSlider(value / 100f);
         }
     }
 
@@ -113,6 +115,7 @@ public class Player : MonoBehaviour, IDamagable
         private set
         {
             _defence = value;
+            //디펜스 처리 메서드 처리해야함 ***************************************************************************
         }
     }
     public int Gold

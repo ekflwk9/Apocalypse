@@ -44,8 +44,6 @@ public class PlayerInputs : MonoBehaviour
                 Sprint = false;
                 _canSprint = false;
             }
-            
-            UiManager.instance.play.stamina.SetSlider(_player.Stamina / 100f);
         }
         else if (!_canSprint && _player.Stamina > _player.maxStamina / 4f)
         {
@@ -72,7 +70,7 @@ public class PlayerInputs : MonoBehaviour
                 return;
             }
 
-            _player.SetStamina(_player.jumpStamina);
+            _player.SetStamina(-(_player.jumpStamina));
             Jump = true;
         }
         else if (context.phase == InputActionPhase.Canceled)
