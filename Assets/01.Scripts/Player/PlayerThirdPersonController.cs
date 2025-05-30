@@ -73,6 +73,9 @@ public class PlayerThirdPersonController : MonoBehaviour
     [SerializeField] private GameObject _mainCamera;
     [SerializeField] private Animator _animator;
     [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private ZombieHearingComponent _zombieHearingComponent;
+    private Coroutine zombieHearingCoroutine;
+    private float curSoundRadius = 0;
 
     //애니메이션 플로트,불,트리거값
     private float _animationBlend;
@@ -121,6 +124,7 @@ public class PlayerThirdPersonController : MonoBehaviour
         Follow = VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
         TPSCamPosition = Follow.ShoulderOffset;
         _animator = GetComponent<Animator>();
+        _zombieHearingComponent = GetComponentInChildren<ZombieHearingComponent>();
     }
 
     //컴포넌트 값 초기화
@@ -132,6 +136,8 @@ public class PlayerThirdPersonController : MonoBehaviour
 
         _jumpTimeoutDelta = JumpTimeout;
         _fallTimeoutDelta = FallTimeout;
+        
+        InvokeRepeating("ZombieHearing", 0, 1f);
     }
 
     private void Update()
@@ -231,6 +237,7 @@ public class PlayerThirdPersonController : MonoBehaviour
         if (_input.move == Vector2.zero)
         {
             targetSpeed = 0.0f;
+            ZombieHearingHandler(0f);
         }
 
         float currentHorizontalSpeed = new Vector3(_rigidbody.velocity.x, 0.0f, _rigidbody.velocity.z).magnitude;
@@ -290,6 +297,15 @@ public class PlayerThirdPersonController : MonoBehaviour
 
         _animator.SetFloat(_animIDSpeed, _animationBlend);
         _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+
+        if (_speed > 10f)
+        {
+            ZombieHearingHandler(_speed / 5f);
+        }
+        else if (_speed >= 5f)
+        {
+            ZombieHearingHandler(_speed / 10f);
+        }
     }
 
 
@@ -313,6 +329,8 @@ public class PlayerThirdPersonController : MonoBehaviour
 
 
                 _animator.SetBool(_animIDJump, true);
+                
+                ZombieHearingHandler(JumpHeight);
             }
 
             if (_jumpTimeoutDelta >= 0.0f)
@@ -451,7 +469,7 @@ public class PlayerThirdPersonController : MonoBehaviour
     public void MeleeAttack()
     {
         _animator.SetTrigger(_animIDAttack);
-        //휘두르는 소리 울려라
+        ZombieHearingHandler(1f);
     }
 
     public void RangedAttack()
@@ -463,7 +481,8 @@ public class PlayerThirdPersonController : MonoBehaviour
         {
             damagable.TakeDamage(Player.Instance.Equip.curWeapon.power);
         }
-        //총소리 울려라
+
+        ZombieHearingHandler(5f, 5f);
     }
 
     public void UseItem()
@@ -471,5 +490,27 @@ public class PlayerThirdPersonController : MonoBehaviour
         ItemEffectManager.Instance.ItemEffect(ItemManager.Instance.itemDB[Player.Instance.Equip.curEquip.itemId]);
         _animator.SetTrigger(_animIDUse);
         Player.Instance.Equip.UnEquip();
+    }
+    
+    
+    private void ZombieHearing()
+    {
+        _zombieHearingComponent.OnSound(curSoundRadius);
+    }
+
+    private void ZombieHearingHandler(float radius, float duration = 1f)
+    {
+        if (zombieHearingCoroutine != null)
+        {
+            StopCoroutine(zombieHearingCoroutine);
+        }
+
+        StartCoroutine(MakeSound(radius, duration));
+    }
+
+    private IEnumerator MakeSound(float radius, float duration)
+    {
+        curSoundRadius = radius;
+        yield return new WaitForSeconds(duration);
     }
 }

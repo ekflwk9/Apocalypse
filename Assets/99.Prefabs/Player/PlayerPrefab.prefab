@@ -1575,6 +1575,73 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.22554366, y: -0.03055986, z: -0.0024669692}
     m_Extent: {x: 0.21909378, y: 0.18697405, z: 0.22997445}
   m_DirtyAABB: 0
+--- !u!1 &4072971493950281681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7392832478739869270}
+  - component: {fileID: 8863928669444037831}
+  - component: {fileID: 5353086097744186480}
+  m_Layer: 3
+  m_Name: ZombieHearing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7392832478739869270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4072971493950281681}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6612394396655758167}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8863928669444037831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4072971493950281681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22663077c57c88d47ba4e1dfc94eacd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hearingCollider: {fileID: 5353086097744186480}
+--- !u!135 &5353086097744186480
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4072971493950281681}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4078721497030327313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1994,6 +2061,7 @@ Transform:
   m_Children:
   - {fileID: 6340589552098088684}
   - {fileID: 6127235004694739238}
+  - {fileID: 7392832478739869270}
   - {fileID: 5762334296500837219}
   - {fileID: 8783331889392103069}
   - {fileID: 6047248199980064973}
@@ -2105,9 +2173,9 @@ MonoBehaviour:
   sprintStamina: 5
   jumpStamina: 10
   staminaRegenCooldown: 5
-  _animator: {fileID: 1049493359991375101}
   _rigidbody: {fileID: 4572112671424083456}
   meleeCollider: {fileID: 8935578888701288370}
+  _animator: {fileID: 1049493359991375101}
 --- !u!114 &4034660285284717347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2343,6 +2411,7 @@ MonoBehaviour:
   _mainCamera: {fileID: 1600541686208233550}
   _animator: {fileID: 1049493359991375101}
   _rigidbody: {fileID: 4572112671424083456}
+  _zombieHearingComponent: {fileID: 8863928669444037831}
 --- !u!114 &6411524504848633419
 MonoBehaviour:
   m_ObjectHideFlags: 0

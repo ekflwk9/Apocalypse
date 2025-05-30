@@ -197,7 +197,7 @@ public class PlayerEquip : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
+        if (other.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
         IDamagable damagable;
         bool isEnemy = other.TryGetComponent(out damagable);
         if (!isEnemy)
