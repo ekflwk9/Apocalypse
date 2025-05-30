@@ -9847,9 +9847,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bff93b1fb6b65b4cbd13893e0f8fa0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldHealth: {fileID: 4514245967197297662}
-  fieldStamina: {fileID: 4026535269043867731}
-  fieldDefense: {fileID: 4974998157606548274}
+  fieldHealth: {fileID: 2868250511214946975}
+  fieldStamina: {fileID: 4538259553939726890}
+  fieldDefense: {fileID: 3906013243810910633}
   fieldFirstSlot: {fileID: 6881659504295475844}
   fieldSecondSlot: {fileID: 7140072952204779402}
 --- !u!1 &1922086367503794854
@@ -15538,6 +15538,10 @@ MonoBehaviour:
   - {fileID: 3314814024464698894}
   - {fileID: 9106069953249108341}
   - {fileID: 6353094569248380976}
+  equippedSlot:
+  - {fileID: 4549918519652005711}
+  - {fileID: 8850931124031225802}
+  - {fileID: 1161359911432669612}
 --- !u!1 &3205667772797078151
 GameObject:
   m_ObjectHideFlags: 0
@@ -20507,6 +20511,7 @@ GameObject:
   - component: {fileID: 6343843678288836013}
   - component: {fileID: 9065993883770653170}
   - component: {fileID: 4514245967197297662}
+  - component: {fileID: 2868250511214946975}
   m_Layer: 5
   m_Name: Hp
   m_TagString: Untagged
@@ -20574,6 +20579,19 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!114 &4514245967197297662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3979262268106122161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57664194471c97a4b91fc93fe3e0578a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 9065993883770653170}
+--- !u!114 &2868250511214946975
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28245,6 +28263,7 @@ GameObject:
   - component: {fileID: 4498826938363623402}
   - component: {fileID: 7123909128443003178}
   - component: {fileID: 4026535269043867731}
+  - component: {fileID: 4538259553939726890}
   m_Layer: 5
   m_Name: Stamina
   m_TagString: Untagged
@@ -28311,6 +28330,19 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!114 &4026535269043867731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5286910027492539054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57664194471c97a4b91fc93fe3e0578a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 7123909128443003178}
+--- !u!114 &4538259553939726890
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42717,6 +42749,7 @@ GameObject:
   - component: {fileID: 7404105943492301931}
   - component: {fileID: 6425942505068505238}
   - component: {fileID: 4974998157606548274}
+  - component: {fileID: 3906013243810910633}
   m_Layer: 5
   m_Name: Defense
   m_TagString: Untagged
@@ -42782,6 +42815,19 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!114 &4974998157606548274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8041221851890688944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57664194471c97a4b91fc93fe3e0578a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 6425942505068505238}
+--- !u!114 &3906013243810910633
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
