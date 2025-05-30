@@ -9,6 +9,11 @@ public class HandSlot : Slot
     {
         count = _itemCount;
 
+        var playUi = UiManager.instance.play;
+
+        if (isFirstSlot) playUi.firstSlot.SetSlotView(_itemId, _itemCount);
+        else playUi.secondSlot.SetSlotView(_itemId, _itemCount);
+
         if (_itemId != 0 && _itemCount != 0)
         {
             var item = ItemManager.Instance.itemDB[_itemId];
@@ -16,10 +21,6 @@ public class HandSlot : Slot
 
             //인벤토리 셋팅
             ItemManager.Instance.SetItemSlot(_itemId, isFirstSlot);
-
-            var playUi = UiManager.instance.play;
-            if (isFirstSlot) playUi.firstSlot.SetSlotView(itemId, count);
-            else playUi.secondSlot.SetSlotView(itemId, count);
 
             itemId = _itemId;
             icon.color = Color.white;

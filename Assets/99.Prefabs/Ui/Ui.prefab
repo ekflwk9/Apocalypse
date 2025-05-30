@@ -25413,6 +25413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8682c91dcb94fd64b941b04a32bb8b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 2635215881367415338}
 --- !u!1 &5144818261916389864
 GameObject:
   m_ObjectHideFlags: 0
@@ -32012,6 +32013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b490c1c59e056a45964266270e19c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 4488033434785247343}
 --- !u!1 &6382448287518414584
 GameObject:
   m_ObjectHideFlags: 0
@@ -43930,7 +43932,7 @@ MonoBehaviour:
   icon: {fileID: 5570316760074496104}
   pos: {fileID: 6425276927911653286}
   countText: {fileID: 6401405818766967174}
-  isFirstSlot: 0
+  isFirstSlot: 1
 --- !u!1 &9015459392127686663
 GameObject:
   m_ObjectHideFlags: 0
