@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StatusUi : MonoBehaviour
 {
-
+    public Dictionary<int, int> farmingItem { get; private set; } = new Dictionary<int, int>();
 
     public TMP_Text weightText { get => fieldWeightText; }
     [SerializeField] private TMP_Text fieldWeightText;

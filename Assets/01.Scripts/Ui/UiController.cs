@@ -10,13 +10,12 @@ public class UiController : MonoBehaviour
         //메뉴가 비활성화인 상태인 경우에만
         if (!UiManager.instance.menu.menuWindow.gameObject.activeSelf)
         {
-            var isActive = UiManager.instance.status.inventory.gameObject.activeSelf;
             var status = UiManager.instance.status;
+            var isActive = status.inventory.gameObject.activeSelf;
 
             UiManager.instance.shaderEffect.SetActive(!isActive);
             status.inventory.gameObject.SetActive(!isActive);
             status.equipped.SetActive(!isActive);
-            UiManager.instance.SetActive(!isActive);
 
             if (isActive)
             {
@@ -25,11 +24,14 @@ public class UiController : MonoBehaviour
 
                 status.drag.OnEndDrag();
                 status.itemInfo.SetOff();
+
+
                 UiManager.instance.touch.SetTouch(false);
+                UiManager.instance.SetActive(false);
 
-                var farming = UiManager.instance.status.farming.gameObject;
+                var farming = status.farming.gameObject;
 
-                if (UiManager.instance.status.farming.gameObject.activeSelf) farming.SetActive(false);       
+                if (UiManager.instance.status.farming.gameObject.activeSelf) farming.SetActive(false);
             }
 
             else
