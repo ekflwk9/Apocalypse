@@ -22,7 +22,7 @@ public class ObjectPool
         }
     }
 
-    // 가져올 때
+    //                                    자기 자신 프리팹            객체 가져올 때 호출하는 함수
     public GameObject Get(GameObject _prefab)
     {
         poolDictionary.TryGetValue(_prefab.name, out Queue<GameObject> objectQueue);
@@ -41,7 +41,8 @@ public class ObjectPool
         }
     }
 
-    // 죽었을 때
+
+    //                    여기에 본인 프리팹                  자기자신 객체        죽었을 때 호출해야하는 함수
     public void Set(GameObject _prefab, GameObject _gameObject)
     {
         _gameObject.SetActive(false);
