@@ -173,6 +173,13 @@ public class StatusUi : MonoBehaviour
         return false;
     }
 
+    public void ResetInventory()
+    {
+        for (int i = 0; i < inventorySlot.Length; i++)
+        {
+            inventorySlot[i].SetSlot(0);
+        }
+    }
 
     public void SetWeightText(int _weight)
     {
