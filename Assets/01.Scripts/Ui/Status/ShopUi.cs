@@ -37,19 +37,6 @@ public class ShopUi : MonoBehaviour
             status.drag.OnEndDrag();
             status.itemInfo.SetOff();
             UiManager.instance.touch.SetTouch(false);
-
-            this.transform.ChangeX(10f);
         }
-    }
-}
-
-
-public static class Utui
-{
-    public static void ChangeX(this Transform _pos, float _x)
-    {
-        var thisPos = _pos.transform.position;
-        thisPos.x = _x;
-        _pos.position = thisPos;
     }
 }
