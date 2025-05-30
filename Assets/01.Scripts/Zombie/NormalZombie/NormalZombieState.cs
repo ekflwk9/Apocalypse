@@ -6,32 +6,6 @@ using static UnityEditor.VersionControl.Asset;
 using static UnityEngine.EventSystems.EventTrigger;
 
 
-public class NormalZombieStateStruct : StateStruct
-{
-    public override void Init(EntityStateMachine _StateMachine)
-    {
-        IdleState idleState = new IdleState();
-        WalkState walkState = new WalkState();
-        HearingState hearingState = new HearingState();
-        RunState runState = new RunState();
-        AttackState attackState = new AttackState();
-        HitState hitState = new HitState();
-        HurtState hurtState = new HurtState();
-        DyingState dyingState = new DyingState();
-        DieState dieState = new DieState();
-        StateDictionary.Add(EntityEnum.Idle, idleState);
-        StateDictionary.Add(EntityEnum.Hearing, hearingState);
-        StateDictionary.Add(EntityEnum.Run, runState);
-        StateDictionary.Add(EntityEnum.Attack, attackState);
-        StateDictionary.Add(EntityEnum.Walk, walkState);
-        StateDictionary.Add(EntityEnum.Hit, hitState);
-        StateDictionary.Add(EntityEnum.Hurt, hurtState);
-        StateDictionary.Add(EntityEnum.Dying, dyingState);
-        StateDictionary.Add(EntityEnum.Die, dieState);
-        base.Init(_StateMachine);
-    }
-}
-
 public class IdleState : EntityState
 {
     public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
@@ -76,7 +50,7 @@ public class WalkState : EntityState
         Vector3 TargetPos = NaviHelper.GetRandomNavMeshPosition(entity.transform.position, 30f);
         _NavMeshAgent.SetDestination(TargetPos);
         _NavMeshAgent.speed = entity.baseStatus.WalkSpeed;
-        entity._animator.Play(AnimHash.WalkHash);
+        SetAnimation(AnimHash.WalkHash);
     }
     public override void Update()
     {
@@ -167,12 +141,12 @@ public class RunState : EntityState
 
         if (entity.baseStatus.IsHalf() == true)
         {
-            SetAnimation(AnimHash.RunHash_2);
+            SetAnimationForce(AnimHash.RunHash_2);
             _NavMeshAgent.speed = entity.baseStatus.RunSpeed / 2f;
         }
         else
         {
-            SetAnimation(AnimHash.RunHash_1);
+            SetAnimationForce(AnimHash.RunHash_1);
             _NavMeshAgent.speed = entity.baseStatus.RunSpeed;
         }
         CurrentTime = ResetTime;

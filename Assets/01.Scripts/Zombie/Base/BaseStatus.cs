@@ -21,7 +21,7 @@ public class BaseStatus
     }
 
     public float RunSpeed { get; protected set; } = 5f;
-    public float WalkSpeed { get; protected set; } = 2f;
+    public float WalkSpeed { get; protected set; } = 1f;
     public float Damage { get; protected set; } = 10f;
 
     public float DetectedRange { get; protected set; } = 10f;

@@ -12,7 +12,6 @@ public static class AnimHash
     public static readonly int HitHash_1 = Animator.StringToHash("Hit_1");
     public static readonly int HitHash_2 = Animator.StringToHash("Hit_2");
     public static readonly int YellingHash = Animator.StringToHash("Yelling");
-    public static readonly int RangeHash = Animator.StringToHash("Range");
     public static readonly int AttackHash_1 = Animator.StringToHash("Attack_1");
     public static readonly int AttackHash_2 = Animator.StringToHash("Attack_2");
     public static readonly int HurtHash = Animator.StringToHash("Hurt");
@@ -25,6 +24,7 @@ public enum EntityEnum
     Walk,
     Hearing,
     Run,
+    Yelling,
     Attack,
     Hit,
     Hurt,
