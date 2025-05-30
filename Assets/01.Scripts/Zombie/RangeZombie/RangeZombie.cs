@@ -41,7 +41,7 @@ public class RangeZombie : Entity
 
         _stateMachine.SetState(EntityEnum.Idle);
 
-        baseStatus.SetStatus(15, 10);
+        baseStatus.SetStatus(20, 10);
 
     }
 

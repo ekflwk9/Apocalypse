@@ -1,59 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
-public class NoiseZombieStruct : StateStruct
+public class SurvivorEntityStruct : StateStruct
 {
     public override void Init(EntityStateMachine _StateMachine)
     {
         IdleState idleState = new IdleState();
-        WalkState walkState = new WalkState();
-        HearingState hearingState = new HearingState();
-        RunState runState = new RunState();
-        NoiseAttackState attackState = new NoiseAttackState();
-        NoiseHitState hitState = new NoiseHitState();
-        HurtState hurtState = new HurtState();
+        SurvivorWalkState walkState = new SurvivorWalkState();
+        SurvivorDetectedState detectState = new SurvivorDetectedState();
+        SurvivorRunState runState = new SurvivorRunState();
+        AttackState attackState = new AttackState();
+        HitState hitState = new HitState();
         DyingState dyingState = new DyingState();
         DieState dieState = new DieState();
+
+
+
         StateDictionary.Add(EntityEnum.Idle, idleState);
-        StateDictionary.Add(EntityEnum.Attack, attackState);
         StateDictionary.Add(EntityEnum.Walk, walkState);
+        StateDictionary.Add(EntityEnum.Run, runState);
+        StateDictionary.Add(EntityEnum.Detect, detectState);
+        StateDictionary.Add(EntityEnum.Attack, attackState);
         StateDictionary.Add(EntityEnum.Hit, hitState);
-        StateDictionary.Add(EntityEnum.Hurt, hurtState);
         StateDictionary.Add(EntityEnum.Dying, dyingState);
         StateDictionary.Add(EntityEnum.Die, dieState);
+
         base.Init(_StateMachine);
+
     }
 }
 
 
-
-public class NoiseZombie : Entity
+public class SurvivorEntity : Entity
 {
-    [SerializeField] ZombieHearingComponent _zombieHearingComponent;
-
-    protected override void Reset()
-    {
-        base.Reset();
-        _zombieHearingComponent = GetComponentInChildren<ZombieHearingComponent>();
-    }
-
     private void Awake()
     {
         _stateMachine = new EntityStateMachine();
-        _stateMachine.Init(new NoiseZombieStruct(), this);
+        _stateMachine.Init(new SurvivorEntityStruct(), this);
 
         baseStatus = new BaseStatus();
 
         _stateMachine.SetState(EntityEnum.Idle);
 
-        baseStatus.SetStatus(20, 10);
+        baseStatus.SetStatus(30, 3, 90);
+
     }
 
-    public override void Attack_2()
+    protected override void Update()
     {
-        _zombieHearingComponent.OnSound(10);
+        _stateMachine.Update();
+        if (_stateMachine.GetState() == EntityEnum.Idle || _stateMachine.GetState() == EntityEnum.Walk)
+        {
+            Detect();
+        }
     }
 
     protected override void Detect()
@@ -72,15 +72,18 @@ public class NoiseZombie : Entity
             {
                 if (Physics.Raycast(transform.position + Vector3.up * 0.5f, dirToTarget, out RaycastHit hit, baseStatus.DetectedRange))
                 {
-                    //임시
                     if (hit.collider.CompareTag(TagHelper.Player))
                     {
-                        baseStatus.DetectedLocation = hit.point; // 플레이어 위치 저장
-                        _stateMachine.SetState(EntityEnum.Attack);
+                        _stateMachine.SetState(EntityEnum.Run);
                     }
                 }
             }
         }
     }
 
+    //public override void Attack_2()
+    //{
+    //    Vector3 position = transform.position + new Vector3(0, 1, 0);
+    //    ObjectPool.Instance.Get(Projectile).transform.position = position;
+    //}
 }
