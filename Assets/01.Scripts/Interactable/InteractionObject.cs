@@ -26,20 +26,22 @@ public struct FarmingData
     }
 
 
-    void Reset()
-    {
-        _collider = GetComponent<BoxCollider>();
-    }
+
 }
 
 
 public class InteractionObject : MonoBehaviour, IInteractionObject
 {
-    List<FarmingData> ItemKeys = new List<FarmingData>();
+    //List<FarmingData> ItemKeys = new List<FarmingData>();
 
     List<int> ItemKeys = new List<int>();
     BoxCollider _collider;
-  
+
+    void Reset()
+    {
+        _collider = GetComponent<BoxCollider>();
+    }
+
     void Start()
     {
         ItemInfo[] infos = ItemManager.Instance.GetRandomItems(5);
@@ -55,7 +57,7 @@ public class InteractionObject : MonoBehaviour, IInteractionObject
     {
         foreach (var item in ItemKeys)
         {
-            UiManager.instance.status.GetFarmingItem(item.id);
+            UiManager.instance.status.GetFarmingItem(item);
         }
 
         UiManager.instance.status.farming.gameObject.SetActive(true);
