@@ -2165,6 +2165,7 @@ MonoBehaviour:
   maxStamina: 100
   _health: 0
   _stamina: 0
+  _defence: 0
   _gold: 0
   _level: 0
   _weight: 0
@@ -2331,19 +2332,7 @@ MonoBehaviour:
     m_ActionId: 3e11eeee-72d6-4bef-89aa-1b70d60f47f0
     m_ActionName: Player/Interaction[/Keyboard/e]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UiController, Assembly-CSharp
-        m_MethodName: OnInventory
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 577ff2b7-3d15-4f13-aee2-f3e1fdc28331
     m_ActionName: Player/Inventory[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
