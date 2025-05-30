@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +7,12 @@ public class Inventory : MonoBehaviour
 {
     public ItemInfo firstSlotItem;
     public ItemInfo secondSlotItem;
-    public int defense;
+    public ArmorInfo[] currentArmor = new ArmorInfo[Enum.GetValues(typeof(ArmorType)).Length];
     public List<ItemInfo> items = new List<ItemInfo>(); // 인벤토리
 
-    public void GetItem(ItemInfo item) // 아이템 추가시 호출
+    public void GetItem(int itemId) // 아이템 추가시 호출
     {
-        items.Add(item);
+        items.Add(ItemManager.Instance.itemDB[itemId]);
     }
 
     public void RemoveInventoryItem(int index) // 아이템 제거, 판매시 호출
@@ -25,5 +26,11 @@ public class Inventory : MonoBehaviour
         ItemInfo item = ItemManager.Instance.itemDB[index];
         ItemEffectManager.Instance.ItemEffect(item);
         items.Remove(item);
+    }
+
+    public void ChangeDefense(int damage)
+    {
+        int ranNum = UnityEngine.Random.Range(0, currentArmor.Length);
+        // currentArmor[ranNum] = 
     }
 }
