@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StatusUi : MonoBehaviour
 {
+
+
     public TMP_Text weightText { get => fieldWeightText; }
     [SerializeField] private TMP_Text fieldWeightText;
 
@@ -30,8 +32,9 @@ public class StatusUi : MonoBehaviour
 
     [SerializeField] private InventorySlot[] inventorySlot;
     [SerializeField] private InventorySlot[] farminSlot;
+    [SerializeField] private EquippedSlot[] equippedSlot;
+    [SerializeField] private HandSlot[] handSlot;
     //[SerializeField] private InventorySlot[] storageSlot;
-    //[SerializeField] private EquippedSlot[] equippedSlot;
 
     private void Reset()
     {
@@ -49,7 +52,7 @@ public class StatusUi : MonoBehaviour
         inventorySlot = GetComponentArray<InventorySlot>(fieldInventory.transform);
 
         fieldEquipped = Helper.FindChild(this.transform, "Equipped").gameObject;
-        //equippedSlot = GetComponentArray<EquippedSlot>(fieldEquipped.transform);
+        equippedSlot = GetComponentArray<EquippedSlot>(fieldEquipped.transform);
 
         fieldStorage = Helper.FindChild(this.transform, "Storage").gameObject;
         //storageSlot = GetComponentArray<InventorySlot>(fieldStorage.transform);
@@ -57,11 +60,12 @@ public class StatusUi : MonoBehaviour
         fieldFarming = Helper.FindChild(this.transform, "Farming").gameObject;
         farminSlot = GetComponentArray<InventorySlot>(fieldFarming.transform);
 
+        var handSlotPos = Helper.FindChild(this.transform, "Equipped");
+        handSlot = GetComponentArray<HandSlot>(handSlotPos);
+
         var shopPos = Helper.FindChild(this.transform, "Shop");
         if (shopPos.TryGetComponent<ShopUi>(out var isShop)) fieldShop = isShop;
         else DebugHelper.ShowBugWindow($"{shopPos.name}에 스크립트가 있는 자식 오브젝트가 존재하지 않음");
-
-        Debug.Log(shop.transform.position);
     }
 
     private T[] GetComponentArray<T>(Transform _parent) where T : class
@@ -169,6 +173,13 @@ public class StatusUi : MonoBehaviour
         return false;
     }
 
+    public void ResetInventory()
+    {
+        for (int i = 0; i < inventorySlot.Length; i++)
+        {
+            inventorySlot[i].SetSlot(0);
+        }
+    }
 
     public void SetWeightText(int _weight)
     {

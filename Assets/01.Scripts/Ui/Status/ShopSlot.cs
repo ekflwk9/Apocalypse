@@ -42,6 +42,7 @@ public class ShopSlot : Slot, IPointerClickHandler, IPointerExitHandler
             //마우스만 움직이고 있을 경우 / 아이템이 존재할 경우에만
             if (drag.selectItemId == 0 && itemId != 0)
             {
+                //ItemManager.Instance.Inventory.GetItem();
                 UiManager.instance.touch.SetTouch(pos, true);
                 UiManager.instance.status.itemInfo.SetActive(pos.position, itemId);
             }

@@ -11,11 +11,11 @@ public class Fade : MonoBehaviour
     private void Reset()
     {
         if (this.TryGetComponent<Animator>(out var fadeAnim)) anim = fadeAnim;
-        else DebugHelper.ShowBugWindow($"{this.name}¿¡ Animator°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        else DebugHelper.ShowBugWindow($"{this.name}ì— Animatorê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
     }
 
     /// <summary>
-    /// ÆäÀÌµå ÀÎ => Äİ¹é ¸Ş¼­µå È£Ãâ & ½ºÇÇµå Á¶Àı
+    /// í˜ì´ë“œ ì¸ => ì½œë°± ë©”ì„œë“œ í˜¸ì¶œ & ìŠ¤í”¼ë“œ ì¡°ì ˆ
     /// </summary>
     /// <param name="_fadeFunc"></param>
     public void OnFede(Action _fadeFunc, float _fadeSpeed = 1f)
@@ -27,22 +27,23 @@ public class Fade : MonoBehaviour
     }
 
     /// <summary>
-    /// ÆäÀÌµå ¾Æ¿ô & ½ºÇÇµå Á¶Àı
+    /// í˜ì´ë“œ ì•„ì›ƒ & ìŠ¤í”¼ë“œ ì¡°ì ˆ
     /// </summary>
     public void OnFade(float _fadeSpeed = 1f)
     {
-        anim.SetFloat("Speed", _fadeSpeed);
+        activeSelf = false;
 
+        anim.Play("FadeOut", 0, 0);
+        anim.SetFloat("Speed", _fadeSpeed);
+    }
+
+    private void EndFade()
+    {
+        //ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ í˜¸ì¶œ ì „ìš© ë©”ì„œë“œ
         if (fadeFunc != null)
         {
             fadeFunc();
             fadeFunc = null;
         }
-    }
-
-    private void EndFade()
-    {
-        //¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ® È£Ãâ Àü¿ë ¸Ş¼­µå
-        activeSelf = false;
     }
 }

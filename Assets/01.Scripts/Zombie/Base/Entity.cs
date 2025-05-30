@@ -22,8 +22,6 @@ public class Entity : MonoBehaviour, IDamagable
     [SerializeField] Rigidbody[] ragdollRigidbodies;
 
 
-
-
     protected virtual void Reset()
     {
         gameObject.tag = TagHelper.Monster;
@@ -103,7 +101,7 @@ public class Entity : MonoBehaviour, IDamagable
         }
     }
 
-    public virtual void Detect()
+    protected virtual void Detect()
     {
         //오버랩 된넘들
         Collider[] targets = Physics.OverlapSphere(transform.position, baseStatus.DetectedRange, PlayerMask);
@@ -174,9 +172,14 @@ public class Entity : MonoBehaviour, IDamagable
         Gizmos.DrawRay(transform.position, transform.forward * baseStatus.DetectedRange);
     }
 
-    public virtual void Attack()
+    public virtual void Attack_1()
     {
         _entityAttack.Attack();
+    }
+
+    public virtual void Attack_2()
+    {
+
     }
 
 
@@ -195,7 +198,7 @@ public class Entity : MonoBehaviour, IDamagable
 
         baseStatus.CurrentHp -= damage;
 
-        if(baseStatus.IsQuater() == true)
+        if (baseStatus.IsQuater() == true)
         {
             _stateMachine.SetState(EntityEnum.Hurt);
             return;

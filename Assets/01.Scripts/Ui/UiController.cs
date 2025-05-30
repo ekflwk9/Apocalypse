@@ -16,7 +16,6 @@ public class UiController : MonoBehaviour
             UiManager.instance.shaderEffect.SetActive(!isActive);
             status.inventory.gameObject.SetActive(!isActive);
             status.equipped.SetActive(!isActive);
-            UiManager.instance.SetActive(!isActive);
 
             if (isActive)
             {
@@ -25,7 +24,9 @@ public class UiController : MonoBehaviour
 
                 status.drag.OnEndDrag();
                 status.itemInfo.SetOff();
+                
                 UiManager.instance.touch.SetTouch(false);
+                UiManager.instance.SetActive(false);
 
                 var farming = UiManager.instance.status.farming.gameObject;
 

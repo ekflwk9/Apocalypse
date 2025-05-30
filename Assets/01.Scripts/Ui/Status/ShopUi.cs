@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShopUi : MonoBehaviour
@@ -25,7 +26,7 @@ public class ShopUi : MonoBehaviour
 
         //인벤토리 위치 조정
         if(!_isActive) inventory.transform.position = new Vector3(960, 595, 0);
-        else inventory.transform.position = new Vector3(1230, 595, 0);
+        else inventory.transform.position = new Vector3(1230, 535, 0);
 
         this.gameObject.SetActive(_isActive);
         inventory.gameObject.SetActive(_isActive);
