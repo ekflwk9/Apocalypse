@@ -64,7 +64,7 @@ public class PlayerEquip : MonoBehaviour
     
     public void EquipItem(ItemInfo itemInfo)
     {
-        if(_unEquipCoroutine != null || _equipCoroutine != null) return;
+        //if(_unEquipCoroutine != null || _equipCoroutine != null) return;
         if (curWeaponPrefab == null)
         {
             EquipNew(itemInfo); // 아무 것도 장착되지 않았을 때
