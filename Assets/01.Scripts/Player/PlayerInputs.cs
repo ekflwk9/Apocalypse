@@ -147,4 +147,12 @@ public class PlayerInputs : MonoBehaviour
             }
         }
     }
+    
+    public void OnInteraction(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            _playerInteraction.InvokePickUp();
+        }
+    }
 }
