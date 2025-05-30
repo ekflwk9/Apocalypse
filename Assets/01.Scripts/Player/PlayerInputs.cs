@@ -33,11 +33,6 @@ public class PlayerInputs : MonoBehaviour
         _playerInteraction = GetComponentInChildren<PlayerInteraction>();
     }
 
-    private void Start()
-    {
-        SetCursorState(cursorLocked);
-    }
-
     private void Update()
     {
         if (Sprint)
@@ -49,6 +44,8 @@ public class PlayerInputs : MonoBehaviour
                 Sprint = false;
                 _canSprint = false;
             }
+            
+            UiManager.instance.play.stamina.SetSlider(_player.Stamina / 100f);
         }
         else if (!_canSprint && _player.Stamina > _player.maxStamina / 4f)
         {
@@ -151,26 +148,5 @@ public class PlayerInputs : MonoBehaviour
                     break;
             }
         }
-    }
-
-    public void OnInteraction(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started)
-        {
-            _playerInteraction.InvokePickUp();
-        }
-    }
-
-    public void ToggleMouseLock()
-    {
-        cursorLocked = !cursorLocked;
-        SetCursorState(cursorLocked);
-        _controller.AimLock = !cursorLocked;
-    }
-
-    //마우스 잠금처리
-    private void SetCursorState(bool newState)
-    {
-        Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
     }
 }
