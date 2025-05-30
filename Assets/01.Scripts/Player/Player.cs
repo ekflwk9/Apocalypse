@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Cinemachine;
 using UnityEngine;
@@ -11,9 +10,11 @@ public interface IDamagable
 public class Player : MonoBehaviour, IDamagable
 {
     public static Player Instance { get; private set; }
+    
     public PlayerEquip Equip;
     public CinemachineVirtualCamera cinemachineCamera;
-    
+    public CinemachineBasicMultiChannelPerlin perlin;
+
     [Header("State")]
     public float maxHealth = 100f;
     public float maxStamina = 100f;
@@ -32,22 +33,22 @@ public class Player : MonoBehaviour, IDamagable
     public float jumpStamina = 10f;
     public float staminaRegenCooldown = 5f;
     
-    private bool _staminaRegen;
-    private Coroutine _staminaRegenCoroutine;
-    
     [Header("Animations")]
-    [SerializeField] private Animator _animator;
-    private int _animIDDead;
-    private int _animIDDamage;
-
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private BoxCollider meleeCollider;
-    private bool _toggleMelee = false;
+    
+    [SerializeField] private Animator _animator;
+    private int _animIDDamage;
+    private int _animIDDead;
 
-    private bool _damaged = false;
-    public bool Damaged => _damaged;
-    private bool _dead = false;
-    public bool Dead => _dead;
+    private Coroutine _damagedCoroutine;
+    private Coroutine _staminaRegenCoroutine;
+    
+    private bool _staminaRegen;
+    private bool _toggleMelee;
+    public bool Damaged { get; private set; }
+
+    public bool Dead { get; private set; }
 
     public float Health
     {
@@ -58,9 +59,9 @@ public class Player : MonoBehaviour, IDamagable
 
             if (changedValue < _health)
             {
-                _damaged = true;
+                Damaged = true;
             }
-            
+
             _health = changedValue;
         }
     }
@@ -75,7 +76,9 @@ public class Player : MonoBehaviour, IDamagable
             if (changedValue < _stamina)
             {
                 if (_staminaRegenCoroutine != null)
+                {
                     StopCoroutine(_staminaRegenCoroutine);
+                }
 
                 _staminaRegenCoroutine = StartCoroutine(StaminaRegenDelay());
             }
@@ -86,80 +89,58 @@ public class Player : MonoBehaviour, IDamagable
 
     public int Gold
     {
-        get
-        {
-            return _gold;
-        }
+        get => _gold;
         private set
         {
-            if (value <= 0)
-            {
-                _gold = 0;
-            }
-            else
-            {
-                _gold = value;
-            }
+            if (value <= 0) { _gold = 0; }
+            else { _gold = value; }
         }
     }
 
     public int Level
     {
-        get
-        {
-            return _level;
-        }
+        get => _level;
         private set
         {
-            if (value <= 0)
-            {
-                _level = 0;
-            }
-            else
-            {
-                _level = value;
-            }
+            if (value <= 0) { _level = 0; }
+            else { _level = value; }
         }
     }
 
     public int Weight
     {
-        get
-        {
-            return _weight;
-        }
+        get => _weight;
         private set
         {
-            if (value <= 0)
-            {
-                _weight = 0;
-            }
-            else
-            {
-                _weight = value;
-            }
+            if (value <= 0) { _weight = 0; }
+            else { _weight = value; }
         }
     }
 
     public int MaxWeight => _maxWeight;
-    
-    private void Reset()
-    {
-        cinemachineCamera = FindObjectOfType<CinemachineVirtualCamera>();
-        _animator = GetComponent<Animator>();
-        _rigidbody = GetComponent<Rigidbody>();
-        Equip = GetComponentInChildren<PlayerEquip>();
-        meleeCollider = GetComponentInChildren<BoxCollider>();
-        meleeCollider.enabled = false;
-    }
 
     private void Awake()
     {
         //항상 구현하던 방식으로 구현하였기에 필요없다면 삭제.
         if (Instance == null)
+        {
             Instance = this;
+        }
         else
+        {
             Destroy(gameObject);
+        }
+    }
+
+    private void Reset()
+    {
+        cinemachineCamera = FindObjectOfType<CinemachineVirtualCamera>();
+        perlin = cinemachineCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        _animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody>();
+        Equip = GetComponentInChildren<PlayerEquip>();
+        meleeCollider = GetComponentInChildren<BoxCollider>();
+        meleeCollider.enabled = false;
     }
 
     private void Start()
@@ -183,6 +164,31 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
+    public void TakeDamage(float damage)
+    {
+        Health -= damage;
+
+        if (Health <= 0)
+        {
+            Dead = true;
+            _rigidbody.isKinematic = true;
+        }
+
+        DamageAnimation();
+
+        if (Dead)
+        {
+            return;
+        }
+
+        if (_damagedCoroutine != null)
+        {
+            StopCoroutine(_damagedCoroutine);
+        }
+
+        _damagedCoroutine = StartCoroutine(DamagedCoroutine());
+    }
+
     private IEnumerator StaminaRegenDelay()
     {
         _staminaRegen = false;
@@ -194,40 +200,21 @@ public class Player : MonoBehaviour, IDamagable
         _staminaRegenCoroutine = null;
     }
 
-    private Coroutine _damagedCoroutine;
-    
-    public void TakeDamage(float damage)
-    {
-        Health -= damage;
-        if (_damagedCoroutine != null)
-            StopCoroutine(_damagedCoroutine);
-        if (Health <= 0)
-        {
-            _dead = true;
-            _rigidbody.isKinematic = true;
-        }
-        DamageAnimation();
-        if(_dead) return;
-        _damagedCoroutine = StartCoroutine(DamagedCoroutine());
-    }
-    
     private void DamageAnimation()
     {
-        if (_dead)
+        if (Dead)
         {
-            _animator.SetBool(_animIDDead, _dead);
+            _animator.SetBool(_animIDDead, Dead);
         }
-        else if (_damaged)
+        else if (Damaged)
         {
             _animator.SetTrigger(_animIDDamage);
-            _damaged = false;
+            Damaged = false;
         }
     }
 
     private IEnumerator DamagedCoroutine()
     {
-        var perlin = cinemachineCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        
         perlin.m_FrequencyGain = 20f;
 
         yield return new WaitForSeconds(0.2f);
@@ -260,7 +247,7 @@ public class Player : MonoBehaviour, IDamagable
     {
         Weight += weight;
     }
-    
+
     public void ToggleMeleeCollider()
     {
         if (Equip.EquipMelee)
