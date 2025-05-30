@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db30cc7f06fb4fa5b80b0a53a5ea7c39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedData:
+  sharedAssetData:
     sprites:
       array: []
     audioClips:
@@ -318,11 +318,59 @@ MonoBehaviour:
     name: 
     releaseScene: 
     released: 0
-  sharedPackage: {fileID: 0}
-  packageLabel:
-    m_LabelString: Global
+  sharedPackage: {fileID: 11400000, guid: 59c95ae2c0bba2a438bfd6402b2cb321, type: 2}
+  bundleLabel:
+    m_LabelString: Bundle
   activeData:
     array: []
+--- !u!1 &569441280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 569441282}
+  - component: {fileID: 569441281}
+  m_Layer: 0
+  m_Name: Scene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &569441281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569441280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4a5749ca9484bdb8139ae4e291ef0ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUnloaded: 0
+  bundles:
+    array: []
+  preloadBundles: []
+--- !u!4 &569441282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569441280}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &822025830
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,3 +569,4 @@ SceneRoots:
   - {fileID: 822025834}
   - {fileID: 1368513682}
   - {fileID: 404130848}
+  - {fileID: 569441282}

@@ -13,7 +13,7 @@ public static class SoundManager
 
   static SoundManager()
   {
-    Mixer = Addressables.LoadAssetAsync<AudioMixer>(new AssetReference("AudioMixer")).WaitForCompletion();
+    Mixer = Addressables.LoadAssetAsync<AudioMixer>(new AssetLabelReference{labelString = "AudioMixer"}).WaitForCompletion();
 
     if (Mixer)
     {
