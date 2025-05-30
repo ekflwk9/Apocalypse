@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MusicVolume : MonoBehaviour
 {
-    private Slider slider;
+    [SerializeField] private Slider slider;
 
     private void Reset()
     {
@@ -15,6 +15,6 @@ public class MusicVolume : MonoBehaviour
 
     public void SetVoume()
     {
-        //slider.value; 
+        SoundManager.BackgroundVolume = slider.value;
     }
 }

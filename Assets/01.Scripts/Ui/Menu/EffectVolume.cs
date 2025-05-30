@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EffectVolume : MonoBehaviour
 {
-    private Slider slider;
+    [SerializeField] private Slider slider;
 
     private void Reset()
     {
@@ -15,6 +15,6 @@ public class EffectVolume : MonoBehaviour
 
     public void SetVoume()
     {
-        //slider.value; 
+        SoundManager.EffectVolume = slider.value;
     }
 }
