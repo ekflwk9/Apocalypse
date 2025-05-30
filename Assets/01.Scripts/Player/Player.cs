@@ -79,7 +79,7 @@ public class Player : MonoBehaviour, IDamagable
                 _health = value;
             }
             Debug.Log("값변화!");
-            UiManager.instance.play.health.SetSlider(_health / 100f);
+            UiManager.instance.play.health.SetSlider(value / 100f);
         }
     }
 

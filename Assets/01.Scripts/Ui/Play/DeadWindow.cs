@@ -12,7 +12,5 @@ public class DeadWindow : MonoBehaviour
         UiManager.instance.fade.OnFade();
 
         UiManager.instance.SetActive(true);
-        
-        this.gameObject.SetActive(false);
     }
 }
