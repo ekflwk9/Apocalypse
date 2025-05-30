@@ -14,7 +14,6 @@ public class PlayerInputs : MonoBehaviour
 	
 	private bool _aim;
     public bool Aim => _aim;
-    private bool _prevAim = false;
     
 	private bool _attack;
     public bool Attack => _attack;
@@ -57,21 +56,6 @@ public class PlayerInputs : MonoBehaviour
 		{
 			_canSprint = true;
 		}
-		
-		if (_attack)
-		{
-            switch (Player.Instance.Equip.curWeaponType)
-            {
-                case PlayerWeaponType.Melee:
-                    _controller.MeleeAttack();
-                    _attack = false;
-                    break;
-                case PlayerWeaponType.Ranged:
-                    _controller.RangedAttack();
-                    _attack = false;
-                    break;
-            }
-		}
 	}
 
 	public void OnMove(InputAction.CallbackContext context)
@@ -111,14 +95,26 @@ public class PlayerInputs : MonoBehaviour
 	
 	public void OnAttack(InputAction.CallbackContext context)
 	{
-		if (_aim)
-		{
-			_attack = context.ReadValueAsButton();
-		}
-		else
-		{
-			_attack = false;
-		}
+        if (context.phase == InputActionPhase.Started)
+        {
+            _attack = true;
+            
+            switch (Player.Instance.Equip.curWeaponType)
+            {
+                case PlayerWeaponType.Melee:
+                    _controller.MeleeAttack();
+                    _attack = false;
+                    break;
+                case PlayerWeaponType.Ranged:
+                    _controller.RangedAttack();
+                    _attack = false;
+                    break;
+                case PlayerWeaponType.Consumable:
+                    _controller.UseItem();
+                    _attack = false;
+                    break;
+            }
+        }
 	}
 	
 	public void OnNumberInput(InputAction.CallbackContext context)
@@ -132,28 +128,12 @@ public class PlayerInputs : MonoBehaviour
                 case 1:
                     var firstItem = ItemManager.Instance.Inventory.firstSlotItem;
                     if(firstItem == null) return;
-                    switch (firstItem.itemType)
-                    {
-                        case ItemType.Weapon:
-                            Player.Instance.Equip.EquipNew((WeaponInfo)ItemManager.Instance.itemDB[firstItem.itemId]);
-                            break;
-                        case ItemType.Consumable:
-                            ItemEffectManager.Instance.ItemEffect((ConsumableInfo)ItemManager.Instance.itemDB[firstItem.itemId]);
-                            break;
-                    }
+                    Player.Instance.Equip.EquipItem(ItemManager.Instance.itemDB[firstItem.itemId]);
                     break;
                 case 2:
                     var secondItem = ItemManager.Instance.Inventory.secondSlotItem;
                     if (secondItem == null) return;
-                    switch (secondItem.itemType)
-                    {
-                        case ItemType.Weapon:
-                            Player.Instance.Equip.EquipNew((WeaponInfo)ItemManager.Instance.itemDB[secondItem.itemId]);
-                            break;
-                        case ItemType.Consumable:
-                            ItemEffectManager.Instance.ItemEffect((ConsumableInfo)ItemManager.Instance.itemDB[secondItem.itemId]);
-                            break;
-                    }
+                    Player.Instance.Equip.EquipItem(ItemManager.Instance.itemDB[secondItem.itemId]);
                     break;
             }
         }
@@ -171,6 +151,7 @@ public class PlayerInputs : MonoBehaviour
     {
         cursorLocked = !cursorLocked;
         SetCursorState(cursorLocked);
+        _controller.LockPlayerInput = !cursorLocked;
     }
     
 	//마우스 잠금처리

@@ -34,8 +34,20 @@ public class Player : MonoBehaviour, IDamagable
     
     private bool _staminaRegen;
     private Coroutine _staminaRegenCoroutine;
+    
+    [Header("Animations")]
+    [SerializeField] private Animator _animator;
+    private int _animIDDead;
+    private int _animIDDamage;
 
-    public bool _damaged = false;
+    [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private BoxCollider meleeCollider;
+    private bool _toggleMelee = false;
+
+    private bool _damaged = false;
+    public bool Damaged => _damaged;
+    private bool _dead = false;
+    public bool Dead => _dead;
 
     public float Health
     {
@@ -133,7 +145,12 @@ public class Player : MonoBehaviour, IDamagable
     
     private void Reset()
     {
-        Equip = GetComponent<PlayerEquip>();
+        cinemachineCamera = FindObjectOfType<CinemachineVirtualCamera>();
+        _animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody>();
+        Equip = GetComponentInChildren<PlayerEquip>();
+        meleeCollider = GetComponentInChildren<BoxCollider>();
+        meleeCollider.enabled = false;
     }
 
     private void Awake()
@@ -149,6 +166,8 @@ public class Player : MonoBehaviour, IDamagable
     {
         Health = maxHealth;
         Stamina = maxStamina;
+        _animIDDamage = Animator.StringToHash("Damage");
+        _animIDDead = Animator.StringToHash("Dead");
     }
 
     private void Update()
@@ -182,7 +201,27 @@ public class Player : MonoBehaviour, IDamagable
         Health -= damage;
         if (_damagedCoroutine != null)
             StopCoroutine(_damagedCoroutine);
+        if (Health <= 0)
+        {
+            _dead = true;
+            _rigidbody.isKinematic = true;
+        }
+        DamageAnimation();
+        if(_dead) return;
         _damagedCoroutine = StartCoroutine(DamagedCoroutine());
+    }
+    
+    private void DamageAnimation()
+    {
+        if (_dead)
+        {
+            _animator.SetBool(_animIDDead, _dead);
+        }
+        else if (_damaged)
+        {
+            _animator.SetTrigger(_animIDDamage);
+            _damaged = false;
+        }
     }
 
     private IEnumerator DamagedCoroutine()
@@ -220,5 +259,14 @@ public class Player : MonoBehaviour, IDamagable
     public void SetWeight(int weight)
     {
         Weight += weight;
+    }
+    
+    public void ToggleMeleeCollider()
+    {
+        if (Equip.EquipMelee)
+        {
+            _toggleMelee = !_toggleMelee;
+            meleeCollider.enabled = _toggleMelee;
+        }
     }
 }

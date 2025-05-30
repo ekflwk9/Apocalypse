@@ -145,6 +145,13 @@ public class Entity : MonoBehaviour, IDamagable
         CoroutineManager.Instance.UnSetAllCoroutine(this);
     }
 
+    //IEnumerator Pooling()
+    //{
+    //    yield return CoroutineHelper.GetTime(5f);
+    //    //ObjectPool.Instance.Set(gameObject, gameObject); 
+    //}
+
+
     private void OnDrawGizmos()
     {
         if (baseStatus == null) return;

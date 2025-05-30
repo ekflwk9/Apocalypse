@@ -3,22 +3,31 @@ using UnityEngine.EventSystems;
 
 public class HandSlot : Slot
 {
+    [SerializeField] private bool isFirstSlot;
+
     public override bool SetSlot(int _itemId, int _itemCount)
     {
         count = _itemCount;
+
+        var playUi = UiManager.instance.play;
+
+        if (isFirstSlot) playUi.firstSlot.SetSlotView(_itemId, _itemCount);
+        else playUi.secondSlot.SetSlotView(_itemId, _itemCount);
 
         if (_itemId != 0 && _itemCount != 0)
         {
             var item = ItemManager.Instance.itemDB[_itemId];
             if (ItemType.Armor == item.itemType) return false;
 
-            //***********************아이템 등록...
+            //인벤토리 셋팅
+            ItemManager.Instance.SetItemSlot(_itemId, isFirstSlot);
 
             itemId = _itemId;
             icon.color = Color.white;
             icon.sprite = item.icon;
 
             if (_itemCount > 1) countText.text = count.ToString();
+            else countText.text = "";
         }
 
         else
@@ -32,11 +41,16 @@ public class HandSlot : Slot
 
     public override void SetSlot(int _itemCount)
     {
+        var playUi = UiManager.instance.play;
+
         count = _itemCount;
 
         if (_itemCount > 1)
         {
             countText.text = _itemCount.ToString();
+
+            if (isFirstSlot) playUi.firstSlot.SetSlotView(_itemCount);
+            else playUi.secondSlot.SetSlotView(_itemCount);
         }
 
         else
@@ -45,8 +59,10 @@ public class HandSlot : Slot
             countText.text = "";
             icon.color = Color.clear;
 
-            //주무기 검사 후 삭제
-            //ItemManager.Instance.Inventory.RemoveItem(itemId);
+            ItemManager.Instance.SetItemSlot(0, isFirstSlot);
+
+            if (isFirstSlot) playUi.firstSlot.SetSlotView();
+            else playUi.secondSlot.SetSlotView();
         }
     }
 

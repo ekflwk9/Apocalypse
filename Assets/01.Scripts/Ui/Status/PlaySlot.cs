@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,11 +10,12 @@ public class PlaySlot : MonoBehaviour
     private void Reset()
     {
         var iconPos = Helper.FindChild(this.transform, nameof(icon));
+        if (iconPos.TryGetComponent<Image>(out var isIcon)) icon = isIcon;
+        else DebugHelper.ShowBugWindow($"{this.name}에 Image가 존재하지 않음");
 
-        if (iconPos.TryGetComponent<TMP_Text>(out var isText)) countText = isText;
-        else DebugHelper.ShowBugWindow($"{this.name}에 가 존재하지 않음");
-
-
+        var countPos = Helper.FindChild(this.transform, nameof(countText));
+        if (countPos.TryGetComponent<TMP_Text>(out var isCount)) countText = isCount;
+        else DebugHelper.ShowBugWindow($"{this.name}에 TMP_Text가 존재하지 않음");
     }
 
     /// <summary>
@@ -27,10 +26,17 @@ public class PlaySlot : MonoBehaviour
     public void SetSlotView(int _itemId, int _count)
     {
         var item = ItemManager.Instance.itemDB[_itemId];
-
         icon.sprite = item.icon;
         icon.color = Color.white;
-        countText.text = _count.ToString();
+
+        if (_count > 1) countText.text = _count.ToString();
+        else countText.text = "";
+    }
+
+    public void SetSlotView(int _count)
+    {
+        if (_count > 1) countText.text = _count.ToString();
+        else countText.text = "";
     }
 
     /// <summary>
@@ -38,7 +44,7 @@ public class PlaySlot : MonoBehaviour
     /// </summary>
     /// <param name="_count"></param>
     public void SetSlotView()
-    { 
+    {
         countText.text = "";
         icon.color = Color.clear;
     }

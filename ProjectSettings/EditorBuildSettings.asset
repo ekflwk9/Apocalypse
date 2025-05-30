@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00.Scenes/Intro.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/00.Scenes/Loby.unity
+    guid: bb5b23e500199ba46a5c09aa5a255436
+  - enabled: 1
+    path: Assets/00.Scenes/Play.unity
+    guid: 9cd126f2465bd724b95e28f6093251a4
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: d85720e7c0b9d1241aca24a2736e30f6,
       type: 2}

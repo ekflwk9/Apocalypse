@@ -18,6 +18,7 @@ public class InventorySlot : Slot
             icon.sprite = item.icon;
 
             if (_itemCount > 1) countText.text = count.ToString();
+            else countText.text = "";
         }
 
         else

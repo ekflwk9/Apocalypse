@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Exit : UiButton
+public class NoExitButton : UiButton
 {
     public override void OnPointerClick(PointerEventData eventData)
     {
-
+        UiManager.instance.menu.exitWindow.SetActive(false);
+        touch.SetActive(false);
     }
 }

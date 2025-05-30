@@ -61,7 +61,7 @@ public class StatusUi : MonoBehaviour
         if (shopPos.TryGetComponent<ShopUi>(out var isShop)) fieldShop = isShop;
         else DebugHelper.ShowBugWindow($"{shopPos.name}에 스크립트가 있는 자식 오브젝트가 존재하지 않음");
 
-        Debug.Log(fieldFarming.transform.position);
+        Debug.Log(shop.transform.position);
     }
 
     private T[] GetComponentArray<T>(Transform _parent) where T : class
@@ -127,6 +127,48 @@ public class StatusUi : MonoBehaviour
 
         return false;
     }
+
+    public bool GetFarmingItem(int _itemId)
+    {
+        var item = ItemManager.Instance.itemDB[_itemId];
+
+        //중복 획득 가능한 아이템인가?
+        if (item.canStack)
+        {
+            for (int i = 0; i < farminSlot.Length; i++)
+            {
+                //슬롯에 아이템이 없을 경우
+                if (farminSlot[i].itemId == 0)
+                {
+                    farminSlot[i].SetSlot(_itemId, 1);
+                    return true;
+                }
+
+                //중복된 아이템이 있을 경우 / 최대 갯수를 넘지 않았을 경우
+                else if (farminSlot[i].itemId == _itemId && farminSlot[i].count < item.maxStack)
+                {
+                    farminSlot[i].SetSlot(farminSlot[i].count + 1);
+                    return true;
+                }
+            }
+        }
+
+        //불가능시
+        else
+        {
+            for (int i = 0; i < farminSlot.Length; i++)
+            {
+                if (farminSlot[i].itemId == 0)
+                {
+                    farminSlot[i].SetSlot(_itemId, 1);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 
     public void SetWeightText(int _weight)
     {
