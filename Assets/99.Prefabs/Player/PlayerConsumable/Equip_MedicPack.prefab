@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8599725866096941026}
   m_Layer: 10
   m_Name: Equip_MedicPack
-  m_TagString: Item
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,9 +100,9 @@ MonoBehaviour:
   _consumableData: {fileID: 11400000, guid: 63b8e73bd6c2f4a80ac8ae1f02cf0512, type: 2}
   type: 3
   equipPosition: {x: 0, y: 0, z: 0}
-  equipRotation: {x: 0, y: 0, z: 0}
-  handPosition: {x: 0, y: 0, z: 0}
-  handRotation: {x: 0, y: 0, z: 0}
+  equipRotation: {x: 90, y: 0, z: 0}
+  handPosition: {x: 0.16, y: -0.1, z: -0.05}
+  handRotation: {x: 0, y: 0, z: -20}
   bulletOrigin: {fileID: 0}
   bulletDirectionPoint: {fileID: 0}
   _range: 0

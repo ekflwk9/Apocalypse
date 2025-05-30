@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3361089720476702508}
   m_Layer: 10
   m_Name: Equip_Syringe
-  m_TagString: Item
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,9 +99,9 @@ MonoBehaviour:
   _weponData: {fileID: 0}
   _consumableData: {fileID: 11400000, guid: 13e2b17f608344815960435dbef465ec, type: 2}
   type: 3
-  equipPosition: {x: 0, y: 0, z: 0}
-  equipRotation: {x: 0, y: 0, z: 0}
-  handPosition: {x: 0, y: 0, z: 0}
+  equipPosition: {x: -0.16, y: 0.3, z: 0.125}
+  equipRotation: {x: 90, y: 0, z: 0}
+  handPosition: {x: 0.1, y: -0.05, z: 0.035}
   handRotation: {x: 0, y: 0, z: 0}
   bulletOrigin: {fileID: 0}
   bulletDirectionPoint: {fileID: 0}
