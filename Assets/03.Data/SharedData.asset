@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: SharedData
   m_EditorClassIdentifier: 
   assetReferences: []
-  assetLabelReferences: []
+  assetLabelReferences:
+  - m_LabelString: Item
