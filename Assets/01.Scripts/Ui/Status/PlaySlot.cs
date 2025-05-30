@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,10 +26,18 @@ public class PlaySlot : MonoBehaviour
     public void SetSlotView(int _itemId, int _count)
     {
         var item = ItemManager.Instance.itemDB[_itemId];
-
         icon.sprite = item.icon;
-        icon.color = Color.white;
-        countText.text = _count.ToString();
+
+        if (_count > 1)
+        {
+            icon.color = Color.white;
+            countText.text = _count.ToString();
+        }
+        else
+        {
+            icon.color = Color.white;
+            countText.text = _count.ToString();
+        }
     }
 
     /// <summary>
@@ -39,7 +45,7 @@ public class PlaySlot : MonoBehaviour
     /// </summary>
     /// <param name="_count"></param>
     public void SetSlotView()
-    { 
+    {
         countText.text = "";
         icon.color = Color.clear;
     }
