@@ -152,7 +152,7 @@ public class PlayerInputs : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            _playerInteraction.InvokePickUp();
+            _playerInteraction.Interaction();
         }
     }
 }
