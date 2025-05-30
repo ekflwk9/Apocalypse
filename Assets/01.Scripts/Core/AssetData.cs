@@ -147,6 +147,25 @@ public class AssetData
   }
 
   /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="key"></param>
+  /// <typeparam name="T"></typeparam>
+  /// <returns></returns>
+  public T GetAsset<T>(string key) where T : Object
+  {
+    if(TryGet(key, out T value)) return value;
+    throw new Exception($"AssetData does not contain {key}");
+  }
+  
+  public GameObject Instantiate(string key)
+  {
+    if(Prefabs.TryGetValue(key, out var prefab)) return Object.Instantiate(prefab);
+    
+    throw new Exception($"AssetData does not contain {key}");
+  }
+
+  /// <summary>
   /// 생성자를 감추기 위해 어쩔 수 없이 AssetData에 구현했습니다.
   /// </summary>
   /// <param name="package">불러올 데이터의 패키지입니다.</param>
@@ -158,11 +177,12 @@ public class AssetData
     if (force && ActiveData.TryGetValue(package.name, out var data)) data.Release();
     
     var loadedAssets = new List<Object>();
-
+    
+    // 현재 임시로 동기적으로 불러오게끔 구현해놨고, 이후 Task만 따로 분리하여 멀티스레드 로딩 구현이 필요합니다.
     // 에셋을 동기로 불러오고 null 아닐시 메모리에 올림
     foreach (var reference in package.assetReferences)
     {
-      var asset = await reference.LoadAssetAsync<Object>().Task;
+      var asset = reference.LoadAssetAsync<Object>().WaitForCompletion();
       
       if (asset != null)
         loadedAssets.Add(asset);
@@ -171,10 +191,10 @@ public class AssetData
     // 라벨 붙은 에셋들을 동기로 불러오고 null이 아닐시 메모리에 올림
     foreach (var label in package.assetLabelReferences)
     {
-      await Addressables.LoadAssetsAsync<Object>(label, obj =>
+      Addressables.LoadAssetsAsync<Object>(label, obj =>
       {
         if (obj != null) loadedAssets.Add(obj);
-      }).Task;
+      }).WaitForCompletion();
     }
 
     var result = new AssetData(loadedAssets, package.name, releaseScene);
@@ -205,4 +225,6 @@ public class AssetData
   /// 해당 인스턴스가 해제되었는지 확인하는 코드입니다.
   /// </summary>
   public static explicit operator bool(AssetData assetData) => !assetData.released;
+  
+  public static implicit operator SerializableDictionary<string, Object>(AssetData data) => data.AllAssets;
 }

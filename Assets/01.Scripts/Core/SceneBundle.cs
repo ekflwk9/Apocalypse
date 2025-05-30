@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class SceneBundle : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class SceneBundle : MonoBehaviour
   /// <summary>
   /// SceneBundle 로딩전 데이터 번들을 로딩하고 Preload가 호출되기 전 데이터를 할당합니다.
   /// </summary>
-  public SerializableDictionary<string, AssetData> bundles = null;
+  public SerializableDictionary<string, AssetData> bundles = new();
   
   /// <summary>
   /// 인스펙터에 설정해놨을 시 미리 로딩하는 에셋 번들입니다.
@@ -49,11 +50,7 @@ public class SceneBundle : MonoBehaviour
     var bundle = bundleObject.AddComponent<T>();
     bundle.loadByLoader = true;
     bundle.bundles = dataBundles;
-
-    var loader = bundle.OnScenePreLoad(dataBundles);
-
-    for (var i = 0; i < 100; i++)
-      if (!loader.MoveNext()) break;
+    bundle.OnScenePreLoad(dataBundles);
 
     CurrentBundle = bundle;
     
@@ -100,15 +97,16 @@ public class SceneBundle : MonoBehaviour
   /// <summary>
   /// 씬 번들을 불러오기 전 DataBundle 등 에셋들을 비동기로 불러오는 용도
   /// </summary>
-  protected virtual IEnumerator OnScenePreLoad(SerializableDictionary<string, AssetData> loadedAssets)
+  protected virtual void OnScenePreLoad(SerializableDictionary<string, AssetData> loadedAssets)
   {
-    yield return null;
   }
-  
+
   /// <summary>
   /// PreLoad가 끝났을 시 호출되는 메소드
   /// </summary>
-  protected virtual void OnSceneStart(){}
+  protected virtual void OnSceneStart()
+  {
+  }
 
   /// <summary>
   /// SceneBundle이 언로드될 떄 호출되는 메소드
@@ -124,6 +122,38 @@ public class SceneBundle : MonoBehaviour
     }
   }
   
+  public T GetAsset<T>(string bundleName ,string key) where T : Object
+  {
+      if (bundles.TryGetValue(bundleName, out var bundle))
+      {
+          T asset = bundle.GetAsset<T>(key);
+          return asset;
+      } 
+      else
+      {
+          Debug.LogError($"Bundle {bundleName} does not exist");
+          return null;
+      }
+  }
+
+  public GameObject Instantiate(string bundleName, string key)
+  {
+      var asset = GetAsset<GameObject>(bundleName, key);
+      return Instantiate(asset);
+  }
+
+  public T GetAsset<T>(string key) where T : Object
+  {
+      T asset = ContentManager.GetAsset<T>(key);
+      return asset;
+  }
+
+  public GameObject Instantiate(string key)
+  {
+      var asset = GetAsset<GameObject>(key);
+      return Instantiate(asset);
+  }
+  
   #endregion Interface
   
   #region Unity Event
@@ -136,10 +166,7 @@ public class SceneBundle : MonoBehaviour
 
     if (!loadByLoader)
     {
-      var loader = OnScenePreLoad(bundles);
-
-      for (var i = 0; i < 100; i++)
-        if (!loader.MoveNext()) break;
+      OnScenePreLoad(bundles);
     
       OnSceneStart();
     }

@@ -13,15 +13,15 @@ public class ItemHandler : MonoBehaviour
     {
         if (UiManager.instance.status.GetItem(itemInfo.itemId))
         {
-            ItemManager.Instance.Inventory.GetItem(itemInfo);
-            this.gameObject.SetActive(false);
+            ItemManager.Instance.Inventory.GetItem(itemInfo);   // 이거를 하면 아이템이 들어오나요?
+            ObjectPool.Instance.Set(itemInfo.itemPrefab, this.gameObject);
         }
         // 이후 주울 수 있는지 else문 작성해야함
     }
 
     public void DropItem()
     {
-        this.transform.position = PlayerTransform.position;
-        this.gameObject.SetActive(true);
+        GameObject gameObject = ObjectPool.Instance.Get(itemInfo.itemPrefab);
+        gameObject.transform.position = PlayerTransform.position;
     }
 }

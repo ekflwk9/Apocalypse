@@ -2,17 +2,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Serialization;
 
 public sealed class ContentManager : MonoBehaviour
 {
   public static ContentManager Instance { get; private set; }
+  private static bool loaded = false;
+  public static bool Loaded => loaded;
   
   /// <summary>
   ///   게임중 상시 메모리에 올라가있는 데이터
   /// </summary>
-  [FormerlySerializedAs("sharedData")] [SerializeField] private AssetData sharedAssetData;
-  public AssetData SharedAssetData => sharedAssetData;
+  [SerializeField] private AssetData sharedAssetData;
+  public static AssetData SharedAssetData => Instance.sharedAssetData;
   
   // 프로젝트에서 영구적으로 메모리상에 올려둘 에셋 목록
   public AssetBundle sharedPackage;
@@ -36,6 +37,29 @@ public sealed class ContentManager : MonoBehaviour
       sharedAssetData = sharedPackage.LoadSync();
     }
   }
+
+  #region Utils
+
+  public static T GetAsset<T>(string key) where T : Object
+  {
+    if (Instance && Instance.sharedAssetData != null)
+    {
+      return Instance.sharedAssetData.GetAsset<T>(key);
+    }
+    
+    throw new System.Exception("AssetData is null");
+  }
+
+  public static GameObject Instantiate(string key)
+  {
+    if (Instance && Instance.sharedAssetData != null)
+    {
+      return Instantiate(SharedAssetData.Prefabs[key]);
+    }
+    throw new System.Exception("AssetData is null");
+  }
+  
+  #endregion
 
   #region BundleLoader
   /// <summary>
@@ -129,6 +153,8 @@ public sealed class ContentManager : MonoBehaviour
   {
     if (Instance == null)
     {
+      Load();
+      loaded = true;
       Instance = this;
       DontDestroyOnLoad(gameObject);
     }
@@ -141,7 +167,6 @@ public sealed class ContentManager : MonoBehaviour
   private void Start()
   {
     // ui 시작 및 로딩 중 표시
-    Load();
     // 다음 씬 넘어갈 수 있게 ui 표시
   }
 

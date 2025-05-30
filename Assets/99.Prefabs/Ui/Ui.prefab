@@ -7546,7 +7546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.68235296}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.92941177}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14852,8 +14852,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 27
+  m_fontSizeBase: 27
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -25413,6 +25413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8682c91dcb94fd64b941b04a32bb8b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 2635215881367415338}
 --- !u!1 &5144818261916389864
 GameObject:
   m_ObjectHideFlags: 0
@@ -27976,8 +27977,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 23
+  m_fontSizeBase: 23
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -32012,6 +32013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b490c1c59e056a45964266270e19c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 4488033434785247343}
 --- !u!1 &6382448287518414584
 GameObject:
   m_ObjectHideFlags: 0
@@ -40892,9 +40894,9 @@ RectTransform:
   m_Children:
   - {fileID: 5970409106386468953}
   - {fileID: 4167922498970654420}
+  - {fileID: 3158169480418262203}
   - {fileID: 4820955423210210076}
   - {fileID: 8486146023340808616}
-  - {fileID: 3158169480418262203}
   - {fileID: 2871090113778791482}
   - {fileID: 3367876538701841413}
   m_Father: {fileID: 0}
@@ -41318,8 +41320,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 23
+  m_fontSizeBase: 23
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -43930,7 +43932,7 @@ MonoBehaviour:
   icon: {fileID: 5570316760074496104}
   pos: {fileID: 6425276927911653286}
   countText: {fileID: 6401405818766967174}
-  isFirstSlot: 0
+  isFirstSlot: 1
 --- !u!1 &9015459392127686663
 GameObject:
   m_ObjectHideFlags: 0
