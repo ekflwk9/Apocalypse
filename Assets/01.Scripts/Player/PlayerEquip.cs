@@ -197,7 +197,7 @@ public class PlayerEquip : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Monster")) return;
+        if (!other.gameObject.CompareTag("Monster")) return;
         IDamagable damagable;
         bool isEnemy = other.TryGetComponent(out damagable);
         if (!isEnemy)
