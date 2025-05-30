@@ -1967,8 +1967,8 @@ GameObject:
   - component: {fileID: 4572112671424083456}
   - component: {fileID: 6430119668536581310}
   - component: {fileID: 1049493359991375101}
-  - component: {fileID: 4034660285284717347}
   - component: {fileID: 2619086677742172206}
+  - component: {fileID: 4034660285284717347}
   - component: {fileID: 5157845957053353862}
   - component: {fileID: 4099686563972156944}
   - component: {fileID: 6411524504848633419}
@@ -2078,6 +2078,36 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2619086677742172206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5154321037587491104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae3f0c9e6337db47a2ec3bd917b290d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Equip: {fileID: 7892442242621538457}
+  cinemachineCamera: {fileID: 4578292436875945681}
+  perlin: {fileID: 3097021339242296715}
+  maxHealth: 100
+  maxStamina: 100
+  _health: 0
+  _stamina: 0
+  _gold: 0
+  _level: 0
+  _weight: 0
+  _maxWeight: 50
+  passiveStamina: 5
+  sprintStamina: 5
+  jumpStamina: 10
+  staminaRegenCooldown: 5
+  _animator: {fileID: 1049493359991375101}
+  _rigidbody: {fileID: 4572112671424083456}
+  meleeCollider: {fileID: 8935578888701288370}
 --- !u!114 &4034660285284717347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2253,35 +2283,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &2619086677742172206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5154321037587491104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ae3f0c9e6337db47a2ec3bd917b290d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Equip: {fileID: 7892442242621538457}
-  cinemachineCamera: {fileID: 4578292436875945681}
-  maxHealth: 100
-  maxStamina: 100
-  _health: 0
-  _stamina: 0
-  _gold: 0
-  _level: 0
-  _weight: 0
-  _maxWeight: 50
-  passiveStamina: 5
-  sprintStamina: 5
-  jumpStamina: 10
-  staminaRegenCooldown: 5
-  _animator: {fileID: 1049493359991375101}
-  _rigidbody: {fileID: 4572112671424083456}
-  meleeCollider: {fileID: 8935578888701288370}
 --- !u!114 &5157845957053353862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2298,7 +2299,7 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   analogMovement: 0
   cursorLocked: 1
-  _player: {fileID: 0}
+  _player: {fileID: 2619086677742172206}
   _controller: {fileID: 4099686563972156944}
   _playerInteraction: {fileID: 6778714753677613108}
 --- !u!114 &4099686563972156944
@@ -2316,7 +2317,7 @@ MonoBehaviour:
   MoveSpeed: 10
   SprintSpeed: 30
   mouseSesitive: 5
-  RotationSmoothTime: 0.12
+  RotationSmoothTime: 0.1
   SpeedChangeRate: 10
   JumpHeight: 4
   JumpTimeout: 0.5
@@ -2332,16 +2333,15 @@ MonoBehaviour:
   Follow: {fileID: 7978530198017752111}
   TPSCamPosition: {x: 1, y: 0, z: 0}
   AimCamPosition: {x: 2.5, y: -0.3, z: 2.5}
+  TPSDamping: 0.5
+  aimDamping: 0
   TopClamp: 70
   BottomClamp: -30
-  CameraAngleOverride: 0
-  LockCameraPosition: 0
-  LockPlayerInput: 0
+  AimLock: 0
   _playerInput: {fileID: 4034660285284717347}
-  _animator: {fileID: 1049493359991375101}
   _input: {fileID: 5157845957053353862}
   _mainCamera: {fileID: 1600541686208233550}
-  _hasAnimator: 1
+  _animator: {fileID: 1049493359991375101}
   _rigidbody: {fileID: 4572112671424083456}
 --- !u!114 &6411524504848633419
 MonoBehaviour:
@@ -3214,7 +3214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7586674193230038013}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.16640446, y: -0.021420732, z: 0.0036157835, w: 0.98581827}
   m_LocalPosition: {x: 0.20000005, y: 1.6, z: -4.5999994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
