@@ -329,7 +329,7 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void AimSwitch(bool isAimed)
     {
-        if (Player.Instance.Equip.curWeapon == null) return;
+        if (Player.Instance.Equip.curWeaponPrefab == null) return;
         LockCameraPosition = isAimed;
         Vector3 targetOffset = isAimed ? AimCamPosition : TPSCamPosition;
         if (isAimed)
