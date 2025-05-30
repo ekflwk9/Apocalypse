@@ -19,24 +19,22 @@ public class PlayerEquip : MonoBehaviour
     [SerializeField] private Transform equipPivot;
     [SerializeField] private Transform weaponPivot;
     
-    public BoxCollider meleeCollider;
-    
     [SerializeField] private Animator _animator;
     private int _animIDEquip;
     private int _animIDEquipMelee;
     private int _animIDEquipRanged;
     private int _animIDEquipItem;
     private int _animIDUnEquip;
+    
     private bool _equipMelee;
+    public bool EquipMelee => _equipMelee;
     private bool _equipRanged;
     private bool _equipItem;
     private bool _isWeaponOnHand = false;
-    [SerializeField] private bool _toggleMelee = false;
 
     private void Start()
     {
         AssignAnimationIDs();
-        meleeCollider.enabled = false;
         
         weaponPrefabs = new Dictionary<ItemInfo, GameObject>();
         
@@ -112,6 +110,7 @@ public class PlayerEquip : MonoBehaviour
         curWeaponType = weaponInfo != null ? weaponType : consumableType;
         curWeaponPrefab = equip;
         curWeaponData = equipData;
+        curEquip = data;
         
         _equipMelee = weaponType == PlayerWeaponType.Melee;
         _equipRanged = weaponType == PlayerWeaponType.Ranged;
@@ -194,15 +193,6 @@ public class PlayerEquip : MonoBehaviour
         // 현재 재생 중인 상태로 바뀔 때까지 대기
         while (!_animator.GetCurrentAnimatorStateInfo(upperBodyLayer).IsName(stateName))
             yield return null;
-    }
-    
-    public void ToggleMeleeCollider()
-    {
-        if (_equipMelee)
-        {
-            _toggleMelee = !_toggleMelee;
-            meleeCollider.enabled = _toggleMelee;
-        }
     }
     
     private void OnTriggerEnter(Collider other)
