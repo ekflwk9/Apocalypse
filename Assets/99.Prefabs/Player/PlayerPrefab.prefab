@@ -2413,9 +2413,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7dbc81b40bf544759ea139842d45450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSlotItem: {fileID: 11400000, guid: 63b8e73bd6c2f4a80ac8ae1f02cf0512, type: 2}
-  secondSlotItem: {fileID: 11400000, guid: 2baafeec75f954fd68251fd0cea2d518, type: 2}
-  defense: 0
+  firstSlotItem: {fileID: 0}
+  secondSlotItem: {fileID: 0}
+  currentArmor:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   items: []
 --- !u!1 &5353754830572176258
 GameObject:
