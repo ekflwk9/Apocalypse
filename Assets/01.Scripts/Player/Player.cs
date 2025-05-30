@@ -1,6 +1,7 @@
 using System.Collections;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public interface IDamagable
 {
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour, IDamagable
     public PlayerEquip Equip;
     public CinemachineVirtualCamera cinemachineCamera;
     public CinemachineBasicMultiChannelPerlin perlin;
+    private PlayerInput playerInput;
 
     [Header("State")]
     public float maxHealth = 100f;
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour, IDamagable
 
     [SerializeField] private float _health;
     [SerializeField] private float _stamina;
+    [SerializeField] private int _defence;
     [SerializeField] private int _gold;
     [SerializeField] private int _level;
     [SerializeField] private int _weight;
@@ -59,10 +62,24 @@ public class Player : MonoBehaviour, IDamagable
 
             if (changedValue < _health)
             {
-                Damaged = true;
+                if (Defence > 0)
+                {
+                    //인벤토리 코드 추가**********************************************************************
+                    Defence -= (int)(_health - changedValue);
+                    //UiManager.instance.play.
+                }
+                else
+                {
+                    Damaged = true;
+                    _health = changedValue;
+                }
             }
-
-            _health = changedValue;
+            else
+            {
+                _health = value;
+            }
+            
+            UiManager.instance.play.health.SetSlider(value / 100f);
         }
     }
 
@@ -84,9 +101,23 @@ public class Player : MonoBehaviour, IDamagable
             }
 
             _stamina = changedValue;
+            
+            UiManager.instance.play.stamina.SetSlider(value / 100f);
         }
     }
 
+    public int Defence
+    {
+        get
+        {
+            return _defence;
+        }
+        private set
+        {
+            _defence = value;
+            //디펜스 처리 메서드 처리해야함 ***************************************************************************
+        }
+    }
     public int Gold
     {
         get => _gold;
@@ -141,6 +172,7 @@ public class Player : MonoBehaviour, IDamagable
         Equip = GetComponentInChildren<PlayerEquip>();
         meleeCollider = GetComponentInChildren<BoxCollider>();
         meleeCollider.enabled = false;
+        playerInput = GetComponent<PlayerInput>();
     }
 
     private void Start()
@@ -166,20 +198,19 @@ public class Player : MonoBehaviour, IDamagable
 
     public void TakeDamage(float damage)
     {
+        if (Dead) return;
+        
         Health -= damage;
 
         if (Health <= 0)
         {
             Dead = true;
             _rigidbody.isKinematic = true;
+            
+            UiManager.instance.dead.gameObject.SetActive(true);
         }
 
         DamageAnimation();
-
-        if (Dead)
-        {
-            return;
-        }
 
         if (_damagedCoroutine != null)
         {
@@ -224,13 +255,17 @@ public class Player : MonoBehaviour, IDamagable
 
     public void Heal(float heal)
     {
-        float changedHealth = Health + heal;
-        Health = Mathf.Lerp(Health, changedHealth, 3f);
+        Health += heal;
     }
 
     public void SetStamina(float stamina)
     {
         Stamina += stamina;
+    }
+
+    public void SetDefence(int defence)
+    {
+        Defence += defence;
     }
 
     public void SetGold(int money)

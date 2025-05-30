@@ -33,6 +33,7 @@ public class StatusUi : MonoBehaviour
     [SerializeField] private InventorySlot[] inventorySlot;
     [SerializeField] private InventorySlot[] farminSlot;
     [SerializeField] private EquippedSlot[] equippedSlot;
+    [SerializeField] private HandSlot[] handSlot;
     //[SerializeField] private InventorySlot[] storageSlot;
 
     private void Reset()
@@ -58,6 +59,9 @@ public class StatusUi : MonoBehaviour
 
         fieldFarming = Helper.FindChild(this.transform, "Farming").gameObject;
         farminSlot = GetComponentArray<InventorySlot>(fieldFarming.transform);
+
+        var handSlotPos = Helper.FindChild(this.transform, "Equipped");
+        handSlot = GetComponentArray<HandSlot>(handSlotPos);
 
         var shopPos = Helper.FindChild(this.transform, "Shop");
         if (shopPos.TryGetComponent<ShopUi>(out var isShop)) fieldShop = isShop;
