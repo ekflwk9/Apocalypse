@@ -6,6 +6,7 @@ public class Inventory : MonoBehaviour
 {
     public ItemInfo firstSlotItem;
     public ItemInfo secondSlotItem;
+    public int defense;
     public List<ItemInfo> items = new List<ItemInfo>(); // 인벤토리
 
     public void GetItem(ItemInfo item) // 아이템 추가시 호출
