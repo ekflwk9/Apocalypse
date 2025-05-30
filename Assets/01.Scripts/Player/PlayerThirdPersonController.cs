@@ -329,7 +329,6 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void AimSwitch(bool isAimed)
     {
-        if (Player.Instance.Equip.curWeaponPrefab == null) return;
         LockCameraPosition = isAimed;
         Vector3 targetOffset = isAimed ? AimCamPosition : TPSCamPosition;
         if (isAimed)
@@ -362,6 +361,11 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private IEnumerator ZoomIn(Vector3 targetOffset)
     {
+        if (Follow.ShoulderOffset == targetOffset)
+        {
+            _zoomInCoroutine = null;
+            yield return null;
+        }
         Vector3 startOffset = Follow.ShoulderOffset;
         float elapsedTime = 0f;
         float duration = 0.3f;
@@ -383,6 +387,11 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private IEnumerator ZoomOut(Vector3 targetOffset)
     {
+        if (Follow.ShoulderOffset == targetOffset)
+        {
+            _zoomOutCoroutine = null;
+            yield return null;
+        }
         Vector3 startOffset = Follow.ShoulderOffset;
         float elapsedTime = 0f;
         float duration = 0.3f;

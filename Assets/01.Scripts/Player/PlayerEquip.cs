@@ -112,6 +112,7 @@ public class PlayerEquip : MonoBehaviour
         curWeaponType = weaponInfo != null ? weaponType : consumableType;
         curWeaponPrefab = equip;
         curWeaponData = equipData;
+        curEquip = data;
         
         _equipMelee = weaponType == PlayerWeaponType.Melee;
         _equipRanged = weaponType == PlayerWeaponType.Ranged;
