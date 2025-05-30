@@ -32,8 +32,8 @@ public class StatusUi : MonoBehaviour
 
     [SerializeField] private InventorySlot[] inventorySlot;
     [SerializeField] private InventorySlot[] farminSlot;
+    [SerializeField] private EquippedSlot[] equippedSlot;
     //[SerializeField] private InventorySlot[] storageSlot;
-    //[SerializeField] private EquippedSlot[] equippedSlot;
 
     private void Reset()
     {
