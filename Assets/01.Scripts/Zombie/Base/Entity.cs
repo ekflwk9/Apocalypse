@@ -92,7 +92,7 @@ public class Entity : MonoBehaviour, IDamagable
         SetRagdollActive(false);
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
         _stateMachine.Update();
         if (_stateMachine.GetState() == EntityEnum.Idle || _stateMachine.GetState() == EntityEnum.Walk)
