@@ -11,6 +11,7 @@ public class PlayAgain : UiButton
         var isActive = menu.menuWindow.activeSelf;
 
         menu.menuWindow.SetActive(!isActive);
+        UiManager.instance.SetActive(!isActive);
 
         if (!UiManager.instance.status.inventory.gameObject.activeSelf)
         {
