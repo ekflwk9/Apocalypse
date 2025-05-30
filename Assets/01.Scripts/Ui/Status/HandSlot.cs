@@ -41,11 +41,16 @@ public class HandSlot : Slot
 
     public override void SetSlot(int _itemCount)
     {
+        var playUi = UiManager.instance.play;
+
         count = _itemCount;
 
         if (_itemCount > 1)
         {
             countText.text = _itemCount.ToString();
+
+            if (isFirstSlot) playUi.firstSlot.SetSlotView(_itemCount);
+            else playUi.secondSlot.SetSlotView(_itemCount);
         }
 
         else
@@ -55,6 +60,9 @@ public class HandSlot : Slot
             icon.color = Color.clear;
 
             ItemManager.Instance.SetItemSlot(0, isFirstSlot);
+
+            if (isFirstSlot) playUi.firstSlot.SetSlotView();
+            else playUi.secondSlot.SetSlotView();
         }
     }
 
