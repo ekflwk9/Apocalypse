@@ -45,6 +45,15 @@ public abstract class EntityState
         StateMachine = _StateMachine;
     }
 
+    protected void SetDirection()
+    {
+        Vector3 entityPos = entity.transform.position;
+        Vector3 playerPos = Player.Instance.transform.position;
+        Vector3 directionPlayer = (playerPos - entityPos).normalized;
+        Quaternion LookDirection = Quaternion.LookRotation(directionPlayer);
+        entity.transform.rotation = LookDirection;
+    }
+
     public void SetAnimation(int _HashAnim)
     {
         HashAnim = _HashAnim;

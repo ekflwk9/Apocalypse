@@ -6,7 +6,6 @@ using static UnityEditor.VersionControl.Asset;
 using static UnityEngine.EventSystems.EventTrigger;
 
 
-
 public class IdleState : EntityState
 {
     public override void SetOwner(Entity _Entity, EntityStateMachine _StateMachine)
@@ -222,12 +221,8 @@ public class AttackState : EntityState
         }
         if (IsAnimationEnd(1) == true)
         {
-            Vector3 playerPos = Player.Instance.transform.position;
-            Vector3 entityPos = entity.transform.position;
-            Vector3 directionPlayer = (playerPos - entityPos).normalized;
-            Quaternion LookDirection = Quaternion.LookRotation(directionPlayer);
-            entity.transform.rotation = LookDirection;
-
+            SetDirection();
+            
             if (Random.Range(0, 2) == 0)
             {
                 SetAnimation(AnimHash.AttackHash_1);

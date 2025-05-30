@@ -13,8 +13,8 @@ public class NoiseAttackState : EntityState
 
     public override void Enter()
     {
+        SetDirection();
         SetAnimationForce(AnimHash.YellingHash);
-        entity.Attack();
         entity._NavMeshAgent.ResetPath();
     }
     public override void Update()

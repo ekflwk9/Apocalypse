@@ -49,12 +49,12 @@ public class NoiseZombie : Entity
         _stateMachine.SetState(EntityEnum.Idle);
     }
 
-    public override void Attack()
+    public override void Attack_2()
     {
         _zombieHearingComponent.OnSound(10);
     }
 
-    public override void Detect()
+    protected override void Detect()
     {
         //오버랩 된넘들
         Collider[] targets = Physics.OverlapSphere(transform.position, baseStatus.DetectedRange, PlayerMask);
