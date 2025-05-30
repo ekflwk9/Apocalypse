@@ -21,7 +21,6 @@ public class PlayerEquip : MonoBehaviour
     
     public BoxCollider meleeCollider;
     
-    [SerializeField] private PlayerInputs _input;
     [SerializeField] private Animator _animator;
     private int _animIDEquip;
     private int _animIDEquipMelee;
@@ -67,6 +66,7 @@ public class PlayerEquip : MonoBehaviour
     
     public void EquipItem(ItemInfo itemInfo)
     {
+        if(_unEquipCoroutine != null || _equipCoroutine != null) return;
         if (curWeaponPrefab == null)
         {
             EquipNew(itemInfo); // 아무 것도 장착되지 않았을 때
@@ -81,8 +81,11 @@ public class PlayerEquip : MonoBehaviour
 
         Swap(itemInfo); // 다른 아이템이면 스왑
     }
-
-    public void EquipNew(ItemInfo data)
+    
+    private Coroutine _equipCoroutine;
+    private Coroutine _unEquipCoroutine;
+    
+    private void EquipNew(ItemInfo data)
     {
         if (!weaponPrefabs.TryGetValue(data, out GameObject equip))
         {
@@ -118,8 +121,8 @@ public class PlayerEquip : MonoBehaviour
         curWeaponPrefab.SetActive(true);
 
         UpdateAnimationBools();
-
-        StartCoroutine(WaitForEquip(curWeaponPrefab, curWeaponData));
+        
+        _equipCoroutine = StartCoroutine(WaitForEquip(curWeaponPrefab, curWeaponData));
     }
 
     private IEnumerator WaitForEquip(GameObject obj, PlayerWeapon data)
@@ -127,6 +130,7 @@ public class PlayerEquip : MonoBehaviour
         _animator.SetBool(_animIDEquip, _equipMelee || _equipRanged || _equipItem);
         yield return WaitUntilAnimationEnd("Equip");
         ToggleWeaponLocation(obj, data);
+        _equipCoroutine = null;
     }
     
     public void UnEquip()
@@ -134,7 +138,7 @@ public class PlayerEquip : MonoBehaviour
         GameObject weaponToUnEquip = curWeaponPrefab;
         PlayerWeapon weaponDataToUnEquip = curWeaponData;
         _animator.SetTrigger(_animIDUnEquip);
-        StartCoroutine(WaitForUnEquip(weaponToUnEquip, weaponDataToUnEquip)); 
+        _unEquipCoroutine = StartCoroutine(WaitForUnEquip(weaponToUnEquip, weaponDataToUnEquip)); 
         
         curWeaponPrefab = null;
         curWeaponData = null;
@@ -157,6 +161,7 @@ public class PlayerEquip : MonoBehaviour
         {
             obj.SetActive(false);
         }
+        _unEquipCoroutine = null;
     }
 
     private void Swap(ItemInfo data)
