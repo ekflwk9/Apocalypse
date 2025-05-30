@@ -6,6 +6,9 @@ public class UiManager : MonoBehaviour
 
     public bool isActive { get; private set; }
 
+    public DeadWindow dead { get => fieldDead; }
+    [SerializeField] private DeadWindow fieldDead;
+
     public GameObject hitUi { get => fieldHitUi; }
     [SerializeField] private GameObject fieldHitUi;
 
@@ -38,6 +41,9 @@ public class UiManager : MonoBehaviour
         else DebugHelper.Log($"{this.name}에 MenuUi가 존재하지 않음");
 
         fieldHitUi = Helper.FindChild(this.transform, "HitVolume").gameObject;
+
+        fieldDead = this.GetComponentInChildren<DeadWindow>(true);
+        if (fieldDead == null) DebugHelper.Log($"{this.name}에 DeadWindow스크립트가 있는 자식 오브젝트가 존재하지 않음");
 
         fieldStatus = this.GetComponentInChildren<StatusUi>(true);
         if (fieldStatus == null) DebugHelper.Log($"{this.name}에 StatusUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
