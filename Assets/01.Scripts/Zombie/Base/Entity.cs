@@ -16,15 +16,13 @@ public class Entity : MonoBehaviour, IDamagable
     public BaseStatus baseStatus;
     public NavMeshAgent _NavMeshAgent;
     public Animator _animator;
-    [SerializeField] LayerMask PlayerMask;
+    [SerializeField] protected LayerMask PlayerMask;
 
     [SerializeField] Collider[] ragdollColliders;
     [SerializeField] Rigidbody[] ragdollRigidbodies;
 
 
-
-
-    protected void Reset()
+    protected virtual void Reset()
     {
         gameObject.tag = TagHelper.Monster;
 
@@ -103,7 +101,7 @@ public class Entity : MonoBehaviour, IDamagable
         }
     }
 
-    void Detect()
+    protected virtual void Detect()
     {
         //오버랩 된넘들
         Collider[] targets = Physics.OverlapSphere(transform.position, baseStatus.DetectedRange, PlayerMask);
@@ -193,7 +191,7 @@ public class Entity : MonoBehaviour, IDamagable
 
         baseStatus.CurrentHp -= damage;
 
-        if(baseStatus.IsQuater() == true)
+        if (baseStatus.IsQuater() == true)
         {
             _stateMachine.SetState(EntityEnum.Hurt);
             return;
