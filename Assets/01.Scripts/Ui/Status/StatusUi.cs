@@ -5,7 +5,6 @@ using UnityEngine;
 public class StatusUi : MonoBehaviour
 {
 
-
     public TMP_Text weightText { get => fieldWeightText; }
     [SerializeField] private TMP_Text fieldWeightText;
 
