@@ -3562,8 +3562,8 @@ Transform:
   - {fileID: 4040371701227179485}
   - {fileID: 8963533950750739505}
   - {fileID: 3811863714296189492}
-  - {fileID: 2775293207908933214}
   - {fileID: 6425276927911653286}
+  - {fileID: 2775293207908933214}
   m_Father: {fileID: 4820955423210210076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &751693518941161460
@@ -15409,6 +15409,7 @@ RectTransform:
   - {fileID: 5150439170561597297}
   - {fileID: 944719238760100188}
   - {fileID: 1147617989966662706}
+  - {fileID: 8486146023340808616}
   - {fileID: 8521176829422639957}
   - {fileID: 3351882148106493326}
   m_Father: {fileID: 5383434596565523281}
@@ -15543,8 +15544,8 @@ MonoBehaviour:
   - {fileID: 8850931124031225802}
   - {fileID: 1161359911432669612}
   handSlot:
-  - {fileID: 5320350374719103885}
   - {fileID: 5996865226501823867}
+  - {fileID: 5320350374719103885}
 --- !u!1 &3205667772797078151
 GameObject:
   m_ObjectHideFlags: 0
@@ -21772,7 +21773,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5383434596565523281}
+  m_Father: {fileID: 4820955423210210076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -39127,7 +39128,7 @@ GameObject:
   - component: {fileID: 1455777108803476711}
   - component: {fileID: 5320350374719103885}
   m_Layer: 0
-  m_Name: WeaponSlot (0)
+  m_Name: WeaponSlot (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39207,7 +39208,7 @@ MonoBehaviour:
   icon: {fileID: 1176295419216152527}
   pos: {fileID: 2775293207908933214}
   countText: {fileID: 2275063016390491865}
-  isFirstSlot: 0
+  fieldFirstSlot: 0
 --- !u!1 &7411907066735957338
 GameObject:
   m_ObjectHideFlags: 0
@@ -43822,7 +43823,6 @@ RectTransform:
   - {fileID: 5970409106386468953}
   - {fileID: 3158169480418262203}
   - {fileID: 4820955423210210076}
-  - {fileID: 8486146023340808616}
   - {fileID: 4167922498970654420}
   - {fileID: 2871090113778791482}
   - {fileID: 3367876538701841413}
@@ -47177,7 +47177,7 @@ GameObject:
   - component: {fileID: 595751972383921458}
   - component: {fileID: 5996865226501823867}
   m_Layer: 0
-  m_Name: WeaponSlot (1)
+  m_Name: WeaponSlot (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47257,7 +47257,7 @@ MonoBehaviour:
   icon: {fileID: 5570316760074496104}
   pos: {fileID: 6425276927911653286}
   countText: {fileID: 6401405818766967174}
-  isFirstSlot: 1
+  fieldFirstSlot: 1
 --- !u!1 &9015459392127686663
 GameObject:
   m_ObjectHideFlags: 0

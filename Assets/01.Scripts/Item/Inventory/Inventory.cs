@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,5 +31,18 @@ public class Inventory : MonoBehaviour
     {
         int ranNum = UnityEngine.Random.Range(0, currentArmor.Length);
         // currentArmor[ranNum] = 
+    }
+
+    public void ChangeMainSlot(int _itemId, bool _isFirst)
+    {
+        ItemInfo item;
+
+        if (_itemId != 0) item = ItemManager.Instance.itemDB[_itemId];
+        else item = null;
+
+        if (_isFirst) firstSlotItem = item;
+        else secondSlotItem = item;
+
+        Player.Instance.Equip.UnEquip();
     }
 }
