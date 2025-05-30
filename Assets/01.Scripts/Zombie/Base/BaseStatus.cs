@@ -14,6 +14,12 @@ public class BaseStatus
         currentHp = maxHp;
     }
 
+    public void SetStatus(float _DetectedRange, float _AttackRange)
+    {
+        DetectedRange = _DetectedRange;
+        AttackRange = _AttackRange;
+    }
+
     public float RunSpeed { get; protected set; } = 5f;
     public float WalkSpeed { get; protected set; } = 2f;
     public float Damage { get; protected set; } = 10f;

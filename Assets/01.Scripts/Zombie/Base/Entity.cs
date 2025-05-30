@@ -167,9 +167,14 @@ public class Entity : MonoBehaviour, IDamagable
         Gizmos.DrawRay(transform.position, transform.forward * baseStatus.DetectedRange);
     }
 
-    public void Attack()
+    public virtual void Attack_1()
     {
         _entityAttack.Attack();
+    }
+
+    public virtual void Attack_2()
+    {
+
     }
 
 

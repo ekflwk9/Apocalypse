@@ -3,6 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
+public static class AnimHash
+{
+    public static readonly int IdleHash = Animator.StringToHash("Idle");
+    public static readonly int WalkHash = Animator.StringToHash("Walking");
+    public static readonly int RunHash_1 = Animator.StringToHash("Run_1");
+    public static readonly int RunHash_2 = Animator.StringToHash("Run_2");
+    public static readonly int HitHash_1 = Animator.StringToHash("Hit_1");
+    public static readonly int HitHash_2 = Animator.StringToHash("Hit_2");
+    public static readonly int YellingHash = Animator.StringToHash("Yelling");
+    public static readonly int RangeHash = Animator.StringToHash("Range");
+    public static readonly int AttackHash_1 = Animator.StringToHash("Attack_1");
+    public static readonly int AttackHash_2 = Animator.StringToHash("Attack_2");
+    public static readonly int HurtHash = Animator.StringToHash("Hurt");
+    public static readonly int DieHash = Animator.StringToHash("Dying");
+}
 public enum EntityEnum
 {
     None = -1,
@@ -28,6 +43,15 @@ public abstract class EntityState
     {
         entity = _Entity;
         StateMachine = _StateMachine;
+    }
+
+    protected void SetDirection()
+    {
+        Vector3 entityPos = entity.transform.position;
+        Vector3 playerPos = Player.Instance.transform.position;
+        Vector3 directionPlayer = (playerPos - entityPos).normalized;
+        Quaternion LookDirection = Quaternion.LookRotation(directionPlayer);
+        entity.transform.rotation = LookDirection;
     }
 
     public void SetAnimation(int _HashAnim)

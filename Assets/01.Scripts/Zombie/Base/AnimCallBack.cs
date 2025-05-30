@@ -11,9 +11,14 @@ public class AnimCallBack : MonoBehaviour
         _entity = GetComponentInParent<Entity>();
     }
 
-    void Attack()
+    void Attack_1()
     {
-        _entity.Attack();
+        _entity.Attack_1();
+    }
+
+    void Attack_2()
+    {
+        _entity.Attack_2();
     }
 
 }
