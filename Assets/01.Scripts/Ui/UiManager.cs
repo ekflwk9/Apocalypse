@@ -40,7 +40,7 @@ public class UiManager : MonoBehaviour
         if (menuPos.TryGetComponent<MenuUi>(out var isMenu)) fieldMenu = isMenu;
         else DebugHelper.Log($"{this.name}에 MenuUi가 존재하지 않음");
 
-        var hitPos = Helper.FindChild(this.transform, "MenuUi").gameObject;
+        var hitPos = Helper.FindChild(this.transform, "HitVolume").gameObject;
         if (hitPos.TryGetComponent<HitShader>(out var isHit)) fieldHitUi = isHit;
         else DebugHelper.Log($"{this.name}에 MenuUi가 존재하지 않음");
 

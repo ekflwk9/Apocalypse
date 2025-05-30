@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.XR;
 
 public class HandSlot : Slot
 {
-    [SerializeField] private bool isFirstSlot;
+    public bool firstSlot { get => fieldFirstSlot; }
+    [SerializeField] private bool fieldFirstSlot;
 
     public override bool SetSlot(int _itemId, int _itemCount)
     {
@@ -11,7 +13,7 @@ public class HandSlot : Slot
 
         var playUi = UiManager.instance.play;
 
-        if (isFirstSlot) playUi.firstSlot.SetSlotView(_itemId, _itemCount);
+        if (fieldFirstSlot) playUi.firstSlot.SetSlotView(_itemId, _itemCount);
         else playUi.secondSlot.SetSlotView(_itemId, _itemCount);
 
         if (_itemId != 0 && _itemCount != 0)
@@ -20,7 +22,7 @@ public class HandSlot : Slot
             if (ItemType.Armor == item.itemType) return false;
 
             //인벤토리 셋팅
-            ItemManager.Instance.SetItemSlot(_itemId, isFirstSlot);
+            ItemManager.Instance.SetItemSlot(_itemId, fieldFirstSlot);
 
             itemId = _itemId;
             icon.color = Color.white;
@@ -36,6 +38,7 @@ public class HandSlot : Slot
             icon.color = Color.clear;
         }
 
+        ItemManager.Instance.Inventory.ChangeMainSlot(itemId, firstSlot);
         return true;
     }
 
@@ -49,7 +52,7 @@ public class HandSlot : Slot
         {
             countText.text = _itemCount.ToString();
 
-            if (isFirstSlot) playUi.firstSlot.SetSlotView(_itemCount);
+            if (fieldFirstSlot) playUi.firstSlot.SetSlotView(_itemCount);
             else playUi.secondSlot.SetSlotView(_itemCount);
         }
 
@@ -59,9 +62,9 @@ public class HandSlot : Slot
             countText.text = "";
             icon.color = Color.clear;
 
-            ItemManager.Instance.SetItemSlot(0, isFirstSlot);
+            ItemManager.Instance.SetItemSlot(0, fieldFirstSlot);
 
-            if (isFirstSlot) playUi.firstSlot.SetSlotView();
+            if (fieldFirstSlot) playUi.firstSlot.SetSlotView();
             else playUi.secondSlot.SetSlotView();
         }
     }
