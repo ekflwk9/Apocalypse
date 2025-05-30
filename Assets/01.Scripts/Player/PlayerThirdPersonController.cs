@@ -17,13 +17,11 @@ public class PlayerThirdPersonController : MonoBehaviour
     public float mouseSesitive = 5f;
 
     [Range(0.0f, 0.3f)]
-    public float RotationSmoothTime = 0.12f;
+    public float RotationSmoothTime = 0.1f;
     public float SpeedChangeRate = 10.0f;
 
     [Space(10)] //점프관련
-    public float JumpHeight = 1.2f;
-
-    public float Gravity = -15.0f;
+    public float JumpHeight = 4f;
 
     [Space(10)] //점프관련
     public float JumpTimeout = 0.50f;
@@ -64,7 +62,6 @@ public class PlayerThirdPersonController : MonoBehaviour
     private float _animationBlend;
     private int _animIDAim;
     private int _animIDAttack;
-    private int _animIDDamage;
     private int _animIDFreeFall;
     private int _animIDGrounded;
     private int _animIDJump;
@@ -89,7 +86,6 @@ public class PlayerThirdPersonController : MonoBehaviour
     //플레이어 속성값
     private float _speed;
     private float _targetRotation;
-    private readonly float _terminalVelocity = 53.0f;
     private float _verticalVelocity;
 
     //플레이어 조작장치가 키보드 마우스 판단.
@@ -123,9 +119,12 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void Update()
     {
+        if (Player.Instance.Dead)
+        {
+            _playerInput.enabled = false;
+        }
         JumpAndGravity();
         GroundedCheck();
-        DamageCheck();
         AimSwitch(_input.Aim);
     }
     
@@ -160,7 +159,6 @@ public class PlayerThirdPersonController : MonoBehaviour
         _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         _animIDAim = Animator.StringToHash("Aim");
         _animIDAttack = Animator.StringToHash("Attack");
-        _animIDDamage = Animator.StringToHash("Damage");
         _animIDUse = Animator.StringToHash("Use");
     }
 
@@ -182,7 +180,7 @@ public class PlayerThirdPersonController : MonoBehaviour
         
         if (LockCameraPosition)
         {
-            _cinemachineTargetPitch = Mathf.Lerp(_cinemachineTargetPitch, 10f, Time.fixedDeltaTime * 5f);
+            _cinemachineTargetPitch = Mathf.Lerp(_cinemachineTargetPitch, 10f, Time.fixedDeltaTime * 6f);
         }
         else
         {
@@ -193,8 +191,8 @@ public class PlayerThirdPersonController : MonoBehaviour
         }
         
         _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
-
-
+        
+        
         _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
         _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
@@ -208,11 +206,11 @@ public class PlayerThirdPersonController : MonoBehaviour
         //========== 이동값 받음 ==========
         var targetSpeed = _input.Sprint ? SprintSpeed : MoveSpeed;
         if (_input.move == Vector2.zero) targetSpeed = 0.0f;
-
+    
         var currentHorizontalSpeed = new Vector3(_rigidbody.velocity.x, 0.0f, _rigidbody.velocity.z).magnitude;
         var speedOffset = 0.1f;
         var inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
-
+    
         if (Mathf.Abs(currentHorizontalSpeed - targetSpeed) > speedOffset)
         {
             _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.fixedDeltaTime * SpeedChangeRate);
@@ -222,45 +220,51 @@ public class PlayerThirdPersonController : MonoBehaviour
         {
             _speed = targetSpeed;
         }
-
+    
         _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.fixedDeltaTime * SpeedChangeRate);
         if (_animationBlend < 0.01f) _animationBlend = 0f;
-
+    
         Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
         Vector3 targetDirection = Vector3.zero;
-
+        
+        float rotation;
         if (LockCameraPosition)
         {
+            Follow.Damping.x = 0.1f;
             _targetRotation = _mainCamera.transform.eulerAngles.y;
             targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * inputDirection;
+            
+            rotation = _targetRotation;
         }
         else
         {
+            Follow.Damping.x = 0.5f;
             _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg
                               + _mainCamera.transform.eulerAngles.y;
             targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+            
+            rotation = Mathf.SmoothDampAngle(
+                transform.eulerAngles.y,
+                _targetRotation,
+                ref _rotationVelocity,
+                RotationSmoothTime
+            );
         }
-
-        float rotation = Mathf.SmoothDampAngle(
-            transform.eulerAngles.y,
-            _targetRotation,
-            ref _rotationVelocity,
-            RotationSmoothTime
-        );
+        
         transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-
+    
         //========== 이동 처리 ==========
-        Vector3 move = targetDirection.normalized * (_speed * Time.fixedDeltaTime)
-                       + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime;
+        Vector3 move = targetDirection.normalized * (_speed * Time.fixedDeltaTime);
         Vector3 newPosition = _rigidbody.position + move;
         _rigidbody.MovePosition(newPosition);
-
+    
         if (_hasAnimator)
         {
             _animator.SetFloat(_animIDSpeed, _animationBlend);
             _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
         }
     }
+
 
     //점프.
     private void JumpAndGravity()
@@ -276,11 +280,11 @@ public class PlayerThirdPersonController : MonoBehaviour
                 _animator.SetBool(_animIDFreeFall, false);
             }
 
-            if (_verticalVelocity < 0.0f) _verticalVelocity = -2f;
-
             if (_input.Jump && _jumpTimeoutDelta <= 0.0f)
             {
-                _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                Vector3 velocity = _rigidbody.velocity;
+                velocity.y = Mathf.Sqrt(JumpHeight * 10f);
+                _rigidbody.velocity = velocity;
 
                 if (_hasAnimator) _animator.SetBool(_animIDJump, true);
             }
@@ -301,9 +305,6 @@ public class PlayerThirdPersonController : MonoBehaviour
                 _animator.SetBool(_animIDFreeFall, true);
             }
         }
-
-        //최대 추락 속력까지 중력 부여
-        if (_verticalVelocity < _terminalVelocity) _verticalVelocity += Gravity * Time.deltaTime;
     }
 
     //카메라 회전에 사용하는 값제한 함수
@@ -312,15 +313,6 @@ public class PlayerThirdPersonController : MonoBehaviour
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
-    }
-
-    private void DamageCheck()
-    {
-        if (Player.Instance._damaged)
-        {
-                _animator.SetTrigger(_animIDDamage);
-                Player.Instance._damaged = false;
-        }
     }
     
     private Coroutine _zoomInCoroutine;

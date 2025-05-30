@@ -594,6 +594,80 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &2125673498234836568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6340589552098088684}
+  - component: {fileID: 7892442242621538457}
+  - component: {fileID: 8935578888701288370}
+  m_Layer: 3
+  m_Name: MeleeCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6340589552098088684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125673498234836568}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6612394396655758167}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7892442242621538457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125673498234836568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e57dac48520d96142a109ab7e50fa637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curWeaponPrefab: {fileID: 0}
+  curWeaponData: {fileID: 0}
+  curEquip: {fileID: 0}
+  curWeapon: {fileID: 0}
+  curWeaponType: 0
+  equipPivot: {fileID: 7840712507701071376}
+  weaponPivot: {fileID: 8811188247511782452}
+  _animator: {fileID: 1049493359991375101}
+--- !u!65 &8935578888701288370
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125673498234836568}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 2, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 1}
 --- !u!1 &2346027836613360203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,8 +1971,6 @@ GameObject:
   - component: {fileID: 2619086677742172206}
   - component: {fileID: 5157845957053353862}
   - component: {fileID: 4099686563972156944}
-  - component: {fileID: 1565816010848009821}
-  - component: {fileID: 5562438991182858732}
   - component: {fileID: 6411524504848633419}
   m_Layer: 3
   m_Name: Player
@@ -1920,6 +1992,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6340589552098088684}
   - {fileID: 6127235004694739238}
   - {fileID: 5762334296500837219}
   - {fileID: 8783331889392103069}
@@ -2161,18 +2234,6 @@ MonoBehaviour:
     m_ActionName: Player/Interaction[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5157845957053353862}
-        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
-        m_MethodName: ToggleMouseLock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UiController, Assembly-CSharp
         m_MethodName: OnInventory
@@ -2204,7 +2265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae3f0c9e6337db47a2ec3bd917b290d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Equip: {fileID: 1565816010848009821}
+  Equip: {fileID: 7892442242621538457}
   cinemachineCamera: {fileID: 4578292436875945681}
   maxHealth: 100
   maxStamina: 100
@@ -2218,7 +2279,9 @@ MonoBehaviour:
   sprintStamina: 5
   jumpStamina: 10
   staminaRegenCooldown: 5
-  _damaged: 0
+  _animator: {fileID: 1049493359991375101}
+  _rigidbody: {fileID: 4572112671424083456}
+  meleeCollider: {fileID: 8935578888701288370}
 --- !u!114 &5157845957053353862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2256,7 +2319,6 @@ MonoBehaviour:
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
   JumpHeight: 4
-  Gravity: -15
   JumpTimeout: 0.5
   FallTimeout: 0.15
   Grounded: 1
@@ -2281,50 +2343,6 @@ MonoBehaviour:
   _mainCamera: {fileID: 1600541686208233550}
   _hasAnimator: 1
   _rigidbody: {fileID: 4572112671424083456}
---- !u!114 &1565816010848009821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5154321037587491104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e57dac48520d96142a109ab7e50fa637, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curWeaponPrefab: {fileID: 0}
-  curWeaponData: {fileID: 0}
-  curEquip: {fileID: 0}
-  curWeapon: {fileID: 0}
-  curWeaponType: 0
-  equipPivot: {fileID: 7840712507701071376}
-  weaponPivot: {fileID: 8811188247511782452}
-  meleeCollider: {fileID: 5562438991182858732}
-  _input: {fileID: 5157845957053353862}
-  _animator: {fileID: 1049493359991375101}
-  _toggleMelee: 0
---- !u!65 &5562438991182858732
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5154321037587491104}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 8
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 1}
-  m_Center: {x: 0, y: 1, z: 1}
 --- !u!114 &6411524504848633419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3098,7 +3116,7 @@ MonoBehaviour:
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 1
-  IgnoreTag: Player
+  IgnoreTag: Monster
   CameraRadius: 0.15
   DampingIntoCollision: 0
   DampingFromCollision: 0
