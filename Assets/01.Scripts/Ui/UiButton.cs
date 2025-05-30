@@ -14,24 +14,29 @@ public abstract class UiButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         if (childCount == 0)
         {
-            DebugHelper.ShowBugWindow($"{this.name}¿¡ ÀÚ½Ä ¿ÀºêÁ§Æ®ÀÌ Á¸ÀçÇÏÁö ¾ÊÀ½");
+            DebugHelper.ShowBugWindow($"{this.name}ì— ìì‹ ì˜¤ë¸Œì íŠ¸ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
             return;
         }
 
         touch = Helper.FindChild(this.transform, nameof(touch)).gameObject;
 
         info = GetComponentInChildren<TMP_Text>();
-        if (info == null) DebugHelper.ShowBugWindow($"{this.name} ÀÚ½Ä ¿ÀºêÁ§Æ®¿¡ TMP_text°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
+        if (info == null) DebugHelper.ShowBugWindow($"{this.name} ìì‹ ì˜¤ë¸Œì íŠ¸ì— TMP_textê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
 
         info.text = "";
         if (touch.activeSelf) touch.SetActive(false);
+    }
+
+    protected void OnDisable()
+    {
+        touch.SetActive(false);
     }
 
     public abstract void OnPointerClick(PointerEventData eventData);
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
-        touch.gameObject.SetActive(true);
+       if(!UiManager.instance.fade.activeSelf) touch.gameObject.SetActive(true);
     }
 
     public virtual void OnPointerExit(PointerEventData eventData)
