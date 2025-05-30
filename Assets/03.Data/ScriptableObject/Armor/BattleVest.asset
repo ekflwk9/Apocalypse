@@ -24,5 +24,4 @@ MonoBehaviour:
   maxStack: 0
   weight: 20
   armorType: 2
-  durability: 150
   defense: 50

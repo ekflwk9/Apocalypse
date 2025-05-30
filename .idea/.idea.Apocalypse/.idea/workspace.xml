@@ -4,23 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="241e1497-f018-4cce-98b0-5345879db407" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="d1c7abad-a209-44f2-a67b-c51d7559683a" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/03.Data/TempSound.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Apocalypse/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Apocalypse/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00.Scenes/Intro.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scenes/Intro.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00.Scenes/Loby.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scenes/Loby.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/ContentManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/ContentManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/ExampleScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/ExampleScene.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneBundle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/SceneBundle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Core/SoundManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Core/SoundManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Data/ScriptableObject/Armor/Ballistic Mask.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Data/ScriptableObject/Armor/Ballistic Mask.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Data/ScriptableObject/Armor/BattleVest.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Data/ScriptableObject/Armor/BattleVest.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Data/ScriptableObject/Armor/TestArmor.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Data/ScriptableObject/Armor/TestArmor.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Data/ScriptableObject/ItemBundle.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Data/ItemBundle.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Data/ScriptableObject/ItemBundle.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Data/ItemBundle.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Data/SharedData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Data/SharedData.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/07.Setting/AudioMixer.mixer" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/07.Setting/AudioMixer.mixer" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/VFXManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/VFXManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/General.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/General.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DpaMonitoringSettings">
-    <option name="firstShow" value="false" />
+  <component name="EditorConfigPreviewManager">
+    <editorConfig file="$PROJECT_DIR$/.editorconfig" previewFile="$PROJECT_DIR$/Assets/01.Scripts/Core/ExampleScene.cs" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -28,7 +39,7 @@
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;AmateurPotion&quot;
+    &quot;assignee&quot;: &quot;DevP0tion&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">{
@@ -38,36 +49,34 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://F:/workspace/unity/Apocalypse/Assets/AddressableAssetsData.meta" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://F:/workspace/unity/Apocalypse/Assets/AddressableAssetsData.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/0b/e59a2113/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/f7/69004061/MonoBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/workspace/unity/Apocalypse/Assets/00.Scenes/Loby.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/workspace/unity/Apocalypse/Assets/00.Scenes/Loby.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/workspace/unity/Apocalypse/Assets/03.Data/ScriptableObject/Armor/Ballistic Mask.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/workspace/unity/Apocalypse/Assets/03.Data/ScriptableObject/Armor/Ballistic Mask.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/workspace/unity/Apocalypse/Assets/AddressableAssetsData/AssetGroups/General.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/workspace/unity/Apocalypse/Assets/AddressableAssetsData/AssetGroups/General.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/workspace/unity/Apocalypse/ProjectSettings/EditorBuildSettings.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/workspace/unity/Apocalypse/ProjectSettings/EditorBuildSettings.asset" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 3
+  &quot;associatedIndex&quot;: 6
 }</component>
-  <component name="ProjectId" id="2xcFXS3kQNo0UyNTCp1gErGoPhy" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2xlmAD53nSUdvfXbOdTPhxWgKHi" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Develop/World&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;rider.code.cleanup.on.save&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Unity 에디터에 연결.Unity 에디터에 연결">
     <configuration name="유닛 테스트(배치 모드)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="F:\system\Unity\editors\2022.3.17f1\Editor\Unity.exe" />
@@ -91,15 +100,13 @@
       <option name="PTY_MODE" value="Auto" />
       <method v="2" />
     </configuration>
-    <configuration name="Unity 에디터에 연결" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="32228">
+    <configuration name="Unity 에디터에 연결" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="32228" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
-        <list>
-          <MonoRuntime />
-        </list>
+        <list />
       </option>
       <option name="selectedOptions">
         <list />
@@ -124,13 +131,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
-      <changelist id="241e1497-f018-4cce-98b0-5345879db407" name="변경" comment="" />
-      <created>1748229496460</created>
+      <changelist id="d1c7abad-a209-44f2-a67b-c51d7559683a" name="변경" comment="" />
+      <created>1748563162198</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1748229496460</updated>
-      <workItem from="1748229499996" duration="23584000" />
-      <workItem from="1748304495454" duration="12697000" />
+      <updated>1748563162198</updated>
+      <workItem from="1748563163813" duration="6225000" />
     </task>
     <servers />
   </component>
@@ -142,38 +148,4 @@
     <option name="unityProjectFolder" value="true" />
   </component>
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
-  <component name="VcsManagerConfiguration">
-    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
-          <option name="timeStamp" value="2" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
-          <option name="timeStamp" value="3" />
-        </breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/01.Scripts/Player/PlayerWeapon.cs</url>
-          <line>44</line>
-          <properties documentPath="D:\Unity\Projects\Apocalypse\Assets\01.Scripts\Player\PlayerWeapon.cs" containingFunctionPresentation="메서드 'GetBulletStartPoint'">
-            <startOffsets>
-              <option value="1195" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1196" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
 </project>

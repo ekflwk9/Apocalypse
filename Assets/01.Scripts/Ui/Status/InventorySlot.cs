@@ -33,11 +33,20 @@ public class InventorySlot : Slot
     protected override bool CheckItem(Slot _dragSlot)
     {
         //주무기 슬롯에서 왔을 경우에만
-        if (_dragSlot is HandSlot)
+        if (_dragSlot is HandSlot isHandSlot)
         {
             //현재 슬롯 아이템 타입이 방어구가 아닐 경우에만 교환
             var item = ItemManager.Instance.itemDB[itemId];
-            if (item.itemType == ItemType.Armor) return false;
+
+            if (item.itemType == ItemType.Armor)
+            {
+                return false;
+            }
+
+            else
+            {
+                ItemManager.Instance.Inventory.ChangeMainSlot(_dragSlot.itemId, isHandSlot.firstSlot);
+            }
         }
 
         return true;

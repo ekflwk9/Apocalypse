@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 public class ItemManager : MonoBehaviour
 {
+    private static System.Random random = new();
     [SerializeField] private AssetData dataBundle;
     public Inventory _inventory;
     public Inventory Inventory => _inventory ??= Player.Instance.GetComponent<Inventory>();
@@ -104,6 +106,18 @@ public class ItemManager : MonoBehaviour
         var Mapitem = Instantiate(itemInfo.itemPrefab, position, Quaternion.identity);
 
         return Mapitem.GetComponent<ItemHandler>();
+    }
+    
+    public ItemInfo[] GetRandomItems(int amount)
+    {
+      var result = new ItemInfo[amount];
+      var items = (from item in itemDB.Values orderby random.Next() select item).ToList();
+
+      for (int i = 0; i < amount; i++)
+      {
+        result[i] = items[i % items.Count];
+      }
+      return result;
     }
 
     public Dictionary<int, ItemInfo> itemDB = new Dictionary<int, ItemInfo>();

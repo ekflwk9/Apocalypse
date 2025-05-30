@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExampleScene : SceneBundle
 {
@@ -13,7 +14,6 @@ public class ExampleScene : SceneBundle
   protected override void OnSceneStart()
   {
     StartCoroutine(Load(() => ContentManager.Loaded));
-
   }
 
   protected override void OnSceneEnd()
@@ -29,8 +29,8 @@ public class ExampleScene : SceneBundle
     {
       if (trigger())
       {
-        var item = ContentManager.Instantiate("Consumable_MedicPack");
-        Debug.Log(SoundManager.Mixer);
+        SoundManager.Play("BasicBackGround", SoundType.Background);
+        SoundManager.Play("Walk_3", SoundType.Effect);
         break;
       }
       yield return null;

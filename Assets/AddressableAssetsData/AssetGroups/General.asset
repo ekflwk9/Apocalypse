@@ -23,50 +23,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 13c4ca806c357496b8e9fef46ec35200
-    m_Address: Assets/03.Data/ScriptableObject/Stuff/Jack_Daniel's.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fedbc8861c5a645e695083d2356123bd
-    m_Address: Assets/03.Data/ScriptableObject/Stuff/Absolut Vodka.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: df9692cbb982a4b76b355d6c428704e5
-    m_Address: Assets/03.Data/ScriptableObject/Stuff/Jagermeister.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 29b6e256cfd364d2bab2f40064a62f5b
-    m_Address: Assets/03.Data/ScriptableObject/Weapon/Bat.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7c3eadc7da63d45ab9525cfa7c85b7d9
     m_Address: Assets/99.Prefabs/Item/Consumable/Consumable_MedicPack.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 13e2b17f608344815960435dbef465ec
-    m_Address: Assets/03.Data/ScriptableObject/Consumable/Syringe.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 86df013f345114811bcc0c1f7cdcd45c
-    m_Address: Assets/03.Data/ScriptableObject/Armor/Ballistic Mask.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 01bfd7daf06754fb8be75b1d9035a702
-    m_Address: Assets/03.Data/ScriptableObject/Armor/BattleVest.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Item
@@ -136,6 +94,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - AudioMixer
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8e926bf8f922b214bae0538383ca7b52
+    m_Address: Assets/09.Sound
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14e4993ee7161409a8dea1deb54b017b
+    m_Address: Assets/03.Data/ScriptableObject
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6ec1cec87ffaca74b8b74d2047c4a7af, type: 2}
