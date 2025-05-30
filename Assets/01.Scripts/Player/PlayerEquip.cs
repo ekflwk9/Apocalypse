@@ -134,6 +134,8 @@ public class PlayerEquip : MonoBehaviour
     
     public void UnEquip()
     {
+        if(curWeaponPrefab == null) return;
+        
         GameObject weaponToUnEquip = curWeaponPrefab;
         PlayerWeapon weaponDataToUnEquip = curWeaponData;
         _animator.SetTrigger(_animIDUnEquip);
