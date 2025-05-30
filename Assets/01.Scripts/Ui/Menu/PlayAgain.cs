@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,11 +9,11 @@ public class PlayAgain : UiButton
         var isActive = menu.menuWindow.activeSelf;
 
         menu.menuWindow.SetActive(!isActive);
-        UiManager.instance.SetActive(!isActive);
 
         if (!UiManager.instance.status.inventory.gameObject.activeSelf)
         {
             UiManager.instance.shaderEffect.SetActive(!isActive);
+            UiManager.instance.SetActive(!isActive);
 
             Cursor.lockState = isActive ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !isActive;
