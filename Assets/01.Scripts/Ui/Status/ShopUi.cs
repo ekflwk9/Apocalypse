@@ -29,7 +29,7 @@ public class ShopUi : MonoBehaviour
 
         this.gameObject.SetActive(_isActive);
         inventory.gameObject.SetActive(_isActive);
-        UiManager.instance.shader.SetActive(_isActive);
+        UiManager.instance.shaderEffect.SetActive(_isActive);
 
         if (_isActive)
         {

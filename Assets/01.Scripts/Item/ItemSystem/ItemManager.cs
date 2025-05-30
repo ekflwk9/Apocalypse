@@ -43,20 +43,6 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    public void PickUp(int itemId) // 플레이어가 아이템 주웠을때 호출되는 메서드
-    {
-        if (itemDB.ContainsKey(itemId))
-        {
-            if (UiManager.instance.status.GetItem(itemId))
-            {
-                Inventory.GetItem(itemDB[itemId]);
-            }
-        }
-        else
-        {
-            DebugHelper.Log($"{itemId}키를 가진 아이템은 없음");
-        }
-    }
 
     /// <summary>
     /// 아이템 제거시 호출 요망

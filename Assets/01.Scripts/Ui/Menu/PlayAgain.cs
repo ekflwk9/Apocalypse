@@ -7,8 +7,19 @@ public class PlayAgain : UiButton
 {
     public override void OnPointerClick(PointerEventData eventData)
     {
-        UiManager.instance.menu.menuWindow.SetActive(false);
-        UiManager.instance.shader.SetActive(false);
+        var menu = UiManager.instance.menu;
+        var isActive = menu.menuWindow.activeSelf;
+
+        menu.menuWindow.SetActive(!isActive);
+
+        if (!UiManager.instance.status.inventory.gameObject.activeSelf)
+        {
+            UiManager.instance.shaderEffect.SetActive(!isActive);
+
+            Cursor.lockState = isActive ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible = !isActive;
+        }
+
         touch.SetActive(false);
     }
 }

@@ -27,17 +27,16 @@ public class PlaySlot : MonoBehaviour
     {
         var item = ItemManager.Instance.itemDB[_itemId];
         icon.sprite = item.icon;
+        icon.color = Color.white;
 
-        if (_count > 1)
-        {
-            icon.color = Color.white;
-            countText.text = _count.ToString();
-        }
-        else
-        {
-            icon.color = Color.white;
-            countText.text = _count.ToString();
-        }
+        if (_count > 1) countText.text = _count.ToString();
+        else countText.text = "";
+    }
+
+    public void SetSlotView(int _count)
+    {
+        if (_count > 1) countText.text = _count.ToString();
+        else countText.text = "";
     }
 
     /// <summary>

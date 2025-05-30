@@ -13,9 +13,10 @@ public class UiController : MonoBehaviour
             var isActive = UiManager.instance.status.inventory.gameObject.activeSelf;
             var status = UiManager.instance.status;
 
-            UiManager.instance.shader.SetActive(!isActive);
+            UiManager.instance.shaderEffect.SetActive(!isActive);
             status.inventory.gameObject.SetActive(!isActive);
             status.equipped.SetActive(!isActive);
+            UiManager.instance.SetActive(!isActive);
 
             if (isActive)
             {
@@ -25,6 +26,10 @@ public class UiController : MonoBehaviour
                 status.drag.OnEndDrag();
                 status.itemInfo.SetOff();
                 UiManager.instance.touch.SetTouch(false);
+
+                var farming = UiManager.instance.status.farming.gameObject;
+
+                if (UiManager.instance.status.farming.gameObject.activeSelf) farming.SetActive(false);       
             }
 
             else
@@ -44,10 +49,11 @@ public class UiController : MonoBehaviour
         var isActive = menu.menuWindow.activeSelf;
 
         menu.menuWindow.SetActive(!isActive);
+        UiManager.instance.SetActive(!isActive);
 
         if (!UiManager.instance.status.inventory.gameObject.activeSelf)
         {
-            UiManager.instance.shader.SetActive(!isActive);
+            UiManager.instance.shaderEffect.SetActive(!isActive);
 
             Cursor.lockState = isActive ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !isActive;
