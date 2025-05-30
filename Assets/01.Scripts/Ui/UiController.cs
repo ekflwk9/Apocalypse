@@ -25,6 +25,10 @@ public class UiController : MonoBehaviour
                 status.drag.OnEndDrag();
                 status.itemInfo.SetOff();
                 UiManager.instance.touch.SetTouch(false);
+
+                var farming = UiManager.instance.status.farming.gameObject;
+
+                if (UiManager.instance.status.farming.gameObject.activeSelf) farming.SetActive(false);       
             }
 
             else
