@@ -12,6 +12,7 @@ public class SurvivorEntityStruct : StateStruct
         SurvivorRunState runState = new SurvivorRunState();
         SurvivorAttackState attackState = new SurvivorAttackState();
         HitState hitState = new HitState();
+        HurtState hurtState = new HurtState();
         DyingState dyingState = new DyingState();
         DieState dieState = new DieState();
 
@@ -23,6 +24,7 @@ public class SurvivorEntityStruct : StateStruct
         StateDictionary.Add(EntityEnum.Detect, detectState);
         StateDictionary.Add(EntityEnum.Attack, attackState);
         StateDictionary.Add(EntityEnum.Hit, hitState);
+        StateDictionary.Add(EntityEnum.Hurt, hurtState);
         StateDictionary.Add(EntityEnum.Dying, dyingState);
         StateDictionary.Add(EntityEnum.Die, dieState);
 
@@ -79,6 +81,13 @@ public class SurvivorEntity : Entity
                 }
             }
         }
+    }
+
+    public override void Dead()
+    {
+        SoundManager.Play("SurvivorDead");
+        SetRagdollActive(true);
+        CoroutineManager.Instance.UnSetAllCoroutine(this);
     }
 
     //public override void Attack_2()

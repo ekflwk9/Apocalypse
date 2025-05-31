@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -20,7 +18,6 @@ public class Entity : MonoBehaviour, IDamagable
 
     [SerializeField] Collider[] ragdollColliders;
     [SerializeField] Rigidbody[] ragdollRigidbodies;
-
 
     protected virtual void Reset()
     {
@@ -140,15 +137,16 @@ public class Entity : MonoBehaviour, IDamagable
         _stateMachine.SetState(EntityEnum.Hearing);
     }
 
-    public void Dead()
+    public virtual void Dead()
     {
+        SoundManager.Play("Zombie_Die");
         SetRagdollActive(true);
         CoroutineManager.Instance.UnSetAllCoroutine(this);
     }
 
     public void OnDisable()
     {
-        
+
     }
 
 
@@ -183,7 +181,7 @@ public class Entity : MonoBehaviour, IDamagable
     }
 
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
         if (_stateMachine.GetState() == EntityEnum.Die)
         {
