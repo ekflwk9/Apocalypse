@@ -54,17 +54,16 @@ public class EquippedSlot : Slot
 
     protected override bool CheckItem(Slot _dragSlot)
     {
-        //주무기에서 왔다면 방어구가 아님
-        if (_dragSlot is HandSlot)
+        var item = ItemManager.Instance.GetItem(_dragSlot.itemId);
+
+        if (item.itemType != ItemType.Armor)
         {
             return false;
         }
 
-        else
+        else if (item is ArmorInfo isArmor)
         {
-            //드래그한 장비가 방어구가 아니라면 장착 불가능
-            var item = ItemManager.Instance.GetItem(_dragSlot.itemId);
-            if (item.itemType != ItemType.Armor) return false;
+            if (type != isArmor.armorType) return false;
         }
 
         return true;

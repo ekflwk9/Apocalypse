@@ -53,12 +53,6 @@ public class InventorySlot : Slot
         return true;
     }
 
-    private void CheckHandSlot(Slot _dragSlot)
-    {
-        if (_dragSlot is HandSlot isHand)
-            ItemManager.Instance.Inventory.ChangeMainItem(_dragSlot.itemId, isHand.firstSlot);
-    }
-
     public override void OnPointerEnter(PointerEventData eventData)
     {
         var drag = UiManager.instance.status.drag;

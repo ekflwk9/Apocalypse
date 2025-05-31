@@ -61,6 +61,6 @@ public class LobyUi : MonoBehaviour
         var level = Player.Instance.Level;
 
         if (lockWindow.ContainsKey(level)) lockWindow[level].SetActive(false);
-        else DebugHelper.Log($"{level}번의 lockWindow가 존재하지 않음");
+        //else DebugHelper.Log($"{level}번의 lockWindow가 존재하지 않음");
     }
 }

@@ -23,5 +23,5 @@ MonoBehaviour:
   canStack: 0
   maxStack: 0
   weight: 7
-  armorType: 1
+  armorType: 0
   defense: 20

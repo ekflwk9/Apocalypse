@@ -9769,7 +9769,7 @@ MonoBehaviour:
   icon: {fileID: 1360089269418660469}
   pos: {fileID: 3811863714296189492}
   countText: {fileID: 4583753871571797755}
-  type: 3
+  type: 2
   isFirst: 0
 --- !u!1 &1810393721744166683
 GameObject:
@@ -33714,7 +33714,7 @@ MonoBehaviour:
   icon: {fileID: 6926901973429536660}
   pos: {fileID: 4040371701227179485}
   countText: {fileID: 18277211667953711}
-  type: 1
+  type: 0
   isFirst: 0
 --- !u!1 &5790142377724978665
 GameObject:
@@ -48140,7 +48140,7 @@ MonoBehaviour:
   icon: {fileID: 5865264344491717188}
   pos: {fileID: 8963533950750739505}
   countText: {fileID: 2343790382410727383}
-  type: 2
+  type: 1
   isFirst: 0
 --- !u!1 &8632881597210353866
 GameObject:
