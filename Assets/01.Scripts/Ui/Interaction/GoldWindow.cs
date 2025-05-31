@@ -14,7 +14,7 @@ public class GoldWindow : MonoBehaviour
 
     private void Start()
     {
-        //UpdateGold();
+        UpdateGold();
     }
 
     public void UpdateGold()

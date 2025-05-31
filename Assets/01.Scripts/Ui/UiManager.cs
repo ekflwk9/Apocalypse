@@ -4,7 +4,7 @@ public class UiManager : MonoBehaviour
 {
     public static UiManager instance { get; private set; }
 
-    public bool isActive { get; private set; }
+    public bool isActive { get; private set; } = true;
 
     public HitShader hitUi { get => fieldHitUi; }
     [SerializeField] private HitShader fieldHitUi;

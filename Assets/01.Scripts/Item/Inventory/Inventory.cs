@@ -55,12 +55,14 @@ public class Inventory : MonoBehaviour
     public void UseItem(int _itemId)
     {
         ItemInfo item = ItemManager.Instance.GetItem(_itemId);
-        ItemEffectManager.Instance.ItemEffect(item);
 
         if (item != null)
         {
-            if (inventory.Contains(item)) inventory.Remove(item);
-            else DebugHelper.Log($"inventory에 {item.itemName}이라는 값은 추가된적 없음");
+            if (inventory.Contains(item) && UiManager.instance.status.Remove(item))
+            {
+                inventory.Remove(item);
+                ItemEffectManager.Instance.ItemEffect(item);
+            }
         }
     }
 
@@ -74,7 +76,7 @@ public class Inventory : MonoBehaviour
         equipped[ranIndex].defense -= 1;
 
         UiManager.instance.status.UpdateArmorView(ranIndex, equipped[ranIndex]);
-        if (equipped[ranIndex].defense <= 0) equipped[ranIndex] = null;
+        if (equipped[ranIndex].defense <= 0) equipped.RemoveAt(ranIndex);
     }
 
     public void ChangeMainItem(int _itemId, bool _isFirst)

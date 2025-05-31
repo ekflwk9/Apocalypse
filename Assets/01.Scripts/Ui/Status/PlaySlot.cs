@@ -30,17 +30,20 @@ public class PlaySlot : MonoBehaviour
 
     public void SetSlotView(int _count)
     {
-        if (_count > 1) countText.text = _count.ToString();
-        else countText.text = "";
-    }
+        if (_count > 1)
+        {
+            countText.text = _count.ToString();
+        }
 
-    /// <summary>
-    /// 매개변수가 없다면 화면에 보이는 슬롯을 지워줌
-    /// </summary>
-    /// <param name="_count"></param>
-    public void SetSlotView()
-    {
-        countText.text = "";
-        icon.color = Color.clear;
+        else if (_count > 0)
+        {
+            countText.text = "";
+        }
+
+        else
+        {
+            countText.text = "";
+            icon.color = Color.clear;
+        }
     }
 }

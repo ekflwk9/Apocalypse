@@ -19,7 +19,7 @@ MonoBehaviour:
   disciption: "\uC2A4\uC6E8\uB374\uC0B0 \uBCF4\uB4DC\uCE74 750ml"
   itemType: 8
   icon: {fileID: 21300000, guid: 07f381518064043fd86010878f8e402e, type: 3}
-  cost: 200
+  cost: 30000
   canStack: 0
   maxStack: 0
   weight: 5

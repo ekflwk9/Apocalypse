@@ -13,12 +13,17 @@ public class InterfaceUi : MonoBehaviour
     public GameObject storageButton { get => fieldstorageButton; }
     [SerializeField] private GameObject fieldstorageButton;
 
+    public GoldWindow gold { get => fieldGold; }
+    [SerializeField] private GoldWindow fieldGold;
+
+
     private void Reset()
     {
         fieldPlayButton = this.TryFindChild("PlayButton").gameObject;
         fieldSettingButton = this.TryFindChild("SettingButton").gameObject;
         fieldBackButton = this.TryFindChild("BackButton").gameObject;
         fieldstorageButton = this.TryFindChild("StorageButton").gameObject;
+        fieldGold = this.TryFindChildComponent<GoldWindow>();
     }
 
     /// <summary>

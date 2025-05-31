@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.XR;
 
 public class HandSlot : Slot
 {
@@ -48,24 +47,26 @@ public class HandSlot : Slot
 
         count = _itemCount;
 
+        if (fieldFirstSlot) playUi.firstSlot.SetSlotView(_itemCount);
+        else playUi.secondSlot.SetSlotView(_itemCount);
+
         if (_itemCount > 1)
         {
             countText.text = _itemCount.ToString();
+        }
 
-            if (fieldFirstSlot) playUi.firstSlot.SetSlotView(_itemCount);
-            else playUi.secondSlot.SetSlotView(_itemCount);
+        else if (_itemCount > 0)
+        {
+            countText.text = "";
         }
 
         else
         {
             itemId = 0;
-            countText.text = "";
             icon.color = Color.clear;
+            countText.text = "";
 
             ItemManager.Instance.Inventory.ChangeMainItem(0, fieldFirstSlot);
-
-            if (fieldFirstSlot) playUi.firstSlot.SetSlotView();
-            else playUi.secondSlot.SetSlotView();
         }
     }
 
