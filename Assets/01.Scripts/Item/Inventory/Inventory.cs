@@ -1,15 +1,20 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum SlotType
+{
+    Inventory,
+    Stotage,
+    Equipped,
+}
 
 public class Inventory : MonoBehaviour
 {
     public ItemInfo firstSlotItem { get; private set; }
     public ItemInfo secondSlotItem { get; private set; }
-
-    private ArmorInfo[] currentArmor = new ArmorInfo[Enum.GetValues(typeof(ArmorType)).Length];
-    private List<ItemInfo> inventory = new List<ItemInfo>();
-    private List<ItemInfo> storage = new List<ItemInfo>();
+    public List<ArmorInfo> equipped { get; private set; } = new List<ArmorInfo>();
+    public List<ItemInfo> inventory { get; private set; } = new List<ItemInfo>();
+    public List<ItemInfo> storage { get; private set; } = new List<ItemInfo>();
 
     public void Add(int itemId) // 아이템 추가시 호출
     {
@@ -21,10 +26,26 @@ public class Inventory : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="index"></param>
-    public void RemoveInventoryItem(int index)
+    public void RemoveInventory(int _itemId, SlotType _slotType)
     {
-        var item = ItemManager.Instance.GetItem(index);
-        if (item != null) inventory.Remove(item);
+        var item = ItemManager.Instance.GetItem(_itemId);
+        if (item != null) return;
+
+        switch (_slotType)
+        {
+            case SlotType.Inventory:
+                inventory.Remove(item);
+                break;
+
+            case SlotType.Stotage:
+                storage.Remove(item);
+                break;
+
+            case SlotType.Equipped:
+                var euqippItem = item as ArmorInfo;
+                equipped.Remove(euqippItem);
+                break;
+        }
     }
 
     /// <summary>
@@ -43,10 +64,17 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void ChangeDefense(int damage)
+    /// <summary>
+    /// 방어구 아이템 업데이트 콜백 함수
+    /// </summary>
+    /// <param name="damage"></param>
+    public void Defense(int damage)
     {
-        int ranNum = UnityEngine.Random.Range(0, currentArmor.Length);
-        // currentArmor[ranNum] = 
+        int ranIndex = Random.Range(0, equipped.Count);
+        equipped[ranIndex].defense -= 1;
+
+        UiManager.instance.status.UpdateArmorView(ranIndex, equipped[ranIndex]);
+        if (equipped[ranIndex].defense <= 0) equipped[ranIndex] = null;
     }
 
     public void ChangeMainItem(int _itemId, bool _isFirst)

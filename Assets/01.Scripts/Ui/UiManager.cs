@@ -60,5 +60,7 @@ public class UiManager : MonoBehaviour
         }
     }
 
+    public void Start() => fade.gameObject.SetActive(true);
+    
     public void SetActive(bool _isActive) => isActive = _isActive;
 }

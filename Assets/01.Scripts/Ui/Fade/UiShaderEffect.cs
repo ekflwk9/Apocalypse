@@ -14,6 +14,6 @@ public class UiShaderEffect : MonoBehaviour
 
     public void SetActive(bool _isActive)
     {
-        anim.Play(_isActive ? "Show" : "Idle", 0, 0);
+        anim.Play(_isActive ? "Show" : "Hide", 0, 0);
     }
 }

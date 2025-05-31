@@ -72,7 +72,7 @@ public class Player : MonoBehaviour, IDamagable
                 {
                     Damaged = true;
                     _health = changedValue;
-                    UiManager.instance.hitUi.Show();
+                    UiManager.instance.hitUi.Show(true);
                 }
             }
             else

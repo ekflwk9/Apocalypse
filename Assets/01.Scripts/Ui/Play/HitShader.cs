@@ -12,9 +12,9 @@ public class HitShader : MonoBehaviour
         else DebugHelper.ShowBugWindow($"{this.name}에 Animator가 존재하지 않음");
     }
 
-    public void Show()
+    public void Show(bool _isActive)
     {
         if(!this.gameObject.activeSelf) this.gameObject.SetActive(true);
-        anim.Play("Idle", 0, 0);
+        anim.Play(_isActive ? "Show" : "Hide", 0, 0);
     }
 }
