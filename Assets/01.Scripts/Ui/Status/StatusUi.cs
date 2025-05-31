@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class StatusUi : MonoBehaviour
 {
@@ -68,8 +69,6 @@ public class StatusUi : MonoBehaviour
         fieldShop = this.TryFindChildComponent<ShopUi>("Shop");
         fieldDead = this.TryFindChildComponent<DeadWindow>();
         fieldSuccess = this.TryFindChildComponent<SuccessWindow>();
-
-        Debug.Log(inventory.transform.position);
     }
 
     private T[] GetComponentArray<T>(Transform _parent) where T : class
@@ -175,9 +174,26 @@ public class StatusUi : MonoBehaviour
     public void UpdateFarmingSlot()
     {
         endFarming();
+
+        for (int i = 0; i < farminSlot.Length; i++)
+        {
+            farminSlot[i].SetSlot(0);
+        }
     }
 
-    public void UpdateArmorView(int _index,ArmorInfo _item)
+    public bool Remove(ItemInfo _item)
+    {
+        var hand = ItemManager.Instance.Inventory;
+        var index = hand.firstSlotItem == _item ? 0 : 1;
+
+        var count = handSlot[index].count - 1;
+        handSlot[index].SetSlot(count);
+
+        if (count == 0) return true;
+        else return false;
+    }
+
+    public void UpdateArmorView(int _index, ArmorInfo _item)
     {
         equippedSlot[_index].SetSlot(_item.defense);
     }
