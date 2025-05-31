@@ -13,6 +13,7 @@ public class Player : MonoBehaviour, IDamagable
     public static Player Instance { get; private set; }
     
     public PlayerEquip Equip;
+    public PlayerSound Sound;
     public CinemachineVirtualCamera cinemachineCamera;
     public CinemachineBasicMultiChannelPerlin perlin;
     private PlayerInput playerInput;
@@ -72,7 +73,6 @@ public class Player : MonoBehaviour, IDamagable
                 {
                     Damaged = true;
                     _health = changedValue;
-                    UiManager.instance.hitUi.Show(true);
                 }
             }
             else
@@ -157,7 +157,7 @@ public class Player : MonoBehaviour, IDamagable
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject.transform.parent.gameObject);
         }
         else
         {
@@ -175,6 +175,7 @@ public class Player : MonoBehaviour, IDamagable
         meleeCollider = GetComponentInChildren<BoxCollider>();
         meleeCollider.enabled = false;
         playerInput = GetComponent<PlayerInput>();
+        Sound = GetComponent<PlayerSound>();
     }
 
     private void Start()
@@ -203,7 +204,8 @@ public class Player : MonoBehaviour, IDamagable
         if (Dead) return;
         
         Health -= damage;
-
+        UiManager.instance.hitUi.Show(true);
+        
         if (Health <= 0)
         {
             Dead = true;
@@ -257,7 +259,8 @@ public class Player : MonoBehaviour, IDamagable
 
     public void Heal(float heal)
     {
-        Health += heal;
+        float healedHealth = Health + heal;
+        Health = healedHealth;
     }
 
     public void SetStamina(float stamina)
