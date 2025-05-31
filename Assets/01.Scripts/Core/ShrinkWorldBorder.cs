@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,6 +9,10 @@ using UnityEngine.Events;
     public UnityEvent onShrinked;
 
     #region State
+
+    public List<GameObject> checkObjects = new();
+
+    public float damagePeriodTimeSecond = 2;
     
     public float shrinkValue = 5;
     public float shrinkSecondDuration = 5;
@@ -25,8 +30,7 @@ using UnityEngine.Events;
     
     #region Test
 
-    [SerializeField] private Transform circle;
-    [SerializeField] private CircleCollider2D circleCollider;
+    [SerializeField] private Transform cylinderTransform;
     #endregion
     
     private Coroutine shrinkCoroutine;
@@ -40,16 +44,19 @@ using UnityEngine.Events;
       }
     }
 
-    public bool Check(Vector2 position)
+    public bool IsInner(Vector2 position)
     {
       return Vector2.Distance(position, centerAxis) < radius;
     }
+    
+    public bool IsInner(Vector3 position) => IsInner(new Vector2(position.x, position.z));
     
     public void StartShrink()
     {
       if(started) return;
       
       shrinkCoroutine = StartCoroutine(Shrink());
+      StartCoroutine(Damage());
       
       paused = false;
       started = true;
@@ -70,11 +77,8 @@ using UnityEngine.Events;
           {
             radius -= shrinkSpeed;
             centerAxis += axisMoveSpeed;
-            circle.localScale = new Vector3(radius, radius, 0);
-            circle.position = centerAxis;
-            
-            circleCollider.radius = radius;
-            circleCollider.transform.position = centerAxis;
+            cylinderTransform.localScale = new Vector3(radius, cylinderTransform.localScale.y, radius);
+            transform.position = new Vector3(centerAxis.x, transform.position.y, centerAxis.y);
           }
         
           yield return new WaitForFixedUpdate();
@@ -85,6 +89,18 @@ using UnityEngine.Events;
         
         yield return new WaitForSeconds(shrinkSecondDuration);
       } while (radius > minRadius);
+    }
+
+    private IEnumerator Damage()
+    {
+        for (;;)
+        {
+            foreach (var obj in checkObjects)
+            {
+                obj.SendMessage("BorderDamage");
+            }
+            yield return new WaitForSeconds(damagePeriodTimeSecond);
+        }
     }
 
     public virtual void RandomizeCenter()
