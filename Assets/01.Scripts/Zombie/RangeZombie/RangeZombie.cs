@@ -11,6 +11,7 @@ public class RangeZombieStruct : StateStruct
         HearingState hearingState = new HearingState();
         RangeRunState RunState = new RangeRunState();
         RangeAttackState attackState = new RangeAttackState();
+        HitState hitState = new HitState();
         DyingState dyingState = new DyingState();
         HurtState hurtState = new HurtState();
         DieState dieState = new DieState();
@@ -19,6 +20,7 @@ public class RangeZombieStruct : StateStruct
         StateDictionary.Add(EntityEnum.Walk, walkState);
         StateDictionary.Add(EntityEnum.Hearing, hearingState);
         StateDictionary.Add(EntityEnum.Attack, attackState);
+        StateDictionary.Add(EntityEnum.Hit, hitState);
         StateDictionary.Add(EntityEnum.Run, RunState);
         StateDictionary.Add(EntityEnum.Dying, dyingState);
         StateDictionary.Add(EntityEnum.Hurt, hurtState);

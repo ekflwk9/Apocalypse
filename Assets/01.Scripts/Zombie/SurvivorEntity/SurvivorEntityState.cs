@@ -138,16 +138,16 @@ public class SurvivorDetectedState : EntityState
 
             if (0 < Vector3.Dot(Player.Instance.transform.forward, entity.transform.forward))
             {
-                if (Distance < entity.baseStatus.DetectedRange / 2)
-                {
                     StateMachine.SetState(EntityEnum.Run);
-                    return;
-                }
-                else
-                {
-                    StateMachine.SetState(EntityEnum.Detect);
-                    return;
-                }
+                //if (Distance < entity.baseStatus.DetectedRange / 2)
+                //{
+                //    return;
+                //}
+                //else
+                //{
+                //    StateMachine.SetState(EntityEnum.Detect);
+                //    return;
+                //}
             }
             else if (Distance > entity.baseStatus.DetectedRange)
             {
