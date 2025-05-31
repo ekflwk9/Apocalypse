@@ -323,7 +323,10 @@ public class SurvivorRunState : EntityState
 
         else if (Distance < entity.baseStatus.AttackRange + 4f)
         {
-            SetUpperAnimation(AnimHash.AttackHash_1);
+            if (IsAnimationEnd(1) == true)
+            {
+                SetUpperAnimationForce(AnimHash.AttackHash_1);
+            }
             SetBottomAnimation(AnimHash.RunHash_1);
             return;
         }
@@ -376,7 +379,7 @@ public class SurvivorAttackState : EntityState
         }
         else
         {
-            SetBottomAnimation(AnimHash.AttackHash_1);
+            SetBottomAnimation(AnimHash.IdleHash);
         }
         SetDirection();
         entity._NavMeshAgent.ResetPath();
