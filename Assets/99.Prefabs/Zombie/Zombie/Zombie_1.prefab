@@ -254,7 +254,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   ragdollColliders:
-  - {fileID: 1683836239318541777}
   - {fileID: 6371922172252201117}
   - {fileID: 8760859465324383972}
   - {fileID: 5556134418399778289}
@@ -4093,8 +4092,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.73608184, y: 1.8000016, z: 0.34845233}
-  m_Center: {x: -0.024742246, y: 1.0536084, z: 0.7608243}
+  m_Size: {x: 0.73608184, y: 1.8000016, z: 0.5076169}
+  m_Center: {x: -0.024742246, y: 1.0536084, z: 0.8404066}
 --- !u!1 &8329540613740293454
 GameObject:
   m_ObjectHideFlags: 0

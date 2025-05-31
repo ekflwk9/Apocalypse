@@ -10,7 +10,7 @@ public class SurvivorEntityStruct : StateStruct
         SurvivorWalkState walkState = new SurvivorWalkState();
         SurvivorDetectedState detectState = new SurvivorDetectedState();
         SurvivorRunState runState = new SurvivorRunState();
-        AttackState attackState = new AttackState();
+        SurvivorAttackState attackState = new SurvivorAttackState();
         HitState hitState = new HitState();
         DyingState dyingState = new DyingState();
         DieState dieState = new DieState();
@@ -43,7 +43,7 @@ public class SurvivorEntity : Entity
 
         _stateMachine.SetState(EntityEnum.Idle);
 
-        baseStatus.SetStatus(30, 3, 90);
+        baseStatus.SetStatus(30, 2, 90);
 
     }
 
