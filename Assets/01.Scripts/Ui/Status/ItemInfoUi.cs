@@ -8,30 +8,12 @@ public class ItemInfoUi : MonoBehaviour
 
     private void Reset()
     {
-        var namePos = Helper.FindChild(this.transform, nameof(itemName));
-        itemName = FindText(namePos);
-
-        var infoPos = Helper.FindChild(this.transform, nameof(info));
-        info = FindText(infoPos);
-    }
-
-    private TMP_Text FindText(Transform _component)
-    {
-        TMP_Text findText = null;
-
-        if (_component != null)
-        {
-            if (!_component.TryGetComponent<TMP_Text>(out findText))
-            {
-                DebugHelper.ShowBugWindow($"{_component.name}¿¡ TMP_Text°¡ Á¸ÀçÇÏÁö ¾ÊÀ½");
-            }
-        }
-
-        return findText;
+        itemName = this.TryFindChildComponent<TMP_Text>(nameof(itemName));
+        info = this.TryFindChildComponent<TMP_Text>(nameof(info));
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ Á¤º¸Ã¢ ¼³Á¤ ¹× È°¼ºÈ­ ¿©ºÎ
+    /// ì•„ì´í…œ ì •ë³´ì°½ ì„¤ì • ë° í™œì„±í™” ì—¬ë¶€
     /// </summary>
     /// <param name="_itemId"></param>
     /// <param name="_eventData"></param>
@@ -46,8 +28,17 @@ public class ItemInfoUi : MonoBehaviour
         this.transform.position = _pos;
     }
 
+    public void SetActive(Vector3 _pos, string _name, string _text)
+    {
+        itemName.text = _name;
+        info.text = _text;
+
+        this.gameObject.SetActive(true);
+        this.transform.position = _pos;
+    }
+
     /// <summary>
-    /// È°¼ºÈ­ ÁßÀÏ °æ¿ì ºñÈ°¼ºÈ­
+    /// í™œì„±í™” ì¤‘ì¼ ê²½ìš° ë¹„í™œì„±í™”
     /// </summary>
     public void SetOff()
     {

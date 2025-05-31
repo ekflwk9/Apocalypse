@@ -12,7 +12,7 @@ public class MenuUi : MonoBehaviour
 
     private void Reset()
     {
-        fieldMenu = Helper.FindChild(this.transform, "Menu").gameObject;
-        fieldExit = Helper.FindChild(this.transform, "ExitWindow").gameObject;
+        fieldMenu = this.TryFindChild("Menu").gameObject;
+        fieldExit = this.TryFindChild("ExitWindow").gameObject;
     }
 }

@@ -32,32 +32,14 @@ public class UiManager : MonoBehaviour
 
     private void Reset()
     {
-        var playPos = Helper.FindChild(this.transform, "PlayUi");
-        if(playPos.TryGetComponent<PlayUi>(out var isPlay)) fieldPlay = isPlay;
-        else DebugHelper.Log($"{this.name}에 PlayUi가 존재하지 않음");
-
-        var menuPos = Helper.FindChild(this.transform, "MenuUi").gameObject;
-        if (menuPos.TryGetComponent<MenuUi>(out var isMenu)) fieldMenu = isMenu;
-        else DebugHelper.Log($"{this.name}에 MenuUi가 존재하지 않음");
-
-        var hitPos = Helper.FindChild(this.transform, "HitVolume").gameObject;
-        if (hitPos.TryGetComponent<HitShader>(out var isHit)) fieldHitUi = isHit;
-        else DebugHelper.Log($"{this.name}에 MenuUi가 존재하지 않음");
-
-        fieldDead = this.GetComponentInChildren<DeadWindow>(true);
-        if (fieldDead == null) DebugHelper.Log($"{this.name}에 DeadWindow스크립트가 있는 자식 오브젝트가 존재하지 않음");
-
-        fieldStatus = this.GetComponentInChildren<StatusUi>(true);
-        if (fieldStatus == null) DebugHelper.Log($"{this.name}에 StatusUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
-
-        fieldShaderEffect = this.GetComponentInChildren<UiShaderEffect>(true);
-        if (fieldShaderEffect == null) DebugHelper.Log($"{this.name}에 UiShaderEffect스크립트가 있는 자식 오브젝트가 존재하지 않음");
-
-        fieldTouch = this.GetComponentInChildren<TouchUi>(true);
-        if (fieldTouch == null) DebugHelper.Log($"{this.name}에 TouchUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
-
-        fieldFade = this.GetComponentInChildren<Fade>(true);
-        if (fieldFade == null) DebugHelper.Log($"{this.name}에 Fade스크립트가 있는 자식 오브젝트가 존재하지 않음");
+        fieldPlay = this.TryFindChildComponent<PlayUi>("PlayUi");
+        fieldMenu = this.TryFindChildComponent<MenuUi>("MenuUi");
+        fieldHitUi= this.TryFindChildComponent<HitShader>("HitVolume");
+        fieldDead = this.TryFindChildComponent<DeadWindow>();
+        fieldStatus = this.TryFindChildComponent<StatusUi>();
+        fieldShaderEffect = this.TryFindChildComponent<UiShaderEffect>();
+        fieldTouch = this.TryFindChildComponent<TouchUi>();
+        fieldFade = this.TryFindChildComponent<Fade>();
     }
 
     private void Awake()
