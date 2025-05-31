@@ -35,7 +35,12 @@ public class StateStruct
 
     public virtual void SetState(EntityEnum _State)
     {
-        CurrentState = StateDictionary[_State];
+        CurrentState  = StateDictionary[_State];
+    }
+
+    public bool IsExist(EntityEnum _State)
+    {
+        return StateDictionary.ContainsKey(_State);
     }
 }
 
@@ -47,6 +52,12 @@ public class EntityStateMachine
 
     public void SetState(EntityEnum _State)
     {
+        if(false == allState.IsExist(_State))
+        {
+            Debug.LogError($"State {_State} does not exist in the state machine.");
+            return;
+        }
+
         if (allState.CurrentState != null)
         {
             allState.CurrentState.Exit();
