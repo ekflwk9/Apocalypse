@@ -29,11 +29,17 @@ public class ItemHandler : MonoBehaviour, IInteractionObject
 
     public void OnSelected()
     {
-        selectedUI.On();
+        if (selectedUI != null)
+        {
+            selectedUI.On();
+        }
     }
     public void UnSelected()
     {
-        selectedUI.Off();
+        if (selectedUI != null)
+        {
+            selectedUI.Off();
+        }
     }
     public void DropItem()
     {
