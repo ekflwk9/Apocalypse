@@ -119,26 +119,31 @@ public class SurvivorDetectedState : EntityState
 
         float Distance = Vector3.Distance(playerPos, entityPos);
 
+        float HideDistance = Vector3.Distance(HideLocation, entityPos);
+
+        Vector3 Direction = (playerPos - entityPos).normalized;
+
         if (Distance < 9)
         {
             StateMachine.SetState(EntityEnum.Run);
             return;
         }
 
-        if (1f > entity._NavMeshAgent.remainingDistance)
+        if (3f > HideDistance)
         {
             SetAnimation(AnimHash.SneakHash);
+            entity._NavMeshAgent.ResetPath();
             if (Distance < entity.baseStatus.DetectedRange)
             {
-                if (0 > Vector3.Dot(Player.Instance.transform.forward, entity.transform.forward))
+                if (0 > Vector3.Dot(Player.Instance.transform.forward, Direction))
                 {
                     return;
                 }
             }
 
-            if (0 < Vector3.Dot(Player.Instance.transform.forward, entity.transform.forward))
+            if (0 < Vector3.Dot(Player.Instance.transform.forward, Direction))
             {
-                    StateMachine.SetState(EntityEnum.Run);
+                StateMachine.SetState(EntityEnum.Run);
                 //if (Distance < entity.baseStatus.DetectedRange / 2)
                 //{
                 //    return;
@@ -198,11 +203,19 @@ public class SurvivorDetectedState : EntityState
 
         Vector3 PlayerDirection = (playerPos - entity.transform.position).normalized;
 
+        float PlayerDistance = Vector3.Distance(playerPos, entity.transform.position);
+
         float Distance = 0;
         float CurrentDistance = 0;
         foreach (Obstacle obstacle in obstacles)
         {
             Distance = Vector3.Distance(entity.transform.position, obstacle.transform.position);
+
+            if (PlayerDistance < Distance)
+            {
+                continue;
+            }
+
             Vector3 HideDirection = (obstacle.transform.position - entity.transform.position).normalized;
 
             if (HideLocation == Vector3.zero)
@@ -331,12 +344,13 @@ public class SurvivorRunState : EntityState
             return;
         }
 
-        else if (Distance < entity.baseStatus.DetectedRange)
+        else if (Distance < entity.baseStatus.DetectedRange / 3)
         {
-            if (0 > Vector3.Dot(Player.Instance.transform.forward, entity.transform.forward))
-            {
-                StateMachine.SetState(EntityEnum.Detect);
-            }
+            return;
+        }
+        if (0 > Vector3.Dot(Player.Instance.transform.forward, directionPlayer))
+        {
+            StateMachine.SetState(EntityEnum.Detect);
         }
     }
 
