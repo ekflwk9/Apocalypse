@@ -157,6 +157,7 @@ public class Player : MonoBehaviour, IDamagable
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
