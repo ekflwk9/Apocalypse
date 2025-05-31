@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    private Dictionary<string, GameObject> touchItems = new Dictionary<string, GameObject>();
-    private IInteractionObject touchedItem;
-    private bool isTouched;
+    private LinkedList<IInteractionObject> touchedInteractions = new LinkedList<IInteractionObject>();
     [SerializeField] private Collider interactionCollider;
     [SerializeField] private LayerMask itemLayer;
+
+
 
     private void Reset()
     {
@@ -20,20 +20,15 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Item"))
         {
-            RaycastHit hit;
-            
-            isTouched = true;
-            
-            var origin = transform.position;
-            var direction = other.transform.position - origin;
-            
-            if (Physics.Raycast(origin, direction, out hit, 5f, itemLayer))
+            if (true == other.TryGetComponent<IInteractionObject>(out var isItem))
             {
-                if (hit.collider.CompareTag("Item") && hit.collider.TryGetComponent<IInteractionObject>(out var isItem))
+
+                LinkedListNode<IInteractionObject> InteractionableNode = touchedInteractions.AddFirst(isItem);
+                isItem.OnSelected();
+
+                if (null != InteractionableNode.Next)
                 {
-                    isTouched = true;
-                    touchedItem = isItem;
-                    touchedItem.OnSelected();
+                    InteractionableNode.Next.Value.UnSelected();
                 }
             }
         }
@@ -43,26 +38,32 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Item"))
         {
-            isTouched = false;
-            touchedItem.UnSelected();
-            touchedItem = null;
+            IInteractionObject Interactionable = other.GetComponent<IInteractionObject>();
+            if (Interactionable != null)
+            {
+                Interactionable.UnSelected();
+                touchedInteractions.Remove(Interactionable);
+            }
         }
     }
 
     public void Interaction()
     {
-        touchedItem?.Interaction();
-    }
-
-
-    public void InvokePickUp()
-    {
-        if (isTouched && touchedItem != null)
+        LinkedListNode<IInteractionObject> InteractionableNode = touchedInteractions.First;
+        if (InteractionableNode == null)
         {
-            interactionCollider.enabled = false;
-            touchedItem?.Interaction();
-            touchedItem = null;
-            interactionCollider.enabled = true;
+            return;
+        }
+        else
+        {
+            if (null != InteractionableNode.Next)
+            {
+                InteractionableNode.Next.Value.OnSelected();
+            }
+            IInteractionObject Interactionable = InteractionableNode.Value;
+            Interactionable.UnSelected();
+            Interactionable.Interaction();
+            touchedInteractions.Remove(InteractionableNode);
         }
     }
 }

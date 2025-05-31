@@ -48,6 +48,7 @@ public class NoiseZombie : Entity
 
         _stateMachine.SetState(EntityEnum.Idle);
 
+
         baseStatus.SetStatus(20, 10);
     }
 

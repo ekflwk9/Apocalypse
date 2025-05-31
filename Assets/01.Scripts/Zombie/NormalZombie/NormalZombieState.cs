@@ -373,7 +373,7 @@ public class DyingState : EntityState
 
     IEnumerator DieCoroutine()
     {
-        yield return CoroutineHelper.GetTime(6.0f);
+        yield return CoroutineHelper.GetTime(5.0f);
         entity.Dead();
     }
 }

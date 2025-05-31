@@ -90,6 +90,7 @@ public class Entity : MonoBehaviour, IDamagable
     private void OnEnable()
     {
         SetRagdollActive(false);
+        baseStatus.Init();
     }
 
     protected virtual void Update()
@@ -145,11 +146,10 @@ public class Entity : MonoBehaviour, IDamagable
         CoroutineManager.Instance.UnSetAllCoroutine(this);
     }
 
-    //IEnumerator Pooling()
-    //{
-    //    yield return CoroutineHelper.GetTime(5f);
-    //    //ObjectPool.Instance.Set(gameObject, gameObject); 
-    //}
+    public void OnDisable()
+    {
+        
+    }
 
 
     private void OnDrawGizmos()

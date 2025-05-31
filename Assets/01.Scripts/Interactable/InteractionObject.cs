@@ -26,7 +26,6 @@ public class InteractionObject : MonoBehaviour, IInteractionObject
 {
     private List<FarmingData> item = new List<FarmingData>();
     private BoxCollider _collider;
-
     void Reset()
     {
         _collider = GetComponent<BoxCollider>();
