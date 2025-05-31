@@ -11,7 +11,7 @@ public class ShopSlot : Slot, IPointerClickHandler, IPointerExitHandler
         {
             itemId = id;
 
-            var item = ItemManager.Instance.itemDB[itemId];
+            var item = ItemManager.Instance.GetItem(itemId);
             icon.sprite = item.icon;
             icon.color = Color.white;
             count = 1;

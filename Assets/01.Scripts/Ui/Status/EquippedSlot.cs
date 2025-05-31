@@ -9,13 +9,13 @@ public class EquippedSlot : Slot
 
     public override bool SetSlot(int _itemId, int _itemCount)
     {
-        var item = ItemManager.Instance.itemDB[_itemId];
+        var item = ItemManager.Instance.GetItem(_itemId);
 
         if (item is ArmorInfo isArmor)
         {
             if (isArmor.armorType == type)
             {
-                ItemManager.Instance.SetItemSlot(itemId, isFirst);
+                ItemManager.Instance.Inventory.ChangeMainItem(itemId, isFirst);
 
                 itemId = _itemId;
                 count = _itemCount;
@@ -44,7 +44,7 @@ public class EquippedSlot : Slot
 
         else
         {
-            ItemManager.Instance.SetItemSlot(0, isFirst);
+            ItemManager.Instance.Inventory.ChangeMainItem(0, isFirst);
 
             itemId = 0;
             countText.text = "";
@@ -63,7 +63,7 @@ public class EquippedSlot : Slot
         else
         {
             //드래그한 장비가 방어구가 아니라면 장착 불가능
-            var item = ItemManager.Instance.itemDB[_dragSlot.itemId];
+            var item = ItemManager.Instance.GetItem(_dragSlot.itemId);
             if (item.itemType != ItemType.Armor) return false;
         }
 

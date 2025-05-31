@@ -61,7 +61,7 @@ IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IBegin
         selectItemId = slot.itemId;
 
         UiManager.instance.status.itemInfo.SetOff();
-        icon.sprite = ItemManager.Instance.itemDB[selectItemId].icon;
+        icon.sprite = ItemManager.Instance.GetItem(selectItemId).icon;
         icon.color = Color.white;
     }
 

@@ -209,7 +209,7 @@ public class Player : MonoBehaviour, IDamagable
             Dead = true;
             _rigidbody.isKinematic = true;
             
-            UiManager.instance.dead.gameObject.SetActive(true);
+            UiManager.instance.status.dead.gameObject.SetActive(true);
         }
 
         DamageAnimation();

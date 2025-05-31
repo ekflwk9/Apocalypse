@@ -20,7 +20,7 @@ public class PlaySlot : MonoBehaviour
     /// <param name="_count"></param>
     public void SetSlotView(int _itemId, int _count)
     {
-        var item = ItemManager.Instance.itemDB[_itemId];
+        var item = ItemManager.Instance.GetItem(_itemId);
         icon.sprite = item.icon;
         icon.color = Color.white;
 
