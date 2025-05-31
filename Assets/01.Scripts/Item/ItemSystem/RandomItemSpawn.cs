@@ -54,7 +54,7 @@ public static class ItemDropGenerator
 
             List<int> itemKeys = new List<int>();
 
-            var keys = ItemManager.Instance.itemDB.Keys;
+            var keys = ItemManager.Instance.GetAllKeys();
             foreach (int key in keys)
             {
                 if (key >= 301) { itemKeys.Add(key); }

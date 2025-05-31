@@ -133,7 +133,7 @@ public class PlayerInputs : MonoBehaviour
                         return;
                     }
 
-                    Player.Instance.Equip.EquipItem(ItemManager.Instance.itemDB[firstItem.itemId]);
+                    Player.Instance.Equip.EquipItem(ItemManager.Instance.GetItem(firstItem.itemId));
                     break;
                 case 2:
                     ItemInfo secondItem = ItemManager.Instance.Inventory.secondSlotItem;
@@ -142,7 +142,7 @@ public class PlayerInputs : MonoBehaviour
                         return;
                     }
 
-                    Player.Instance.Equip.EquipItem(ItemManager.Instance.itemDB[secondItem.itemId]);
+                    Player.Instance.Equip.EquipItem(ItemManager.Instance.GetItem(secondItem.itemId));
                     break;
             }
         }

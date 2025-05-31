@@ -12,7 +12,7 @@ public class InventorySlot : Slot
 
         if (_itemId != 0 && _itemCount != 0)
         {
-            var item = ItemManager.Instance.itemDB[_itemId];
+            var item = ItemManager.Instance.GetItem(_itemId);
 
             itemId = _itemId;
             icon.color = Color.white;
@@ -37,7 +37,7 @@ public class InventorySlot : Slot
         if (_dragSlot is HandSlot isHandSlot)
         {
             //현재 슬롯 아이템 타입이 방어구가 아닐 경우에만 교환
-            var item = ItemManager.Instance.itemDB[itemId];
+            var item = ItemManager.Instance.GetItem(itemId);
 
             if (item.itemType == ItemType.Armor)
             {
@@ -46,7 +46,7 @@ public class InventorySlot : Slot
 
             else
             {
-                ItemManager.Instance.Inventory.ChangeMainSlot(_dragSlot.itemId, isHandSlot.firstSlot);
+                ItemManager.Instance.Inventory.ChangeMainItem(_dragSlot.itemId, isHandSlot.firstSlot);
             }
         }
 
@@ -56,7 +56,7 @@ public class InventorySlot : Slot
     private void CheckHandSlot(Slot _dragSlot)
     {
         if (_dragSlot is HandSlot isHand)
-            ItemManager.Instance.Inventory.ChangeMainSlot(_dragSlot.itemId, isHand.firstSlot);
+            ItemManager.Instance.Inventory.ChangeMainItem(_dragSlot.itemId, isHand.firstSlot);
     }
 
     public override void OnPointerEnter(PointerEventData eventData)
@@ -76,7 +76,7 @@ public class InventorySlot : Slot
             //드래그 중 끝났을 경우
             else if (drag.selectItemId != 0)
             {
-                var itemData = ItemManager.Instance.itemDB[drag.selectItemId];
+                var itemData = ItemManager.Instance.GetItem(drag.selectItemId);
 
                 //중복 아이템일 경우
                 if (itemData.itemId == itemId)
@@ -120,7 +120,7 @@ public class InventorySlot : Slot
 
                         if (dragSlot is HandSlot isHand)
                         {
-                            ItemManager.Instance.Inventory.ChangeMainSlot(dragSlot.itemId, isHand.firstSlot);
+                            ItemManager.Instance.Inventory.ChangeMainItem(dragSlot.itemId, isHand.firstSlot);
                         }
                     }
                 }

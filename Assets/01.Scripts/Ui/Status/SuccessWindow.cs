@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class SuccessWindow : MonoBehaviour
+{
+    public void ChangeScene()
+    {
+        //애니메이션 이벤트 호출 메서드
+        UiManager.instance.fade.OnFade();
+        SceneManager.LoadScene("Loby");
+
+        Player.Instance.transform.position = Vector3.zero;
+        UiManager.instance.lobyUi.gameObject.SetActive(true);
+        UiManager.instance.interactionUi.gameObject.SetActive(true);
+
+        UiManager.instance.SetActive(true);
+        this.gameObject.SetActive(false);
+    }
+}

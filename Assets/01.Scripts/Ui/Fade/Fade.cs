@@ -14,6 +14,11 @@ public class Fade : MonoBehaviour
         else DebugHelper.ShowBugWindow($"{this.name}에 Animator가 존재하지 않음");
     }
 
+    private void Start()
+    { 
+        anim.Play("FadeOut", 0, 0);
+    }
+
     /// <summary>
     /// 페이드 인 => 콜백 메서드 호출 & 스피드 조절
     /// </summary>

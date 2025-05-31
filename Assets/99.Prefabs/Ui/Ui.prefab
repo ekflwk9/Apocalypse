@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1495140412159833462
 Transform:
   m_ObjectHideFlags: 0
@@ -3111,13 +3111,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 215915750696368563}
+  - component: {fileID: 1576276571173999137}
   m_Layer: 0
   m_Name: InterfaceUi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &215915750696368563
 Transform:
   m_ObjectHideFlags: 0
@@ -3137,6 +3138,21 @@ Transform:
   - {fileID: 5361219790819085408}
   m_Father: {fileID: 5383434596565523281}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1576276571173999137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651856392797984888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f8d90a0f8e6f14295f1c3b41dc1f5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fieldPlayButton: {fileID: 8454198349293846478}
+  fieldSettingButton: {fileID: 8353194273999728753}
+  fieldBackButton: {fileID: 2921423447646629599}
 --- !u!1 &696307446823682922
 GameObject:
   m_ObjectHideFlags: 0
@@ -7037,13 +7053,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4167922498970654420}
+  - component: {fileID: 6859069482125759076}
   m_Layer: 0
   m_Name: LobyUi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4167922498970654420
 Transform:
   m_ObjectHideFlags: 0
@@ -7061,6 +7078,19 @@ Transform:
   - {fileID: 1495140412159833462}
   m_Father: {fileID: 5383434596565523281}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6859069482125759076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392962276101593983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 382fe95c54869464f8d82d8d777076c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fieldTitle: {fileID: 3742972466824354253}
 --- !u!1 &1396117886609543914
 GameObject:
   m_ObjectHideFlags: 0
@@ -9928,7 +9958,6 @@ RectTransform:
   - {fileID: 2868592954598682698}
   - {fileID: 2605519350740072845}
   - {fileID: 1869657134633587011}
-  - {fileID: 2001866147613043550}
   m_Father: {fileID: 5383434596565523281}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -10576,7 +10605,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   touch: {fileID: 7165259743887827340}
-  info: {fileID: 4108316755821411163}
 --- !u!1 &2002401243812170698
 GameObject:
   m_ObjectHideFlags: 0
@@ -14811,7 +14839,6 @@ GameObject:
   - component: {fileID: 5361219790819085408}
   - component: {fileID: 6141882690934917674}
   - component: {fileID: 5825334022616161243}
-  - component: {fileID: 5426010611805095486}
   m_Layer: 0
   m_Name: BackButton
   m_TagString: Untagged
@@ -14878,20 +14905,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5426010611805095486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2921423447646629599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39636109dbdc8ad4a9af003bbb5e49c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  touch: {fileID: 6155703267549768884}
-  info: {fileID: 4377755068504637601}
 --- !u!1 &3034542377451941638
 GameObject:
   m_ObjectHideFlags: 0
@@ -15521,6 +15534,7 @@ RectTransform:
   - {fileID: 8486146023340808616}
   - {fileID: 8521176829422639957}
   - {fileID: 3351882148106493326}
+  - {fileID: 2001866147613043550}
   m_Father: {fileID: 5383434596565523281}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -15578,6 +15592,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b657851ad593f2499cc185c81ea8fa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldSuccess: {fileID: 3620553756269964170}
+  fieldDead: {fileID: 494177940574736112}
   fieldWeightText: {fileID: 3731433703125262489}
   fieldDrag: {fileID: 7456354988028483409}
   fieldItemInfo: {fileID: 6605422337069094505}
@@ -17097,8 +17113,9 @@ GameObject:
   - component: {fileID: 2001866147613043550}
   - component: {fileID: 7037126816956958310}
   - component: {fileID: 2269468368006401502}
+  - component: {fileID: 3620553756269964170}
   m_Layer: 5
-  m_Name: SusessWindow
+  m_Name: SuccessWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17111,12 +17128,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3385854777693962983}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3158169480418262203}
+  m_Father: {fileID: 4820955423210210076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -17161,6 +17178,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3620553756269964170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3385854777693962983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 216f0132b0ae0dc479333e28b6eb06fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3397967039108045632
 GameObject:
   m_ObjectHideFlags: 0
@@ -17597,7 +17626,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   touch: {fileID: 4526258764309579649}
-  info: {fileID: 2543756873824307255}
 --- !u!1 &3509654362553550406
 GameObject:
   m_ObjectHideFlags: 0
@@ -18670,7 +18698,7 @@ GameObject:
   - component: {fileID: 2760743835101145234}
   - component: {fileID: 7053647190345946263}
   m_Layer: 0
-  m_Name: Title
+  m_Name: LobyTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26833,7 +26861,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   touch: {fileID: 6340383555640635189}
-  info: {fileID: 8702567029966342230}
 --- !u!1 &5052148794479685818
 GameObject:
   m_ObjectHideFlags: 0
@@ -30606,7 +30633,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   touch: {fileID: 1821496818798919200}
-  info: {fileID: 341332874749033405}
 --- !u!1 &5696499346702052270
 GameObject:
   m_ObjectHideFlags: 0
@@ -32758,8 +32784,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   touch: {fileID: 7476669587259192307}
   title: "\uBCF4\uD638\uAD6C\uC5ED"
+  shopName: "\uC0C1\uC778 \uC720\uC131\uBBFC"
   description: "\uBD88\uBC95 \uCCB4\uB958\uC790\uB4E4\uC740 \uB118\uC5B4 \uC62C \uC218
-    \uC5C6\uB294 \uAD6C\uC5ED\\\\n\uC8FC\uB85C \uCCB4\uB958\uC790\uB4E4\uC774 \uBA38\uBB34\uB294
+    \uC5C6\uB294 \uAD6C\uC5ED \uC8FC\uB85C \uCCB4\uB958\uC790\uB4E4\uC774 \uBA38\uBB34\uB294
     \uACE8\uBAA9\uC778 \uAC83 \uAC19\uB2E4."
 --- !u!1 &5933253157240193580
 GameObject:
@@ -33744,7 +33771,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   touch: {fileID: 6415292270138746794}
-  info: {fileID: 0}
 --- !u!1 &6155703267549768884
 GameObject:
   m_ObjectHideFlags: 0
@@ -34541,6 +34567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   touch: {fileID: 533718511568638682}
   title: "\"13\uAD6C\uC5ED\""
+  shopName: "\uC0C1\uC778 \uC774\uC885\uD601"
   description: "\uC5EC\uC758\uB3C4\uC5D0 \uC0AC\uB294 \uC0AC\uB78C\uC774\uB77C\uBA74
     \uC798 \uAC00\uC9C0 \uC54A\uB294 \uACE8\uBAA9. \uC5EC\uC758\uB3C4\uC5D0\uC11C
     \uC720\uC77C\uD558\uAC8C \uBCF4\uD638\uBC1B\uC9C0 \uBABB\uD558\uB294 \uAD6C\uC5ED\uC774\uB2E4."
@@ -37678,7 +37705,7 @@ GameObject:
   - component: {fileID: 108152314825444231}
   - component: {fileID: 6871071677045498625}
   m_Layer: 0
-  m_Name: ShopBackGround
+  m_Name: BackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44447,7 +44474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc8adc87ba18bf409d2273d325ea375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldDead: {fileID: 494177940574736112}
   fieldHitUi: {fileID: 7079206086981931285}
   fieldMenu: {fileID: 9203258800019841615}
   fieldPlay: {fileID: 7879538873976646614}
@@ -44455,6 +44481,8 @@ MonoBehaviour:
   fieldShaderEffect: {fileID: 3915264345240947550}
   fieldFade: {fileID: 1519298397503076899}
   fieldTouch: {fileID: 1159872044651413657}
+  fieldLobyUi: {fileID: 6859069482125759076}
+  fieldInteractionUi: {fileID: 1576276571173999137}
 --- !u!114 &1114344388321481272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44841,7 +44869,6 @@ GameObject:
   - component: {fileID: 8033908577545296422}
   - component: {fileID: 4465606421717335447}
   - component: {fileID: 7431013731670047094}
-  - component: {fileID: 5807922497868770236}
   m_Layer: 0
   m_Name: SettingButton
   m_TagString: Untagged
@@ -44908,20 +44935,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5807922497868770236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8353194273999728753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39636109dbdc8ad4a9af003bbb5e49c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  touch: {fileID: 2102666041301619909}
-  info: {fileID: 8804156427209342541}
 --- !u!1 &8365621909738597361
 GameObject:
   m_ObjectHideFlags: 0
@@ -45443,7 +45456,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   touch: {fileID: 1871778519852255290}
-  info: {fileID: 9107231937194917170}
 --- !u!1 &8527318301874197229
 GameObject:
   m_ObjectHideFlags: 0
@@ -48265,7 +48277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3502751513537460531
 Transform:
   m_ObjectHideFlags: 0
@@ -48360,7 +48372,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190335
+    rgba: 255
   m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3

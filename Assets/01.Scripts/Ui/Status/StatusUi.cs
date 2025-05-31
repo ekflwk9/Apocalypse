@@ -8,6 +8,12 @@ public class StatusUi : MonoBehaviour
     private Action endFarming;
     public List<FarmingData> farmingData = new List<FarmingData>();
 
+    public SuccessWindow success { get => fieldSuccess; }
+    [SerializeField] private SuccessWindow fieldSuccess;
+
+    public DeadWindow dead { get => fieldDead; }
+    [SerializeField] private DeadWindow fieldDead;
+
     public TMP_Text weightText { get => fieldWeightText; }
     [SerializeField] private TMP_Text fieldWeightText;
 
@@ -60,6 +66,8 @@ public class StatusUi : MonoBehaviour
         handSlot = GetComponentArray<HandSlot>(handSlotPos);
 
         fieldShop = this.TryFindChildComponent<ShopUi>("Shop");
+        fieldDead = this.TryFindChildComponent<DeadWindow>();
+        fieldSuccess = this.TryFindChildComponent<SuccessWindow>();
     }
 
     private T[] GetComponentArray<T>(Transform _parent) where T : class
@@ -87,7 +95,7 @@ public class StatusUi : MonoBehaviour
     /// <returns></returns>
     public bool GetItem(int _itemId)
     {
-        var item = ItemManager.Instance.itemDB[_itemId];
+        var item = ItemManager.Instance.GetItem(_itemId);
 
         //중복 획득 가능한 아이템인가?
         if (item.canStack)
