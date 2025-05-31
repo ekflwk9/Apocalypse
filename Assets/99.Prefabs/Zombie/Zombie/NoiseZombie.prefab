@@ -2482,7 +2482,7 @@ GameObject:
   - component: {fileID: 855001604531073651}
   - component: {fileID: 1118002760229059178}
   - component: {fileID: 2520414180830516305}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mutated1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2633,12 +2633,12 @@ Transform:
   m_GameObject: {fileID: 7020139303429389176}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7590561, y: 0, z: -11.805619}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8569844784083612498}
   - {fileID: 855001604531073651}
+  - {fileID: 8569844784083612498}
   - {fileID: 8730364131631147768}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2746,7 +2746,6 @@ MonoBehaviour:
   - {fileID: 1335661787607253174}
   - {fileID: 1725020712747086235}
   - {fileID: 7703094705389980241}
-  - {fileID: 935498364775505347}
   ragdollRigidbodies:
   - {fileID: 6991202619090881712}
   - {fileID: 3254350103484701159}
@@ -3094,7 +3093,7 @@ GameObject:
   m_Component:
   - component: {fileID: 414194057186934710}
   - component: {fileID: 8053458387047085012}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mutated1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
