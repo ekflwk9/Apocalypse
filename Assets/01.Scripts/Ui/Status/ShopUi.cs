@@ -8,10 +8,7 @@ public class ShopUi : MonoBehaviour
 
     private void Reset()
     {
-        var titlePos = Helper.FindChild(this.transform, "TitleText");
-
-        if (titlePos.TryGetComponent<TMP_Text>(out var target)) title = target;
-        else DebugHelper.ShowBugWindow($"{this.name}에 TMP_Text는 존재하지 않음");
+        title = this.TryFindChildComponent<TMP_Text>("TitleText");
     }
 
     public void SetTItle(string _title)
@@ -26,7 +23,7 @@ public class ShopUi : MonoBehaviour
 
         //인벤토리 위치 조정
         if(!_isActive) inventory.transform.position = new Vector3(960, 595, 0);
-        else inventory.transform.position = new Vector3(1230, 535, 0);
+        else inventory.transform.position = new Vector3(1230, 447, 0);
 
         this.gameObject.SetActive(_isActive);
         inventory.gameObject.SetActive(_isActive);

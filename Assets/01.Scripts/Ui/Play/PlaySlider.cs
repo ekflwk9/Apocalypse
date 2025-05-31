@@ -9,16 +9,8 @@ public class PlaySlider : MonoBehaviour
 
     private void Reset()
     {
-        var pos = Helper.FindChild(this.transform, "Slider");
-
-        if (pos == null )
-        {
-            if(this.TryGetComponent<Image>(out var target)) slider = target;
-        }
-        else
-        {
-            if(pos.TryGetComponent<Image>(out var target)) slider = target;
-        }
+        slider = this.TryGetComponent<Image>();
+        if (slider == null) slider = this.TryFindChildComponent<Image>("Slider");
     }
 
     public void SetSlider(float _value)

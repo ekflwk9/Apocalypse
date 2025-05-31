@@ -222,7 +222,7 @@ public class AttackState : EntityState
         if (IsAnimationEnd(1) == true)
         {
             SetDirection();
-            
+
             if (Random.Range(0, 2) == 0)
             {
                 SetAnimation(AnimHash.AttackHash_1);

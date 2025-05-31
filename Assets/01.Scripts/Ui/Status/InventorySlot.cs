@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -50,6 +51,12 @@ public class InventorySlot : Slot
         }
 
         return true;
+    }
+
+    private void CheckHandSlot(Slot _dragSlot)
+    {
+        if (_dragSlot is HandSlot isHand)
+            ItemManager.Instance.Inventory.ChangeMainSlot(_dragSlot.itemId, isHand.firstSlot);
     }
 
     public override void OnPointerEnter(PointerEventData eventData)
@@ -110,6 +117,11 @@ public class InventorySlot : Slot
                     if (this.SetSlot(dragSlot.itemId, dragSlot.count))
                     {
                         dragSlot.SetSlot(0);
+
+                        if (dragSlot is HandSlot isHand)
+                        {
+                            ItemManager.Instance.Inventory.ChangeMainSlot(dragSlot.itemId, isHand.firstSlot);
+                        }
                     }
                 }
 

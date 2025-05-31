@@ -9,13 +9,8 @@ public class PlaySlot : MonoBehaviour
 
     private void Reset()
     {
-        var iconPos = Helper.FindChild(this.transform, nameof(icon));
-        if (iconPos.TryGetComponent<Image>(out var isIcon)) icon = isIcon;
-        else DebugHelper.ShowBugWindow($"{this.name}에 Image가 존재하지 않음");
-
-        var countPos = Helper.FindChild(this.transform, nameof(countText));
-        if (countPos.TryGetComponent<TMP_Text>(out var isCount)) countText = isCount;
-        else DebugHelper.ShowBugWindow($"{this.name}에 TMP_Text가 존재하지 않음");
+        icon = this.TryFindChildComponent<Image>(nameof(icon));
+        countText = this.TryFindChildComponent<TMP_Text>(nameof(countText));
     }
 
     /// <summary>

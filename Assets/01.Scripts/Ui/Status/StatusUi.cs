@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class StatusUi : MonoBehaviour
 {
+    private Action endFarming;
     public List<FarmingData> farmingData = new List<FarmingData>();
 
     public TMP_Text weightText { get => fieldWeightText; }
@@ -38,34 +40,26 @@ public class StatusUi : MonoBehaviour
 
     private void Reset()
     {
-        var weight = Helper.FindChild(this.transform, "WeightText");
-        if (weight.TryGetComponent<TMP_Text>(out var isWeight)) fieldWeightText = isWeight;
-        if (fieldWeightText == null) DebugHelper.Log($"{this.name}에 DragImage스크립트가 있는 자식 오브젝트가 존재하지 않음");
+        fieldDrag = this.TryFindChildComponent<SelectUi>();
+        fieldItemInfo = this.TryFindChildComponent<ItemInfoUi>();
+        fieldWeightText = this.TryFindChildComponent<TMP_Text>("WeightText");
 
-        fieldDrag = this.GetComponentInChildren<SelectUi>(true);
-        if (fieldDrag == null) DebugHelper.Log($"{this.name}에 DragImage스크립트가 있는 자식 오브젝트가 존재하지 않음");
-
-        fieldItemInfo = this.GetComponentInChildren<ItemInfoUi>(true);
-        if (fieldItemInfo == null) DebugHelper.Log($"{this.name}에 ItemInfoUi스크립트가 있는 자식 오브젝트가 존재하지 않음");
-
-        fieldInventory = Helper.FindChild(this.transform, "Inventory").gameObject;
+        fieldInventory = this.TryFindChild("Inventory").gameObject;
         inventorySlot = GetComponentArray<InventorySlot>(fieldInventory.transform);
 
-        fieldEquipped = Helper.FindChild(this.transform, "Equipped").gameObject;
+        fieldEquipped = this.TryFindChild("Equipped").gameObject;
         equippedSlot = GetComponentArray<EquippedSlot>(fieldEquipped.transform);
 
-        fieldStorage = Helper.FindChild(this.transform, "Storage").gameObject;
+        fieldStorage = this.TryFindChild("Storage").gameObject;
         //storageSlot = GetComponentArray<InventorySlot>(fieldStorage.transform);
 
-        fieldFarming = Helper.FindChild(this.transform, "Farming").gameObject;
+        fieldFarming = this.TryFindChild("Farming").gameObject;
         farminSlot = GetComponentArray<InventorySlot>(fieldFarming.transform);
 
-        var handSlotPos = Helper.FindChild(this.transform, "Equipped");
+        var handSlotPos = this.TryFindChild("Equipped");
         handSlot = GetComponentArray<HandSlot>(handSlotPos);
 
-        var shopPos = Helper.FindChild(this.transform, "Shop");
-        if (shopPos.TryGetComponent<ShopUi>(out var isShop)) fieldShop = isShop;
-        else DebugHelper.ShowBugWindow($"{shopPos.name}에 스크립트가 있는 자식 오브젝트가 존재하지 않음");
+        fieldShop = this.TryFindChildComponent<ShopUi>("Shop");
     }
 
     private T[] GetComponentArray<T>(Transform _parent) where T : class
@@ -132,47 +126,6 @@ public class StatusUi : MonoBehaviour
         return false;
     }
 
-    public bool GetFarmingItem(int _itemId)
-    {
-        var item = ItemManager.Instance.itemDB[_itemId];
-
-        //중복 획득 가능한 아이템인가?
-        if (item.canStack)
-        {
-            for (int i = 0; i < farminSlot.Length; i++)
-            {
-                //슬롯에 아이템이 없을 경우
-                if (farminSlot[i].itemId == 0)
-                {
-                    farminSlot[i].SetSlot(_itemId, 1);
-                    return true;
-                }
-
-                //중복된 아이템이 있을 경우 / 최대 갯수를 넘지 않았을 경우
-                else if (farminSlot[i].itemId == _itemId && farminSlot[i].count < item.maxStack)
-                {
-                    farminSlot[i].SetSlot(farminSlot[i].count + 1);
-                    return true;
-                }
-            }
-        }
-
-        //불가능시
-        else
-        {
-            for (int i = 0; i < farminSlot.Length; i++)
-            {
-                if (farminSlot[i].itemId == 0)
-                {
-                    farminSlot[i].SetSlot(_itemId, 1);
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
     public void ResetInventory()
     {
         for (int i = 0; i < inventorySlot.Length; i++)
@@ -185,5 +138,29 @@ public class StatusUi : MonoBehaviour
     {
         //Player.Instance.Weight
         //weightText.text = $"{}";
+    }
+
+    /// <summary>
+    /// 현재 캐비넷이 가지고 있는 데이터와 파밍이 끝났을 경우 호출될 메서드
+    /// </summary>
+    /// <param name="_data"></param>
+    /// <param name="_func"></param>
+    public void SetFarming(List<FarmingData> _data, Action _func)
+    {
+        farmingData = _data;
+        endFarming = _func;
+
+        for (int i = 0; i < _data.Count; i++)
+        {
+            if (_data[i].id != 0)
+            {
+                farminSlot[_data[i].slotNumber].SetSlot(_data[i].id, _data[i].count);
+            }
+        }
+    }
+
+    public void UpdateSlot()
+    {
+        endFarming();
     }
 }
