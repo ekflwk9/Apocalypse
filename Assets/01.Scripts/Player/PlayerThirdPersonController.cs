@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -491,7 +491,7 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     public void UseItem()
     {
-        ItemManager.Instance.UseItem(Player.Instance.Equip.curEquip.itemId);
+        ItemManager.Instance.Inventory.UseItem(Player.Instance.Equip.curEquip.itemId);
         _animator.SetTrigger(_animIDUse);
     }
     

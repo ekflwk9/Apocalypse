@@ -40,14 +40,14 @@ public class ItemEffectManager : MonoBehaviour
             case ItemType.Weapon:
                 break;
             case ItemType.Armor:
-                if (ItemManager.Instance.itemDB[itemInfo.itemId] is ArmorInfo armor)
+                if (ItemManager.Instance.GetItem(itemInfo.itemId) is ArmorInfo armor)
                 {
 
                 }
                 break;
 
             case ItemType.Consumable:
-                if (ItemManager.Instance.itemDB[itemInfo.itemId] is ConsumableInfo consumable)
+                if (ItemManager.Instance.GetItem(itemInfo.itemId) is ConsumableInfo consumable)
                 {
                     Player.Instance.Heal(consumable.value);
                 }

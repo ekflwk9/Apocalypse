@@ -5,6 +5,7 @@ public class ShopButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 {
     [SerializeField] private GameObject touch;
     [SerializeField] private string title;
+    [SerializeField] private string shopName;
     [SerializeField] private string description;
 
     private void Reset()
@@ -36,7 +37,10 @@ public class ShopButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         {
             var shop = UiManager.instance.status.shop;
 
-            shop.SetTItle(title);
+            UiManager.instance.fade.OnFade();
+            UiManager.instance.lobyUi.title.SetActive(false);
+
+            shop.SetTItle(shopName);
             shop.SetActive(true);
         }
     }

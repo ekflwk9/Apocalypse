@@ -6,9 +6,6 @@ public class UiManager : MonoBehaviour
 
     public bool isActive { get; private set; }
 
-    public DeadWindow dead { get => fieldDead; }
-    [SerializeField] private DeadWindow fieldDead;
-
     public HitShader hitUi { get => fieldHitUi; }
     [SerializeField] private HitShader fieldHitUi;
 
@@ -30,16 +27,23 @@ public class UiManager : MonoBehaviour
     public TouchUi touch { get => fieldTouch; }
     [SerializeField] private TouchUi fieldTouch;
 
+    public LobyUi lobyUi { get => fieldLobyUi; }
+    [SerializeField] private LobyUi fieldLobyUi;
+
+    public InterfaceUi interactionUi { get => fieldInteractionUi; }
+    [SerializeField] private InterfaceUi fieldInteractionUi;
+
     private void Reset()
     {
         fieldPlay = this.TryFindChildComponent<PlayUi>("PlayUi");
         fieldMenu = this.TryFindChildComponent<MenuUi>("MenuUi");
         fieldHitUi= this.TryFindChildComponent<HitShader>("HitVolume");
-        fieldDead = this.TryFindChildComponent<DeadWindow>();
         fieldStatus = this.TryFindChildComponent<StatusUi>();
         fieldShaderEffect = this.TryFindChildComponent<UiShaderEffect>();
         fieldTouch = this.TryFindChildComponent<TouchUi>();
         fieldFade = this.TryFindChildComponent<Fade>();
+        fieldLobyUi = this.TryFindChildComponent<LobyUi>();
+        fieldInteractionUi = this.TryFindChildComponent<InterfaceUi>();
     }
 
     private void Awake()

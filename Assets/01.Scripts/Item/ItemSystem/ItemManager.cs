@@ -5,12 +5,14 @@ using UnityEngine.AddressableAssets;
 
 public class ItemManager : MonoBehaviour
 {
-    private static System.Random random = new();
+    private static ItemManager _instance;
+
     [SerializeField] private AssetData dataBundle;
-    public Inventory _inventory;
+
+    private Dictionary<int, ItemInfo> itemDB = new Dictionary<int, ItemInfo>();
+    public Inventory _inventory { get; private set; }
     public Inventory Inventory => _inventory ??= Player.Instance.GetComponent<Inventory>();
 
-    private static ItemManager _instance;
     public static ItemManager Instance
     {
         get
@@ -45,80 +47,20 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-
     /// <summary>
-    /// 아이템 제거시 호출 요망
+    /// 특정 인덱스의 아이템 정보를 가져오는 예외처리된 메서드
     /// </summary>
-    /// <param name="itemId"></param>
-    public void RemoveItem(int itemId)
+    public ItemInfo GetItem(int _id)
     {
-        Inventory.RemoveInventoryItem(itemId);
+        if (itemDB.ContainsKey(_id)) return itemDB[_id];
+        else DebugHelper.Log($"{_id}번 아이템은 존재하지 않는 아이템");
+
+        return null;
     }
 
-    /// <summary>
-    /// 아이템 사용시 호출 요망
-    /// </summary>
-    /// <param name="itemId"></param>
-    public void UseItem(int itemId)
+    public Dictionary<int, ItemInfo>.KeyCollection GetAllKeys()
     {
-        Inventory.UseInventoryItem(itemId);
+        if (itemDB.Count == 0) DebugHelper.Log("아이템이 현재 한개도 추가되지 않은 상태");
+        return itemDB.Keys;
     }
-
-    /// <summary>
-    /// 주아이템 등록시 호출 요망
-    /// </summary>
-    /// <param name="index"></param>
-    public void SetItemSlot(int index, bool isFirst)
-    {
-        if (isFirst)
-        {
-            if (index == 0)
-            {
-                Inventory.firstSlotItem = null;
-            }
-            else
-            {
-                Inventory.firstSlotItem = Instance.itemDB[index];
-            }
-
-        }
-        else
-        {
-            if (index == 0)
-            {
-                Inventory.secondSlotItem = null;
-            }
-            else
-            {
-                Inventory.secondSlotItem = Instance.itemDB[index];
-            }
-        }
-    }
-
-    /// <summary>
-    /// 맵 아이템 생성 메서드
-    /// </summary>
-    /// <param name="position"></param>
-    /// <param name="itemInfo"></param>
-    /// <returns></returns>
-    public ItemHandler SpawnItem(Vector3 position, ItemInfo itemInfo)
-    {
-        var Mapitem = Instantiate(itemInfo.itemPrefab, position, Quaternion.identity);
-
-        return Mapitem.GetComponent<ItemHandler>();
-    }
-    
-    public ItemInfo[] GetRandomItems(int amount)
-    {
-      var result = new ItemInfo[amount];
-      var items = (from item in itemDB.Values orderby random.Next() select item).ToList();
-
-      for (int i = 0; i < amount; i++)
-      {
-        result[i] = items[i % items.Count];
-      }
-      return result;
-    }
-
-    public Dictionary<int, ItemInfo> itemDB = new Dictionary<int, ItemInfo>();
 }
