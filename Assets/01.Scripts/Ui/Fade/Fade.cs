@@ -23,7 +23,7 @@ public class Fade : MonoBehaviour
     /// 페이드 인 => 콜백 메서드 호출 & 스피드 조절
     /// </summary>
     /// <param name="_fadeFunc"></param>
-    public void OnFede(Action _fadeFunc, float _fadeSpeed = 1f)
+    public void OnFade(Action _fadeFunc, float _fadeSpeed = 1f)
     {
         activeSelf = true;
         fadeFunc = _fadeFunc;

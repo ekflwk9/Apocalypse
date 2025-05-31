@@ -13,6 +13,7 @@ public class UiController : MonoBehaviour
             var isActive = UiManager.instance.status.inventory.gameObject.activeSelf;
             var status = UiManager.instance.status;
 
+            UiManager.instance.fade.OnFade();
             UiManager.instance.SetActive(!isActive);
             UiManager.instance.shaderEffect.SetActive(!isActive);
             status.inventory.gameObject.SetActive(!isActive);
@@ -29,7 +30,6 @@ public class UiController : MonoBehaviour
                 UiManager.instance.touch.SetTouch(false);
 
                 var farming = status.farming.gameObject;
-
                 if (farming.gameObject.activeSelf) farming.SetActive(false);
             }
 

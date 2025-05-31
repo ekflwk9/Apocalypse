@@ -68,6 +68,8 @@ public class StatusUi : MonoBehaviour
         fieldShop = this.TryFindChildComponent<ShopUi>("Shop");
         fieldDead = this.TryFindChildComponent<DeadWindow>();
         fieldSuccess = this.TryFindChildComponent<SuccessWindow>();
+
+        Debug.Log(inventory.transform.position);
     }
 
     private T[] GetComponentArray<T>(Transform _parent) where T : class
@@ -167,8 +169,16 @@ public class StatusUi : MonoBehaviour
         }
     }
 
-    public void UpdateSlot()
+    /// <summary>
+    /// 파밍 메서드로 등록된 메서드 호출 (데이터 업데이트)
+    /// </summary>
+    public void UpdateFarmingSlot()
     {
         endFarming();
+    }
+
+    public void UpdateArmorView(int _index,ArmorInfo _item)
+    {
+        equippedSlot[_index].SetSlot(_item.defense);
     }
 }

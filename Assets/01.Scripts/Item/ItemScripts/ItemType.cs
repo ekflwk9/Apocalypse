@@ -11,10 +11,8 @@ using UnityEngine;
 
     public enum ArmorType
     {
-        None,
         Head,
         Top,
-        // Bottom,
         Shoes,
     }
 

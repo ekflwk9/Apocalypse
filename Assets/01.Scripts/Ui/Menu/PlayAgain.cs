@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PlayAgain : UiButton
 {
@@ -10,13 +11,21 @@ public class PlayAgain : UiButton
 
         menu.menuWindow.SetActive(!isActive);
 
-        if (!UiManager.instance.status.inventory.gameObject.activeSelf)
+        var inventory = UiManager.instance.status.inventory.gameObject.activeSelf;
+        var scene = SceneManager.GetActiveScene().name == "Loby";
+
+        if (!inventory && !scene)
         {
             UiManager.instance.shaderEffect.SetActive(!isActive);
             UiManager.instance.SetActive(!isActive);
 
             Cursor.lockState = isActive ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !isActive;
+        }
+
+        else if (scene)
+        {
+            UiManager.instance.fade.OnFade();
         }
 
         touch.SetActive(false);

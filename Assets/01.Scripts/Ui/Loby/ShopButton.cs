@@ -1,37 +1,27 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ShopButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class ShopButton : UiButton
 {
-    [SerializeField] private GameObject touch;
     [SerializeField] private string title;
     [SerializeField] private string shopName;
     [SerializeField] private string description;
 
-    private void Reset()
+    public override void OnPointerEnter(PointerEventData eventData)
     {
-        touch = this.TryFindChild("touch").gameObject;
+        if (UiManager.instance.fade.activeSelf) return;
+        touch.gameObject.SetActive(true);
+        UiManager.instance.status.itemInfo.SetActive(this.transform.position, title, description);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public override void OnPointerExit(PointerEventData eventData)
     {
-        if (!UiManager.instance.fade.activeSelf)
-        {
-            touch.SetActive(true);
-            UiManager.instance.status.itemInfo.SetActive(this.transform.position, title, description);
-        }
+        if (!touch.activeSelf) return;
+        touch.gameObject.SetActive(false);
+        UiManager.instance.status.itemInfo.SetOff();
     }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (!UiManager.instance.fade.activeSelf)
-        {
-            touch.SetActive(false);
-            UiManager.instance.status.itemInfo.SetOff();
-        }
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
+    public override void OnPointerClick(PointerEventData eventData)
     {
         if (!UiManager.instance.fade.activeSelf)
         {
@@ -39,6 +29,7 @@ public class ShopButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
             UiManager.instance.fade.OnFade();
             UiManager.instance.lobyUi.title.SetActive(false);
+            UiManager.instance.interactionUi.SwitchBackButton(false);
 
             shop.SetTItle(shopName);
             shop.SetActive(true);
