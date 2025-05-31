@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1108627898438549951}
   m_Layer: 10
   m_Name: Equip_SuperLumber
-  m_TagString: Item
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weponData: {fileID: 11400000, guid: 2baafeec75f954fd68251fd0cea2d518, type: 2}
+  _consumableData: {fileID: 0}
   type: 1
   equipPosition: {x: 0, y: 0, z: 0}
   equipRotation: {x: 90, y: 0, z: 0}

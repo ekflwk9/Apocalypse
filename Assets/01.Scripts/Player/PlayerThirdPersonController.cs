@@ -491,9 +491,8 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     public void UseItem()
     {
-        ItemEffectManager.Instance.ItemEffect(ItemManager.Instance.itemDB[Player.Instance.Equip.curEquip.itemId]);
+        ItemManager.Instance.UseItem(Player.Instance.Equip.curEquip.itemId);
         _animator.SetTrigger(_animIDUse);
-        Player.Instance.Equip.UnEquip();
     }
     
     

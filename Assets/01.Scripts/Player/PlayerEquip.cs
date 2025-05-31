@@ -64,7 +64,7 @@ public class PlayerEquip : MonoBehaviour
     
     public void EquipItem(ItemInfo itemInfo)
     {
-        if(_unEquipCoroutine != null || _equipCoroutine != null) return;
+        //if(_unEquipCoroutine != null || _equipCoroutine != null) return;
         if (curWeaponPrefab == null)
         {
             EquipNew(itemInfo); // 아무 것도 장착되지 않았을 때
@@ -134,10 +134,15 @@ public class PlayerEquip : MonoBehaviour
     
     public void UnEquip()
     {
-        GameObject weaponToUnEquip = curWeaponPrefab;
-        PlayerWeapon weaponDataToUnEquip = curWeaponData;
-        _animator.SetTrigger(_animIDUnEquip);
-        _unEquipCoroutine = StartCoroutine(WaitForUnEquip(weaponToUnEquip, weaponDataToUnEquip)); 
+        if(curWeaponPrefab == null) return;
+        
+        if (curWeaponPrefab.activeInHierarchy)
+        {
+            GameObject weaponToUnEquip = curWeaponPrefab;
+            PlayerWeapon weaponDataToUnEquip = curWeaponData;
+            _animator.SetTrigger(_animIDUnEquip);
+            _unEquipCoroutine = StartCoroutine(WaitForUnEquip(weaponToUnEquip, weaponDataToUnEquip)); 
+        }
         
         curWeaponPrefab = null;
         curWeaponData = null;
@@ -176,7 +181,7 @@ public class PlayerEquip : MonoBehaviour
         _animator.SetBool(_animIDEquipItem, _equipItem);
     }
 
-    private void ToggleWeaponLocation(GameObject obj, PlayerWeapon data)
+    public void ToggleWeaponLocation(GameObject obj, PlayerWeapon data)
     {
         _isWeaponOnHand = !_isWeaponOnHand; 
         

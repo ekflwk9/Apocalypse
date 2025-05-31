@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4320632113990619844}
   m_Layer: 3
   m_Name: Man_Bag_Mesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 3380376515475884259}
   m_Layer: 3
   m_Name: Man_Jacket_Mesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -808,7 +808,7 @@ GameObject:
   - component: {fileID: 3538868631809844531}
   m_Layer: 3
   m_Name: Man_Cloth_Face_Mesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -995,7 +995,7 @@ GameObject:
   - component: {fileID: 3844325542455065928}
   m_Layer: 3
   m_Name: Man_Eyes_Mesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1081,7 +1081,7 @@ GameObject:
   - component: {fileID: 7286181638641128667}
   m_Layer: 3
   m_Name: Man_Shoes_Mesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1172,7 +1172,7 @@ GameObject:
   - component: {fileID: 5515632438907016073}
   m_Layer: 3
   m_Name: Man_Pants_Mesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1495,7 +1495,7 @@ GameObject:
   - component: {fileID: 693966034632661926}
   m_Layer: 3
   m_Name: Man_Head_Mesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2413,8 +2413,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7dbc81b40bf544759ea139842d45450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSlotItem: {fileID: 11400000, guid: 63b8e73bd6c2f4a80ac8ae1f02cf0512, type: 2}
-  secondSlotItem: {fileID: 11400000, guid: 2baafeec75f954fd68251fd0cea2d518, type: 2}
+  firstSlotItem: {fileID: 0}
+  secondSlotItem: {fileID: 0}
+  currentArmor:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   items: []
 --- !u!1 &5353754830572176258
 GameObject:
@@ -2429,7 +2434,7 @@ GameObject:
   - component: {fileID: 6393651030707324152}
   m_Layer: 3
   m_Name: Interaction
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2561,7 +2566,7 @@ GameObject:
   - component: {fileID: 2786293101989653345}
   m_Layer: 3
   m_Name: Man_Arms_Mesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2683,7 +2688,7 @@ GameObject:
   - component: {fileID: 2256434095153350089}
   m_Layer: 3
   m_Name: PlayerPrefab
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2814,7 +2819,7 @@ GameObject:
   - component: {fileID: 4631615253468726799}
   m_Layer: 3
   m_Name: Man_Pullover_For_Jacket_Mesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3762,21 +3767,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Equip_Weapon_Bat
       objectReference: {fileID: 0}
-    - target: {fileID: 5764002304329306248, guid: b85f15903cdb39c438719b0815d29124,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 5794316791853665280, guid: b85f15903cdb39c438719b0815d29124,
-        type: 3}
-      propertyPath: type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5794316791853665280, guid: b85f15903cdb39c438719b0815d29124,
-        type: 3}
-      propertyPath: handPosition.z
-      value: -0.15
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3796,41 +3786,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7840712507701071376}
     m_Modifications:
-    - target: {fileID: -3361089720476702508, guid: 29f9c71f7d425d04ebbe2a32ccd778c8,
-        type: 3}
-      propertyPath: handPosition.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: -3361089720476702508, guid: 29f9c71f7d425d04ebbe2a32ccd778c8,
-        type: 3}
-      propertyPath: handPosition.y
-      value: -0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: -3361089720476702508, guid: 29f9c71f7d425d04ebbe2a32ccd778c8,
-        type: 3}
-      propertyPath: handPosition.z
-      value: 0.035
-      objectReference: {fileID: 0}
-    - target: {fileID: -3361089720476702508, guid: 29f9c71f7d425d04ebbe2a32ccd778c8,
-        type: 3}
-      propertyPath: equipPosition.x
-      value: -0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: -3361089720476702508, guid: 29f9c71f7d425d04ebbe2a32ccd778c8,
-        type: 3}
-      propertyPath: equipPosition.y
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: -3361089720476702508, guid: 29f9c71f7d425d04ebbe2a32ccd778c8,
-        type: 3}
-      propertyPath: equipPosition.z
-      value: 0.125
-      objectReference: {fileID: 0}
-    - target: {fileID: -3361089720476702508, guid: 29f9c71f7d425d04ebbe2a32ccd778c8,
-        type: 3}
-      propertyPath: equipRotation.x
-      value: 90
-      objectReference: {fileID: 0}
     - target: {fileID: 2783892879172946851, guid: 29f9c71f7d425d04ebbe2a32ccd778c8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3905,26 +3860,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7840712507701071376}
     m_Modifications:
-    - target: {fileID: 1108627898438549951, guid: a7caac2821f627443b215e9e9888b1e9,
-        type: 3}
-      propertyPath: handPosition.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1108627898438549951, guid: a7caac2821f627443b215e9e9888b1e9,
-        type: 3}
-      propertyPath: handPosition.y
-      value: -0.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 1108627898438549951, guid: a7caac2821f627443b215e9e9888b1e9,
-        type: 3}
-      propertyPath: handPosition.z
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1108627898438549951, guid: a7caac2821f627443b215e9e9888b1e9,
-        type: 3}
-      propertyPath: equipRotation.x
-      value: 90
-      objectReference: {fileID: 0}
     - target: {fileID: 5987982000373210322, guid: a7caac2821f627443b215e9e9888b1e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3999,11 +3934,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7840712507701071376}
     m_Modifications:
-    - target: {fileID: 136950713235612334, guid: 627d87f9a17ace144aef455ea5b0ec95,
-        type: 3}
-      propertyPath: type
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5987982000373210322, guid: 627d87f9a17ace144aef455ea5b0ec95,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4132,31 +4062,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8599725866096941026, guid: ac4cc4e278f58b84fb70d0d2be55a026,
-        type: 3}
-      propertyPath: handPosition.x
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 8599725866096941026, guid: ac4cc4e278f58b84fb70d0d2be55a026,
-        type: 3}
-      propertyPath: handPosition.y
-      value: -0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8599725866096941026, guid: ac4cc4e278f58b84fb70d0d2be55a026,
-        type: 3}
-      propertyPath: handPosition.z
-      value: -0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 8599725866096941026, guid: ac4cc4e278f58b84fb70d0d2be55a026,
-        type: 3}
-      propertyPath: handRotation.z
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8599725866096941026, guid: ac4cc4e278f58b84fb70d0d2be55a026,
-        type: 3}
-      propertyPath: equipRotation.x
-      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

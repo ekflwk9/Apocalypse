@@ -47,6 +47,8 @@ public class NoiseZombie : Entity
         baseStatus = new BaseStatus();
 
         _stateMachine.SetState(EntityEnum.Idle);
+
+        baseStatus.SetStatus(20, 10);
     }
 
     public override void Attack_2()

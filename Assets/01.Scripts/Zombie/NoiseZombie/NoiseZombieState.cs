@@ -14,7 +14,26 @@ public class NoiseAttackState : EntityState
     public override void Enter()
     {
         SetDirection();
-        SetAnimationForce(AnimHash.YellingHash);
+
+        Vector3 entityPos = entity.transform.position;
+        Vector3 playerPos = Player.Instance.transform.position;
+        float Distance = Vector3.Distance(playerPos, entityPos);
+        if (Distance < 3f)
+        {
+            int value = Random.Range(0, 2);
+            if (value == 0)
+            {
+                SetAnimationForce(AnimHash.AttackHash_1);
+            }
+            else
+            {
+                SetAnimationForce(AnimHash.AttackHash_2);
+            }
+        }
+        else if (Distance < entity.baseStatus.AttackRange)
+        {
+            SetAnimationForce(AnimHash.YellingHash);
+        }
         entity._NavMeshAgent.ResetPath();
     }
     public override void Update()

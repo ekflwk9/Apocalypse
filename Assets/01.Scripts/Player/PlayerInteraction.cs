@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     private Dictionary<string, GameObject> touchItems = new Dictionary<string, GameObject>();
-    private ItemHandler touchedItem;
+    private IInteractionObject touchedItem;
     private bool isTouched;
     [SerializeField] private Collider interactionCollider;
     [SerializeField] private LayerMask itemLayer;
@@ -29,10 +29,11 @@ public class PlayerInteraction : MonoBehaviour
             
             if (Physics.Raycast(origin, direction, out hit, 5f, itemLayer))
             {
-                if (hit.collider.CompareTag("Item") && hit.collider.TryGetComponent<ItemHandler>(out var isItem))
+                if (hit.collider.CompareTag("Item") && hit.collider.TryGetComponent<IInteractionObject>(out var isItem))
                 {
                     isTouched = true;
                     touchedItem = isItem;
+                    touchedItem.OnSelected();
                 }
             }
         }
@@ -43,16 +44,23 @@ public class PlayerInteraction : MonoBehaviour
         if (other.gameObject.CompareTag("Item"))
         {
             isTouched = false;
+            touchedItem.UnSelected();
             touchedItem = null;
         }
     }
+
+    public void Interaction()
+    {
+        touchedItem?.Interaction();
+    }
+
 
     public void InvokePickUp()
     {
         if (isTouched && touchedItem != null)
         {
             interactionCollider.enabled = false;
-            touchedItem?.PickUpItem();
+            touchedItem?.Interaction();
             touchedItem = null;
             interactionCollider.enabled = true;
         }
