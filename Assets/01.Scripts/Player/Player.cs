@@ -161,7 +161,7 @@ public class Player : MonoBehaviour, IDamagable
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject.transform.parent.gameObject);
         }
     }
 

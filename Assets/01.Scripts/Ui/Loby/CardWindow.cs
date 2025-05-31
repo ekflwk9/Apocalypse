@@ -25,7 +25,7 @@ public class CardWindow : MonoBehaviour
         if (index < levelName.Length)
         {
             info.text = levelName[index];
-            UiManager.instance.lobyUi.SetNeedGoldText($"{cost[index].ToString("N0")} 만원");
+            UiManager.instance.lobyUi.SetNeedGoldText($"{cost[index].ToString("N0")}만원");
         }
     }
 

@@ -49,6 +49,7 @@ public class UiController : MonoBehaviour
         var menu = UiManager.instance.menu;
         var isActive = menu.menuWindow.activeSelf;
 
+        UiManager.instance.fade.OnFade();
         menu.menuWindow.SetActive(!isActive);
 
         if (!UiManager.instance.status.inventory.gameObject.activeSelf)
