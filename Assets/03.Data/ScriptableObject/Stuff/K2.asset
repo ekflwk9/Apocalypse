@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384823be4855943039690a396e7e9aa6, type: 3}
+  m_Name: K2
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 4231021923308411786, guid: 69ee800b68d2b4216be8f99a40e48234,
+    type: 3}
+  itemId: 405
+  itemName: K-2
+  disciption: "\uB300\uD55C\uBBFC\uAD6D\uC758 \uC81C\uC2DD \uC18C\uCD1D\\n\uCD1D\uC54C\uC774
+    \uC5C6\uC5B4 \uC2E4\uC81C \uBC1C\uC0AC\uB294 \uBABB\uD55C\uB2E4\\n\uC0C1\uC810\uC5D0
+    \uD314\uBA74 \uB192\uC740 \uAC00\uACA9\uC744 \uBC1B\uC744 \uB4EF \uD558\uB2E4"
+  itemType: 8
+  icon: {fileID: 21300000, guid: 964b2bb7d2bd84f728e6f788e29f2f9a, type: 3}
+  cost: 90000
+  canStack: 0
+  maxStack: 0
+  weight: 10

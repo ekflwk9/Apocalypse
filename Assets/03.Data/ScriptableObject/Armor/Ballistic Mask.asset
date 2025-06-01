@@ -16,10 +16,11 @@ MonoBehaviour:
     type: 3}
   itemId: 202
   itemName: "\uBC1C\uB77C\uC2A4\uD2F1 \uB9C8\uC2A4\uD06C"
-  disciption: "\uCF00\uBE14\uB77C \uC18C\uC7AC \uC548\uBA74 \uBCF4\uD638\uAD6C"
+  disciption: "\uCF00\uBE14\uB77C \uC18C\uC7AC \uC548\uBA74 \uBCF4\uD638\uAD6C\\n\uB300\uB9CC
+    \uD2B9\uC218\uBD80\uB300\uAC00 \uC0AC\uC6A9\uD558\uB294 \uC7A5\uBE44\uB85C \uC720\uBA85\uD558\uB2E4"
   itemType: 2
   icon: {fileID: 21300000, guid: 7d4f3d2e7c2f24f2da91e95f2865fe85, type: 3}
-  cost: 50000
+  cost: 70000
   canStack: 0
   maxStack: 0
   weight: 7

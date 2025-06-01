@@ -15,8 +15,9 @@ MonoBehaviour:
   itemPrefab: {fileID: 5764002304329306248, guid: 57142042eaeb6437392bf8ca487c5d05,
     type: 3}
   itemId: 102
-  itemName: "\uC57C\uAD6C\uBE60\uB530"
-  disciption: "\uC624\uD0C0\uB2C8 \uC1FC\uD5E4\uC774"
+  itemName: "\uC57C\uAD6C \uBC29\uB9DD\uC774"
+  disciption: "\uC57C\uAD6C\uACF5\uC744 \uCE58\uB358 \uB3C4\uAD6C\uAC00\\n\uC774\uC820
+    \uC880\uBE44\uB4E4\uC758 \uBA38\uB9AC\uB97C \uB0A0\uB9AC\uACE0 \uC788\uB2E4"
   itemType: 1
   icon: {fileID: 21300000, guid: 158483731c8c044ae80526586884a0ce, type: 3}
   cost: 35000
