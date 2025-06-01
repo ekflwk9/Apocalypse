@@ -10,25 +10,43 @@ using UnityEngine.Audio;
 /// </summary>
 public static class SoundManager
 {
-  public static AudioMixer Mixer;
+  public static AudioMixer mixer;
+  private static bool loaded = false;
+  public static bool Loaded => loaded;
 
   private static AudioSource effectSource, backgroundSource;
   private static AudioMixerGroup effectGroup, backgroundGroup, objectGroup;
   
   static SoundManager()
   {
-    Mixer = Addressables.LoadAssetAsync<AudioMixer>(new AssetLabelReference{labelString = "AudioMixer"}).WaitForCompletion();
-
-    if (Mixer)
-    {
-      MasterVolume = PlayerPrefs.GetFloat("MasterVolume", 80);
-      BackgroundVolume = PlayerPrefs.GetFloat("BackgroundVolume", 52);
-      EffectVolume = PlayerPrefs.GetFloat("EffectVolume", 60);
+    Load();
+  }
+  
+  public static void Load()
+  {
+      if(loaded) return;
+      loaded = true;
       
-      effectGroup = Mixer.FindMatchingGroups("Effect")[0];
-      backgroundGroup = Mixer.FindMatchingGroups("Background")[0];
-      objectGroup = Mixer.FindMatchingGroups("Object")[0];
-    }
+      Mixer = Addressables.LoadAssetAsync<AudioMixer>(new AssetLabelReference{labelString = "AudioMixer"}).WaitForCompletion();
+  }
+
+  public static AudioMixer Mixer
+  {
+      get => mixer;
+      set
+      {
+          mixer = value;
+          if (mixer)
+          {
+              MasterVolume = PlayerPrefs.GetFloat("MasterVolume", 80);
+              BackgroundVolume = PlayerPrefs.GetFloat("BackgroundVolume", 52);
+              EffectVolume = PlayerPrefs.GetFloat("EffectVolume", 60);
+              
+              effectGroup = Mixer.FindMatchingGroups("Effect")[0];
+              backgroundGroup = Mixer.FindMatchingGroups("Background")[0];
+              objectGroup = Mixer.FindMatchingGroups("Object")[0];
+          }
+      }
   }
 
   /// <summary>
