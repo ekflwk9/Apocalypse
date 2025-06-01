@@ -143,6 +143,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Item
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3c7671bcb85f14886b4b5f0ac7e2e603
+    m_Address: Assets/99.Prefabs/Item/Weapon/Weapon_Crowbar.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6ec1cec87ffaca74b8b74d2047c4a7af, type: 2}
   m_SchemaSet:

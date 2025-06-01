@@ -16,7 +16,7 @@ MonoBehaviour:
     type: 3}
   itemId: 402
   itemName: "\uC571\uC194\uB8E8\uD2B8 \uBCF4\uB4DC\uCE74"
-  disciption: "\uC2A4\uC6E8\uB374\uC0B0 \uBCF4\uB4DC\uCE74 750ml\\n\uC544\uB984\uB2E4\uC6B4
+  disciption: "\uC2A4\uC6E8\uB374\uC0B0 \uBCF4\uB4DC\uCE74 750ml \uC544\uB984\uB2E4\uC6B4
     \uBCD1 \uB514\uC790\uC778\uC73C\uB85C \uC720\uBA85\uD558\uB2E4"
   itemType: 8
   icon: {fileID: 21300000, guid: 07f381518064043fd86010878f8e402e, type: 3}

@@ -16,9 +16,9 @@ MonoBehaviour:
     type: 3}
   itemId: 203
   itemName: "\uBC29\uD0C4\uC870\uB07C"
-  disciption: "\uCF00\uBE14\uB77C \uC18C\uC7AC\uB85C \uB9CC\uB4E4\uC5C8\uC73C\uBA70\\n\uB0B4\uBD80\uC5D4
-    \uC138\uB77C\uBBF9 \uD310\uC774 \uB0B4\uC7A5\uB418\uC5B4 \uC788\uC5B4 \uB9E4\uC6B0
-    \uBB34\uAC81\uB2E4"
+  disciption: "\uCF00\uBE14\uB77C \uC18C\uC7AC\uB85C \uB9CC\uB4E4\uC5C8\uC73C\uBA70
+    \uB0B4\uBD80\uC5D4 \uC138\uB77C\uBBF9 \uD310\uC774 \uB0B4\uC7A5\uB418\uC5B4 \uC788\uC5B4
+    \uB9E4\uC6B0 \uBB34\uAC81\uB2E4"
   itemType: 2
   icon: {fileID: 21300000, guid: 6f2a366f12dad45b6a150f85f752419e, type: 3}
   cost: 85000

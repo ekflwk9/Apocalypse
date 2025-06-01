@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195975c79d1434902a58194104bc8500, type: 3}
   m_Name: Crowbar
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 0}
-  itemId: 0
-  itemName: 
-  disciption: 
-  itemType: 0
-  icon: {fileID: 0}
-  cost: 0
+  itemPrefab: {fileID: 7891264825019504862, guid: 3c7671bcb85f14886b4b5f0ac7e2e603,
+    type: 3}
+  itemId: 103
+  itemName: "\uBE60\uB8E8"
+  disciption: "\uC606 \uACF5\uC0AC\uC7A5\uC5D0\uC11C \uBAB0\uB798 \uC8FC\uC6CC\uC628
+    \uB4EF \uD558\uB2E4"
+  itemType: 1
+  icon: {fileID: 21300000, guid: 1713fac0970374b11bf339317f7ce387, type: 3}
+  cost: 50000
   canStack: 0
   maxStack: 0
-  weight: 0
-  durability: 0
-  power: 0
-  AttackSpeed: 0
+  weight: 12
+  durability: 50
+  power: 25
+  AttackSpeed: 2

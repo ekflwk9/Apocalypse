@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BoxHandler : MonoBehaviour, IInteractionObject
 {
-    private List<FarmingData> item = new List<FarmingData>();
+    [SerializeField] private List<FarmingData> item = new List<FarmingData>();
     private Animator anim;
     private bool isOpen;
     [SerializeField] SelectedUI selectedUI;
@@ -49,6 +49,7 @@ public class BoxHandler : MonoBehaviour, IInteractionObject
             status.farming.gameObject.SetActive(true);
             status.inventory.gameObject.SetActive(true);
             status.equipped.gameObject.SetActive(true);
+
         }
     }
 
