@@ -22,10 +22,10 @@ public class BackButton : UiButton
         else
         {
             var status = UiManager.instance.status;
-            var firstShop = status.firstShop.gameObject;
-            var sceondShop = status.secondShop.gameObject;
+            var firstShop = status.firstShop;
+            var sceondShop = status.secondShop;
 
-            if (firstShop.activeSelf) firstShop.SetActive(false);
+            if (firstShop.gameObject.activeSelf) firstShop.SetActive(false);
             else sceondShop.SetActive(false);
         }
 
