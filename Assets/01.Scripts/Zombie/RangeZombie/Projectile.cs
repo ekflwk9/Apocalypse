@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] Rigidbody rb;
     [SerializeField] SphereCollider sphereCollider;
 
+    [SerializeField] string PrefabString;
+
     private void Reset()
     {
         rb = GetComponent<Rigidbody>();
@@ -30,6 +32,10 @@ public class Projectile : MonoBehaviour
     {
         Vector3 PlayerPos = Player.Instance.transform.position + new Vector3(0, 1, 0);
         Vector3 Direction = (PlayerPos - gameObject.transform.position).normalized;
+
+        Quaternion LookDirection = Quaternion.LookRotation(Direction);
+        transform.rotation = LookDirection;
+
         rb.velocity = Direction * 10f;
         CoroutineManager.Instance.SetCoroutine(this, DestroyCoroutine());
     }
@@ -40,7 +46,10 @@ public class Projectile : MonoBehaviour
         {
             Player.Instance.TakeDamage(10);
             CoroutineManager.Instance.UnSetAllCoroutine(this);
-            Destroy(gameObject);
+
+            GameObject obj = ContentManager.GetAsset<GameObject>(PrefabString);
+
+            ObjectPool.Instance.Set(obj, gameObject);
             //ObjectPool.Instance.Set(ObjectPool.PoolType.Projectile, gameObject);
         }
     }

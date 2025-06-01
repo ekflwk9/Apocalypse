@@ -129,7 +129,7 @@ public class SurvivorDetectedState : EntityState
             return;
         }
 
-        if (3f > HideDistance)
+        if (1.5f > HideDistance)
         {
             SetAnimation(AnimHash.SneakHash);
             entity._NavMeshAgent.ResetPath();
