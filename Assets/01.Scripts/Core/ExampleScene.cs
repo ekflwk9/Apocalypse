@@ -29,8 +29,9 @@ public class ExampleScene : SceneBundle
     {
       if (trigger())
       {
-        SoundManager.Play("BasicBackGround", SoundType.Background);
-        SoundManager.Play("Walk_3", SoundType.Effect);
+          gameObject.SendMessage("Ready");
+        // SoundManager.Play("BasicBackGround", SoundType.Background);
+        // SoundManager.Play("Walk_3", SoundType.Effect);
         break;
       }
       yield return null;
