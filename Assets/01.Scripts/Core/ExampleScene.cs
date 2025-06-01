@@ -43,6 +43,7 @@ public class ExampleScene : SceneBundle
   protected override void Awake()
   {
       base.Awake();
+      SoundManager.Load();
   }
 
   protected override void OnDestroy()
