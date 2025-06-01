@@ -10,6 +10,7 @@ using UnityEngine.Audio;
 /// </summary>
 public static class SoundManager
 {
+    private delegate float Oper(float a);
   public static AudioMixer mixer;
   private static bool loaded = false;
   public static bool Loaded => loaded;
@@ -49,6 +50,9 @@ public static class SoundManager
       }
   }
 
+  private static readonly Oper To = v => (v / 2) - 30;
+  private static readonly Oper From = v => (v + 30) * 2;
+
   /// <summary>
   /// 각 볼륨을 총괄하는 마스터 볼륨입니다.
   /// 해당 볼륨을 변경시 다른 모든 볼륨이 영향받습니다.
@@ -56,30 +60,28 @@ public static class SoundManager
   /// </summary>
   public static float MasterVolume
   {
-    get => Mixer && Mixer.GetFloat("Master", out var value) ? value + 80 : PlayerPrefs.GetFloat("MasterVolume", 80);
+    get => Mixer && Mixer.GetFloat("Master", out var value) ? From(value) : PlayerPrefs.GetFloat("MasterVolume", 80);
     set
     {
       var input = Math.Max(0, Math.Min(100, value));
 
-      if(Mixer) Mixer.SetFloat("Master", input - 80);
+      if(Mixer) Mixer.SetFloat("Master", To(value));
       PlayerPrefs.SetFloat("MasterVolume", input);
     }
   }
-
+  
   /// <summary>
   /// 배경 볼륨입니다.
   /// 값은 0~100 사이로 설정할 수 있고, 미만 혹은 초과시 자동으로 포맷팅됩니다.
   /// </summary>
   public static float BackgroundVolume
   {
-      get => Mixer && Mixer.GetFloat("Background", out var value)
-          ? value + 80
-          : PlayerPrefs.GetFloat("BackgroundVolume", 80);
+      get => Mixer && Mixer.GetFloat("Background", out var value) ? From(value) : PlayerPrefs.GetFloat("BackgroundVolume", 80);
       set
       {
           var input = Math.Max(0, Math.Min(100, value));
 
-          if (Mixer) Mixer.SetFloat("Background", input - 80);
+          if (Mixer) Mixer.SetFloat("Background", To(value));
           PlayerPrefs.SetFloat("BackgroundVolume", input);
       }
   }
@@ -90,12 +92,12 @@ public static class SoundManager
   /// </summary>
   public static float EffectVolume
   {
-    get => Mixer && Mixer.GetFloat("Effect", out var value) ? value + 80 : PlayerPrefs.GetFloat("EffectVolume", 80);
+    get => Mixer && Mixer.GetFloat("Effect", out var value) ? From(value) : PlayerPrefs.GetFloat("EffectVolume", 80);
     set
     {
       var input = Math.Max(0, Math.Min(100, value));
 
-      if(Mixer) Mixer.SetFloat("Effect", input - 80);
+      if(Mixer) Mixer.SetFloat("Effect", To(value));
       PlayerPrefs.SetFloat("EffectVolume", input);
     }
   }
@@ -106,12 +108,12 @@ public static class SoundManager
   /// </summary>
   public static float ObjectVolume
   {
-    get => Mixer && Mixer.GetFloat("Object", out var value) ? value + 80 : PlayerPrefs.GetFloat("ObjectVolume", 80);
+    get => Mixer && Mixer.GetFloat("Object", out var value) ? From(value) : PlayerPrefs.GetFloat("ObjectVolume", 80);
     set
     {
       var input = Math.Max(0, Math.Min(100, value));
 
-      if(Mixer) Mixer.SetFloat("Object", input - 80);
+      if(Mixer) Mixer.SetFloat("Object", To(value));
       PlayerPrefs.SetFloat("ObjectVolume", input);
     }
   }
