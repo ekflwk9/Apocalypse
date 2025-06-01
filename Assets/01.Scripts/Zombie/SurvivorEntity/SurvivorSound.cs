@@ -32,44 +32,48 @@ public class SurvivorSound : MonoBehaviour
         }
     }
 
-    [SerializeField] AudioClip HitClip_1;
-    void Hit()
+    float CurrentLocationTime = 0f;
+    const float LocationTime = 1f;
+
+    private void Update()
     {
-        audioSource.clip = HitClip_1;
-        audioSource.Play();
+        if (CurrentLocationTime < LocationTime)
+        {
+            CurrentLocationTime += Time.deltaTime;
+        }
+        else
+        {
+            CurrentLocationTime = 0f;
+            Vector3 location = gameObject.transform.localPosition;
+            location.y = 0;
+            gameObject.transform.localPosition = location;
+        }
     }
 
-    [SerializeField] AudioClip AttackClip;
+    const string HitSound = "Survivor_Hit_";
+    void Hit()
+    {
+        int value = Random.Range(1, 3);
+        gameObject.PlayAudio(HitSound + value.ToString());
+    }
+
+    const string AttackSound = "SurvivorAttack";
 
     void OnAttackSound()
     {
-        audioSource.clip = AttackClip;
-        audioSource.Play();
+        gameObject.PlayAudio(AttackSound);
     }
 
-    [SerializeField] AudioClip HurtClip_1;
-    [SerializeField] AudioClip HurtClip_2;
 
     void Hurt()
     {
         int value = Random.Range(1, 3);
-        if (value == 1)
-        {
-            audioSource.clip = HurtClip_1;
-        }
-        else
-        {
-            audioSource.clip = HurtClip_2;
-        }
-        audioSource.Play();
+        gameObject.PlayAudio(HitSound + value.ToString());
     }
-
-    [SerializeField] AudioClip DieClip;
 
     void Die()
     {
-        audioSource.clip = DieClip;
-        audioSource.Play();
+        gameObject.PlayAudio("SurvivorDead");
     }
 
 }

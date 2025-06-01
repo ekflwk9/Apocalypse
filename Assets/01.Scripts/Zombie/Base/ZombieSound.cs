@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class ZombieSound : MonoBehaviour
 {
@@ -35,8 +36,23 @@ public class ZombieSound : MonoBehaviour
     const float SoundTime = 10f;
     float CurrentSoundTime = 10f;
 
+    float CurrentLocationTime = 0f;
+    const float LocationTime = 1f;
+
     private void Update()
     {
+        if (CurrentLocationTime < LocationTime)
+        {
+            CurrentLocationTime += Time.deltaTime;
+        }
+        else
+        {
+            CurrentLocationTime = 0f;
+            Vector3 location = gameObject.transform.localPosition;
+            location.y = 0;
+            gameObject.transform.localPosition = location;
+        }
+
         if (0 < CurrentSoundTime)
         {
             CurrentSoundTime -= Time.deltaTime;

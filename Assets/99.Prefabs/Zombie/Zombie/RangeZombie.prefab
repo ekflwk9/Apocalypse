@@ -3345,16 +3345,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 3735410340995626408}
-  IdleClip_1: {fileID: 8300000, guid: 9263914c335816d4f9604303bc2635b9, type: 3}
-  IdleClip_2: {fileID: 8300000, guid: 723a847e94ce8184c83270e44af247e3, type: 3}
-  HitClip: {fileID: 8300000, guid: 634a5f8bf5f98a34f8e92afa085d5597, type: 3}
-  AttackClip_1: {fileID: 8300000, guid: 14689a9388e00e04cbe1b9afe0d4ae43, type: 3}
-  AttackClip_2: {fileID: 8300000, guid: e9699e277c1bce243a348446340238a1, type: 3}
-  RangeClip: {fileID: 8300000, guid: 634a5f8bf5f98a34f8e92afa085d5597, type: 3}
-  HurtClip: {fileID: 8300000, guid: cb027a3829765e848ab8f52dee974ec6, type: 3}
-  DieClip: {fileID: 8300000, guid: 25f6a049a5224aa47b4194743d53d7dd, type: 3}
-  YellingClip_1: {fileID: 8300000, guid: 7adaeda69c83d754a8e80511ed262c05, type: 3}
-  YellingClip_2: {fileID: 8300000, guid: 72641369dbfa44349995c5bf156dfbea, type: 3}
 --- !u!82 &3735410340995626408
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3378,7 +3368,7 @@ AudioSource:
   MinDistance: 4
   MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

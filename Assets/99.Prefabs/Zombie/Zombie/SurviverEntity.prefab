@@ -344,11 +344,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 7550594348477722071}
-  HitClip_1: {fileID: 8300000, guid: ee4405602c943c84f90ea466eb2e3eae, type: 3}
-  AttackClip: {fileID: 8300000, guid: 102c21a22fe6e3746bd8444aee5f80eb, type: 3}
-  HurtClip_1: {fileID: 8300000, guid: 102c21a22fe6e3746bd8444aee5f80eb, type: 3}
-  HurtClip_2: {fileID: 8300000, guid: 736c093512e910a42bcb7e72d46aa627, type: 3}
-  DieClip: {fileID: 8300000, guid: 61866e70a5140f242ae6f634539696a5, type: 3}
 --- !u!82 &7550594348477722071
 AudioSource:
   m_ObjectHideFlags: 0
@@ -372,7 +367,7 @@ AudioSource:
   MinDistance: 4
   MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
