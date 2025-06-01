@@ -171,9 +171,8 @@ public class StatusUi : MonoBehaviour
                     var itmeData = new FarmingData(farmingSlot[i].itemId, farmingSlot[i].count, i);
 
                     farmingData.Add(itmeData);
+                    farmingSlot[i].SetSlot(0);
                 }
-
-                farmingSlot[i].SetSlot(0);
             }
 
             if (interactionObj != null) interactionObj.Interaction();
