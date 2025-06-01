@@ -21,6 +21,7 @@ public class UiController : MonoBehaviour
 
             if (isActive)
             {
+                //Player.Instance.
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 

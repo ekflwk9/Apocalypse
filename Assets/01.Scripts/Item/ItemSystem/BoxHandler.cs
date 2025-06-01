@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,13 +34,20 @@ public class BoxHandler : MonoBehaviour, IInteractionObject
     public void Interaction() // 캐바넷 주을때 호출
     {
         if (!isOpen) anim.Play("Open", 0, 0);
-        var status = UiManager.instance.status;
 
-        UiManager.instance.SetActive(true);
-        status.SetFarming(item, UpdateData);
-        status.farming.gameObject.SetActive(true);
-        status.inventory.gameObject.SetActive(true);
-        status.equipped.gameObject.SetActive(true);
+        if (!UiManager.instance.isActive)
+        {
+            var status = UiManager.instance.status;
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            UiManager.instance.SetActive(true);
+            status.SetFarming(item, UpdateData);
+            status.farming.gameObject.SetActive(true);
+            status.inventory.gameObject.SetActive(true);
+            status.equipped.gameObject.SetActive(true);
+        }
     }
 
     public void UpdateData()
