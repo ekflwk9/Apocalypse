@@ -30,15 +30,10 @@ public class InteractionObject : MonoBehaviour, IInteractionObject
     {
         var status = UiManager.instance.status;
 
-        status.SetFarming(item, UpdateData);
+        status.SetFarming(item, this);
         status.farming.gameObject.SetActive(true);
         status.inventory.gameObject.SetActive(true);
         status.equipped.gameObject.SetActive(true);
-    }
-
-    public void UpdateData()
-    {
-        item = UiManager.instance.status.farmingData;
     }
 
     public void OnSelected()

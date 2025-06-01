@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class UiController : MonoBehaviour
 {
@@ -51,13 +52,14 @@ public class UiController : MonoBehaviour
     {
         if (context.started)
         {
+            var scene = SceneManager.GetActiveScene().name.Contains("Loby");
             var menu = UiManager.instance.menu;
             var isActive = menu.menuWindow.activeSelf;
 
             UiManager.instance.fade.OnFade();
             menu.menuWindow.SetActive(!isActive);
 
-            if (!UiManager.instance.status.inventory.gameObject.activeSelf)
+            if (!UiManager.instance.status.inventory.gameObject.activeSelf && !scene)
             {
                 UiManager.instance.SetActive(!isActive);
                 UiManager.instance.shaderEffect.SetActive(!isActive);
