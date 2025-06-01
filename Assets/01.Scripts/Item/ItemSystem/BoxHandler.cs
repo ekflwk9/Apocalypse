@@ -5,6 +5,8 @@ using UnityEngine;
 public class BoxHandler : MonoBehaviour, IInteractionObject
 {
     private List<FarmingData> item = new List<FarmingData>();
+    private Animator anim;
+    private bool isOpen;
 
 #if UNITY_EDITOR
     [SerializeField] private int[] id;
@@ -15,6 +17,7 @@ public class BoxHandler : MonoBehaviour, IInteractionObject
     private void Awake()
     {
         item = ItemDropGenerator.GetRandomDrop();
+        anim = this.TryGetComponent<Animator>();
 
 #if UNITY_EDITOR
         id = new int[item.Count];
@@ -31,8 +34,10 @@ public class BoxHandler : MonoBehaviour, IInteractionObject
 
     public void Interaction() // 캐바넷 주을때 호출
     {
+        if (!isOpen) anim.Play("Open", 0, 0);
         var status = UiManager.instance.status;
 
+        UiManager.instance.SetActive(true);
         status.SetFarming(item, UpdateData);
         status.farming.gameObject.SetActive(true);
         status.inventory.gameObject.SetActive(true);
