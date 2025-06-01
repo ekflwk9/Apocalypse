@@ -7,7 +7,7 @@ public class StatusUi : MonoBehaviour
 {
     private Action endFarming;
 
-    public List<FarmingData> farmingData { get; private set; } = new List<FarmingData>();
+    [SerializeField] public List<FarmingData> farmingData = new List<FarmingData>();
 
     public SuccessWindow success { get => fieldSuccess; }
     [SerializeField] private SuccessWindow fieldSuccess;
@@ -170,11 +170,11 @@ public class StatusUi : MonoBehaviour
                 if (farmingSlot[i].itemId != 0)
                 {
                     var itmeData = new FarmingData(farmingSlot[i].itemId, farmingSlot[i].count, i);
-                    farmingData.Add(itmeData);
 
-                    Debug.Log($"{i}");
-                    farmingSlot[i].SetSlot(0);
+                    farmingData.Add(itmeData);
                 }
+
+                farmingSlot[i].SetSlot(0);
             }
 
             if (endFarming != null) endFarming();

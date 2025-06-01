@@ -18,7 +18,7 @@ public class PlayButton : UiButton
 
     private void ChangeScene()
     {
-        SoundManager.BackgroundPaused = false;
+        SoundManager.Play("OutSide_City", SoundType.Background);
         SceneManager.LoadScene("Play");
         UiManager.instance.fade.OnFade(0.5f);
 
