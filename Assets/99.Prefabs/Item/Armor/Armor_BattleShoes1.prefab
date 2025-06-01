@@ -234,5 +234,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a6000e483604c558b8f6dc4fe1e140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemInfo: {fileID: 0}
+  itemInfo: {fileID: 11400000, guid: 59f5ef98b69f94c6c9156ef53ecb6cd2, type: 2}
   selectedUI: {fileID: 0}

@@ -16,7 +16,7 @@ MonoBehaviour:
     type: 3}
   itemId: 404
   itemName: "\uACE8\uB4DC\uBC14"
-  disciption: "\uD45C\uBA74\uC5D0 24K\uB77C \uC801\uD600\uC788\uC9C0\uB9CC\\n\uC0AC\uC2E4
+  disciption: "\uD45C\uBA74\uC5D0 24K\uB77C \uC801\uD600\uC788\uC9C0\uB9CC \uC0AC\uC2E4
     \uC21C\uAE08\uC774 \uC544\uB2CC\uB4EF \uD558\uB2E4.."
   itemType: 8
   icon: {fileID: 21300000, guid: 3dad090df0c2741d0bc85964323364d5, type: 3}

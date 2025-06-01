@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8533848790611045835}
   - component: {fileID: 1272005504664013734}
   - component: {fileID: 7327279198477974039}
+  - component: {fileID: 4863465136379064576}
   m_Layer: 10
   m_Name: Manhole
   m_TagString: Item
@@ -83,3 +84,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4863465136379064576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7369752598760022877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7a720d20faae4ddba26e0fc13828141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
