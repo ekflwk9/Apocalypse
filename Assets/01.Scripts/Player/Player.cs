@@ -168,7 +168,6 @@ public class Player : MonoBehaviour, IDamagable
         Stamina = maxStamina;
         _animIDDamage = Animator.StringToHash("Damage");
         _animIDDead = Animator.StringToHash("Dead");
-
     }
 
     public void OnStart()
