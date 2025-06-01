@@ -15,8 +15,8 @@ MonoBehaviour:
   itemPrefab: {fileID: 7718849399657880233, guid: fa726a62613cc4a788da75256f930a9e,
     type: 3}
   itemId: 101
-  itemName: "\uC9F1\uC9F1\uC318 \uAC01\uBAA9"
-  disciption: "\uC774\uB530\uC774\uB370\uC2A4\uB124"
+  itemName: "\uAC01\uBAA9"
+  disciption: "\uADFC\uCC98 \uACF5\uC0AC\uD310\uC5D0\uC11C \uC8FC\uC6CC\uC654\uB2E4"
   itemType: 1
   icon: {fileID: 21300000, guid: 876a5d8b8591b45c39fa5ece20ec7efc, type: 3}
   cost: 0

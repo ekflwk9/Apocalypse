@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 384823be4855943039690a396e7e9aa6, type: 3}
   m_Name: Absolut Vodka
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 8199944096554084659, guid: 8a46cd3cf62664617aeaea8ec7303ee1,
+  itemPrefab: {fileID: 8199944096554084659, guid: de0906fc1befb414f81240ec60afcc28,
     type: 3}
   itemId: 402
   itemName: "\uC571\uC194\uB8E8\uD2B8 \uBCF4\uB4DC\uCE74"
-  disciption: "\uC2A4\uC6E8\uB374\uC0B0 \uBCF4\uB4DC\uCE74 750ml"
+  disciption: "\uC2A4\uC6E8\uB374\uC0B0 \uBCF4\uB4DC\uCE74 750ml\\n\uC544\uB984\uB2E4\uC6B4
+    \uBCD1 \uB514\uC790\uC778\uC73C\uB85C \uC720\uBA85\uD558\uB2E4"
   itemType: 8
   icon: {fileID: 21300000, guid: 07f381518064043fd86010878f8e402e, type: 3}
   cost: 30000

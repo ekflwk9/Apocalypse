@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 384823be4855943039690a396e7e9aa6, type: 3}
   m_Name: Jack_Daniel's
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 8021613260972251737, guid: c73b3c9b37b7446099592b8e73a53dea,
+  itemPrefab: {fileID: 8021613260972251737, guid: 8ad3d0b391aaf4ac8a0fc80d80350f45,
     type: 3}
   itemId: 401
   itemName: "\uC7AD\uB2E4\uB2C8\uC5D8"
-  disciption: "\uD14C\uB124\uC2DC \uC704\uC2A4\uD0A4"
+  disciption: "\uD14C\uB124\uC2DC \uC704\uC2A4\uD0A4\\n\uC124\uD0D5\uB2E8\uD48D \uC22F
+    \uC5EC\uACFC \uACF5\uC815\uC744 \uC0AC\uC6A9\uD558\uC5EC\\n\uB3C5\uD2B9\uD55C
+    \uD48D\uBBF8\uAC00 \uC788\uB2E4"
   itemType: 8
   icon: {fileID: 21300000, guid: d43a4d95a5abf4ce0b18cb7392f5544a, type: 3}
   cost: 15000
