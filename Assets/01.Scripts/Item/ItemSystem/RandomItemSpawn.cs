@@ -70,7 +70,7 @@ public static class ItemDropGenerator
         }
         return dropList;
     }
-
+    // 이게 아이템을 랜덤으로 뿌릴 스크립트
     public static int GetRandomItemId()
     {
         int currentId = -1;
@@ -85,7 +85,7 @@ public static class ItemDropGenerator
 
         int ranNum = Random.Range(0, itemKeys.Count);
         currentId = itemKeys[ranNum];
-        
+
         return currentId;
     }
 }
