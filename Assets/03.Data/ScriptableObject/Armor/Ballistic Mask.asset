@@ -19,9 +19,9 @@ MonoBehaviour:
   disciption: "\uCF00\uBE14\uB77C \uC18C\uC7AC \uC548\uBA74 \uBCF4\uD638\uAD6C"
   itemType: 2
   icon: {fileID: 21300000, guid: 7d4f3d2e7c2f24f2da91e95f2865fe85, type: 3}
-  cost: 400
+  cost: 50000
   canStack: 0
   maxStack: 0
   weight: 7
-  armorType: 1
+  armorType: 0
   defense: 20

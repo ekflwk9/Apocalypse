@@ -48,12 +48,13 @@ public class NoiseZombie : Entity
 
         _stateMachine.SetState(EntityEnum.Idle);
 
+
         baseStatus.SetStatus(20, 10);
     }
 
     public override void Attack_2()
     {
-        _zombieHearingComponent.OnSound(10);
+        _zombieHearingComponent.OnSound(baseStatus.DetectedRange);
     }
 
     protected override void Detect()
@@ -84,3 +85,5 @@ public class NoiseZombie : Entity
     }
 
 }
+
+

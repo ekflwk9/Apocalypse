@@ -450,8 +450,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600541686208233550}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.20000005, y: 1.6, z: -4.5999994}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.20000005, y: 1.6, z: -4.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2039,6 +2039,7 @@ GameObject:
   - component: {fileID: 5157845957053353862}
   - component: {fileID: 4099686563972156944}
   - component: {fileID: 6411524504848633419}
+  - component: {fileID: 695460693530000985}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -2159,6 +2160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Equip: {fileID: 7892442242621538457}
+  Sound: {fileID: 695460693530000985}
   cinemachineCamera: {fileID: 4578292436875945681}
   perlin: {fileID: 3097021339242296715}
   maxHealth: 100
@@ -2166,7 +2168,7 @@ MonoBehaviour:
   _health: 0
   _stamina: 0
   _defence: 0
-  _gold: 0
+  _gold: 300000
   _level: 0
   _weight: 0
   _maxWeight: 50
@@ -2332,9 +2334,37 @@ MonoBehaviour:
     m_ActionId: 3e11eeee-72d6-4bef-89aa-1b70d60f47f0
     m_ActionName: Player/Interaction[/Keyboard/e]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UiController, Assembly-CSharp
+        m_MethodName: OnInventory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 577ff2b7-3d15-4f13-aee2-f3e1fdc28331
     m_ActionName: Player/Inventory[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UiController, Assembly-CSharp
+        m_MethodName: OnMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4b05cb3b-fb50-4da2-b592-9ee6706c1721
+    m_ActionName: Player/Menu[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2400,7 +2430,6 @@ MonoBehaviour:
   _mainCamera: {fileID: 1600541686208233550}
   _animator: {fileID: 1049493359991375101}
   _rigidbody: {fileID: 4572112671424083456}
-  _zombieHearingComponent: {fileID: 8863928669444037831}
 --- !u!114 &6411524504848633419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2413,14 +2442,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7dbc81b40bf544759ea139842d45450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSlotItem: {fileID: 0}
-  secondSlotItem: {fileID: 0}
-  currentArmor:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  items: []
+--- !u!114 &695460693530000985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5154321037587491104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78140cc0bafaa354a95a8e15015ef56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSounds:
+  - {fileID: 8300000, guid: 74b8dee4f6fcaab43bb12dd54065137c, type: 3}
+  - {fileID: 8300000, guid: e1693513409f74e4f997b6c99c9948b7, type: 3}
+  - {fileID: 8300000, guid: 0640b7dea566585409b53d0e3611f59f, type: 3}
+  - {fileID: 8300000, guid: c2ca0597166c8a04bb86f1d347bc1645, type: 3}
+  - {fileID: 8300000, guid: 6b6f16dcf7b3d514893d56c09bafa58e, type: 3}
+  - {fileID: 8300000, guid: e240b43dcb775f248908743d5cc9e911, type: 3}
+  - {fileID: 8300000, guid: b1dffb37181fc2640ad5faa787fdc81b, type: 3}
+  - {fileID: 8300000, guid: d5a9d7345d2dc464999741ea0c5e6e3f, type: 3}
+  - {fileID: 8300000, guid: 93961c30672d3a744b29284514df20e1, type: 3}
+  - {fileID: 8300000, guid: 3c3c5e936d1639f42af64b4604c5b7bf, type: 3}
+  jumpSound: {fileID: 8300000, guid: 7c0c172fd1e9b5446a1740a89fe07160, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: 554d92f563e6fa845acdcfd831f2bc50, type: 3}
+  - {fileID: 8300000, guid: fa4283d9ecefbad429304a145e548017, type: 3}
+  - {fileID: 8300000, guid: 604b5a786652d9447b927a75f5ea5968, type: 3}
+  - {fileID: 8300000, guid: 4a32f3a7a76330d4085b8e70a19786cc, type: 3}
+  - {fileID: 8300000, guid: 5b2bd24f907c07c4f9c480d649f08ab9, type: 3}
+  deadSound: {fileID: 8300000, guid: aed8e6ec6ad39dc4dabbe9bb6b351ccb, type: 3}
+  meleeSounds:
+  - {fileID: 8300000, guid: 2332ebd1932a98d498743280ddb5e9bb, type: 3}
+  - {fileID: 8300000, guid: 72207e074dd4f5a418883e91366bd816, type: 3}
+  healSounds:
+  - {fileID: 8300000, guid: 5564bbd826310da42b0151ae1f847d1f, type: 3}
+  - {fileID: 8300000, guid: 764d2e128c92b0e42b39337ccebc7500, type: 3}
+  - {fileID: 8300000, guid: 3859b5348d9dbd54e931bacad939431a, type: 3}
+  equipSounds:
+  - {fileID: 8300000, guid: 9ffe73f87da65e44b91cc3904cc9e4c5, type: 3}
+  - {fileID: 8300000, guid: f15d382f8af27d140964a6dc2f6db634, type: 3}
+  lootSounds:
+  - {fileID: 8300000, guid: bd28c4cc12cce4348a23d2638ad735a2, type: 3}
+  - {fileID: 8300000, guid: b2459fa0a9a2e5f469f729cb5ba6816e, type: 3}
+  - {fileID: 8300000, guid: fa4349be8b5ba2e43aaabe9d3a980f16, type: 3}
+  - {fileID: 8300000, guid: 02e4174e6896f3c4197193fd54e2d7d0, type: 3}
+  - {fileID: 8300000, guid: 012b93ebf3c161440974f7845c5c415c, type: 3}
+  - {fileID: 8300000, guid: de5c74d0ce9e76e4d8241eaaca27cb7c, type: 3}
+  _zombieHearingComponent: {fileID: 8863928669444037831}
 --- !u!1 &5353754830572176258
 GameObject:
   m_ObjectHideFlags: 0
@@ -3278,7 +3348,7 @@ Transform:
   m_GameObject: {fileID: 7586674193230038013}
   serializedVersion: 2
   m_LocalRotation: {x: 0.16640446, y: -0.021420732, z: 0.0036157835, w: 0.98581827}
-  m_LocalPosition: {x: 0.20000005, y: 1.6, z: -4.5999994}
+  m_LocalPosition: {x: 0.20000005, y: 1.6, z: -4.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

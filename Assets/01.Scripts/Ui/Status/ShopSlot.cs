@@ -11,7 +11,7 @@ public class ShopSlot : Slot, IPointerClickHandler, IPointerExitHandler
         {
             itemId = id;
 
-            var item = ItemManager.Instance.itemDB[itemId];
+            var item = ItemManager.Instance.GetItem(itemId);
             icon.sprite = item.icon;
             icon.color = Color.white;
             count = 1;
@@ -24,10 +24,22 @@ public class ShopSlot : Slot, IPointerClickHandler, IPointerExitHandler
     {
         if (eventData.button == PointerEventData.InputButton.Right && id != 0)
         {
-            //*******************골드 검사 / 무게 검사
-            //사운드 재생
+            var gold = Player.Instance.Gold;
+            var item = ItemManager.Instance.GetItem(itemId);
 
-            UiManager.instance.status.GetItem(itemId);
+            if (gold >= item.cost)
+            {
+                SoundManager.Play("Buy");
+                Player.Instance.SetGold(-item.cost);
+                UiManager.instance.interactionUi.gold.UpdateGold();
+                UiManager.instance.status.GetItem(itemId);
+                ItemManager.Instance.Inventory.Add(itemId);
+            }
+
+            else
+            {
+                UiManager.instance.interactionUi.noMoney.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -42,7 +54,6 @@ public class ShopSlot : Slot, IPointerClickHandler, IPointerExitHandler
             //마우스만 움직이고 있을 경우 / 아이템이 존재할 경우에만
             if (drag.selectItemId == 0 && itemId != 0)
             {
-                //ItemManager.Instance.Inventory.GetItem();
                 UiManager.instance.touch.SetTouch(pos, true);
                 UiManager.instance.status.itemInfo.SetActive(pos.position, itemId);
             }
@@ -50,7 +61,11 @@ public class ShopSlot : Slot, IPointerClickHandler, IPointerExitHandler
             //드래그 중 끝났을 경우
             else if (drag.selectItemId != 0)
             {
-                //********************골드 업데이트
+                var item = ItemManager.Instance.GetItem(dragSlot.itemId);
+
+                SoundManager.Play("Buy");
+                Player.Instance.SetGold(item.cost);
+                UiManager.instance.interactionUi.gold.UpdateGold();
 
                 dragSlot.SetSlot(0);
                 drag.EndChangeSlot();

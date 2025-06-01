@@ -11,8 +11,9 @@ public interface IDamagable
 public class Player : MonoBehaviour, IDamagable
 {
     public static Player Instance { get; private set; }
-    
+
     public PlayerEquip Equip;
+    public PlayerSound Sound;
     public CinemachineVirtualCamera cinemachineCamera;
     public CinemachineBasicMultiChannelPerlin perlin;
     private PlayerInput playerInput;
@@ -35,18 +36,18 @@ public class Player : MonoBehaviour, IDamagable
     public float sprintStamina = 5f;
     public float jumpStamina = 10f;
     public float staminaRegenCooldown = 5f;
-    
+
     [Header("Animations")]
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private BoxCollider meleeCollider;
-    
+
     [SerializeField] private Animator _animator;
     private int _animIDDamage;
     private int _animIDDead;
 
     private Coroutine _damagedCoroutine;
     private Coroutine _staminaRegenCoroutine;
-    
+
     private bool _staminaRegen;
     private bool _toggleMelee;
     public bool Damaged { get; private set; }
@@ -56,31 +57,21 @@ public class Player : MonoBehaviour, IDamagable
     public float Health
     {
         get => _health;
+
         private set
         {
             float changedValue = Mathf.Clamp(value, 0, maxHealth);
 
             if (changedValue < _health)
             {
-                if (Defence > 0)
-                {
-                    //인벤토리 코드 추가**********************************************************************
-                    Defence -= (int)(_health - changedValue);
-                    //UiManager.instance.play.
-                }
-                else
-                {
-                    Damaged = true;
-                    _health = changedValue;
-                    UiManager.instance.hitUi.Show();
-                }
+                Damaged = true;
+                _health = changedValue;
             }
+
             else
             {
                 _health = value;
             }
-            
-            UiManager.instance.play.health.SetSlider(value / 100f);
         }
     }
 
@@ -102,23 +93,13 @@ public class Player : MonoBehaviour, IDamagable
             }
 
             _stamina = changedValue;
-            
+
             UiManager.instance.play.stamina.SetSlider(value / 100f);
         }
     }
 
-    public int Defence
-    {
-        get
-        {
-            return _defence;
-        }
-        private set
-        {
-            _defence = value;
-            //디펜스 처리 메서드 처리해야함 ***************************************************************************
-        }
-    }
+    public int Defence { get; private set; }
+
     public int Gold
     {
         get => _gold;
@@ -157,10 +138,11 @@ public class Player : MonoBehaviour, IDamagable
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject.transform.parent.gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject.transform.parent.gameObject);
         }
     }
 
@@ -174,6 +156,7 @@ public class Player : MonoBehaviour, IDamagable
         meleeCollider = GetComponentInChildren<BoxCollider>();
         meleeCollider.enabled = false;
         playerInput = GetComponent<PlayerInput>();
+        Sound = GetComponent<PlayerSound>();
     }
 
     private void Start()
@@ -200,15 +183,25 @@ public class Player : MonoBehaviour, IDamagable
     public void TakeDamage(float damage)
     {
         if (Dead) return;
-        
+
+        if (Defence > 0)
+        {
+            Defence -= 1;
+
+            ItemManager.Instance.Inventory.Defense(Defence);
+            UiManager.instance.play.defense.SetSlider(Defence);
+            return;
+        }
+
         Health -= damage;
+        UiManager.instance.hitUi.Show(true);
 
         if (Health <= 0)
         {
             Dead = true;
             _rigidbody.isKinematic = true;
-            
-            UiManager.instance.dead.gameObject.SetActive(true);
+
+            UiManager.instance.status.dead.gameObject.SetActive(true);
         }
 
         DamageAnimation();
@@ -256,7 +249,8 @@ public class Player : MonoBehaviour, IDamagable
 
     public void Heal(float heal)
     {
-        Health += heal;
+        float healedHealth = Health + heal;
+        Health = healedHealth;
     }
 
     public void SetStamina(float stamina)

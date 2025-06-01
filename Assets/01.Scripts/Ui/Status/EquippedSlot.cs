@@ -6,16 +6,17 @@ public class EquippedSlot : Slot
     [Header("장착 가능한 아이템 타입")]
     [SerializeField] private ArmorType type;
     [SerializeField] private bool isFirst;
+    private int defense;
 
     public override bool SetSlot(int _itemId, int _itemCount)
     {
-        var item = ItemManager.Instance.itemDB[_itemId];
+        var item = ItemManager.Instance.GetItem(_itemId);
 
         if (item is ArmorInfo isArmor)
         {
             if (isArmor.armorType == type)
             {
-                ItemManager.Instance.SetItemSlot(itemId, isFirst);
+                ItemManager.Instance.Inventory.Add(_itemId, true);
 
                 itemId = _itemId;
                 count = _itemCount;
@@ -33,38 +34,18 @@ public class EquippedSlot : Slot
         return false;
     }
 
-    public override void SetSlot(int _itemCount)
-    {
-        count = _itemCount;
-
-        if (_itemCount > 1)
-        {
-            countText.text = _itemCount.ToString();
-        }
-
-        else
-        {
-            ItemManager.Instance.SetItemSlot(0, isFirst);
-
-            itemId = 0;
-            countText.text = "";
-            icon.color = Color.clear;
-        }
-    }
-
     protected override bool CheckItem(Slot _dragSlot)
     {
-        //주무기에서 왔다면 방어구가 아님
-        if (_dragSlot is HandSlot)
+        var item = ItemManager.Instance.GetItem(_dragSlot.itemId);
+
+        if (item.itemType != ItemType.Armor)
         {
             return false;
         }
 
-        else
+        else if (item is ArmorInfo isArmor)
         {
-            //드래그한 장비가 방어구가 아니라면 장착 불가능
-            var item = ItemManager.Instance.itemDB[_dragSlot.itemId];
-            if (item.itemType != ItemType.Armor) return false;
+            if (type != isArmor.armorType) return false;
         }
 
         return true;

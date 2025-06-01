@@ -8,37 +8,19 @@ public class ItemInfoUi : MonoBehaviour
 
     private void Reset()
     {
-        var namePos = Helper.FindChild(this.transform, nameof(itemName));
-        itemName = FindText(namePos);
-
-        var infoPos = Helper.FindChild(this.transform, nameof(info));
-        info = FindText(infoPos);
-    }
-
-    private TMP_Text FindText(Transform _component)
-    {
-        TMP_Text findText = null;
-
-        if (_component != null)
-        {
-            if (!_component.TryGetComponent<TMP_Text>(out findText))
-            {
-                DebugHelper.ShowBugWindow($"{_component.name}ø° TMP_Text∞° ¡∏¿Á«œ¡ˆ æ ¿Ω");
-            }
-        }
-
-        return findText;
+        itemName = this.TryFindChildComponent<TMP_Text>(nameof(itemName));
+        info = this.TryFindChildComponent<TMP_Text>(nameof(info));
     }
 
     /// <summary>
-    /// æ∆¿Ã≈€ ¡§∫∏√¢ º≥¡§ π◊ »∞º∫»≠ ø©∫Œ
+    /// ÏïÑÏù¥ÌÖú Ï†ïÎ≥¥Ï∞Ω ÏÑ§Ï†ï Î∞è ÌôúÏÑ±Ìôî Ïó¨Î∂Ä
     /// </summary>
     /// <param name="_itemId"></param>
     /// <param name="_eventData"></param>
     /// <param name="_isActive"></param>
     public void SetActive(Vector3 _pos, int _itemId)
     {
-        var item = ItemManager.Instance.itemDB[_itemId];
+        var item = ItemManager.Instance.GetItem(_itemId);
         itemName.text = item.itemName;
         info.text = item.disciption;
 
@@ -46,8 +28,17 @@ public class ItemInfoUi : MonoBehaviour
         this.transform.position = _pos;
     }
 
+    public void SetActive(Vector3 _pos, string _name, string _text)
+    {
+        itemName.text = _name;
+        info.text = _text;
+
+        this.gameObject.SetActive(true);
+        this.transform.position = _pos;
+    }
+
     /// <summary>
-    /// »∞º∫»≠ ¡ﬂ¿œ ∞ÊøÏ ∫Ò»∞º∫»≠
+    /// ÌôúÏÑ±Ìôî Ï§ëÏùº Í≤ΩÏö∞ ÎπÑÌôúÏÑ±Ìôî
     /// </summary>
     public void SetOff()
     {

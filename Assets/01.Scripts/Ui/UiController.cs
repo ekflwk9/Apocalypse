@@ -13,6 +13,7 @@ public class UiController : MonoBehaviour
             var isActive = UiManager.instance.status.inventory.gameObject.activeSelf;
             var status = UiManager.instance.status;
 
+            UiManager.instance.fade.OnFade();
             UiManager.instance.SetActive(!isActive);
             UiManager.instance.shaderEffect.SetActive(!isActive);
             status.inventory.gameObject.SetActive(!isActive);
@@ -29,7 +30,6 @@ public class UiController : MonoBehaviour
                 UiManager.instance.touch.SetTouch(false);
 
                 var farming = status.farming.gameObject;
-
                 if (farming.gameObject.activeSelf) farming.SetActive(false);
             }
 
@@ -49,6 +49,7 @@ public class UiController : MonoBehaviour
         var menu = UiManager.instance.menu;
         var isActive = menu.menuWindow.activeSelf;
 
+        UiManager.instance.fade.OnFade();
         menu.menuWindow.SetActive(!isActive);
 
         if (!UiManager.instance.status.inventory.gameObject.activeSelf)
@@ -62,13 +63,13 @@ public class UiController : MonoBehaviour
     }
 
     //********************테스트용
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I)) OnInventory();
-        else if (Input.GetKeyDown(KeyCode.Escape)) OnMenu();
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            UiManager.instance.status.shop.SetActive(!UiManager.instance.status.shop.gameObject.activeSelf);
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.I)) OnInventory();
+    //    else if (Input.GetKeyDown(KeyCode.Escape)) OnMenu();
+    //    else if (Input.GetKeyDown(KeyCode.O))
+    //    {
+    //        UiManager.instance.status.shop.SetActive(!UiManager.instance.status.shop.gameObject.activeSelf);
+    //    }
+    //}
 }

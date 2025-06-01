@@ -19,7 +19,7 @@ MonoBehaviour:
   disciption: "\uC624\uD0C0\uB2C8 \uC1FC\uD5E4\uC774"
   itemType: 1
   icon: {fileID: 21300000, guid: 158483731c8c044ae80526586884a0ce, type: 3}
-  cost: 100
+  cost: 35000
   canStack: 0
   maxStack: 0
   weight: 10

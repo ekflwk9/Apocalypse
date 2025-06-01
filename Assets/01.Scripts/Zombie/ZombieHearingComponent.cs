@@ -29,6 +29,10 @@ public class ZombieHearingComponent : MonoBehaviour
         if (other.CompareTag(TagHelper.Monster))
         {
             Entity entity = other.GetComponent<Entity>();
+            if(entity == null)
+            {
+                return;
+            }
             if (entity.GetState() == EntityEnum.Idle || entity.GetState() == EntityEnum.Walk)
             {
                 entity.Hearing(transform.position);

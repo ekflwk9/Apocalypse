@@ -222,7 +222,7 @@ public class AttackState : EntityState
         if (IsAnimationEnd(1) == true)
         {
             SetDirection();
-            
+
             if (Random.Range(0, 2) == 0)
             {
                 SetAnimation(AnimHash.AttackHash_1);
@@ -373,7 +373,7 @@ public class DyingState : EntityState
 
     IEnumerator DieCoroutine()
     {
-        yield return CoroutineHelper.GetTime(6.0f);
+        yield return CoroutineHelper.GetTime(5.0f);
         entity.Dead();
     }
 }

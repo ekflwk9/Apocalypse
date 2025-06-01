@@ -18,19 +18,6 @@ public class Obstacle : MonoBehaviour
         float distance = Vector3.Distance(playerPos, transform.position);
 
 
-
-        /*
-         * 몬스터가 여기는 플레이어에게 가려진곳인가 아닌가를
-         * 
-         * 몬스터가 벽이 어느정도 가려진지를 모르니
-         * 
-         * 벽이 대신 확인을 해줘야겠다
-         * 
-         * 
-         */
-
-
-
         if (Physics.Raycast(ray, out RaycastHit hit, distance + 10f))
         {
             if(true == hit.collider.CompareTag(TagHelper.Player))

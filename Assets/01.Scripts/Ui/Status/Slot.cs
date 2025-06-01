@@ -14,18 +14,13 @@ public abstract class Slot : MonoBehaviour, IPointerEnterHandler
 
     protected virtual void Reset()
     {
-        countText = Helper.FindChild(this.transform, nameof(countText)).GetComponent<TMP_Text>();
+        countText = this.TryFindChildComponent<TMP_Text>(nameof(countText));
         if (countText != null) countText.text = "";
-        else DebugHelper.ShowBugWindow($"{this.name}에 TMP_Text가 존재하지 않음");
 
-        var iconPos = Helper.FindChild(this.transform, nameof(icon)).GetComponent<Image>();
-        if (iconPos.TryGetComponent<Image>(out var isIcon)) icon = isIcon;
-
+        icon = this.TryFindChildComponent<Image>(nameof(icon));
         if (icon != null) icon.color = Color.clear;
-        else DebugHelper.ShowBugWindow($"{this.name}에 Image가 존재하지 않음");
 
-        if (this.TryGetComponent<RectTransform>(out var target)) pos = target;
-        else DebugHelper.ShowBugWindow($"{this.name}에 RectTransform가 존재하지 않음");
+        pos = this.TryGetComponent<RectTransform>();
     }
 
     public abstract void OnPointerEnter(PointerEventData eventData);

@@ -9,7 +9,7 @@ public class farmingSlot : Slot
 
         if (_itemId != 0 && _itemCount != 0)
         {
-            var item = ItemManager.Instance.itemDB[_itemId];
+            var item = ItemManager.Instance.GetItem(_itemId);
 
             itemId = _itemId;
             icon.color = Color.white;
@@ -34,7 +34,7 @@ public class farmingSlot : Slot
         if (_dragSlot is HandSlot)
         {
             //현재 슬롯 아이템 타입이 방어구가 아닐 경우에만 교환
-            var item = ItemManager.Instance.itemDB[itemId];
+            var item = ItemManager.Instance.GetItem(itemId);
             if (item.itemType == ItemType.Armor) return false;
         }
 
@@ -58,7 +58,7 @@ public class farmingSlot : Slot
             //드래그 중 끝났을 경우
             else if (drag.selectItemId != 0)
             {
-                var itemData = ItemManager.Instance.itemDB[drag.selectItemId];
+                var itemData = ItemManager.Instance.GetItem(drag.selectItemId);
 
                 //중복 아이템일 경우
                 if (itemData.itemId == itemId)

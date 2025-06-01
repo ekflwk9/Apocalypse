@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.XR;
 
 public class HandSlot : Slot
 {
@@ -18,11 +17,11 @@ public class HandSlot : Slot
 
         if (_itemId != 0 && _itemCount != 0)
         {
-            var item = ItemManager.Instance.itemDB[_itemId];
+            var item = ItemManager.Instance.GetItem(_itemId);
             if (ItemType.Armor == item.itemType) return false;
 
             //인벤토리 셋팅
-            ItemManager.Instance.SetItemSlot(_itemId, fieldFirstSlot);
+            ItemManager.Instance.Inventory.ChangeMainItem(_itemId, fieldFirstSlot);
 
             itemId = _itemId;
             icon.color = Color.white;
@@ -38,7 +37,7 @@ public class HandSlot : Slot
             icon.color = Color.clear;
         }
 
-        ItemManager.Instance.Inventory.ChangeMainSlot(itemId, firstSlot);
+        ItemManager.Instance.Inventory.ChangeMainItem(itemId, firstSlot);
         return true;
     }
 
@@ -48,24 +47,26 @@ public class HandSlot : Slot
 
         count = _itemCount;
 
+        if (fieldFirstSlot) playUi.firstSlot.SetSlotView(_itemCount);
+        else playUi.secondSlot.SetSlotView(_itemCount);
+
         if (_itemCount > 1)
         {
             countText.text = _itemCount.ToString();
+        }
 
-            if (fieldFirstSlot) playUi.firstSlot.SetSlotView(_itemCount);
-            else playUi.secondSlot.SetSlotView(_itemCount);
+        else if (_itemCount > 0)
+        {
+            countText.text = "";
         }
 
         else
         {
             itemId = 0;
-            countText.text = "";
             icon.color = Color.clear;
+            countText.text = "";
 
-            ItemManager.Instance.SetItemSlot(0, fieldFirstSlot);
-
-            if (fieldFirstSlot) playUi.firstSlot.SetSlotView();
-            else playUi.secondSlot.SetSlotView();
+            ItemManager.Instance.Inventory.ChangeMainItem(0, fieldFirstSlot);
         }
     }
 
@@ -93,7 +94,7 @@ public class HandSlot : Slot
             //드래그 중 끝났을 경우
             else if (drag.selectItemId != 0)
             {
-                var itemData = ItemManager.Instance.itemDB[drag.selectItemId];
+                var itemData = ItemManager.Instance.GetItem(drag.selectItemId);
 
                 //아머 타입으로 교체 시도를 하지 않고 있을 경우에만
                 if (itemData.itemType != ItemType.Armor)

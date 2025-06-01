@@ -1,43 +1,92 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public ItemInfo firstSlotItem;
-    public ItemInfo secondSlotItem;
-    public ArmorInfo[] currentArmor = new ArmorInfo[Enum.GetValues(typeof(ArmorType)).Length];
-    public List<ItemInfo> items = new List<ItemInfo>(); // 인벤토리
+    public ItemInfo firstSlotItem { get; private set; }
+    public ItemInfo secondSlotItem { get; private set; }
+    public List<ArmorInfo> equipped { get; private set; } = new List<ArmorInfo>();
+    public List<ItemInfo> inventory { get; private set; } = new List<ItemInfo>();
 
-    public void GetItem(int itemId) // 아이템 추가시 호출
+    public void Add(int _itemId, bool isEquipped = false) // 아이템 추가시 호출
     {
-        items.Add(ItemManager.Instance.itemDB[itemId]);
+        var item = ItemManager.Instance.GetItem(_itemId);
+
+        if (item != null)
+        {
+            if (isEquipped)
+            {
+                inventory.Add(item);
+            }
+
+            else if (item is ArmorInfo isArmor)
+            {
+                equipped.Add(isArmor);
+            }
+        }
     }
 
-    public void RemoveInventoryItem(int index) // 아이템 제거, 판매시 호출
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="index"></param>
+    public void RemoveInventory(int _itemId, bool isEquipped = false)
     {
-        ItemInfo item = ItemManager.Instance.itemDB[index];
-        items.Remove(item);
+        var item = ItemManager.Instance.GetItem(_itemId);
+
+        if (item != null)
+        {
+            if (isEquipped && inventory.Contains(item))
+            {
+                inventory.Remove(item);
+            }
+
+            else if (item is ArmorInfo isArmor && equipped.Contains(isArmor))
+            {
+                equipped.Remove(isArmor);
+            }
+        }
     }
 
-    public void UseInventoryItem(int index) // 소모 아이템 사용시 호출
+    /// <summary>
+    /// 아이템 소모시 호출되는 메서드
+    /// </summary>
+    /// <param name="_itemId"></param>
+    public void UseItem(int _itemId)
     {
-        ItemInfo item = ItemManager.Instance.itemDB[index];
-        ItemEffectManager.Instance.ItemEffect(item);
-        items.Remove(item);
+        ItemInfo item = ItemManager.Instance.GetItem(_itemId);
+
+        if (item != null)
+        {
+            if (inventory.Contains(item) && UiManager.instance.status.Remove(item))
+            {
+                inventory.Remove(item);
+                ItemEffectManager.Instance.ItemEffect(item);
+            }
+        }
     }
 
-    public void ChangeDefense(int damage)
+    /// <summary>
+    /// 방어구 아이템 업데이트 콜백 함수
+    /// </summary>
+    /// <param name="damage"></param>
+    public void Defense(int damage)
     {
-        int ranNum = UnityEngine.Random.Range(0, currentArmor.Length);
-        // currentArmor[ranNum] = 
+        int ranIndex = Random.Range(0, equipped.Count);
+        equipped[ranIndex].defense -= 1;
+
+        if (equipped[ranIndex].defense == 0)
+        {
+            UiManager.instance.status.HideArmorView(ranIndex);
+            equipped.RemoveAt(ranIndex);
+        }
     }
 
-    public void ChangeMainSlot(int _itemId, bool _isFirst)
+    public void ChangeMainItem(int _itemId, bool _isFirst)
     {
         ItemInfo item;
 
-        if (_itemId != 0) item = ItemManager.Instance.itemDB[_itemId];
+        if (_itemId != 0) item = ItemManager.Instance.GetItem(_itemId);
         else item = null;
 
         if (_isFirst) firstSlotItem = item;

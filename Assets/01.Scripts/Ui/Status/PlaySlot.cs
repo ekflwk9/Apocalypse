@@ -9,13 +9,8 @@ public class PlaySlot : MonoBehaviour
 
     private void Reset()
     {
-        var iconPos = Helper.FindChild(this.transform, nameof(icon));
-        if (iconPos.TryGetComponent<Image>(out var isIcon)) icon = isIcon;
-        else DebugHelper.ShowBugWindow($"{this.name}에 Image가 존재하지 않음");
-
-        var countPos = Helper.FindChild(this.transform, nameof(countText));
-        if (countPos.TryGetComponent<TMP_Text>(out var isCount)) countText = isCount;
-        else DebugHelper.ShowBugWindow($"{this.name}에 TMP_Text가 존재하지 않음");
+        icon = this.TryFindChildComponent<Image>(nameof(icon));
+        countText = this.TryFindChildComponent<TMP_Text>(nameof(countText));
     }
 
     /// <summary>
@@ -25,7 +20,7 @@ public class PlaySlot : MonoBehaviour
     /// <param name="_count"></param>
     public void SetSlotView(int _itemId, int _count)
     {
-        var item = ItemManager.Instance.itemDB[_itemId];
+        var item = ItemManager.Instance.GetItem(_itemId);
         icon.sprite = item.icon;
         icon.color = Color.white;
 
@@ -35,17 +30,20 @@ public class PlaySlot : MonoBehaviour
 
     public void SetSlotView(int _count)
     {
-        if (_count > 1) countText.text = _count.ToString();
-        else countText.text = "";
-    }
+        if (_count > 1)
+        {
+            countText.text = _count.ToString();
+        }
 
-    /// <summary>
-    /// 매개변수가 없다면 화면에 보이는 슬롯을 지워줌
-    /// </summary>
-    /// <param name="_count"></param>
-    public void SetSlotView()
-    {
-        countText.text = "";
-        icon.color = Color.clear;
+        else if (_count > 0)
+        {
+            countText.text = "";
+        }
+
+        else
+        {
+            countText.text = "";
+            icon.color = Color.clear;
+        }
     }
 }

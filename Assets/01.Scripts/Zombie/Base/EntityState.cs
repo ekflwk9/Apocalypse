@@ -83,6 +83,12 @@ public abstract class EntityState
         entity._animator.Play(HashAnim, 1);
     }
 
+    public void SetUpperAnimationForce(int _HashAnim)
+    {
+        HashAnim = _HashAnim;
+        entity._animator.Play(HashAnim, 1, 0f);
+    }
+
     public void SetAnimationFade(int _HashAnim, float _Time)
     {
         HashAnim = _HashAnim;

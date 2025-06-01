@@ -30,7 +30,7 @@ public class NoiseAttackState : EntityState
                 SetAnimationForce(AnimHash.AttackHash_2);
             }
         }
-        else if (Distance < entity.baseStatus.AttackRange)
+        else 
         {
             SetAnimationForce(AnimHash.YellingHash);
         }
