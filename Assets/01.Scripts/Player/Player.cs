@@ -183,22 +183,6 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Z) == true)
-        {
-            SceneManager.LoadScene("Loby");
-            UiManager.instance.fade.OnFade();
-
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-
-            Player.Instance.transform.position = Vector3.zero;
-            Player.Instance.ResetPlayer();
-
-            UiManager.instance.lobyUi.gameObject.SetActive(true);
-            UiManager.instance.interactionUi.gameObject.SetActive(true);
-
-            UiManager.instance.SetActive(true);
-        }
         if (_staminaRegen)
         {
             Stamina += Time.deltaTime * passiveStamina;
