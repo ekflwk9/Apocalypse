@@ -55,7 +55,7 @@ using UnityEngine.Events;
 
     public bool IsInner(Vector2 position)
     {
-      return Vector2.Distance(position, centerAxis) < radius;
+      return Vector2.Distance(position, centerAxis) < radius / 2;
     }
     
     public bool IsInner(Vector3 position) => IsInner(new Vector2(position.x, position.z));
@@ -65,6 +65,7 @@ using UnityEngine.Events;
       if(started) return;
       
       shrinkCoroutine = StartCoroutine(Shrink());
+      checkObjects.Add(Player.Instance.gameObject);
       StartCoroutine(Damage());
       
       paused = false;
@@ -109,7 +110,7 @@ using UnityEngine.Events;
             {
                 if(!IsInner(obj.transform.position))
                 {
-                    obj.SendMessage("BorderDamage", borderDamage);
+                    obj.SendMessage("BorderDamage", borderDamage, SendMessageOptions.DontRequireReceiver);
                     Player.Instance.TakeDamage(borderDamage);
                 }
             }
