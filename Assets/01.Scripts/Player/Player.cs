@@ -3,6 +3,7 @@ using Cinemachine;
 using StarterAssets;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using static UnityEngine.Rendering.DebugUI;
 
 public interface IDamagable
@@ -167,10 +168,37 @@ public class Player : MonoBehaviour, IDamagable
         Stamina = maxStamina;
         _animIDDamage = Animator.StringToHash("Damage");
         _animIDDead = Animator.StringToHash("Dead");
+
+    }
+
+    public void OnStart()
+    {
+        Health = maxHealth;
+        UiManager.instance.play.health.SetSlider(Health / 100f);
+        Stamina = maxStamina;
+        Dead = false;
+        _rigidbody.isKinematic = false;
+        _animator.SetBool(_animIDDead, false);
     }
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Z) == true)
+        {
+            SceneManager.LoadScene("Loby");
+            UiManager.instance.fade.OnFade();
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            Player.Instance.transform.position = Vector3.zero;
+            Player.Instance.ResetPlayer();
+
+            UiManager.instance.lobyUi.gameObject.SetActive(true);
+            UiManager.instance.interactionUi.gameObject.SetActive(true);
+
+            UiManager.instance.SetActive(true);
+        }
         if (_staminaRegen)
         {
             Stamina += Time.deltaTime * passiveStamina;
@@ -197,7 +225,7 @@ public class Player : MonoBehaviour, IDamagable
 
         Health -= damage;
         UiManager.instance.hitUi.Show(true);
-        UiManager.instance.play.stamina.SetSlider(Health / 100f);
+        UiManager.instance.play.health.SetSlider(Health / 100f);
 
         if (Health <= 0)
         {
@@ -205,6 +233,7 @@ public class Player : MonoBehaviour, IDamagable
             _rigidbody.isKinematic = true;
 
             UiManager.instance.status.dead.gameObject.SetActive(true);
+            StopAllCoroutines();
         }
 
         DamageAnimation();

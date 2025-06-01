@@ -86,6 +86,10 @@ public class Entity : MonoBehaviour, IDamagable
 
     }
 
+    private void OnDestroy()
+    {
+        CoroutineManager.Instance.UnSetAllCoroutine(this);
+    }
     private void OnEnable()
     {
         SetRagdollActive(false);
