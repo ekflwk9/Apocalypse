@@ -130,8 +130,10 @@ public class SceneBundle : MonoBehaviour
       } 
       else
       {
-          Debug.LogError($"Bundle {bundleName} does not exist");
-          return null;
+#if UNITY_EDITOR
+            Debug.LogError($"Bundle {bundleName} does not exist");
+#endif
+            return null;
       }
   }
 

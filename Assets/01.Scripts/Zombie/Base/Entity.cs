@@ -164,7 +164,7 @@ public class Entity : MonoBehaviour, IDamagable
 
     }
 
-
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (baseStatus == null) return;
@@ -184,6 +184,8 @@ public class Entity : MonoBehaviour, IDamagable
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, transform.forward * baseStatus.DetectedRange);
     }
+#endif
+
 
     public virtual void Attack_1()
     {

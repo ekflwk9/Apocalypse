@@ -87,13 +87,19 @@ public class PlayerEquip : MonoBehaviour
     {
         if (!weaponPrefabs.TryGetValue(data, out GameObject equip))
         {
+#if UNITY_EDITOR
+
             Debug.Log("해당 장착 아이템을 찾을 수 없습니다.");
+#endif
             return;
         }
 
         if (!equip.TryGetComponent(out PlayerWeapon equipData))
         {
+#if UNITY_EDITOR
+
             Debug.Log("무기 장착 아이템을 찾을 수 없습니다.");
+#endif
             return;
         }
         
@@ -102,7 +108,10 @@ public class PlayerEquip : MonoBehaviour
         
         if (weaponInfo == null && consumableInfo == null)
         {
+#if UNITY_EDITOR
+
             Debug.Log("해당 아이템 정보가 일치하지 않습니다.");
+#endif
             return;
         }
 

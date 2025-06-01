@@ -74,8 +74,10 @@ public sealed class ContentManager : MonoBehaviour
     
     if (bundles.Length == 0)
     {
-      Debug.LogError("Package Not Found");
-      return null;
+#if UNITY_EDITOR
+            Debug.LogError("Package Not Found");
+#endif
+            return null;
     }
 
     var result = (from bundle in bundles where bundle.name == bundleName select bundle).First();

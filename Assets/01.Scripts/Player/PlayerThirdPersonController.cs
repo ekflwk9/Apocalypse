@@ -463,7 +463,9 @@ public class PlayerThirdPersonController : MonoBehaviour
     {
         (Vector3 rayOrigin, Vector3 direction) = Player.Instance.Equip.curWeaponData.GetBulletStartPoint();
         Physics.Raycast(rayOrigin, direction, out RaycastHit hit, Player.Instance.Equip.curWeaponData.Range);
+#if UNITY_EDITOR
         Debug.DrawRay(rayOrigin, direction, Color.red);
+#endif
         if (hit.collider != null && hit.collider.TryGetComponent(out IDamagable damagable))
         {
             damagable.TakeDamage(Player.Instance.Equip.curWeapon.power);

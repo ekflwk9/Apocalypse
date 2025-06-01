@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -56,8 +56,10 @@ public class ReadmeEditor : Editor {
 		}
 		else
 		{
-			Debug.Log("Couldn't find a readme");
-			return null;
+#if UNITY_EDITOR
+            Debug.Log("Couldn't find a readme");
+#endif
+            return null;
 		}
 	}
 	

@@ -54,7 +54,9 @@ public class EntityStateMachine
     {
         if(false == allState.IsExist(_State))
         {
+#if UNITY_EDITOR
             Debug.LogError($"State {_State} does not exist in the state machine.");
+#endif
             return;
         }
 
