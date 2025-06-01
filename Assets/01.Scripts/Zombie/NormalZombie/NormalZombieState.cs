@@ -361,6 +361,7 @@ public class DyingState : EntityState
 
     public override void Enter()
     {
+        SetDirection();
         entity._NavMeshAgent.SetDestination(Player.Instance.transform.position);
         entity._NavMeshAgent.speed = entity.baseStatus.CrowlSpeed;
         SetAnimationFade(AnimHash.HurtHash, 0.2f);
