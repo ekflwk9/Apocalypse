@@ -12,6 +12,8 @@ public class SuccessWindow : MonoBehaviour
         SceneManager.LoadScene("Loby");
 
         Player.Instance.transform.position = Vector3.zero;
+        Player.Instance.ResetPlayer();
+
         UiManager.instance.lobyUi.gameObject.SetActive(true);
         UiManager.instance.interactionUi.gameObject.SetActive(true);
 

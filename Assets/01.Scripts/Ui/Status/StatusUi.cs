@@ -6,7 +6,7 @@ using UnityEngine;
 public class StatusUi : MonoBehaviour
 {
     private Action endFarming;
-    public List<FarmingData> farmingData = new List<FarmingData>();
+    public List<FarmingData> farmingData { get; private set; } = new List<FarmingData>();
 
     public SuccessWindow success { get => fieldSuccess; }
     [SerializeField] private SuccessWindow fieldSuccess;
@@ -46,7 +46,7 @@ public class StatusUi : MonoBehaviour
 
     private void Awake()
     {
-        if(shop.gameObject.activeSelf) shop.gameObject.SetActive(false);
+        if (shop.gameObject.activeSelf) shop.gameObject.SetActive(false);
     }
 
     private void Reset()
@@ -177,7 +177,8 @@ public class StatusUi : MonoBehaviour
     /// </summary>
     public void UpdateFarmingSlot()
     {
-        endFarming();
+        if (endFarming != null) endFarming();
+        else DebugHelper.Log("EndFarming 메서드가 추가되지 않은 상태");
 
         for (int i = 0; i < farminSlot.Length; i++)
         {
