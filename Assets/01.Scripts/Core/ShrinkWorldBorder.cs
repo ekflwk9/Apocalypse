@@ -74,6 +74,8 @@ using UnityEngine.Events;
 
     private IEnumerator Shrink()
     {
+        yield return new WaitForSeconds(shrinkSecondDuration);
+
       do
       {
         onShrinkStart?.Invoke();
