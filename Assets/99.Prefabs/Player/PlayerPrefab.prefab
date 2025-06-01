@@ -2169,7 +2169,7 @@ MonoBehaviour:
   _health: 0
   _stamina: 0
   _defence: 0
-  _gold: 0
+  _gold: 250000
   _level: 0
   _weight: 0
   _maxWeight: 50
