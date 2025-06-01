@@ -23,7 +23,6 @@ public class UiController : MonoBehaviour
 
             if (isActive)
             {
-                //Player.Instance.
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 
@@ -39,7 +38,6 @@ public class UiController : MonoBehaviour
 
             else
             {
-                Player.Instance.ThirdPersonController.StopAnim();
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
@@ -66,11 +64,6 @@ public class UiController : MonoBehaviour
 
                 Cursor.lockState = isActive ? CursorLockMode.Locked : CursorLockMode.None;
                 Cursor.visible = !isActive;
-            }
-
-            else
-            {
-                Player.Instance.ThirdPersonController.StopAnim();
             }
         }
     }
