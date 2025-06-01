@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SuccessWindow : MonoBehaviour
 {
+    private void OnFade()
+    {
+        UiManager.instance.fade.OnFade(ChangeScene);
+    }
+
     private void ChangeScene()
     {
         //애니메이션 이벤트 호출 메서드
