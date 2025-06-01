@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
-public class StartButton : MonoBehaviour
+public class StartButton : MonoBehaviour, IPointerClickHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Animator anim;
+    [SerializeField] private GameObject info;
+
+    protected void Reset()
     {
-        
+        anim = this.TryGetComponent<Animator>();
+        info = this.TryFindChild("FakeFade").gameObject;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        
+        info.SetActive(false);
+        anim.Play("Start");
+    }
+
+    private void EndAction()
+    {
+        SceneManager.LoadScene("Loby");
     }
 }
