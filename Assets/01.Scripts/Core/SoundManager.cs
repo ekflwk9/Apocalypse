@@ -214,8 +214,8 @@ public static class SoundManager
       get => backgroundSource.isPlaying;
       set
       {
-          if(value) backgroundSource.Pause();
-          else backgroundSource.UnPause();
+          if(value) BackgroundSource.Pause();
+          else BackgroundSource.UnPause();
       }
   }
 
