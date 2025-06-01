@@ -55,7 +55,16 @@ public class BoxHandler : MonoBehaviour, IInteractionObject
 
         else
         {
-            item = UiManager.instance.status.farmingData;
+            DeepCopy(UiManager.instance.status.farmingData);
+        }
+    }
+
+    void DeepCopy( List<FarmingData> _list)
+    {
+        item.Clear();
+        foreach (var data in _list)
+        {
+            item.Add(new FarmingData(data.id, data.count, data.slotNumber));
         }
     }
 
