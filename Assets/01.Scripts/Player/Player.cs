@@ -1,7 +1,9 @@
 using System.Collections;
 using Cinemachine;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public interface IDamagable
 {
@@ -16,7 +18,7 @@ public class Player : MonoBehaviour, IDamagable
     public PlayerSound Sound;
     public CinemachineVirtualCamera cinemachineCamera;
     public CinemachineBasicMultiChannelPerlin perlin;
-    private PlayerInput playerInput;
+    public PlayerThirdPersonController ThirdPersonController;
 
     [Header("State")]
     public float maxHealth = 100f;
@@ -155,8 +157,8 @@ public class Player : MonoBehaviour, IDamagable
         Equip = GetComponentInChildren<PlayerEquip>();
         meleeCollider = GetComponentInChildren<BoxCollider>();
         meleeCollider.enabled = false;
-        playerInput = GetComponent<PlayerInput>();
         Sound = GetComponent<PlayerSound>();
+        ThirdPersonController = this.TryFindChildComponent<PlayerThirdPersonController>();
     }
 
     private void Start()
@@ -195,6 +197,7 @@ public class Player : MonoBehaviour, IDamagable
 
         Health -= damage;
         UiManager.instance.hitUi.Show(true);
+        UiManager.instance.play.stamina.SetSlider(Health / 100f);
 
         if (Health <= 0)
         {
@@ -285,5 +288,12 @@ public class Player : MonoBehaviour, IDamagable
             _toggleMelee = !_toggleMelee;
             meleeCollider.enabled = _toggleMelee;
         }
+    }
+
+    public void ResetPlayer()
+    {
+        Defence = 0;
+        Health = 100;
+        Stamina = 0;
     }
 }

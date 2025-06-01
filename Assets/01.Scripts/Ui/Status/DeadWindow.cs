@@ -15,6 +15,8 @@ public class DeadWindow : MonoBehaviour
         //ItemManager.Instance.Inventory.RemoveInventoryItem();
 
         Player.Instance.transform.position = Vector3.zero;
+        Player.Instance.ResetPlayer();
+
         UiManager.instance.lobyUi.gameObject.SetActive(true);
         UiManager.instance.interactionUi.gameObject.SetActive(true);
 

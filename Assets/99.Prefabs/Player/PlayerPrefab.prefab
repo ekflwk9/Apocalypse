@@ -2163,12 +2163,13 @@ MonoBehaviour:
   Sound: {fileID: 695460693530000985}
   cinemachineCamera: {fileID: 4578292436875945681}
   perlin: {fileID: 3097021339242296715}
+  ThirdPersonController: {fileID: 4099686563972156944}
   maxHealth: 100
   maxStamina: 100
   _health: 0
   _stamina: 0
   _defence: 0
-  _gold: 300000
+  _gold: 0
   _level: 0
   _weight: 0
   _maxWeight: 50
@@ -2338,7 +2339,7 @@ MonoBehaviour:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UiController, Assembly-CSharp
         m_MethodName: OnInventory
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2354,7 +2355,7 @@ MonoBehaviour:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UiController, Assembly-CSharp
         m_MethodName: OnMenu
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

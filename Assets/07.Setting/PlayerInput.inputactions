@@ -364,7 +364,7 @@
                 {
                     "name": "",
                     "id": "53228904-cf97-4a90-86f5-5b32114f1bd5",
-                    "path": "<Keyboard>/tab",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -375,7 +375,7 @@
                 {
                     "name": "",
                     "id": "804ee9ce-6373-430b-b3b8-77e6fab5df49",
-                    "path": "<Keyboard>/Escape",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
