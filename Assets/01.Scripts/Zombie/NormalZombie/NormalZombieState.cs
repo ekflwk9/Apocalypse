@@ -218,6 +218,7 @@ public class AttackState : EntityState
 
     public override void Enter()
     {
+        SetDirection();
         if (Vector3.Distance(entity.transform.position, Player.Instance.transform.position) > 10)
         {
             StateMachine.SetState(EntityEnum.Idle);
@@ -225,8 +226,6 @@ public class AttackState : EntityState
         }
         if (IsAnimationEnd(1) == true)
         {
-            SetDirection();
-
             if (Random.Range(0, 2) == 0)
             {
                 SetAnimation(AnimHash.AttackHash_1);
