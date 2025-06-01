@@ -97,7 +97,8 @@ using UnityEngine.Events;
         {
             foreach (var obj in checkObjects)
             {
-                obj.SendMessage("BorderDamage");
+                if(!IsInner(obj.transform.position))
+                    obj.SendMessage("BorderDamage");
             }
             yield return new WaitForSeconds(damagePeriodTimeSecond);
         }
