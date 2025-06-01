@@ -158,6 +158,7 @@ public class Entity : MonoBehaviour, IDamagable
 
         ObjectPool.Instance.Set(ContentManager.GetAsset<GameObject>(PrefabName), gameObject);
     }
+    //
 
     public void OnDisable()
     {
