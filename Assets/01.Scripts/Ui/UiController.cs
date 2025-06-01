@@ -63,13 +63,13 @@ public class UiController : MonoBehaviour
     }
 
     //********************테스트용
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I)) OnInventory();
-        else if (Input.GetKeyDown(KeyCode.Escape)) OnMenu();
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            UiManager.instance.status.shop.SetActive(!UiManager.instance.status.shop.gameObject.activeSelf);
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.I)) OnInventory();
+    //    else if (Input.GetKeyDown(KeyCode.Escape)) OnMenu();
+    //    else if (Input.GetKeyDown(KeyCode.O))
+    //    {
+    //        UiManager.instance.status.shop.SetActive(!UiManager.instance.status.shop.gameObject.activeSelf);
+    //    }
+    //}
 }

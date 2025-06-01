@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6097485309207873529}
   - component: {fileID: 5659910026934365094}
-  - component: {fileID: 4094444992231664810}
   - component: {fileID: 1287246829918341625}
+  - component: {fileID: 4094444992231664810}
   m_Layer: 10
   m_Name: ItemBox
   m_TagString: Item
@@ -57,21 +57,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4094444992231664810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148408338228961955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4154265468504f259bdfe7c391ea47d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
-  count: 
-  slotNumber: 
 --- !u!65 &1287246829918341625
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -93,6 +78,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.49263155, y: 0.286185, z: 1}
   m_Center: {x: 0.0087477565, y: 0.13646461, z: 0}
+--- !u!114 &4094444992231664810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148408338228961955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4154265468504f259bdfe7c391ea47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  count: 
+  slotNumber: 
 --- !u!1 &2154649191659082463
 GameObject:
   m_ObjectHideFlags: 0
