@@ -1255,7 +1255,7 @@ MonoBehaviour:
   - {fileID: 4020206439068217104}
   - {fileID: 3946004226310558911}
   PrefabName: RangeZombie
-  Projectile: {fileID: 8237623944281672239, guid: 510969f85a1d10b41945f7a0678e5e6a,
+  Projectile: {fileID: 839695728633666803, guid: 510969f85a1d10b41945f7a0678e5e6a,
     type: 3}
 --- !u!1 &2954646316817522285
 GameObject:

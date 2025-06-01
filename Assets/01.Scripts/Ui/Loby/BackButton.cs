@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class BackButton : UiButton
@@ -15,7 +12,7 @@ public class BackButton : UiButton
             levelWindow.SetActive(false);
         }
 
-        else if(UiManager.instance.status.storage.activeSelf)
+        else if (UiManager.instance.status.storage.activeSelf)
         {
             UiManager.instance.status.inventory.SetActive(false);
             UiManager.instance.status.storage.SetActive(false);
@@ -24,7 +21,12 @@ public class BackButton : UiButton
 
         else
         {
-            UiManager.instance.status.shop.SetActive(false);
+            var status = UiManager.instance.status;
+            var firstShop = status.firstShop.gameObject;
+            var sceondShop = status.secondShop.gameObject;
+
+            if (firstShop.activeSelf) firstShop.SetActive(false);
+            else sceondShop.SetActive(false);
         }
 
         SoundManager.Play("UI_Click");

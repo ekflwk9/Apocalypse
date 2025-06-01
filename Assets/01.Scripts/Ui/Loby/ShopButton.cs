@@ -6,6 +6,7 @@ public class ShopButton : UiButton
     [SerializeField] private string title;
     [SerializeField] private string shopName;
     [SerializeField] private string description;
+    [SerializeField] private bool isFirst;
 
     public override void OnPointerEnter(PointerEventData eventData)
     {
@@ -25,13 +26,18 @@ public class ShopButton : UiButton
     {
         if (!UiManager.instance.fade.activeSelf)
         {
-            var shop = UiManager.instance.status.shop;
 
             UiManager.instance.fade.OnFade();
             UiManager.instance.lobyUi.title.SetActive(false);
             UiManager.instance.interactionUi.SwitchBackButton(false);
 
             SoundManager.Play("UI_Click");
+
+            ShopUi shop = null;
+
+            if (isFirst) shop = UiManager.instance.status.firstShop;
+            else shop = UiManager.instance.status.secondShop;
+
             shop.SetTItle(shopName);
             shop.SetActive(true);
         }

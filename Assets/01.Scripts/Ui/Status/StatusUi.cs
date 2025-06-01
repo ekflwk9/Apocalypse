@@ -35,8 +35,11 @@ public class StatusUi : MonoBehaviour
     public GameObject farming { get => fieldFarming; }
     [SerializeField] private GameObject fieldFarming;
 
-    public ShopUi shop { get => fieldShop; }
-    [SerializeField] private ShopUi fieldShop;
+    public ShopUi firstShop { get => fieldFirstShop; }
+    [SerializeField] private ShopUi fieldFirstShop;
+
+    public ShopUi secondShop { get => fieldSecondShop; }
+    [SerializeField] private ShopUi fieldSecondShop;
 
     [SerializeField] private InventorySlot[] inventorySlot;
     [SerializeField] private FarmingSlot[] farmingSlot;
@@ -64,7 +67,8 @@ public class StatusUi : MonoBehaviour
         var handSlotPos = this.TryFindChild("Equipped");
         handSlot = GetComponentArray<HandSlot>(handSlotPos);
 
-        fieldShop = this.TryFindChildComponent<ShopUi>("Shop");
+        fieldFirstShop = this.TryFindChildComponent<ShopUi>("FirstShop");
+        fieldSecondShop = this.TryFindChildComponent<ShopUi>("SecondShop");
         fieldDead = this.TryFindChildComponent<DeadWindow>();
         fieldSuccess = this.TryFindChildComponent<SuccessWindow>();
     }
