@@ -12,7 +12,7 @@ public class StartButton : MonoBehaviour, IPointerClickHandler
     protected void Reset()
     {
         anim = this.TryGetComponent<Animator>();
-        info = this.TryFindChild("FakeFade").gameObject;
+        info = this.TryFindChild("Info").gameObject;
     }
 
     public void OnPointerClick(PointerEventData eventData)

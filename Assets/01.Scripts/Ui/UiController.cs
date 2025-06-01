@@ -1,14 +1,15 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UiController : MonoBehaviour
 {
     /// <summary>
     /// 인벤토리를 활성화하는 메서드
     /// </summary>
-    public void OnInventory()
+    public void OnInventory(InputAction.CallbackContext context)
     {
         //메뉴가 비활성화인 상태인 경우에만
-        if (!UiManager.instance.menu.menuWindow.gameObject.activeSelf)
+        if (!UiManager.instance.menu.menuWindow.gameObject.activeSelf && context.started)
         {
             var isActive = UiManager.instance.status.inventory.gameObject.activeSelf;
             var status = UiManager.instance.status;
@@ -16,6 +17,7 @@ public class UiController : MonoBehaviour
             UiManager.instance.fade.OnFade();
             UiManager.instance.SetActive(!isActive);
             UiManager.instance.shaderEffect.SetActive(!isActive);
+
             status.inventory.gameObject.SetActive(!isActive);
             status.equipped.SetActive(!isActive);
 
@@ -28,6 +30,7 @@ public class UiController : MonoBehaviour
                 status.itemInfo.SetOff();
 
                 UiManager.instance.touch.SetTouch(false);
+                status.UpdateFarmingSlot();
 
                 var farming = status.farming.gameObject;
                 if (farming.gameObject.activeSelf) farming.SetActive(false);
@@ -44,21 +47,24 @@ public class UiController : MonoBehaviour
     /// <summary>
     /// 설정 창을 활성화 하는 메서드
     /// </summary>
-    public void OnMenu()
+    public void OnMenu(InputAction.CallbackContext context)
     {
-        var menu = UiManager.instance.menu;
-        var isActive = menu.menuWindow.activeSelf;
-
-        UiManager.instance.fade.OnFade();
-        menu.menuWindow.SetActive(!isActive);
-
-        if (!UiManager.instance.status.inventory.gameObject.activeSelf)
+        if (context.started)
         {
-            UiManager.instance.SetActive(!isActive);
-            UiManager.instance.shaderEffect.SetActive(!isActive);
+            var menu = UiManager.instance.menu;
+            var isActive = menu.menuWindow.activeSelf;
 
-            Cursor.lockState = isActive ? CursorLockMode.Locked : CursorLockMode.None;
-            Cursor.visible = !isActive;
+            UiManager.instance.fade.OnFade();
+            menu.menuWindow.SetActive(!isActive);
+
+            if (!UiManager.instance.status.inventory.gameObject.activeSelf)
+            {
+                UiManager.instance.SetActive(!isActive);
+                UiManager.instance.shaderEffect.SetActive(!isActive);
+
+                Cursor.lockState = isActive ? CursorLockMode.Locked : CursorLockMode.None;
+                Cursor.visible = !isActive;
+            }
         }
     }
 

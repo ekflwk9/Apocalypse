@@ -32,31 +32,48 @@ public class SurvivorSound : MonoBehaviour
         }
     }
 
-    const string HitSound = "Survivor_Hit_";
+    float CurrentLocationTime = 0f;
+    const float LocationTime = 1f;
 
+    private void Update()
+    {
+        if (CurrentLocationTime < LocationTime)
+        {
+            CurrentLocationTime += Time.deltaTime;
+        }
+        else
+        {
+            CurrentLocationTime = 0f;
+            Vector3 location = gameObject.transform.localPosition;
+            location.y = 0;
+            gameObject.transform.localPosition = location;
+        }
+    }
+
+    const string HitSound = "Survivor_Hit_";
     void Hit()
     {
         int value = Random.Range(1, 3);
-        SoundManager.Play(HitSound + value.ToString());
+        gameObject.PlayAudio(HitSound + value.ToString());
     }
 
-    const string AttackSound = "survivor_Attack";
+    const string AttackSound = "SurvivorAttack";
 
     void OnAttackSound()
     {
-        SoundManager.Play(AttackSound);
+        gameObject.PlayAudio(AttackSound);
     }
 
 
     void Hurt()
     {
         int value = Random.Range(1, 3);
-        SoundManager.Play(HitSound + value.ToString());
+        gameObject.PlayAudio(HitSound + value.ToString());
     }
 
     void Die()
     {
-        SoundManager.Play("SurvivorDead");
+        gameObject.PlayAudio("SurvivorDead");
     }
 
 }

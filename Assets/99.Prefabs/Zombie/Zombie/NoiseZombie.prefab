@@ -2575,10 +2575,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 2
-  MaxDistance: 8
+  MinDistance: 4
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -2869,6 +2869,7 @@ MonoBehaviour:
   - {fileID: 5289134046799240288}
   - {fileID: 2698019435771516571}
   - {fileID: 1684618692285029410}
+  PrefabName: NoiseZombie
   _zombieHearingComponent: {fileID: 7466021660353000687}
 --- !u!1 &7189802766670324642
 GameObject:

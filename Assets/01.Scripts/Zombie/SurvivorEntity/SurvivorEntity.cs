@@ -85,9 +85,17 @@ public class SurvivorEntity : Entity
 
     public override void Dead()
     {
-        SoundManager.Play("SurvivorDead");
+        gameObject.PlayAudio("SurvivorDead");
         SetRagdollActive(true);
         CoroutineManager.Instance.UnSetAllCoroutine(this);
+        StartCoroutine(OnRelease());
+    }
+
+    IEnumerator OnRelease()
+    {
+        yield return CoroutineHelper.GetTime(5f);
+
+        ObjectPool.Instance.Set(ContentManager.GetAsset<GameObject>(PrefabName), gameObject);
     }
 
     //public override void Attack_2()

@@ -364,10 +364,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 2
-  MaxDistance: 8
+  MinDistance: 4
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -3285,6 +3285,7 @@ MonoBehaviour:
   - {fileID: 6424295733796050503}
   - {fileID: 4447497205007636073}
   - {fileID: 8374549699773102360}
+  PrefabName: SurviverEntity
 --- !u!1 &7948023408523327885
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,6 +26,11 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void RemoveAll()
+    {
+        inventory.Clear();
+    }
+
     /// <summary>
     /// 
     /// </summary>
