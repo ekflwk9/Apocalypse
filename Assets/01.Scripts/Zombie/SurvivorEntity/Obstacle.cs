@@ -39,19 +39,4 @@ public class Obstacle : MonoBehaviour
             return false;
         }
     }
-
-    private void Update()
-    {
-        Vector3 playerPos = Player.Instance.transform.position;
-        Vector3 direction = (playerPos - transform.position).normalized;
-        float distance = Vector3.Distance(playerPos, transform.position);
-
-        // 정확한 방향 벡터로 그리기
-        DrawRayToTarget(transform.position, direction, distance + 10f, Color.red);
-    }
-
-    private void DrawRayToTarget(Vector3 origin, Vector3 direction, float length, Color color)
-    {
-        Debug.DrawRay(origin, direction * length, color, 1f);
-    }
 }
