@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class farmingSlot : Slot
+public class FarmingSlot : Slot
 {
     public override bool SetSlot(int _itemId, int _itemCount)
     {

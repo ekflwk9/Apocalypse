@@ -1,10 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BoxHandler : MonoBehaviour, IInteractionObject
 {
     private List<FarmingData> item = new List<FarmingData>();
+    private Animator anim;
+    private bool isOpen;
 
 #if UNITY_EDITOR
     [SerializeField] private int[] id;
@@ -15,6 +16,7 @@ public class BoxHandler : MonoBehaviour, IInteractionObject
     private void Awake()
     {
         item = ItemDropGenerator.GetRandomDrop();
+        anim = this.TryGetComponent<Animator>();
 
 #if UNITY_EDITOR
         id = new int[item.Count];
@@ -31,12 +33,21 @@ public class BoxHandler : MonoBehaviour, IInteractionObject
 
     public void Interaction() // 캐바넷 주을때 호출
     {
-        var status = UiManager.instance.status;
+        if (!isOpen) anim.Play("Open", 0, 0);
 
-        status.SetFarming(item, UpdateData);
-        status.farming.gameObject.SetActive(true);
-        status.inventory.gameObject.SetActive(true);
-        status.equipped.gameObject.SetActive(true);
+        if (!UiManager.instance.isActive)
+        {
+            var status = UiManager.instance.status;
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            UiManager.instance.SetActive(true);
+            status.SetFarming(item, UpdateData);
+            status.farming.gameObject.SetActive(true);
+            status.inventory.gameObject.SetActive(true);
+            status.equipped.gameObject.SetActive(true);
+        }
     }
 
     public void UpdateData()

@@ -17,13 +17,18 @@ public class LevelUpButton : UiButton
 
         if (cost <= Player.Instance.Gold)
         {
-            //사운드 추가
+            SoundManager.Play("Upgrade");
             Player.Instance.SetGold(-cost);
             Player.Instance.SetLevel(1);
 
             loby.UpdateLockWindow();
             UiManager.instance.lobyUi.card.UpdateCard();
             UiManager.instance.interactionUi.gold.UpdateGold();
+        }
+
+        else
+        {
+            UiManager.instance.interactionUi.noMoney.gameObject.SetActive(true);
         }
     }
 }

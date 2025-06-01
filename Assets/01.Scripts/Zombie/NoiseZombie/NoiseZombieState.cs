@@ -18,7 +18,7 @@ public class NoiseAttackState : EntityState
         Vector3 entityPos = entity.transform.position;
         Vector3 playerPos = Player.Instance.transform.position;
         float Distance = Vector3.Distance(playerPos, entityPos);
-        if (Distance < 3f)
+        if (Distance < 1f)
         {
             int value = Random.Range(0, 2);
             if (value == 0)

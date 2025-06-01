@@ -136,15 +136,6 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void Update()
     {
-        if (UiManager.instance.isActive)
-        {
-            _playerInput.enabled = false;
-        }
-        else
-        {
-            _playerInput.enabled = true;
-        }
-
         JumpAndGravity();
         GroundedCheck();
         AimSwitch(_input.Aim);
@@ -152,6 +143,11 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (UiManager.instance.isActive)
+        {
+            _input.move = Vector2.zero;
+            _input.look = Vector2.zero;
+        }
         Move();
         CameraRotation();
     }
@@ -225,6 +221,12 @@ public class PlayerThirdPersonController : MonoBehaviour
 
         CinemachineCameraTarget.transform.rotation =
             Quaternion.Euler(_cinemachineTargetPitch, _cinemachineTargetYaw, 0.0f);
+    }
+
+
+    public void StopAnim()
+    {
+        _animator.Play("Idle Walk Run Blend");
     }
 
     //이동.
@@ -472,6 +474,6 @@ public class PlayerThirdPersonController : MonoBehaviour
     {
         ItemManager.Instance.Inventory.UseItem(Player.Instance.Equip.curEquip.itemId);
         _animator.SetTrigger(_animIDUse);
-        Player.Instance.Sound.HealSound();  
+        Player.Instance.Sound.HealSound();
     }
 }

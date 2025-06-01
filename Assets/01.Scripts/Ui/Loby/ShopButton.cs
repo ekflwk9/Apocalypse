@@ -31,6 +31,7 @@ public class ShopButton : UiButton
             UiManager.instance.lobyUi.title.SetActive(false);
             UiManager.instance.interactionUi.SwitchBackButton(false);
 
+            SoundManager.Play("UI_Click");
             shop.SetTItle(shopName);
             shop.SetActive(true);
         }

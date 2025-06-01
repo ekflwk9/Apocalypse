@@ -29,7 +29,7 @@ public class PlayerSound : MonoBehaviour
     {
         int index = Random.Range(0, walkSounds.Length);
         string soundName = walkSounds[index].name;
-        SoundManager.Play(soundName);
+        gameObject.PlayAudio(soundName);
         ZombieHearingHandler(2.5f);
     }
 
@@ -37,14 +37,14 @@ public class PlayerSound : MonoBehaviour
     {
         int index = Random.Range(0, walkSounds.Length);
         string soundName = walkSounds[index].name;
-        SoundManager.Play(soundName);
+        gameObject.PlayAudio(soundName);
         ZombieHearingHandler(5);
     }
 
     public void LandSound()
     {
         string soundName = jumpSound.name;
-        SoundManager.Play(soundName);
+        gameObject.PlayAudio(soundName);
         ZombieHearingHandler(5,2f);
     }
 
@@ -52,21 +52,21 @@ public class PlayerSound : MonoBehaviour
     {
         int index = Random.Range(0, hitSounds.Length);
         string soundName = hitSounds[index].name;
-        SoundManager.Play(soundName);
+        gameObject.PlayAudio(soundName);
         ZombieHearingHandler(2);
     }
 
     public void DeadSound()
     {
         string soundName = deadSound.name;
-        SoundManager.Play(soundName);
+        gameObject.PlayAudio(soundName);
     }
     
     public void MeleeSound()
     {
         int index = Random.Range(0, meleeSounds.Length);
         string soundName = meleeSounds[index].name;
-        SoundManager.Play(soundName);
+        gameObject.PlayAudio(soundName);
         ZombieHearingHandler(5);
     }
 
@@ -81,26 +81,26 @@ public class PlayerSound : MonoBehaviour
     {
         int index = Random.Range(0, healSounds.Length);
         string soundName = healSounds[index].name;
-        SoundManager.Play(soundName);
+        gameObject.PlayAudio(soundName);
     }
 
     public void EquipSound()
     {
         int index = Random.Range(0, equipSounds.Length);
         string soundName = equipSounds[index].name;
-        SoundManager.Play(soundName);
+        gameObject.PlayAudio(soundName);
     }
 
     public void LootSound()
     {
         int index = Random.Range(0, lootSounds.Length);
         string soundName = lootSounds[index].name;
-        SoundManager.Play(soundName);
+        gameObject.PlayAudio(soundName);
     }
     
     private void ZombieHearing()
     {
-        _zombieHearingComponent.OnSound(curSoundRadius);
+        _zombieHearingComponent.OnSound(curSoundRadius, gameObject.transform.position);
     }
 
     private void ZombieHearingHandler(float radius, float duration = 1f)

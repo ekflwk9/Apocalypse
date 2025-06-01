@@ -5,13 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class SuccessWindow : MonoBehaviour
 {
-    public void ChangeScene()
+    private void ChangeScene()
     {
         //애니메이션 이벤트 호출 메서드
-        UiManager.instance.fade.OnFade();
         SceneManager.LoadScene("Loby");
+        UiManager.instance.fade.OnFade();
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         Player.Instance.transform.position = Vector3.zero;
+        Player.Instance.ResetPlayer();
+
         UiManager.instance.lobyUi.gameObject.SetActive(true);
         UiManager.instance.interactionUi.gameObject.SetActive(true);
 

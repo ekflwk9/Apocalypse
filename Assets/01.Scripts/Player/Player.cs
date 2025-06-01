@@ -1,7 +1,10 @@
 using System.Collections;
 using Cinemachine;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 public interface IDamagable
 {
@@ -11,12 +14,12 @@ public interface IDamagable
 public class Player : MonoBehaviour, IDamagable
 {
     public static Player Instance { get; private set; }
-    
+
     public PlayerEquip Equip;
     public PlayerSound Sound;
     public CinemachineVirtualCamera cinemachineCamera;
     public CinemachineBasicMultiChannelPerlin perlin;
-    private PlayerInput playerInput;
+    public PlayerThirdPersonController ThirdPersonController;
 
     [Header("State")]
     public float maxHealth = 100f;
@@ -36,18 +39,18 @@ public class Player : MonoBehaviour, IDamagable
     public float sprintStamina = 5f;
     public float jumpStamina = 10f;
     public float staminaRegenCooldown = 5f;
-    
+
     [Header("Animations")]
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private BoxCollider meleeCollider;
-    
+
     [SerializeField] private Animator _animator;
     private int _animIDDamage;
     private int _animIDDead;
 
     private Coroutine _damagedCoroutine;
     private Coroutine _staminaRegenCoroutine;
-    
+
     private bool _staminaRegen;
     private bool _toggleMelee;
     public bool Damaged { get; private set; }
@@ -57,30 +60,21 @@ public class Player : MonoBehaviour, IDamagable
     public float Health
     {
         get => _health;
+
         private set
         {
             float changedValue = Mathf.Clamp(value, 0, maxHealth);
 
             if (changedValue < _health)
             {
-                if (Defence > 0)
-                {
-                    //인벤토리 코드 추가**********************************************************************
-                    Defence -= (int)(_health - changedValue);
-                    //UiManager.instance.play.
-                }
-                else
-                {
-                    Damaged = true;
-                    _health = changedValue;
-                }
+                Damaged = true;
+                _health = changedValue;
             }
+
             else
             {
                 _health = value;
             }
-            
-            UiManager.instance.play.health.SetSlider(value / 100f);
         }
     }
 
@@ -102,23 +96,13 @@ public class Player : MonoBehaviour, IDamagable
             }
 
             _stamina = changedValue;
-            
+
             UiManager.instance.play.stamina.SetSlider(value / 100f);
         }
     }
 
-    public int Defence
-    {
-        get
-        {
-            return _defence;
-        }
-        private set
-        {
-            _defence = value;
-            //디펜스 처리 메서드 처리해야함 ***************************************************************************
-        }
-    }
+    public int Defence { get; private set; }
+
     public int Gold
     {
         get => _gold;
@@ -174,8 +158,8 @@ public class Player : MonoBehaviour, IDamagable
         Equip = GetComponentInChildren<PlayerEquip>();
         meleeCollider = GetComponentInChildren<BoxCollider>();
         meleeCollider.enabled = false;
-        playerInput = GetComponent<PlayerInput>();
         Sound = GetComponent<PlayerSound>();
+        ThirdPersonController = this.TryFindChildComponent<PlayerThirdPersonController>();
     }
 
     private void Start()
@@ -184,10 +168,37 @@ public class Player : MonoBehaviour, IDamagable
         Stamina = maxStamina;
         _animIDDamage = Animator.StringToHash("Damage");
         _animIDDead = Animator.StringToHash("Dead");
+
+    }
+
+    public void OnStart()
+    {
+        Health = maxHealth;
+        UiManager.instance.play.health.SetSlider(Health / 100f);
+        Stamina = maxStamina;
+        Dead = false;
+        _rigidbody.isKinematic = false;
+        _animator.SetBool(_animIDDead, false);
     }
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Z) == true)
+        {
+            SceneManager.LoadScene("Loby");
+            UiManager.instance.fade.OnFade();
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            Player.Instance.transform.position = Vector3.zero;
+            Player.Instance.ResetPlayer();
+
+            UiManager.instance.lobyUi.gameObject.SetActive(true);
+            UiManager.instance.interactionUi.gameObject.SetActive(true);
+
+            UiManager.instance.SetActive(true);
+        }
         if (_staminaRegen)
         {
             Stamina += Time.deltaTime * passiveStamina;
@@ -202,16 +213,27 @@ public class Player : MonoBehaviour, IDamagable
     public void TakeDamage(float damage)
     {
         if (Dead) return;
-        
+
+        if (Defence > 0)
+        {
+            Defence -= 1;
+
+            ItemManager.Instance.Inventory.Defense(Defence);
+            UiManager.instance.play.defense.SetSlider(Defence);
+            return;
+        }
+
         Health -= damage;
         UiManager.instance.hitUi.Show(true);
-        
+        UiManager.instance.play.health.SetSlider(Health / 100f);
+
         if (Health <= 0)
         {
             Dead = true;
             _rigidbody.isKinematic = true;
-            
+
             UiManager.instance.status.dead.gameObject.SetActive(true);
+            StopAllCoroutines();
         }
 
         DamageAnimation();
@@ -295,5 +317,12 @@ public class Player : MonoBehaviour, IDamagable
             _toggleMelee = !_toggleMelee;
             meleeCollider.enabled = _toggleMelee;
         }
+    }
+
+    public void ResetPlayer()
+    {
+        Defence = 0;
+        Health = 100;
+        Stamina = 0;
     }
 }

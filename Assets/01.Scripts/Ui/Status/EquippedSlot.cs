@@ -6,6 +6,7 @@ public class EquippedSlot : Slot
     [Header("장착 가능한 아이템 타입")]
     [SerializeField] private ArmorType type;
     [SerializeField] private bool isFirst;
+    private int defense;
 
     public override bool SetSlot(int _itemId, int _itemCount)
     {
@@ -15,7 +16,7 @@ public class EquippedSlot : Slot
         {
             if (isArmor.armorType == type)
             {
-                ItemManager.Instance.Inventory.ChangeMainItem(itemId, isFirst);
+                ItemManager.Instance.Inventory.Add(_itemId, true);
 
                 itemId = _itemId;
                 count = _itemCount;
@@ -31,25 +32,6 @@ public class EquippedSlot : Slot
         }
 
         return false;
-    }
-
-    public override void SetSlot(int _itemCount)
-    {
-        count = _itemCount;
-
-        if (_itemCount > 1)
-        {
-            countText.text = _itemCount.ToString();
-        }
-
-        else
-        {
-            ItemManager.Instance.Inventory.ChangeMainItem(0, isFirst);
-
-            itemId = 0;
-            countText.text = "";
-            icon.color = Color.clear;
-        }
     }
 
     protected override bool CheckItem(Slot _dragSlot)

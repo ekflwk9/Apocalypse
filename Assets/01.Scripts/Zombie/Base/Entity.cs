@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -18,6 +19,7 @@ public class Entity : MonoBehaviour, IDamagable
 
     [SerializeField] Collider[] ragdollColliders;
     [SerializeField] Rigidbody[] ragdollRigidbodies;
+    [SerializeField] protected string PrefabName;
 
     protected virtual void Reset()
     {
@@ -84,6 +86,10 @@ public class Entity : MonoBehaviour, IDamagable
 
     }
 
+    private void OnDestroy()
+    {
+        CoroutineManager.Instance.UnSetAllCoroutine(this);
+    }
     private void OnEnable()
     {
         SetRagdollActive(false);
@@ -93,7 +99,8 @@ public class Entity : MonoBehaviour, IDamagable
     protected virtual void Update()
     {
         _stateMachine.Update();
-        if (_stateMachine.GetState() == EntityEnum.Idle || _stateMachine.GetState() == EntityEnum.Walk)
+        EntityEnum CurrentState = _stateMachine.GetState();
+        if (CurrentState == EntityEnum.Idle || CurrentState == EntityEnum.Walk || CurrentState == EntityEnum.Hearing)
         {
             Detect();
         }
@@ -139,9 +146,17 @@ public class Entity : MonoBehaviour, IDamagable
 
     public virtual void Dead()
     {
-        SoundManager.Play("Zombie_Die");
+        gameObject.PlayAudio("Zombie_Idle_2");
         SetRagdollActive(true);
         CoroutineManager.Instance.UnSetAllCoroutine(this);
+        StartCoroutine(OnRelease());
+    }
+
+    IEnumerator OnRelease()
+    {
+        yield return CoroutineHelper.GetTime(5f);
+
+        ObjectPool.Instance.Set(ContentManager.GetAsset<GameObject>(PrefabName), gameObject);
     }
 
     public void OnDisable()

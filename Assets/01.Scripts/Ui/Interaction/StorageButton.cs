@@ -7,6 +7,8 @@ public class StorageButton : UiButton
 {
     public override void OnPointerClick(PointerEventData eventData)
     {
+        SoundManager.Play("UI_Click");
+
         UiManager.instance.fade.OnFade();
         UiManager.instance.status.inventory.SetActive(true);
         UiManager.instance.status.storage.SetActive(true);

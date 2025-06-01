@@ -1,50 +1,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SlotType
-{
-    Inventory,
-    Stotage,
-    Equipped,
-}
-
 public class Inventory : MonoBehaviour
 {
     public ItemInfo firstSlotItem { get; private set; }
     public ItemInfo secondSlotItem { get; private set; }
     public List<ArmorInfo> equipped { get; private set; } = new List<ArmorInfo>();
     public List<ItemInfo> inventory { get; private set; } = new List<ItemInfo>();
-    public List<ItemInfo> storage { get; private set; } = new List<ItemInfo>();
 
-    public void Add(int itemId) // 아이템 추가시 호출
+    public void Add(int _itemId, bool isEquipped = false) // 아이템 추가시 호출
     {
-        var item = ItemManager.Instance.GetItem(itemId);
-        if (item != null) inventory.Add(item);
+        var item = ItemManager.Instance.GetItem(_itemId);
+
+        if (item != null)
+        {
+            if (isEquipped)
+            {
+                inventory.Add(item);
+            }
+
+            else if (item is ArmorInfo isArmor)
+            {
+                equipped.Add(isArmor);
+            }
+        }
+    }
+
+    public void RemoveAll()
+    {
+        inventory.Clear();
     }
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="index"></param>
-    public void RemoveInventory(int _itemId, SlotType _slotType)
+    public void RemoveInventory(int _itemId, bool isEquipped = false)
     {
         var item = ItemManager.Instance.GetItem(_itemId);
-        if (item != null) return;
 
-        switch (_slotType)
+        if (item != null)
         {
-            case SlotType.Inventory:
+            if (isEquipped && inventory.Contains(item))
+            {
                 inventory.Remove(item);
-                break;
+            }
 
-            case SlotType.Stotage:
-                storage.Remove(item);
-                break;
-
-            case SlotType.Equipped:
-                var euqippItem = item as ArmorInfo;
-                equipped.Remove(euqippItem);
-                break;
+            else if (item is ArmorInfo isArmor && equipped.Contains(isArmor))
+            {
+                equipped.Remove(isArmor);
+            }
         }
     }
 
@@ -75,8 +80,11 @@ public class Inventory : MonoBehaviour
         int ranIndex = Random.Range(0, equipped.Count);
         equipped[ranIndex].defense -= 1;
 
-        UiManager.instance.status.UpdateArmorView(ranIndex, equipped[ranIndex]);
-        if (equipped[ranIndex].defense <= 0) equipped.RemoveAt(ranIndex);
+        if (equipped[ranIndex].defense == 0)
+        {
+            UiManager.instance.status.HideArmorView(ranIndex);
+            equipped.RemoveAt(ranIndex);
+        }
     }
 
     public void ChangeMainItem(int _itemId, bool _isFirst)

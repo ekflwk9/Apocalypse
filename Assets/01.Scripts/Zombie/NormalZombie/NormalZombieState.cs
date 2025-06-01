@@ -48,15 +48,18 @@ public class WalkState : EntityState
             IsInit = true;
         }
         Vector3 TargetPos = NaviHelper.GetRandomNavMeshPosition(entity.transform.position, 30f);
+        entity.baseStatus.DetectedLocation = TargetPos;
         _NavMeshAgent.SetDestination(TargetPos);
         _NavMeshAgent.speed = entity.baseStatus.WalkSpeed;
         SetAnimation(AnimHash.WalkHash);
     }
     public override void Update()
     {
-        if (true == NaviHelper.IsArrived(_NavMeshAgent, .1f))
+        float Distance = Vector3.Distance(entity.transform.position, entity.baseStatus.DetectedLocation);
+        if (Distance < 3f)
         {
             StateMachine.SetState(EntityEnum.Idle);
+            entity._NavMeshAgent.ResetPath();
         }
     }
     public override void Exit()
@@ -111,6 +114,7 @@ public class HearingState : EntityState
         if ((Distance < 3))
         {
             StateMachine.SetState(EntityEnum.Idle);
+            entity._NavMeshAgent.ResetPath();
         }
     }
 

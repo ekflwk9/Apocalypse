@@ -29,8 +29,9 @@ public class ExampleScene : SceneBundle
     {
       if (trigger())
       {
-        SoundManager.Play("BasicBackGround", SoundType.Background);
-        SoundManager.Play("Walk_3", SoundType.Effect);
+          gameObject.SendMessage("Ready", SendMessageOptions.DontRequireReceiver);
+        // SoundManager.Play("BasicBackGround", SoundType.Background);
+        // SoundManager.Play("Walk_3", SoundType.Effect);
         break;
       }
       yield return null;
@@ -42,6 +43,7 @@ public class ExampleScene : SceneBundle
   protected override void Awake()
   {
       base.Awake();
+      SoundManager.Load();
   }
 
   protected override void OnDestroy()

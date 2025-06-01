@@ -16,6 +16,8 @@ public class InterfaceUi : MonoBehaviour
     public GoldWindow gold { get => fieldGold; }
     [SerializeField] private GoldWindow fieldGold;
 
+    public NoMoneyWindow noMoney { get => fieldNoMoney; }
+    [SerializeField] private NoMoneyWindow fieldNoMoney;
 
     private void Reset()
     {
@@ -24,6 +26,7 @@ public class InterfaceUi : MonoBehaviour
         fieldBackButton = this.TryFindChild("BackButton").gameObject;
         fieldstorageButton = this.TryFindChild("StorageButton").gameObject;
         fieldGold = this.TryFindChildComponent<GoldWindow>();
+        fieldNoMoney = this.TryFindChildComponent<NoMoneyWindow>();
     }
 
     /// <summary>

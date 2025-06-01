@@ -1254,6 +1254,7 @@ MonoBehaviour:
   - {fileID: 5920945413303245666}
   - {fileID: 4020206439068217104}
   - {fileID: 3946004226310558911}
+  PrefabName: RangeZombie
   Projectile: {fileID: 8237623944281672239, guid: 510969f85a1d10b41945f7a0678e5e6a,
     type: 3}
 --- !u!1 &2954646316817522285
@@ -3364,10 +3365,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 2
-  MaxDistance: 8
+  MinDistance: 4
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
