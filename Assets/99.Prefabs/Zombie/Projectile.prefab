@@ -4895,3 +4895,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 7175806874470842433}
   sphereCollider: {fileID: 934449907136302034}
+  PrefabString: Projectile
