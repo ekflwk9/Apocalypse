@@ -143,11 +143,13 @@ public class PlayerThirdPersonController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!UiManager.instance.isActive)
+        if (UiManager.instance.isActive)
         {
-            Move();
-            CameraRotation();
+            _input.move = Vector2.zero;
+            _input.look = Vector2.zero;
         }
+        Move();
+        CameraRotation();
     }
 
     //씬에서 플레이어 선택시 기즈모 그리기
@@ -220,6 +222,7 @@ public class PlayerThirdPersonController : MonoBehaviour
         CinemachineCameraTarget.transform.rotation =
             Quaternion.Euler(_cinemachineTargetPitch, _cinemachineTargetYaw, 0.0f);
     }
+
 
     public void StopAnim()
     {
