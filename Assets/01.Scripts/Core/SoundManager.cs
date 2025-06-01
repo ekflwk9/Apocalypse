@@ -50,8 +50,8 @@ public static class SoundManager
       }
   }
 
-  private static readonly Oper To = v => (v / 2) - 30;
-  private static readonly Oper From = v => (v + 30) * 2;
+  private static readonly Oper To = v => v - 80;
+  private static readonly Oper From = v => v + 80;
 
   /// <summary>
   /// 각 볼륨을 총괄하는 마스터 볼륨입니다.
@@ -76,12 +76,12 @@ public static class SoundManager
   /// </summary>
   public static float BackgroundVolume
   {
-      get => Mixer && Mixer.GetFloat("Background", out var value) ? From(value) : PlayerPrefs.GetFloat("BackgroundVolume", 80);
+      get => PlayerPrefs.GetFloat("BackgroundVolume", 80);
       set
       {
           var input = Math.Max(0, Math.Min(100, value));
 
-          if (Mixer) Mixer.SetFloat("Background", To(value));
+          if (BackgroundSource) BackgroundSource.volume = input / 100;
           PlayerPrefs.SetFloat("BackgroundVolume", input);
       }
   }
@@ -92,12 +92,12 @@ public static class SoundManager
   /// </summary>
   public static float EffectVolume
   {
-    get => Mixer && Mixer.GetFloat("Effect", out var value) ? From(value) : PlayerPrefs.GetFloat("EffectVolume", 80);
+    get => PlayerPrefs.GetFloat("EffectVolume", 80);
     set
     {
       var input = Math.Max(0, Math.Min(100, value));
 
-      if(Mixer) Mixer.SetFloat("Effect", To(value));
+      if(EffectSource) EffectSource.volume = input / 100;
       PlayerPrefs.SetFloat("EffectVolume", input);
     }
   }
@@ -127,6 +127,7 @@ public static class SoundManager
 
       if (effectSource && effectSource.gameObject == cam.gameObject)
       {
+          effectSource.volume = EffectVolume / 100;
         return effectSource;
       }
       
@@ -137,6 +138,8 @@ public static class SoundManager
         source = effectSource = cam.gameObject.AddComponent<AudioSource>();
         effectSource.outputAudioMixerGroup = effectGroup;
       }
+      
+      source.volume = EffectVolume / 100;
 
       return source;
     }
@@ -151,6 +154,7 @@ public static class SoundManager
       
       if (backgroundSource && backgroundSource.gameObject == cam.gameObject)
       {
+          backgroundSource.volume = BackgroundVolume / 100;
         return backgroundSource;
       }
       
@@ -162,6 +166,8 @@ public static class SoundManager
         source.loop = true;
         backgroundSource.outputAudioMixerGroup = backgroundGroup;
       }
+      
+      source.volume = BackgroundVolume / 100;
 
       return source;
     }
