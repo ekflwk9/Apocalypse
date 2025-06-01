@@ -146,9 +146,9 @@ public static class SoundManager
     }
   }
 
-  public static void Play(string clipName, GameObject obj)
+  public static AudioSource Play(string clipName, GameObject obj)
   {
-    if(!Mixer) return;
+    if(!Mixer) return null;
     
     AudioSource source;
     
@@ -158,11 +158,13 @@ public static class SoundManager
     source.clip = ContentManager.GetAsset<AudioClip>(clipName);
     source.outputAudioMixerGroup = objectGroup;
     source.Play();
+
+    return source;
   }
 
-  public static void Play(string clipName, SoundType type = SoundType.Effect)
+  public static AudioSource Play(string clipName, SoundType type = SoundType.Effect)
   {
-    if(!Mixer) return;
+    if(!Mixer) return null;
     
     AudioSource source = type switch
     {
@@ -174,6 +176,63 @@ public static class SoundManager
     source.clip = ContentManager.GetAsset<AudioClip>(clipName);
     source.outputAudioMixerGroup = type == SoundType.Background ? backgroundGroup : effectGroup;
     source.Play();
+    
+    return source;
+  }
+
+  public static bool EffectPaused
+  {
+      get => EffectSource.isPlaying;
+      set
+      {
+          if(value) EffectSource.Pause();
+          else EffectSource.UnPause();
+      }
+  }
+  
+  public static bool BackgroundPaused
+  {
+      get => backgroundSource.isPlaying;
+      set
+      {
+          if(value) backgroundSource.Pause();
+          else backgroundSource.UnPause();
+      }
+  }
+
+  public static GameObject PauseAudio(this GameObject obj)
+  {
+      if (obj && obj.TryGetComponent(out AudioSource source))
+      {
+          source.Pause();
+      }
+      return obj;
+  }
+  
+  public static GameObject ResumeAudio(this GameObject obj)
+  {
+      if (obj && obj.TryGetComponent(out AudioSource source))
+      {
+          source.UnPause();
+      }
+      return obj;
+  }
+  
+  public static GameObject StopAudio(this GameObject obj)
+  {
+      if (obj && obj.TryGetComponent(out AudioSource source))
+      {
+          source.Stop();
+      }
+
+      return obj;
+  }
+
+  public static GameObject PlayAudio(this GameObject obj, string clipName)
+  {
+      if (obj) Play(clipName, obj);
+
+      return obj;
   }
 }
 
