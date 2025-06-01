@@ -59,7 +59,7 @@ public static class ItemDropGenerator
             SlotNums.Add(ranNum);
 
         } while (SlotNums.Count < spawnItemCount);
-        
+
         int[] itemIdArray = ItemIds.ToArray();
         int[] slotNumsArray = SlotNums.ToArray();
 
@@ -69,5 +69,23 @@ public static class ItemDropGenerator
             dropList.Add(dummy);
         }
         return dropList;
+    }
+
+    public static int GetRandomItemId()
+    {
+        int currentId = -1;
+        List<int> itemKeys = new List<int>();
+
+        var keys = ItemManager.Instance.GetAllKeys();
+        foreach (int key in keys)
+        {
+            if (key >= 301) { itemKeys.Add(key); }
+            else { continue; }
+        }
+
+        int ranNum = Random.Range(0, itemKeys.Count);
+        currentId = itemKeys[ranNum];
+        
+        return currentId;
     }
 }
