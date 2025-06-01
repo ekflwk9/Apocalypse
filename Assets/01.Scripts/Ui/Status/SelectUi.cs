@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SelectUi : MonoBehaviour, 
-IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IPointerClickHandler
+IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler
 {
     public RectTransform pos { get => fieldPos; }
     [SerializeField] private RectTransform fieldPos;
@@ -20,14 +20,6 @@ IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IBegin
 
         if (this.TryGetComponent<RectTransform>(out var rect)) fieldPos = rect;
         else DebugHelper.ShowBugWindow($"{this.name}에 RectTransform컴포넌트가 존재하지 않음");
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if(eventData.button == PointerEventData.InputButton.Right)
-        {
-
-        }
     }
 
     /// <summary>
@@ -59,6 +51,7 @@ IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IBegin
         //드래그 시작됨
         isClick = true;
         selectItemId = slot.itemId;
+        SoundManager.Play("UI_Click");
 
         UiManager.instance.status.itemInfo.SetOff();
         icon.sprite = ItemManager.Instance.GetItem(selectItemId).icon;
