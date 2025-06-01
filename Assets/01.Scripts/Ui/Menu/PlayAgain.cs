@@ -28,6 +28,7 @@ public class PlayAgain : UiButton
             UiManager.instance.fade.OnFade();
         }
 
+        SoundManager.Play("UI_Click");
         touch.SetActive(false);
     }
 }

@@ -23,7 +23,6 @@ public abstract class UiButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         if (UiManager.instance.fade.activeSelf) return;
         touch.gameObject.SetActive(true);
-        //SoundManager.Play("Click");
     }
 
     public virtual void OnPointerExit(PointerEventData eventData)

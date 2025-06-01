@@ -29,7 +29,7 @@ public class ShopSlot : Slot, IPointerClickHandler, IPointerExitHandler
 
             if (gold >= item.cost)
             {
-                //사운드 재생
+                SoundManager.Play("Buy");
                 Player.Instance.SetGold(-item.cost);
                 UiManager.instance.interactionUi.gold.UpdateGold();
                 UiManager.instance.status.GetItem(itemId);
@@ -38,7 +38,7 @@ public class ShopSlot : Slot, IPointerClickHandler, IPointerExitHandler
 
             else
             {
-                //팝업창
+                UiManager.instance.interactionUi.noMoney.gameObject.SetActive(true);
             }
         }
     }
@@ -63,6 +63,7 @@ public class ShopSlot : Slot, IPointerClickHandler, IPointerExitHandler
             {
                 var item = ItemManager.Instance.GetItem(dragSlot.itemId);
 
+                SoundManager.Play("Buy");
                 Player.Instance.SetGold(item.cost);
                 UiManager.instance.interactionUi.gold.UpdateGold();
 

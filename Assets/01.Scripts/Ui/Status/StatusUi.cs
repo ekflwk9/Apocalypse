@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class StatusUi : MonoBehaviour
 {
@@ -44,6 +43,11 @@ public class StatusUi : MonoBehaviour
     [SerializeField] private EquippedSlot[] equippedSlot;
     [SerializeField] private HandSlot[] handSlot;
     //[SerializeField] private InventorySlot[] storageSlot;
+
+    private void Awake()
+    {
+        if(shop.gameObject.activeSelf) shop.gameObject.SetActive(false);
+    }
 
     private void Reset()
     {
@@ -193,8 +197,8 @@ public class StatusUi : MonoBehaviour
         else return false;
     }
 
-    public void UpdateArmorView(int _index, ArmorInfo _item)
+    public void HideArmorView(int _index)
     {
-        equippedSlot[_index].SetSlot(_item.defense);
+        equippedSlot[_index].SetSlot(0);
     }
 }

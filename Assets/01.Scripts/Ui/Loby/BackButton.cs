@@ -27,6 +27,7 @@ public class BackButton : UiButton
             UiManager.instance.status.shop.SetActive(false);
         }
 
+        SoundManager.Play("UI_Click");
         UiManager.instance.interactionUi.SwitchBackButton(true);
     }
 }

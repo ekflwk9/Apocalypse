@@ -8,12 +8,14 @@ public class PlayButton : UiButton
     {
         if (UiManager.instance.fade.activeSelf) return;
 
+        SoundManager.Play("UI_Click");
         UiManager.instance.fade.OnFade(ChangeScene, 0.5f);
         touch.SetActive(false);
     }
 
     private void ChangeScene()
     {
+
         SceneManager.LoadScene("Play");
         UiManager.instance.fade.OnFade(0.5f);
 
