@@ -6,6 +6,7 @@ using UnityEngine;
 public class StatusUi : MonoBehaviour
 {
     private Action endFarming;
+
     public List<FarmingData> farmingData { get; private set; } = new List<FarmingData>();
 
     public SuccessWindow success { get => fieldSuccess; }
@@ -39,15 +40,9 @@ public class StatusUi : MonoBehaviour
     [SerializeField] private ShopUi fieldShop;
 
     [SerializeField] private InventorySlot[] inventorySlot;
-    [SerializeField] private InventorySlot[] farminSlot;
+    [SerializeField] private FarmingSlot[] farmingSlot;
     [SerializeField] private EquippedSlot[] equippedSlot;
     [SerializeField] private HandSlot[] handSlot;
-    //[SerializeField] private InventorySlot[] storageSlot;
-
-    private void Awake()
-    {
-        if (shop.gameObject.activeSelf) shop.gameObject.SetActive(false);
-    }
 
     private void Reset()
     {
@@ -65,7 +60,7 @@ public class StatusUi : MonoBehaviour
         //storageSlot = GetComponentArray<InventorySlot>(fieldStorage.transform);
 
         fieldFarming = this.TryFindChild("Farming").gameObject;
-        farminSlot = GetComponentArray<InventorySlot>(fieldFarming.transform);
+        farmingSlot = GetComponentArray<FarmingSlot>(fieldFarming.transform);
 
         var handSlotPos = this.TryFindChild("Equipped");
         handSlot = GetComponentArray<HandSlot>(handSlotPos);
@@ -147,12 +142,6 @@ public class StatusUi : MonoBehaviour
         }
     }
 
-    public void SetWeightText(int _weight)
-    {
-        //Player.Instance.Weight
-        //weightText.text = $"{}";
-    }
-
     /// <summary>
     /// 현재 캐비넷이 가지고 있는 데이터와 파밍이 끝났을 경우 호출될 메서드
     /// </summary>
@@ -160,16 +149,13 @@ public class StatusUi : MonoBehaviour
     /// <param name="_func"></param>
     public void SetFarming(List<FarmingData> _data, Action _func)
     {
-        farmingData = _data;
-        endFarming = _func;
-
         for (int i = 0; i < _data.Count; i++)
         {
-            if (_data[i].id != 0)
-            {
-                farminSlot[_data[i].slotNumber].SetSlot(_data[i].id, _data[i].count);
-            }
+            farmingSlot[_data[i].slotNumber].SetSlot(_data[i].id, _data[i].count);
         }
+
+        endFarming = _func;
+        farmingData.Clear();
     }
 
     /// <summary>
@@ -177,12 +163,22 @@ public class StatusUi : MonoBehaviour
     /// </summary>
     public void UpdateFarmingSlot()
     {
-        if (endFarming != null) endFarming();
-        else DebugHelper.Log("EndFarming 메서드가 추가되지 않은 상태");
-
-        for (int i = 0; i < farminSlot.Length; i++)
+        if (farming.activeSelf)
         {
-            farminSlot[i].SetSlot(0);
+            for (int i = 0; i < farmingSlot.Length; i++)
+            {
+                if (farmingSlot[i].itemId != 0)
+                {
+                    var itmeData = new FarmingData(farmingSlot[i].itemId, farmingSlot[i].count, i);
+                    farmingData.Add(itmeData);
+
+                    Debug.Log($"{i}");
+                    farmingSlot[i].SetSlot(0);
+                }
+            }
+
+            if (endFarming != null) endFarming();
+            else DebugHelper.Log("EndFarming 메서드가 추가되지 않은 상태");
         }
     }
 
