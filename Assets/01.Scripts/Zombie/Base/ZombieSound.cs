@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class ZombieSound : MonoBehaviour
 {
@@ -27,16 +28,31 @@ public class ZombieSound : MonoBehaviour
 
             audioSource.rolloffMode = AudioRolloffMode.Custom;
             audioSource.spatialBlend = 1;
-            audioSource.maxDistance = 8f;
-            audioSource.minDistance = 2f;
+            audioSource.maxDistance = 20f;
+            audioSource.minDistance = 4f;
         }
     }
 
     const float SoundTime = 10f;
     float CurrentSoundTime = 10f;
 
+    float CurrentLocationTime = 0f;
+    const float LocationTime = 1f;
+
     private void Update()
     {
+        if (CurrentLocationTime < LocationTime)
+        {
+            CurrentLocationTime += Time.deltaTime;
+        }
+        else
+        {
+            CurrentLocationTime = 0f;
+            Vector3 location = gameObject.transform.localPosition;
+            location.y = 0;
+            gameObject.transform.localPosition = location;
+        }
+
         if (0 < CurrentSoundTime)
         {
             CurrentSoundTime -= Time.deltaTime;
@@ -54,7 +70,7 @@ public class ZombieSound : MonoBehaviour
     {
         int RandomValue = Random.Range(1, 3);
         string soundName = IdleSound + RandomValue.ToString();
-        SoundManager.Play(soundName);
+        gameObject.PlayAudio(soundName);
         SoundReset();
     }
 
@@ -62,7 +78,7 @@ public class ZombieSound : MonoBehaviour
 
     void Hit()
     {
-        SoundManager.Play(HitSound);
+        gameObject.PlayAudio(HitSound);
         SoundReset();
     }
 
@@ -71,19 +87,19 @@ public class ZombieSound : MonoBehaviour
 
     void AttackSound_1()
     {
-        SoundManager.Play(AttackSound1);
+        gameObject.PlayAudio(AttackSound1);
         SoundReset();
     }
 
     void AttackSound_2()
     {
-        SoundManager.Play(AttackSound2);
+        gameObject.PlayAudio(AttackSound2);
         SoundReset();
     }
 
     void Ranged()
     {
-        SoundManager.Play(HitSound);
+        gameObject.PlayAudio(HitSound);
         SoundReset();
     }
 
@@ -93,13 +109,13 @@ public class ZombieSound : MonoBehaviour
 
     void Hurt()
     {
-        SoundManager.Play(HurtSound);
+        gameObject.PlayAudio(HurtSound);
         SoundReset();
     }
 
     void Die()
     {
-        SoundManager.Play(DieSound);
+        gameObject.PlayAudio(DieSound);
         SoundReset();
     }
 
@@ -109,7 +125,7 @@ public class ZombieSound : MonoBehaviour
     {
         int RandomValue = Random.Range(1, 3);
         string soundName = YellingSound + RandomValue.ToString();
-        SoundManager.Play(soundName);
+        gameObject.PlayAudio(soundName);
         SoundReset();
     }
 

@@ -277,6 +277,7 @@ MonoBehaviour:
   - {fileID: 2652642826366252952}
   - {fileID: 6543095413074593099}
   - {fileID: 7886307590501862564}
+  PrefabName: Zombie_1
 --- !u!54 &200626288149964016
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -480,10 +481,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 2
-  MaxDistance: 8
+  MinDistance: 4
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

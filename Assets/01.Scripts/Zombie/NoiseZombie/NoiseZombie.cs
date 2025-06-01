@@ -54,7 +54,7 @@ public class NoiseZombie : Entity
 
     public override void Attack_2()
     {
-        _zombieHearingComponent.OnSound(baseStatus.DetectedRange);
+        _zombieHearingComponent.OnSound(baseStatus.DetectedRange, Player.Instance.transform.position);
     }
 
     protected override void Detect()
