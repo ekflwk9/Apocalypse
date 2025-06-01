@@ -177,13 +177,25 @@ public static class SoundManager
   {
     if(!Mixer) return null;
     
-    AudioSource source;
+    AudioSource source = null;
+
+    foreach (var audioSource in obj.GetComponents<AudioSource>())
+    {
+        if (audioSource.outputAudioMixerGroup == objectGroup && audioSource.isPlaying == false)
+        {
+            source = audioSource;
+            break;
+        }
+    }
     
-    if (obj.TryGetComponent(out source)) {}
-    else source = obj.AddComponent<AudioSource>();
+    if (!source)
+    {
+        source = obj.AddComponent<AudioSource>();
+        source.outputAudioMixerGroup = objectGroup;
+        source.spatialBlend = 1;
+    }
     
     source.clip = ContentManager.GetAsset<AudioClip>(clipName);
-    source.outputAudioMixerGroup = objectGroup;
     source.Play();
 
     return source;
