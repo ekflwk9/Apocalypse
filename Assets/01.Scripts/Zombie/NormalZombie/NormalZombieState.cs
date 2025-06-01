@@ -1,10 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEditor.VersionControl.Asset;
-using static UnityEngine.EventSystems.EventTrigger;
-
 
 public class IdleState : EntityState
 {
