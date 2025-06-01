@@ -21,7 +21,7 @@ MonoBehaviour:
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.4
+    m_Value: 0.25
   clamp:
     m_OverrideState: 0
     m_Value: 0.05
@@ -46,7 +46,7 @@ MonoBehaviour:
     m_Value: 0.9
   intensity:
     m_OverrideState: 1
-    m_Value: 0.6
+    m_Value: 0.4
   scatter:
     m_OverrideState: 0
     m_Value: 0.7
@@ -91,6 +91,7 @@ MonoBehaviour:
   - {fileID: 7145051401676759290}
   - {fileID: 4225536372385429200}
   - {fileID: 7771868213452992422}
+  - {fileID: 4899303077225951889}
 --- !u!114 &4019993575029726844
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -131,13 +132,29 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.244
+    m_Value: 0.176
   smoothness:
     m_OverrideState: 1
     m_Value: 1
   rounded:
     m_OverrideState: 0
     m_Value: 0
+--- !u!114 &4899303077225951889
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.129
 --- !u!114 &7145051401676759290
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -153,13 +170,13 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0.9392201, y: 0.85098207, z: 1, w: -0.044943817}
+    m_Value: {x: 0.9485247, y: 1, z: 0.99804103, w: -0.11013214}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 0.9109997, y: 1, z: 0.9462232, w: 0.0464065}
+    m_Value: {x: 0.8201356, y: 0.8729507, z: 1, w: 0.0464065}
   highlights:
     m_OverrideState: 0
-    m_Value: {x: 0.9675659, y: 0.71916664, z: 1, w: 0.04494382}
+    m_Value: {x: 0.9675659, y: 0.71916664, z: 1, w: 0.7938426}
   shadowsStart:
     m_OverrideState: 0
     m_Value: 0
