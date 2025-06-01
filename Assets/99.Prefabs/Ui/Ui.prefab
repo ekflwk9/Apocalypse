@@ -16975,6 +16975,7 @@ MonoBehaviour:
   - {fileID: 4415376560284513378}
   - {fileID: 2271286405876359033}
   - {fileID: 1577824589803719853}
+  farmingSlot: []
   equippedSlot:
   - {fileID: 4549918519652005711}
   - {fileID: 8850931124031225802}
