@@ -139,6 +139,11 @@ public class PlayerThirdPersonController : MonoBehaviour
         JumpAndGravity();
         GroundedCheck();
         AimSwitch(_input.Aim);
+        if (UiManager.instance.isActive)
+        {
+            _input.look = Vector2.zero;
+        }
+        CameraRotation();
     }
 
     private void FixedUpdate()
@@ -146,10 +151,8 @@ public class PlayerThirdPersonController : MonoBehaviour
         if (UiManager.instance.isActive)
         {
             _input.move = Vector2.zero;
-            _input.look = Vector2.zero;
         }
         Move();
-        CameraRotation();
     }
 
     //씬에서 플레이어 선택시 기즈모 그리기
