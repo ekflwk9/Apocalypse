@@ -142,7 +142,7 @@ public class Entity : MonoBehaviour, IDamagable
 
     public virtual void Dead()
     {
-        SoundManager.Play("Zombie_Idle_2");
+        gameObject.PlayAudio("Zombie_Idle_2");
         SetRagdollActive(true);
         CoroutineManager.Instance.UnSetAllCoroutine(this);
         StartCoroutine(OnRelease());
