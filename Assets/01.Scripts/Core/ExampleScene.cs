@@ -29,7 +29,7 @@ public class ExampleScene : SceneBundle
     {
       if (trigger())
       {
-          gameObject.SendMessage("Ready");
+          gameObject.SendMessage("Ready", SendMessageOptions.DontRequireReceiver);
         // SoundManager.Play("BasicBackGround", SoundType.Background);
         // SoundManager.Play("Walk_3", SoundType.Effect);
         break;
