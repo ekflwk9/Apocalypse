@@ -13,7 +13,7 @@ public static class SoundManager
   public static AudioMixer Mixer;
 
   private static AudioSource effectSource, backgroundSource;
-  private static AudioMixerGroup masterGroup, effectGroup, backgroundGroup, objectGroup;
+  private static AudioMixerGroup effectGroup, backgroundGroup, objectGroup;
   
   static SoundManager()
   {
@@ -22,10 +22,9 @@ public static class SoundManager
     if (Mixer)
     {
       MasterVolume = PlayerPrefs.GetFloat("MasterVolume", 80);
-      BackgroundVolume = PlayerPrefs.GetFloat("BackgroundVolume", 80);
-      EffectVolume = PlayerPrefs.GetFloat("EffectVolume", 80);
+      BackgroundVolume = PlayerPrefs.GetFloat("BackgroundVolume", 52);
+      EffectVolume = PlayerPrefs.GetFloat("EffectVolume", 60);
       
-      masterGroup = Mixer.FindMatchingGroups("Master")[0];
       effectGroup = Mixer.FindMatchingGroups("Effect")[0];
       backgroundGroup = Mixer.FindMatchingGroups("Background")[0];
       objectGroup = Mixer.FindMatchingGroups("Object")[0];
@@ -55,14 +54,16 @@ public static class SoundManager
   /// </summary>
   public static float BackgroundVolume
   {
-    get => Mixer && Mixer.GetFloat("Background", out var value) ? value + 80 : PlayerPrefs.GetFloat("BackgroundVolume", 80);
-    set
-    {
-      var input = Math.Max(0, Math.Min(100, value));
+      get => Mixer && Mixer.GetFloat("Background", out var value)
+          ? value + 80
+          : PlayerPrefs.GetFloat("BackgroundVolume", 80);
+      set
+      {
+          var input = Math.Max(0, Math.Min(100, value));
 
-      if(Mixer) Mixer.SetFloat("Background", input - 80);
-      PlayerPrefs.SetFloat("BackgroundVolume", input);
-    }
+          if (Mixer) Mixer.SetFloat("Background", input - 80);
+          PlayerPrefs.SetFloat("BackgroundVolume", input);
+      }
   }
 
   /// <summary>
