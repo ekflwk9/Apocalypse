@@ -100,7 +100,7 @@ public class PlayerSound : MonoBehaviour
     
     private void ZombieHearing()
     {
-        _zombieHearingComponent.OnSound(curSoundRadius);
+        _zombieHearingComponent.OnSound(curSoundRadius, gameObject.transform.position);
     }
 
     private void ZombieHearingHandler(float radius, float duration = 1f)

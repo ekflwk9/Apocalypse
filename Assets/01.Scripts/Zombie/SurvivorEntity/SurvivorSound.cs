@@ -32,31 +32,44 @@ public class SurvivorSound : MonoBehaviour
         }
     }
 
-    const string HitSound = "Survivor_Hit_";
-
+    [SerializeField] AudioClip HitClip_1;
     void Hit()
     {
-        int value = Random.Range(1, 3);
-        SoundManager.Play(HitSound + value.ToString());
+        audioSource.clip = HitClip_1;
+        audioSource.Play();
     }
 
-    const string AttackSound = "survivor_Attack";
+    [SerializeField] AudioClip AttackClip;
 
     void OnAttackSound()
     {
-        SoundManager.Play(AttackSound);
+        audioSource.clip = AttackClip;
+        audioSource.Play();
     }
 
+    [SerializeField] AudioClip HurtClip_1;
+    [SerializeField] AudioClip HurtClip_2;
 
     void Hurt()
     {
         int value = Random.Range(1, 3);
-        SoundManager.Play(HitSound + value.ToString());
+        if (value == 1)
+        {
+            audioSource.clip = HurtClip_1;
+        }
+        else
+        {
+            audioSource.clip = HurtClip_2;
+        }
+        audioSource.Play();
     }
+
+    [SerializeField] AudioClip DieClip;
 
     void Die()
     {
-        SoundManager.Play("SurvivorDead");
+        audioSource.clip = DieClip;
+        audioSource.Play();
     }
 
 }

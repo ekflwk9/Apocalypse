@@ -23,6 +23,8 @@ public class ZombieHearingComponent : MonoBehaviour
         hearingCollider.radius = 1f;
     }
 
+    Vector3 SoundLocation;
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -35,18 +37,20 @@ public class ZombieHearingComponent : MonoBehaviour
             }
             if (entity.GetState() == EntityEnum.Idle || entity.GetState() == EntityEnum.Walk)
             {
-                entity.Hearing(transform.position);
+                entity.Hearing(SoundLocation);
             }
         }
     }
 
-    public void OnSound(float _Radius)
+    public void OnSound(float _Radius, Vector3 _SoundedLocation)
     {
         if (SoundCoroutine != null)
         {
             CoroutineManager.Instance.UnSetCoroutine(this, SoundCoroutine);
+            SoundLocation = _SoundedLocation;
         }
         SoundCoroutine = CoroutineManager.Instance.SetCoroutine(this, ISoundCoroutine(_Radius));
+        SoundLocation = _SoundedLocation;
     }
 
 

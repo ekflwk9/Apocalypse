@@ -5,6 +5,10 @@ using UnityEngine;
 public class ZombieSound : MonoBehaviour
 {
     [SerializeField] AudioSource audioSource;
+
+ 
+
+
     private void Reset()
     {
         audioSource = GetComponent<AudioSource>();
@@ -27,7 +31,7 @@ public class ZombieSound : MonoBehaviour
 
             audioSource.rolloffMode = AudioRolloffMode.Custom;
             audioSource.spatialBlend = 1;
-            audioSource.maxDistance = 8f;
+            audioSource.maxDistance = 20f;
             audioSource.minDistance = 2f;
         }
     }
@@ -48,68 +52,93 @@ public class ZombieSound : MonoBehaviour
         }
     }
 
-    const string IdleSound = "Zombie_Idle_";
 
-    void UsuallySound()
+    [SerializeField] AudioClip IdleClip_1;
+    [SerializeField] AudioClip IdleClip_2;
+
+    void UsuallySound()  // 2
     {
         int RandomValue = Random.Range(1, 3);
-        string soundName = IdleSound + RandomValue.ToString();
-        SoundManager.Play(soundName);
+        if (RandomValue == 1)
+        {
+            audioSource.clip = IdleClip_1;
+        }
+        else
+        {
+            audioSource.clip = IdleClip_2;
+        }
+        audioSource.Play();
         SoundReset();
     }
 
-    const string HitSound = "Zombie_Hit";
+    [SerializeField] AudioClip HitClip;
 
-    void Hit()
+    void Hit()   // 1
     {
-        SoundManager.Play(HitSound);
+        audioSource.clip = HitClip;
+        audioSource.Play();
         SoundReset();
     }
 
-    const string AttackSound1 = "Zombie_Attack_1";
-    const string AttackSound2 = "Zombie_Attack_2";
+    [SerializeField] AudioClip AttackClip_1;
+    [SerializeField] AudioClip AttackClip_2;
 
-    void AttackSound_1()
+    void AttackSound_1()  // 2
     {
-        SoundManager.Play(AttackSound1);
+        audioSource.clip = AttackClip_1;
+        audioSource.Play();
         SoundReset();
     }
 
     void AttackSound_2()
     {
-        SoundManager.Play(AttackSound2);
+        audioSource.clip = AttackClip_2;
+        audioSource.Play();
         SoundReset();
     }
 
-    void Ranged()
+    [SerializeField] AudioClip RangeClip;
+
+    void Ranged()  // 1
     {
-        SoundManager.Play(HitSound);
+        audioSource.clip = RangeClip;
+        audioSource.Play();
         SoundReset();
     }
 
-    const string HurtSound = "Zombie_Hurt";
+    [SerializeField] AudioClip HurtClip;
+    [SerializeField] AudioClip DieClip;
 
-    const string DieSound = "Zombie_Die";
-
-    void Hurt()
+    void Hurt()  // 1
     {
-        SoundManager.Play(HurtSound);
+        audioSource.clip = HurtClip;
+        audioSource.Play();
         SoundReset();
     }
 
-    void Die()
+    void Die()  // 1
     {
-        SoundManager.Play(DieSound);
+        audioSource.clip = DieClip;
+        audioSource.Play();
         SoundReset();
     }
 
-    const string YellingSound = "Zombie_Yelling_";
+    [SerializeField] AudioClip YellingClip_1;
+    [SerializeField] AudioClip YellingClip_2;
 
-    void Yelling()
+    void Yelling()  // 1
     {
+
         int RandomValue = Random.Range(1, 3);
-        string soundName = YellingSound + RandomValue.ToString();
-        SoundManager.Play(soundName);
+        if(RandomValue == 1)
+        {
+            audioSource.clip = YellingClip_1;
+        }
+        else
+        {
+            audioSource.clip = YellingClip_2;
+        }
+        audioSource.Play();
         SoundReset();
     }
 
