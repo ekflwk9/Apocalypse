@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class StatusUi : MonoBehaviour
 {
-    private Action endFarming;
+    private IInteractionObject interactionObj;
 
-    [SerializeField] public List<FarmingData> farmingData = new List<FarmingData>();
+    public List<FarmingData> farmingData = new List<FarmingData>();
 
     public SuccessWindow success { get => fieldSuccess; }
     [SerializeField] private SuccessWindow fieldSuccess;
@@ -147,14 +146,14 @@ public class StatusUi : MonoBehaviour
     /// </summary>
     /// <param name="_data"></param>
     /// <param name="_func"></param>
-    public void SetFarming(List<FarmingData> _data, Action _func)
+    public void SetFarming(List<FarmingData> _data, IInteractionObject _interactionObj)
     {
         for (int i = 0; i < _data.Count; i++)
         {
             farmingSlot[_data[i].slotNumber].SetSlot(_data[i].id, _data[i].count);
         }
 
-        endFarming = _func;
+        interactionObj = _interactionObj;
         farmingData.Clear();
     }
 
@@ -177,7 +176,7 @@ public class StatusUi : MonoBehaviour
                 farmingSlot[i].SetSlot(0);
             }
 
-            if (endFarming != null) endFarming();
+            if (interactionObj != null) interactionObj.Interaction();
             else DebugHelper.Log("EndFarming 메서드가 추가되지 않은 상태");
         }
     }

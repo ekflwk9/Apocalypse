@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BoxHandler : MonoBehaviour, IInteractionObject
 {
-    [SerializeField] private List<FarmingData> item = new List<FarmingData>();
+    [SerializeField] private List<FarmingData> item { get; set; } = new List<FarmingData>();
     private Animator anim;
     private bool isOpen;
 
@@ -31,29 +31,30 @@ public class BoxHandler : MonoBehaviour, IInteractionObject
 #endif
     }
 
-    public void Interaction() // 캐바넷 주을때 호출
+    public void Interaction()
     {
         if (!isOpen) anim.Play("Open", 0, 0);
 
-        if (!UiManager.instance.isActive)
+        if (!UiManager.instance.status.farming.activeSelf)
         {
-            var status = UiManager.instance.status;
-
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
 
             UiManager.instance.SetActive(true);
-            status.SetFarming(item, UpdateData);
+            UiManager.instance.fade.OnFade();
+
+            var status = UiManager.instance.status;
+
+            status.SetFarming(item, this);
             status.farming.gameObject.SetActive(true);
             status.inventory.gameObject.SetActive(true);
             status.equipped.gameObject.SetActive(true);
-
         }
-    }
 
-    public void UpdateData()
-    {
-        item = UiManager.instance.status.farmingData;
+        else
+        {
+            item = UiManager.instance.status.farmingData;
+        }
     }
 
     public void OnSelected()
@@ -65,5 +66,4 @@ public class BoxHandler : MonoBehaviour, IInteractionObject
     {
 
     }
-
 }

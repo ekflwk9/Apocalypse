@@ -53,24 +53,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Item
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c2cd788e7cf564b248715024d9e8cde3
-    m_Address: Assets/99.Prefabs/Item/Consumable/Consumable_MedicBottle.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: acd82bb53433e423e85ed2a747e0ab81
-    m_Address: Assets/99.Prefabs/Item/Armor/Armor_BattleShoes1.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0562d511a36804d8f98964a02ed49c93
-    m_Address: Assets/99.Prefabs/Item/Armor/Armor_Ballistic_Shield.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9a5b4fa6cdc084d7eac89fefbc71afda
     m_Address: Assets/99.Prefabs/Item/Consumable/Consumable_Syringe.prefab
     m_ReadOnly: 0
@@ -103,42 +85,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 14e4993ee7161409a8dea1deb54b017b
     m_Address: Assets/03.Data/ScriptableObject
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: de0906fc1befb414f81240ec60afcc28
-    m_Address: Assets/99.Prefabs/Item/Stuff/Stuff_Absolut Vodka.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4c1bf106d949342c2afdd4d6c3087e4b
-    m_Address: Assets/99.Prefabs/Item/Stuff/Stuff_ComputerCard.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7a1c8b54b846a416d8133a8ed3639cad
-    m_Address: Assets/99.Prefabs/Item/Stuff/Stuff_Goldbar.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8ad3d0b391aaf4ac8a0fc80d80350f45
-    m_Address: Assets/99.Prefabs/Item/Stuff/Stuff_JackDaniel's.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4644392ff99074f998b13bc0587b7a7e
-    m_Address: Assets/99.Prefabs/Item/Stuff/Stuff_Jagermeister.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 69ee800b68d2b4216be8f99a40e48234
-    m_Address: Assets/99.Prefabs/Item/Stuff/Stuff_K2.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Item
