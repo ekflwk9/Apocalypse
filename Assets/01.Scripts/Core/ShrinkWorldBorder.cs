@@ -5,13 +5,21 @@ using UnityEngine.Events;
 
 
   public class ShrinkWorldBorder : MonoBehaviour
-  {
+  { 
+    #region Events
+    [Header("WorldBorder Events")]
+    
+    public UnityEvent onShrinkStart;  
     public UnityEvent onShrinked;
+    
+    #endregion
 
-    #region State
+    #region States
+    [Header("WorldBorder States")]
 
     public List<GameObject> checkObjects = new();
 
+    public float borderDamage = 1;
     public float damagePeriodTimeSecond = 2;
     
     public float shrinkValue = 5;
@@ -28,7 +36,8 @@ using UnityEngine.Events;
 
     #endregion
     
-    #region Test
+    #region Bindings
+    [Header("WorldBorder Bindings")]
 
     [SerializeField] private Transform cylinderTransform;
     #endregion
@@ -66,6 +75,7 @@ using UnityEngine.Events;
     {
       do
       {
+        onShrinkStart?.Invoke();
         var targetRadius = radius - shrinkValue;
         RandomizeCenter();
         var axisMoveSpeed = (targetCenterAxis - centerAxis) / shrinkSecondDuration * Time.fixedDeltaTime;
@@ -97,7 +107,11 @@ using UnityEngine.Events;
         {
             foreach (var obj in checkObjects)
             {
-                obj.SendMessage("BorderDamage");
+                if(!IsInner(obj.transform.position))
+                {
+                    obj.SendMessage("BorderDamage", borderDamage);
+                    Player.Instance.TakeDamage(borderDamage);
+                }
             }
             yield return new WaitForSeconds(damagePeriodTimeSecond);
         }
@@ -105,7 +119,7 @@ using UnityEngine.Events;
 
     public virtual void RandomizeCenter()
     {
-      var target = UnityEngine.Random.insideUnitCircle * shrinkValue;
+      var target = Random.insideUnitCircle * shrinkValue;
       targetCenterAxis += target;
     }
     
