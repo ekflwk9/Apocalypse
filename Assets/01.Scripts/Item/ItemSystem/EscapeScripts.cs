@@ -5,8 +5,8 @@ using UnityEngine;
 public class EscapeScripts : MonoBehaviour, IInteractionObject
 {
 
-    Collider _collider;
-
+    [SerializeField] Collider _collider;
+    [SerializeField] SelectedUI selectedUI;
     private void Reset()
     {
         _collider = GetComponent<Collider>();
@@ -22,11 +22,16 @@ public class EscapeScripts : MonoBehaviour, IInteractionObject
 
     public void OnSelected()
     {
-
+        if (selectedUI != null)
+        {
+            selectedUI.On();
+        }
     }
-
     public void UnSelected()
     {
-
+        if (selectedUI != null)
+        {
+            selectedUI.Off();
+        }
     }
 }

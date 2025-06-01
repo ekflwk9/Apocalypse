@@ -6,6 +6,8 @@ public class BoxHandler : MonoBehaviour, IInteractionObject
     private List<FarmingData> item = new List<FarmingData>();
     private Animator anim;
     private bool isOpen;
+    [SerializeField] SelectedUI selectedUI;
+
 
 #if UNITY_EDITOR
     [SerializeField] private int[] id;
@@ -57,12 +59,16 @@ public class BoxHandler : MonoBehaviour, IInteractionObject
 
     public void OnSelected()
     {
-
+        if (selectedUI != null)
+        {
+            selectedUI.On();
+        }
     }
-
     public void UnSelected()
     {
-
+        if (selectedUI != null)
+        {
+            selectedUI.Off();
+        }
     }
-
 }
